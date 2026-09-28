@@ -1,0 +1,159 @@
+{
+  "id": 10,
+  "title": "مكتبات مهمة",
+  "description": "import, random, math, datetime",
+  "icon": "📦",
+  "color": "#F59E0B",
+  "lessons": [
+    {
+      "id": 42,
+      "title": "import",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 4201,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة import؟",
+          "options": ["تستورد مكتبة", "تطبع", "تعمل متغير", "تحذف"],
+          "correctAnswer": 0,
+          "explanation": "import بتستورد مكتبات"
+        },
+        {
+          "id": 4202,
+          "type": "fill_blank",
+          "question": "استورد مكتبة math",
+          "code": "___ math\nprint(math.pi)",
+          "bank": ["import", "from", "using", "include"],
+          "correctAnswer": "import",
+          "explanation": "import للاستيراد"
+        },
+        {
+          "id": 4203,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "import math\nprint(int(math.pi))",
+          "correctAnswer": "3",
+          "explanation": "math.pi ≈ 3.14، int = 3"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "title": "random",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 4301,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة random.randint(1, 6)?",
+          "options": ["رقم عشوائي من 1 لـ 6", "ترتيب", "طباعة", "حساب"],
+          "correctAnswer": 0,
+          "explanation": "randint بترجع رقم عشوائي في المدى"
+        },
+        {
+          "id": 4302,
+          "type": "fill_blank",
+          "question": "استورد random",
+          "code": "___ random\nprint(random.randint(1, 10))",
+          "bank": ["import", "from", "using", "get"],
+          "correctAnswer": "import",
+          "explanation": "import random"
+        },
+        {
+          "id": 4303,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟ (ثابت)",
+          "code": "import random\nrandom.seed(1)\nprint(random.randint(1, 10))",
+          "correctAnswer": "2",
+          "explanation": "seed بيخلي النتيجة ثابتة"
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "title": "math",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 4401,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "import math\nprint(math.sqrt(16))",
+          "correctAnswer": "4.0",
+          "explanation": "الجذر التربيعي لـ 16"
+        },
+        {
+          "id": 4402,
+          "type": "fill_blank",
+          "question": "احسب 5! (factorial)",
+          "code": "import math\nprint(math.___(5))",
+          "bank": ["factorial", "sqrt", "pow", "abs"],
+          "correctAnswer": "factorial",
+          "explanation": "factorial(5) = 120"
+        },
+        {
+          "id": 4403,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "import math\nprint(math.floor(3.7))",
+          "correctAnswer": "3",
+          "explanation": "floor بتقرب لتحت"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "title": "datetime",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 4501,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة datetime؟",
+          "options": ["التعامل مع التواريخ", "الحساب", "الطباعة", "الترتيب"],
+          "correctAnswer": 0,
+          "explanation": "datetime للتواريخ والوقت"
+        },
+        {
+          "id": 4502,
+          "type": "fill_blank",
+          "question": "استورد datetime",
+          "code": "from datetime ___ datetime\nprint(datetime.now().year)",
+          "bank": ["import", "get", "use", "load"],
+          "correctAnswer": "import",
+          "explanation": "from datetime import datetime"
+        },
+        {
+          "id": 4503,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟ (ثابت)",
+          "code": "from datetime import date\nd = date(2024, 1, 15)\nprint(d.day)",
+          "correctAnswer": "15",
+          "explanation": "اليوم = 15"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 10,
+    "title": "🎲 لعبة نصية كاملة",
+    "description": "اعمل لعبة تخمين رقم عشوائي من 1 لـ 10. استخدم random ولوب.",
+    "requirements": [
+      "استخدم random.randint(1, 10)",
+      "لوب يخلي المستخدم يخمن",
+      "لو صح، اطبع 'You win!' و break",
+      "لو غلط، اطبع 'Try again'"
+    ],
+    "starterCode": "# Number Guessing Game\nimport random\n\nsecret = random.randint(1, 10)\n\n# 1. اعمل while True\n# 2. اطلب تخمين\n# 3. لو صح: \"You win!\" و break\n# 4. لو غلط: \"Try again\"\n",
+    "testCases": [
+      {
+        "input": "5\n3\n7\n",
+        "expected_output": "Try again\nTry again\nYou win!",
+        "description": "الفوز بعد 3 محاولات (seed ثابت)"
+      }
+    ],
+    "requiredKeywords": ["import", "random", "while"],
+    "xpReward": 250,
+    "difficulty": "hard"
+  }
+}

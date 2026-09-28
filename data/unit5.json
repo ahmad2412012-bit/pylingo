@@ -1,0 +1,227 @@
+{
+  "id": 5,
+  "title": "القوائم (Lists)",
+  "description": "creation, append, remove, indexing, loops",
+  "icon": "📋",
+  "color": "#FF9600",
+  "lessons": [
+    {
+      "id": 23,
+      "title": "إنشاء القوائم",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 2301,
+          "type": "multiple_choice",
+          "question": "إيه القائمة في Python؟",
+          "options": ["مجموعة عناصر مرتبة", "متغير واحد", "دالة", "ملف"],
+          "correctAnswer": 0,
+          "explanation": "القائمة بتخزن عناصر متعددة"
+        },
+        {
+          "id": 2302,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "nums = [1, 2, 3]\nprint(nums)",
+          "correctAnswer": "[1, 2, 3]",
+          "explanation": "طباعة القائمة كاملة"
+        },
+        {
+          "id": 2303,
+          "type": "fill_blank",
+          "question": "اعمل قائمة أرقام",
+          "code": "nums = ___(1, 2, 3)",
+          "bank": ["[ ]", "( )", "{ }", "< >"],
+          "correctAnswer": "[ ]",
+          "explanation": "القوائم بـ [ ]"
+        },
+        {
+          "id": 2304,
+          "type": "multiple_choice",
+          "question": "إيه نوع [1, 2, 3]?",
+          "options": ["list", "int", "string", "float"],
+          "correctAnswer": 0,
+          "explanation": "[ ] معناها list"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "title": "الوصول للعناصر",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 2401,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "fruits = [\"apple\", \"banana\", \"cherry\"]\nprint(fruits[0])",
+          "correctAnswer": "apple",
+          "explanation": "العد يبدأ من 0"
+        },
+        {
+          "id": 2402,
+          "type": "multiple_choice",
+          "question": "إيه آخر عنصر في [1, 2, 3, 4]؟",
+          "options": ["4", "3", "1", "0"],
+          "correctAnswer": 0,
+          "explanation": "[3] أو [-1] بيرجعوا 4"
+        },
+        {
+          "id": 2403,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "nums = [10, 20, 30]\nprint(nums[-1])",
+          "correctAnswer": "30",
+          "explanation": "[-1] = آخر عنصر"
+        },
+        {
+          "id": 2404,
+          "type": "fill_blank",
+          "question": "اطبع العنصر التاني",
+          "code": "nums = [10, 20, 30]\nprint(nums[___])",
+          "bank": ["1", "2", "0", "3"],
+          "correctAnswer": "1",
+          "explanation": "التاني في index 1"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "title": "إضافة وحذف",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 2501,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة append()؟",
+          "options": ["تضيف عنصر", "تحذف", "تطبع", "تلاقي"],
+          "correctAnswer": 0,
+          "explanation": "append بتضيف للنهاية"
+        },
+        {
+          "id": 2502,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "nums = [1, 2]\nnums.append(3)\nprint(nums)",
+          "correctAnswer": "[1, 2, 3]",
+          "explanation": "append بتضيف في الآخر"
+        },
+        {
+          "id": 2503,
+          "type": "fill_blank",
+          "question": "احذف apple",
+          "code": "fruits = [\"apple\", \"banana\"]\nfruits.___(\"apple\")",
+          "bank": ["remove", "add", "delete", "pop"],
+          "correctAnswer": "remove",
+          "explanation": "remove بتحذف بالقيمة"
+        },
+        {
+          "id": 2504,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "nums = [1, 2, 3]\nnums.pop()\nprint(nums)",
+          "correctAnswer": "[1, 2]",
+          "explanation": "pop بتحذف آخر عنصر"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "title": "len و loops على القوائم",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 2601,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة len()؟",
+          "options": ["ترجع الطول", "تحذف", "تضيف", "تلاقي"],
+          "correctAnswer": 0,
+          "explanation": "len بترجع عدد العناصر"
+        },
+        {
+          "id": 2602,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(len([1, 2, 3, 4, 5]))",
+          "correctAnswer": "5",
+          "explanation": "5 عناصر"
+        },
+        {
+          "id": 2603,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for x in [\"a\", \"b\", \"c\"]:\n    print(x)",
+          "correctAnswer": "a\nb\nc",
+          "explanation": "for بتلف على القائمة"
+        },
+        {
+          "id": 2604,
+          "type": "fill_blank",
+          "question": "اطبع طول القائمة",
+          "code": "nums = [1, 2, 3]\nprint(___(nums))",
+          "bank": ["len", "size", "count", "total"],
+          "correctAnswer": "len",
+          "explanation": "len بترجع الطول"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Slicing",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 2701,
+          "type": "multiple_choice",
+          "question": "إيه معنى nums[1:3]؟",
+          "options": ["من 1 لـ 2", "من 1 لـ 3", "من 0 لـ 3", "كل العناصر"],
+          "correctAnswer": 0,
+          "explanation": "النهاية مش متضمنة"
+        },
+        {
+          "id": 2702,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "nums = [0, 1, 2, 3, 4]\nprint(nums[1:4])",
+          "correctAnswer": "[1, 2, 3]",
+          "explanation": "من 1 لـ 3"
+        },
+        {
+          "id": 2703,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "nums = [0, 1, 2, 3, 4]\nprint(nums[:2])",
+          "correctAnswer": "[0, 1]",
+          "explanation": "من البداية لـ 2"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 5,
+    "title": "📝 قائمة مهام (To-Do)",
+    "description": "اعمل برنامج بيعرض قائمة مهام ويضيف مهمة جديدة ويطبع القائمة النهائية.",
+    "requirements": [
+      "اعمل list فيها 3 مهام",
+      "اطلب من المستخدم مهمة جديدة بـ input",
+      "أضفها بـ append",
+      "اطبع كل المهام بـ for loop"
+    ],
+    "starterCode": "# To-Do List\ntasks = [\"Study\", \"Code\", \"Sleep\"]\n\n# 1. اطلب من المستخدم مهمة جديدة (input)\n# 2. أضفها للقائمة بـ append\n# 3. اطبع كل المهام بـ for loop\n# كل مهمة على سطر\n",
+    "testCases": [
+      {
+        "input": "Read\n",
+        "expected_output": "Study\nCode\nSleep\nRead",
+        "description": "إضافة مهمة Read"
+      },
+      {
+        "input": "Exercise\n",
+        "expected_output": "Study\nCode\nSleep\nExercise",
+        "description": "إضافة مهمة Exercise"
+      }
+    ],
+    "requiredKeywords": ["append", "for", "input"],
+    "xpReward": 150,
+    "difficulty": "medium"
+  }
+}

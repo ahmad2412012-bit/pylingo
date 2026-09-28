@@ -1,0 +1,135 @@
+{
+  "id": 8,
+  "title": "OOP (Classes)",
+  "description": "class, __init__, methods, self",
+  "icon": "🏗️",
+  "color": "#8B5CF6",
+  "lessons": [
+    {
+      "id": 36,
+      "title": "تعريف Class",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 3601,
+          "type": "multiple_choice",
+          "question": "إيه الكلمة اللي بنعرف بيها class؟",
+          "options": ["class", "type", "obj", "def"],
+          "correctAnswer": 0,
+          "explanation": "class للتعريف"
+        },
+        {
+          "id": 3602,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "class Dog:\n    pass\n\nd = Dog()\nprint(type(d).__name__)",
+          "correctAnswer": "Dog",
+          "explanation": "d من نوع Dog"
+        },
+        {
+          "id": 3603,
+          "type": "fill_blank",
+          "question": "عرف class",
+          "code": "___ Person:\n    pass",
+          "bank": ["class", "def", "object", "new"],
+          "correctAnswer": "class",
+          "explanation": "class للتعريف"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "title": "__init__ و self",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 3701,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة __init__؟",
+          "options": ["تهيئة الكائن", "تحذف", "تطبع", "ترجع"],
+          "correctAnswer": 0,
+          "explanation": "__init__ بتشتغل لما نعمل كائن جديد"
+        },
+        {
+          "id": 3702,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "class Person:\n    def __init__(self, name):\n        self.name = name\n\np = Person(\"Ali\")\nprint(p.name)",
+          "correctAnswer": "Ali",
+          "explanation": "self.name = 'Ali'"
+        },
+        {
+          "id": 3703,
+          "type": "fill_blank",
+          "question": "أضف __init__",
+          "code": "class Dog:\n    def ___(self, name):\n        self.name = name",
+          "bank": ["__init__", "init", "start", "__new__"],
+          "correctAnswer": "__init__",
+          "explanation": "__init__ للتهيئة"
+        },
+        {
+          "id": 3704,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "class Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\np = Point(3, 5)\nprint(p.x + p.y)",
+          "correctAnswer": "8",
+          "explanation": "3 + 5 = 8"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "title": "Methods",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 3801,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "class Dog:\n    def bark(self):\n        print(\"Woof\")\n\nd = Dog()\nd.bark()",
+          "correctAnswer": "Woof",
+          "explanation": "استدعاء method"
+        },
+        {
+          "id": 3802,
+          "type": "fill_blank",
+          "question": "أضف method",
+          "code": "class Cat:\n    ___ meow(self):\n        print(\"Meow\")",
+          "bank": ["def", "class", "func", "method"],
+          "correctAnswer": "def",
+          "explanation": "def للتعريف"
+        },
+        {
+          "id": 3803,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "class Counter:\n    def __init__(self):\n        self.count = 0\n    def increment(self):\n        self.count = self.count + 1\n\nc = Counter()\nc.increment()\nc.increment()\nprint(c.count)",
+          "correctAnswer": "2",
+          "explanation": "زود مرتين"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 8,
+    "title": "🐾 محاكاة حيوانات",
+    "description": "اعمل class Animal فيه name وصوت. اعمل كائن واطبع صوته.",
+    "requirements": [
+      "اعمل class Animal",
+      "اعمل __init__ بـ name",
+      "اعمل method sound() بتطبع 'Woof'",
+      "اعمل كائن واستدعي sound()"
+    ],
+    "starterCode": "# Animal Class\n# 1. اعمل class Animal\n# 2. __init__(self, name)\n# 3. method sound() بتطبع \"Woof\"\n# 4. اعمل animal = Animal(\"Rex\")\n# 5. استدعي animal.sound()\n",
+    "testCases": [
+      {
+        "input": "",
+        "expected_output": "Woof",
+        "description": "صوت الكلب"
+      }
+    ],
+    "requiredKeywords": ["class", "def", "self"],
+    "xpReward": 200,
+    "difficulty": "hard"
+  }
+}

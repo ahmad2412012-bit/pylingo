@@ -1,0 +1,175 @@
+{
+  "id": 7,
+  "title": "الدوال (Functions)",
+  "description": "def, parameters, return, default args",
+  "icon": "⚙️",
+  "color": "#00C2A8",
+  "lessons": [
+    {
+      "id": 32,
+      "title": "تعريف دالة",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 3201,
+          "type": "multiple_choice",
+          "question": "إيه الكلمة اللي بنعرف بيها دالة؟",
+          "options": ["def", "func", "function", "define"],
+          "correctAnswer": 0,
+          "explanation": "def للتعريف"
+        },
+        {
+          "id": 3202,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "def greet():\n    print(\"Hello\")\n\ngreet()",
+          "correctAnswer": "Hello",
+          "explanation": "استدعاء الدالة"
+        },
+        {
+          "id": 3203,
+          "type": "fill_blank",
+          "question": "عرف دالة",
+          "code": "___ hello():\n    print(\"Hi\")",
+          "bank": ["def", "func", "function", "return"],
+          "correctAnswer": "def",
+          "explanation": "def للتعريف"
+        },
+        {
+          "id": 3204,
+          "type": "multiple_choice",
+          "question": "امتى الكود بتاع الدالة بيتنفذ؟",
+          "options": ["لما نستدعيها", "لما نعرفها", "على طول", "لما نطبع"],
+          "correctAnswer": 0,
+          "explanation": "الكود بيتنفذ بس لما نستدعي الدالة"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "title": "parameters",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 3301,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "def greet(name):\n    print(\"Hi \" + name)\n\ngreet(\"Ali\")",
+          "correctAnswer": "Hi Ali",
+          "explanation": "name = 'Ali'"
+        },
+        {
+          "id": 3302,
+          "type": "fill_blank",
+          "question": "أضف parameter",
+          "code": "def add(a, ___):\n    print(a + b)\n\nadd(2, 3)",
+          "bank": ["b", "a", "x", "n"],
+          "correctAnswer": "b",
+          "explanation": "b parameter تاني"
+        },
+        {
+          "id": 3303,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "def multiply(x, y):\n    print(x * y)\n\nmultiply(4, 5)",
+          "correctAnswer": "20",
+          "explanation": "4 × 5 = 20"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "title": "return",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 3401,
+          "type": "multiple_choice",
+          "question": "إيه الفرق بين print و return؟",
+          "options": ["print تطبع، return ترجع قيمة", "الاتنين نفس الحاجة", "return تطبع", "print ترجع"],
+          "correctAnswer": 0,
+          "explanation": "return ترجع قيمة تستخدمها بعدين"
+        },
+        {
+          "id": 3402,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "def add(a, b):\n    return a + b\n\nresult = add(3, 4)\nprint(result)",
+          "correctAnswer": "7",
+          "explanation": "add بترجع 7"
+        },
+        {
+          "id": 3403,
+          "type": "fill_blank",
+          "question": "استخدم return",
+          "code": "def square(x):\n    ___ x * x\n\nprint(square(5))",
+          "bank": ["return", "print", "yield", "output"],
+          "correctAnswer": "return",
+          "explanation": "return ترجع القيمة"
+        },
+        {
+          "id": 3404,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "def is_even(n):\n    return n % 2 == 0\n\nprint(is_even(4))",
+          "correctAnswer": "True",
+          "explanation": "4 % 2 = 0، فبيرجع True"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "title": "default arguments",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 3501,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "def greet(name=\"World\"):\n    print(\"Hi \" + name)\n\ngreet()",
+          "correctAnswer": "Hi World",
+          "explanation": "القيمة الافتراضية بتستخدم"
+        },
+        {
+          "id": 3502,
+          "type": "fill_blank",
+          "question": "أضف default value",
+          "code": "def power(x, n=___):\n    return x ** n\n\nprint(power(2))",
+          "bank": ["2", "1", "0", "10"],
+          "correctAnswer": "2",
+          "explanation": "افتراضياً n = 2"
+        },
+        {
+          "id": 3503,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "def greet(name=\"World\"):\n    print(\"Hi \" + name)\n\ngreet(\"Ali\")",
+          "correctAnswer": "Hi Ali",
+          "explanation": "القيمة الممررة بتستخدم"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 7,
+    "title": "🏦 نظام بنكي",
+    "description": "اعمل دالة بتضيف فلوس لحساب، ودالة تانية تخصم، واطبع الرصيد النهائي.",
+    "requirements": [
+      "اعمل دالة deposit(balance, amount)",
+      "اعمل دالة withdraw(balance, amount)",
+      "الرصيد يبدأ بـ 1000",
+      "اطبع الرصيد بعد إيداع 500 وسحب 300"
+    ],
+    "starterCode": "# Bank System\n# 1. اعمل دالة deposit(balance, amount) بترجع balance + amount\n# 2. اعمل دالة withdraw(balance, amount) بترجع balance - amount\n# 3. ابدأ بـ balance = 1000\n# 4. أودع 500\n# 5. اسحب 300\n# 6. اطبع الرصيد النهائي\n",
+    "testCases": [
+      {
+        "input": "",
+        "expected_output": "1200",
+        "description": "1000 + 500 - 300 = 1200"
+      }
+    ],
+    "requiredKeywords": ["def", "return", "print"],
+    "xpReward": 200,
+    "difficulty": "hard"
+  }
+}

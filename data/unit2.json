@@ -1,0 +1,233 @@
+{
+  "id": 2,
+  "title": "الأرقام والعمليات",
+  "description": "int, float, +-*/, //, %, **, round, abs",
+  "icon": "🔢",
+  "color": "#1CB0F6",
+  "lessons": [
+    {
+      "id": 9,
+      "title": "الأنواع الرقمية",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 901,
+          "type": "multiple_choice",
+          "question": "إيه الفرق بين int و float؟",
+          "options": ["int رقم صحيح، float رقم عشري", "الاتنين نفس الحاجة", "int للنصوص", "float للأرقام الكبيرة"],
+          "correctAnswer": 0,
+          "explanation": "int = 5، float = 5.5"
+        },
+        {
+          "id": 902,
+          "type": "fill_blank",
+          "question": "حول النص لرقم",
+          "code": "num = ___(\"5\")",
+          "bank": ["int", "str", "float", "print"],
+          "correctAnswer": "int",
+          "explanation": "int() بتحول لرقم صحيح"
+        },
+        {
+          "id": 903,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "x = 10\ny = 3\nprint(x / y)",
+          "correctAnswer": "3.3333333333333335",
+          "explanation": "/ بترجع float"
+        },
+        {
+          "id": 904,
+          "type": "multiple_choice",
+          "question": "إيه نوع 3.14؟",
+          "options": ["float", "int", "string", "bool"],
+          "correctAnswer": 0,
+          "explanation": "3.14 رقم عشري = float"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "القسمة والباقي",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 1001,
+          "type": "multiple_choice",
+          "question": "إيه نتيجة 10 // 3؟",
+          "options": ["3", "3.33", "3.0", "1"],
+          "correctAnswer": 0,
+          "explanation": "// قسمة صحيحة"
+        },
+        {
+          "id": 1002,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(10 % 3)",
+          "correctAnswer": "1",
+          "explanation": "% باقي القسمة"
+        },
+        {
+          "id": 1003,
+          "type": "fill_blank",
+          "question": "احسب 2 أس 3",
+          "code": "print(2 ___ 3)",
+          "bank": ["**", "*", "^", "//"],
+          "correctAnswer": "**",
+          "explanation": "** للأس"
+        },
+        {
+          "id": 1004,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(15 % 4)",
+          "correctAnswer": "3",
+          "explanation": "15 ÷ 4 = 3 والباقي 3"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "دوال رياضية",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 1101,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة round()؟",
+          "options": ["تقرب الرقم", "تحسب الجذر", "تحسب المطلق", "تضرب"],
+          "correctAnswer": 0,
+          "explanation": "round() بتقرب الرقم"
+        },
+        {
+          "id": 1102,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(round(3.7))",
+          "correctAnswer": "4",
+          "explanation": "3.7 ≈ 4"
+        },
+        {
+          "id": 1103,
+          "type": "fill_blank",
+          "question": "احسب القيمة المطلقة لـ -5",
+          "code": "print(___( -5))",
+          "bank": ["abs", "round", "int", "float"],
+          "correctAnswer": "abs",
+          "explanation": "abs() بترجع القيمة المطلقة"
+        },
+        {
+          "id": 1104,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(abs(-10))",
+          "correctAnswer": "10",
+          "explanation": "abs(-10) = 10"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "ترتيب العمليات",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 1201,
+          "type": "multiple_choice",
+          "question": "إيه نتيجة 2 + 3 * 4؟",
+          "options": ["14", "20", "24", "9"],
+          "correctAnswer": 0,
+          "explanation": "الضرب قبل الجمع: 2 + 12 = 14"
+        },
+        {
+          "id": 1202,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print((2 + 3) * 4)",
+          "correctAnswer": "20",
+          "explanation": "الأقواس الأول: 5 * 4 = 20"
+        },
+        {
+          "id": 1203,
+          "type": "fill_blank",
+          "question": "عايز نتيجة 20 من 2+3*4",
+          "code": "print((2 + 3) ___ 4)",
+          "bank": ["*", "+", "-", "/"],
+          "correctAnswer": "*",
+          "explanation": "الأقواس بتغير الترتيب"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "تحويل الأنواع",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 1301,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة str()؟",
+          "options": ["تحول لنص", "تحول لرقم", "تحذف", "تطبع"],
+          "correctAnswer": 0,
+          "explanation": "str() بتحول أي حاجة لنص"
+        },
+        {
+          "id": 1302,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(str(5) + \" apples\")",
+          "correctAnswer": "5 apples",
+          "explanation": "str(5) = '5'"
+        },
+        {
+          "id": 1303,
+          "type": "fill_blank",
+          "question": "حول الرقم لنص",
+          "code": "x = ___(10)\nprint(x + \"s\")",
+          "bank": ["str", "int", "float", "print"],
+          "correctAnswer": "str",
+          "explanation": "str() للتحويل لنص"
+        },
+        {
+          "id": 1304,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(int(3.9))",
+          "correctAnswer": "3",
+          "explanation": "int() بتشيل الكسر"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 2,
+    "title": "🧮 آلة حاسبة",
+    "description": "اعمل آلة حاسبة بتاخد رقمين من المستخدم وتطبع مجموعهما.",
+    "requirements": [
+      "استخدم input لقراءة رقمين",
+      "استخدم int() لتحويل المدخلات",
+      "اجمعهم بـ +",
+      "اطبع الناتج بـ print"
+    ],
+    "starterCode": "# Calculator\n# 1. اطلب رقم أول\n# 2. اطلب رقم تاني\n# 3. اطبع الناتج\n# النتيجة: \"Result: <الناتج>\"\n",
+    "testCases": [
+      {
+        "input": "5\n3\n",
+        "expected_output": "Result: 8",
+        "description": "5 + 3"
+      },
+      {
+        "input": "10\n20\n",
+        "expected_output": "Result: 30",
+        "description": "10 + 20"
+      },
+      {
+        "input": "7\n7\n",
+        "expected_output": "Result: 14",
+        "description": "7 + 7"
+      }
+    ],
+    "requiredKeywords": ["input", "int", "print"],
+    "xpReward": 150,
+    "difficulty": "easy"
+  }
+}

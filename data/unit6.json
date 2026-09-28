@@ -1,0 +1,188 @@
+{
+  "id": 6,
+  "title": "القواميس (Dictionaries)",
+  "description": "creation, keys, values, update, loops",
+  "icon": "📖",
+  "color": "#FF4B4B",
+  "lessons": [
+    {
+      "id": 28,
+      "title": "إنشاء Dictionary",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 2801,
+          "type": "multiple_choice",
+          "question": "إيه الـ Dictionary في Python؟",
+          "options": ["مجموعة مفتاح-قيمة", "قائمة", "رقم", "نص"],
+          "correctAnswer": 0,
+          "explanation": "Dictionary بتخزن key-value pairs"
+        },
+        {
+          "id": 2802,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "person = {\"name\": \"Ali\", \"age\": 25}\nprint(person[\"name\"])",
+          "correctAnswer": "Ali",
+          "explanation": "بنوصل بالقيمة عن طريق المفتاح"
+        },
+        {
+          "id": 2803,
+          "type": "fill_blank",
+          "question": "اعمل dictionary",
+          "code": "d = ___\"a\": 1, \"b\": 2___",
+          "bank": ["{ }", "[ ]", "( )", "< >"],
+          "correctAnswer": "{ }",
+          "explanation": "Dictionaries بـ { }"
+        },
+        {
+          "id": 2804,
+          "type": "multiple_choice",
+          "question": "إيه نوع {'x': 1}?",
+          "options": ["dict", "list", "int", "string"],
+          "correctAnswer": 0,
+          "explanation": "{ } معناها dict"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "title": "keys و values",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 2901,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة keys()؟",
+          "options": ["ترجع المفاتيح", "ترجع القيم", "تحذف", "تضيف"],
+          "correctAnswer": 0,
+          "explanation": "keys() بترجع كل المفاتيح"
+        },
+        {
+          "id": 2902,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "d = {\"a\": 1, \"b\": 2}\nprint(list(d.keys()))",
+          "correctAnswer": "['a', 'b']",
+          "explanation": "keys بترجع المفاتيح"
+        },
+        {
+          "id": 2903,
+          "type": "fill_blank",
+          "question": "اجلب كل القيم",
+          "code": "d = {\"a\": 1, \"b\": 2}\nprint(list(d.___()))",
+          "bank": ["values", "keys", "items", "get"],
+          "correctAnswer": "values",
+          "explanation": "values() بترجع القيم"
+        },
+        {
+          "id": 2904,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "d = {\"a\": 1}\nd[\"b\"] = 2\nprint(d)",
+          "correctAnswer": "{'a': 1, 'b': 2}",
+          "explanation": "إضافة مفتاح جديد"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "title": "التعديل والحذف",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 3001,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "d = {\"a\": 1}\nd[\"a\"] = 5\nprint(d[\"a\"])",
+          "correctAnswer": "5",
+          "explanation": "تعديل قيمة موجودة"
+        },
+        {
+          "id": 3002,
+          "type": "fill_blank",
+          "question": "احذف مفتاح b",
+          "code": "d = {\"a\": 1, \"b\": 2}\n___ d[\"b\"]\nprint(d)",
+          "bank": ["del", "remove", "pop", "delete"],
+          "correctAnswer": "del",
+          "explanation": "del بتحذف"
+        },
+        {
+          "id": 3003,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة get()؟",
+          "options": ["ترجع القيمة أو default", "تحذف", "تضيف", "تعدل"],
+          "correctAnswer": 0,
+          "explanation": "get() آمنة لو المفتاح مش موجود"
+        },
+        {
+          "id": 3004,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "d = {\"a\": 1}\nprint(d.get(\"b\", 0))",
+          "correctAnswer": "0",
+          "explanation": "b مش موجود، فبيرجع 0"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "title": "loops على Dictionary",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 3101,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "d = {\"a\": 1, \"b\": 2}\nfor k in d:\n    print(k)",
+          "correctAnswer": "a\nb",
+          "explanation": "for بتلف على المفاتيح"
+        },
+        {
+          "id": 3102,
+          "type": "fill_blank",
+          "question": "اطبع المفتاح والقيمة",
+          "code": "d = {\"a\": 1}\nfor k, v in d.___():\n    print(k, v)",
+          "bank": ["items", "keys", "values", "get"],
+          "correctAnswer": "items",
+          "explanation": "items() بترجع key-value"
+        },
+        {
+          "id": 3103,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "d = {\"a\": 1, \"b\": 2}\nfor k, v in d.items():\n    print(k, v)",
+          "correctAnswer": "a 1\nb 2",
+          "explanation": "طباعة المفتاح والقيمة"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 6,
+    "title": "📇 دفتر جهات اتصال",
+    "description": "اعمل دفتر جهات اتصال Dictionary فيه أسماء وأرقام. اعرضهم واطبع رقم شخص معين.",
+    "requirements": [
+      "اعمل dictionary فيه 3 أشخاص",
+      "اطبع كل الأسماء بـ for loop",
+      "اطلب اسم من المستخدم",
+      "اطبع الرقم بتاعه"
+    ],
+    "starterCode": "# Contacts Book\ncontacts = {\"Ali\": \"123\", \"Sara\": \"456\", \"Omar\": \"789\"}\n\n# 1. اطبع كل الأسماء (for loop على keys)\n# 2. اطلب اسم من المستخدم (input)\n# 3. اطبع الرقم بتاعه\n# الشكل: \"Ali: 123\"\n",
+    "testCases": [
+      {
+        "input": "Ali\n",
+        "expected_output": "Ali: 123",
+        "description": "طلب Ali"
+      },
+      {
+        "input": "Sara\n",
+        "expected_output": "Sara: 456",
+        "description": "طلب Sara"
+      }
+    ],
+    "requiredKeywords": ["for", "input", "print"],
+    "xpReward": 150,
+    "difficulty": "medium"
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "id": 4,
+  "title": "الحلقات المتقدمة",
+  "description": "for, range, break, continue, nested loops",
+  "icon": "🔁",
+  "color": "#CE82FF",
+  "lessons": [
+    {
+      "id": 18,
+      "title": "for loop",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 1801,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة for؟",
+          "options": ["تكرر على عناصر", "تنفذ شرط", "تطبع", "تعمل متغير"],
+          "correctAnswer": 0,
+          "explanation": "for بتكرر على عناصر"
+        },
+        {
+          "id": 1802,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for i in [1, 2, 3]:\n    print(i)",
+          "correctAnswer": "1\n2\n3",
+          "explanation": "for بتلف على العناصر"
+        },
+        {
+          "id": 1803,
+          "type": "fill_blank",
+          "question": "اكتب for loop",
+          "code": "___ i in [1, 2, 3]:\n    print(i)",
+          "bank": ["for", "while", "if", "loop"],
+          "correctAnswer": "for",
+          "explanation": "for للحلقات على عناصر"
+        },
+        {
+          "id": 1804,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for x in \"abc\":\n    print(x)",
+          "correctAnswer": "a\nb\nc",
+          "explanation": "for بتلف على كل حرف"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "title": "range()",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 1901,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة range(5)?",
+          "options": ["0 لـ 4", "1 لـ 5", "0 لـ 5", "1 لـ 4"],
+          "correctAnswer": 0,
+          "explanation": "range(5) بتدي 0,1,2,3,4"
+        },
+        {
+          "id": 1902,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for i in range(3):\n    print(i)",
+          "correctAnswer": "0\n1\n2",
+          "explanation": "range(3) = 0,1,2"
+        },
+        {
+          "id": 1903,
+          "type": "fill_blank",
+          "question": "اطبع 1 لـ 5",
+          "code": "for i in range(1, ___):\n    print(i)",
+          "bank": ["6", "5", "4", "7"],
+          "correctAnswer": "6",
+          "explanation": "range(1,6) بتدي 1,2,3,4,5"
+        },
+        {
+          "id": 1904,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for i in range(0, 10, 2):\n    print(i)",
+          "correctAnswer": "0\n2\n4\n6\n8",
+          "explanation": "الخطوة 2"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "title": "break و continue",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 2001,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة break؟",
+          "options": ["توقف الحلقة", "تتخطى دورة", "تطبع", "تعمل متغير"],
+          "correctAnswer": 0,
+          "explanation": "break بتوقف الحلقة"
+        },
+        {
+          "id": 2002,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for i in range(5):\n    if i == 3:\n        break\n    print(i)",
+          "correctAnswer": "0\n1\n2",
+          "explanation": "break وقفت عند 3"
+        },
+        {
+          "id": 2003,
+          "type": "fill_blank",
+          "question": "تخطى الرقم 2",
+          "code": "for i in range(5):\n    if i == 2:\n        ___\n    print(i)",
+          "bank": ["continue", "break", "return", "pass"],
+          "correctAnswer": "continue",
+          "explanation": "continue بتتخطى الدورة"
+        },
+        {
+          "id": 2004,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for i in range(5):\n    if i == 2:\n        continue\n    print(i)",
+          "correctAnswer": "0\n1\n3\n4",
+          "explanation": "2 اتخطى"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "title": "حلقات متداخلة",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 2101,
+          "type": "multiple_choice",
+          "question": "إيه معنى nested loop؟",
+          "options": ["حلقة جوه حلقة", "حلقة كبيرة", "حلقة صغيرة", "خطأ"],
+          "correctAnswer": 0,
+          "explanation": "nested = متداخلة"
+        },
+        {
+          "id": 2102,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for i in range(2):\n    for j in range(2):\n        print(i, j)",
+          "correctAnswer": "0 0\n0 1\n1 0\n1 1",
+          "explanation": "كل i بيتكرر مع كل j"
+        },
+        {
+          "id": 2103,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "for i in range(3):\n    print(\"*\" * i)",
+          "correctAnswer": "\n*\n**",
+          "explanation": "السطر الأول فاضي، التاني *، التالت **"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "title": "for على القوائم",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 2201,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "fruits = [\"apple\", \"banana\"]\nfor f in fruits:\n    print(f)",
+          "correctAnswer": "apple\nbanana",
+          "explanation": "for بتلف على عناصر القائمة"
+        },
+        {
+          "id": 2202,
+          "type": "fill_blank",
+          "question": "اطبع كل عنصر",
+          "code": "for x in [1, 2, 3]:\n    ___(x)",
+          "bank": ["print", "input", "len", "type"],
+          "correctAnswer": "print",
+          "explanation": "print للطباعة"
+        },
+        {
+          "id": 2203,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "total = 0\nfor n in [1, 2, 3, 4]:\n    total = total + n\nprint(total)",
+          "correctAnswer": "10",
+          "explanation": "1+2+3+4 = 10"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 4,
+    "title": "📊 جدول ضرب",
+    "description": "اطبع جدول ضرب الرقم 5 من 1 لـ 5 بالشكل: '5 x 1 = 5'",
+    "requirements": [
+      "استخدم for loop",
+      "استخدم range(1, 6)",
+      "اطبع بالشكل: '5 x N = R'"
+    ],
+    "starterCode": "# Multiplication Table\n# اطبع جدول ضرب 5 من 1 لـ 5\n# الشكل: \"5 x 1 = 5\"\n",
+    "testCases": [
+      {
+        "input": "",
+        "expected_output": "5 x 1 = 5\n5 x 2 = 10\n5 x 3 = 15\n5 x 4 = 20\n5 x 5 = 25",
+        "description": "جدول ضرب 5"
+      }
+    ],
+    "requiredKeywords": ["for", "print"],
+    "xpReward": 150,
+    "difficulty": "medium"
+  }
+}

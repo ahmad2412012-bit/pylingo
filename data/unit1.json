@@ -1,0 +1,387 @@
+{
+  "id": 1,
+  "title": "الأساسيات",
+  "description": "print, comments, variables, strings, input, while loop",
+  "icon": "🌱",
+  "color": "#58CC02",
+  "lessons": [
+    {
+      "id": 1,
+      "title": "print - أول أمر",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 101,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة print() في Python؟",
+          "options": ["تطبع نص على الشاشة", "تحذف ملف", "تقرأ من المستخدم", "تسجل خروج"],
+          "correctAnswer": 0,
+          "explanation": "print() بتطبع أي حاجة على الشاشة"
+        },
+        {
+          "id": 102,
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان يطبع Hello",
+          "code": "___(\"Hello\")",
+          "bank": ["print", "input", "len", "type"],
+          "correctAnswer": "print",
+          "explanation": "print(\"Hello\") هي الطريقة الصحيحة"
+        },
+        {
+          "id": 103,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع من الكود ده؟",
+          "code": "print(\"Hi\")\nprint(\"There\")",
+          "correctAnswer": "Hi\nThere",
+          "explanation": "كل print بتطبع سطر جديد"
+        },
+        {
+          "id": 104,
+          "type": "multiple_choice",
+          "question": "إيه اللي هيطلع من print(5 + 3)?",
+          "options": ["8", "5+3", "53", "خطأ"],
+          "correctAnswer": 0,
+          "explanation": "print بتحسب العملية الأول وبعدين تطبع"
+        },
+        {
+          "id": 105,
+          "type": "fill_blank",
+          "question": "اطبع كلمة World",
+          "code": "print(___)",
+          "bank": ["\"World\"", "World", "world", "print"],
+          "correctAnswer": "\"World\"",
+          "explanation": "النصوص محتاجة علامات تنصيص"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "التعليقات (Comments)",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 201,
+          "type": "multiple_choice",
+          "question": "إيه الرمز اللي بيبدأ بيه التعليق في Python؟",
+          "options": ["//", "#", "/*", "--"],
+          "correctAnswer": 1,
+          "explanation": "# بيبدأ التعليق في Python"
+        },
+        {
+          "id": 202,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "# print(\"Hi\")\nprint(\"Bye\")",
+          "correctAnswer": "Bye",
+          "explanation": "السطر اللي فيه # مش بيتنفذ"
+        },
+        {
+          "id": 203,
+          "type": "fill_blank",
+          "question": "اكتب تعليق",
+          "code": "___ ده تعليق",
+          "bank": ["#", "//", "/*", "--"],
+          "correctAnswer": "#",
+          "explanation": "# للتعليق"
+        },
+        {
+          "id": 204,
+          "type": "multiple_choice",
+          "question": "ليه نستخدم التعليقات؟",
+          "options": ["لشرح الكود", "لتسريع البرنامج", "لحذف متغيرات", "لتغيير الألوان"],
+          "correctAnswer": 0,
+          "explanation": "التعليقات بتشرح الكود للقراء"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "المتغيرات",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 301,
+          "type": "multiple_choice",
+          "question": "إيه المتغير (Variable)؟",
+          "options": ["مكان لتخزين قيمة", "دالة بتطبع", "نوع بيانات", "خطأ في الكود"],
+          "correctAnswer": 0,
+          "explanation": "المتغير مكان بنحط فيه قيمة"
+        },
+        {
+          "id": 302,
+          "type": "fill_blank",
+          "question": "اعمل متغير age = 25",
+          "code": "age ___ 25",
+          "bank": ["=", "==", ":", "->"],
+          "correctAnswer": "=",
+          "explanation": "= لتعيين قيمة"
+        },
+        {
+          "id": 303,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "x = 5\nx = 10\nprint(x)",
+          "correctAnswer": "10",
+          "explanation": "المتغير بياخد آخر قيمة"
+        },
+        {
+          "id": 304,
+          "type": "fill_blank",
+          "question": "اعمل متغير name بقيمة Ali",
+          "code": "name = ___",
+          "bank": ["\"Ali\"", "Ali", "name", "string"],
+          "correctAnswer": "\"Ali\"",
+          "explanation": "النصوص بين علامات تنصيص"
+        },
+        {
+          "id": 305,
+          "type": "multiple_choice",
+          "question": "إيه نتيجة x + 5 لو x = 10؟",
+          "options": ["15", "105", "x5", "خطأ"],
+          "correctAnswer": 0,
+          "explanation": "المتغير بياخد قيمته"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "النصوص (Strings)",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 401,
+          "type": "multiple_choice",
+          "question": "إزاي نكتب نص في Python؟",
+          "options": ["بين \" \"", "بدون علامات", "بين ()", "بين []"],
+          "correctAnswer": 0,
+          "explanation": "النصوص بين علامات تنصيص"
+        },
+        {
+          "id": 402,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "name = \"Ali\"\nprint(\"Hello \" + name)",
+          "correctAnswer": "Hello Ali",
+          "explanation": "+ بتدمج النصوص"
+        },
+        {
+          "id": 403,
+          "type": "fill_blank",
+          "question": "ادمج الاسمين",
+          "code": "first = \"Hello \"\nlast = \"World\"\nprint(first ___ last)",
+          "bank": ["+", "-", "*", "&"],
+          "correctAnswer": "+",
+          "explanation": "+ لدمج النصوص"
+        },
+        {
+          "id": 404,
+          "type": "multiple_choice",
+          "question": "إيه طول النص 'Hello'؟",
+          "options": ["5", "4", "6", "1"],
+          "correctAnswer": 0,
+          "explanation": "Hello = 5 حروف"
+        },
+        {
+          "id": 405,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(\"a\" * 3)",
+          "correctAnswer": "aaa",
+          "explanation": "* بتكرر النص"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "المدخلات (input)",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 501,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة input()؟",
+          "options": ["تقرأ من المستخدم", "تطبع", "تحذف", "تسجل"],
+          "correctAnswer": 0,
+          "explanation": "input() بتستقبل مدخلات"
+        },
+        {
+          "id": 502,
+          "type": "predict_output",
+          "question": "لو المستخدم كتب Ali:",
+          "code": "name = input(\"اسمك؟ \")\nprint(\"أهلاً \" + name)",
+          "correctAnswer": "أهلاً Ali",
+          "explanation": "input() بترجع النص"
+        },
+        {
+          "id": 503,
+          "type": "fill_blank",
+          "question": "اقرأ اسم المستخدم",
+          "code": "name = ___(\"اسمك؟ \")",
+          "bank": ["input", "print", "get", "read"],
+          "correctAnswer": "input",
+          "explanation": "input لاستقبال المدخلات"
+        },
+        {
+          "id": 504,
+          "type": "multiple_choice",
+          "question": "input() بترجع إيه؟",
+          "options": ["نص (string)", "رقم", "قائمة", "صح/خطأ"],
+          "correctAnswer": 0,
+          "explanation": "input دايماً بترجع string"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "حلقة while",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 601,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة while loop؟",
+          "options": ["تكرر كود لحد شرط", "تطبع", "تعمل متغير", "تقرأ ملف"],
+          "correctAnswer": 0,
+          "explanation": "while بتكرر لحد ما الشرط يفشل"
+        },
+        {
+          "id": 602,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "i = 1\nwhile i <= 3:\n    print(i)\n    i = i + 1",
+          "correctAnswer": "1\n2\n3",
+          "explanation": "بتلف 3 مرات"
+        },
+        {
+          "id": 603,
+          "type": "fill_blank",
+          "question": "اكمل الحلقة",
+          "code": "i = 1\n___ i <= 5:\n    print(i)\n    i = i + 1",
+          "bank": ["while", "for", "if", "loop"],
+          "correctAnswer": "while",
+          "explanation": "while للحلقات الشرطية"
+        },
+        {
+          "id": 604,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "i = 0\nwhile i < 2:\n    print(\"Hi\")\n    i = i + 1",
+          "correctAnswer": "Hi\nHi",
+          "explanation": "بتلف مرتين"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "العمليات الحسابية",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 701,
+          "type": "multiple_choice",
+          "question": "إيه نتيجة 7 + 3؟",
+          "options": ["10", "73", "21", "4"],
+          "correctAnswer": 0,
+          "explanation": "7 + 3 = 10"
+        },
+        {
+          "id": 702,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(10 - 4)",
+          "correctAnswer": "6",
+          "explanation": "10 - 4 = 6"
+        },
+        {
+          "id": 703,
+          "type": "fill_blank",
+          "question": "اضرب 5 × 3",
+          "code": "print(5 ___ 3)",
+          "bank": ["*", "+", "-", "/"],
+          "correctAnswer": "*",
+          "explanation": "* للضرب"
+        },
+        {
+          "id": 704,
+          "type": "predict_output",
+          "question": "إيه نتيجة 10 / 2؟",
+          "code": "print(10 / 2)",
+          "correctAnswer": "5.0",
+          "explanation": "/ بترجع float"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "المقارنات",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 801,
+          "type": "multiple_choice",
+          "question": "إيه معنى ==؟",
+          "options": ["يساوي (مقارنة)", "يعين قيمة", "أكبر من", "أصغر من"],
+          "correctAnswer": 0,
+          "explanation": "== للمقارنة، = للتعيين"
+        },
+        {
+          "id": 802,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(5 > 3)",
+          "correctAnswer": "True",
+          "explanation": "5 > 3 صح"
+        },
+        {
+          "id": 803,
+          "type": "fill_blank",
+          "question": "اختبر لو x يساوي 5",
+          "code": "if x ___ 5:\n    print(\"yes\")",
+          "bank": ["==", "=", ">", "<"],
+          "correctAnswer": "==",
+          "explanation": "== للمقارنة"
+        },
+        {
+          "id": 804,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "print(10 != 5)",
+          "correctAnswer": "True",
+          "explanation": "!= معناه مش يساوي"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 1,
+    "title": "🍔 برنامج مطعم",
+    "description": "اعمل برنامج مطعم بيعرض قائمة الأكلات، بيطلب من المستخدم يختار، وبيطبع الفاتورة.",
+    "requirements": [
+      "استخدم list لتخزين القائمة",
+      "استخدم loop لعرض الأكلات",
+      "استخدم input لاختيار المستخدم",
+      "استخدم print لطباعة الطلب"
+    ],
+    "starterCode": "# Restaurant Program\nmenu = [\"Burger\", \"Pizza\", \"Pasta\"]\n\n# 1. اعرض القائمة (استخدم for loop)\n# 2. اطلب من المستخدم يختار (استخدم input)\n# 3. اطبع الطلب\n# النتيجة: \"You ordered: <اسم الأكلة>\"\n",
+    "testCases": [
+      {
+        "input": "1\n",
+        "expected_output": "You ordered: Burger",
+        "description": "اختيار رقم 1"
+      },
+      {
+        "input": "2\n",
+        "expected_output": "You ordered: Pizza",
+        "description": "اختيار رقم 2"
+      },
+      {
+        "input": "3\n",
+        "expected_output": "You ordered: Pasta",
+        "description": "اختيار رقم 3"
+      }
+    ],
+    "requiredKeywords": ["for", "input", "print"],
+    "xpReward": 150,
+    "difficulty": "easy"
+  }
+}

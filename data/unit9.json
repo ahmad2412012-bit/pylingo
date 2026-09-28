@@ -1,0 +1,139 @@
+
+{
+  "id": 9,
+  "title": "الملفات والأخطاء",
+  "description": "try, except, finally, errors",
+  "icon": "📂",
+  "color": "#FF6B6B",
+  "lessons": [
+    {
+      "id": 39,
+      "title": "try و except",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 3901,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة try/except؟",
+          "options": ["التعامل مع الأخطاء", "الحلقات", "الشروط", "الدوال"],
+          "correctAnswer": 0,
+          "explanation": "try/except بتتعامل مع الأخطاء"
+        },
+        {
+          "id": 3902,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "try:\n    x = 10 / 0\nexcept ZeroDivisionError:\n    print(\"خطأ\")",
+          "correctAnswer": "خطأ",
+          "explanation": "القسمة على صفر بترمي exception"
+        },
+        {
+          "id": 3903,
+          "type": "fill_blank",
+          "question": "أضف except",
+          "code": "try:\n    x = int(\"abc\")\n___ ValueError:\n    print(\"مش رقم\")",
+          "bank": ["except", "catch", "if", "else"],
+          "correctAnswer": "except",
+          "explanation": "except للأخطاء"
+        },
+        {
+          "id": 3904,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "try:\n    print(10 / 2)\nexcept:\n    print(\"Error\")",
+          "correctAnswer": "5.0",
+          "explanation": "مفيش خطأ، try بتشتغل عادي"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "title": "أنواع الأخطاء",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 4001,
+          "type": "multiple_choice",
+          "question": "إيه نوع خطأ 10 / 0؟",
+          "options": ["ZeroDivisionError", "ValueError", "TypeError", "NameError"],
+          "correctAnswer": 0,
+          "explanation": "قسمة على صفر"
+        },
+        {
+          "id": 4002,
+          "type": "multiple_choice",
+          "question": "إيه نوع خطأ int('abc')؟",
+          "options": ["ValueError", "ZeroDivisionError", "TypeError", "KeyError"],
+          "correctAnswer": 0,
+          "explanation": "قيمة مش صالحة"
+        },
+        {
+          "id": 4003,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "try:\n    x = int(\"5\")\n    print(x)\nexcept:\n    print(\"Error\")",
+          "correctAnswer": "5",
+          "explanation": "int('5') = 5"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "title": "finally",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 4101,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة finally؟",
+          "options": ["بتنفذ دايماً", "بتنفذ لو خطأ", "بتنفذ لو مفيش خطأ", "متتعملش"],
+          "correctAnswer": 0,
+          "explanation": "finally بتنفذ في كل الحالات"
+        },
+        {
+          "id": 4102,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "try:\n    print(\"A\")\nfinally:\n    print(\"B\")",
+          "correctAnswer": "A\nB",
+          "explanation": "finally بتنفذ بعد try"
+        },
+        {
+          "id": 4103,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "try:\n    x = 1 / 0\nexcept:\n    print(\"Error\")\nfinally:\n    print(\"Done\")",
+          "correctAnswer": "Error\nDone",
+          "explanation": "except و finally الاتنين"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 9,
+    "title": "🛡️ حاسبة آمنة",
+    "description": "اعمل حاسبة بتتعامل مع الأخطاء: لو المستخدم دخّل نص بدل رقم، تطبع رسالة خطأ.",
+    "requirements": [
+      "اطلب رقمين من المستخدم",
+      "استخدم try/except",
+      "لو خطأ، اطبع 'Invalid input'",
+      "لو تمام، اطبع الناتج"
+    ],
+    "starterCode": "# Safe Calculator\n# 1. اطلب رقمين\n# 2. جرب تحولهم int\n# 3. لو نجح، اطبع المجموع\n# 4. لو فشل، اطبع \"Invalid input\"\n",
+    "testCases": [
+      {
+        "input": "5\n3\n",
+        "expected_output": "8",
+        "description": "5 + 3"
+      },
+      {
+        "input": "abc\n3\n",
+        "expected_output": "Invalid input",
+        "description": "نص بدل رقم"
+      }
+    ],
+    "requiredKeywords": ["try", "except", "print"],
+    "xpReward": 200,
+    "difficulty": "hard"
+  }
+}

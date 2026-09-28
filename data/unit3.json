@@ -1,0 +1,202 @@
+{
+  "id": 3,
+  "title": "التحكم في التدفق",
+  "description": "if, else, elif, and, or, not",
+  "icon": "🔀",
+  "color": "#FFC800",
+  "lessons": [
+    {
+      "id": 14,
+      "title": "if الأساسية",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 1401,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة if؟",
+          "options": ["تنفذ كود لو الشرط صح", "تطبع نص", "تعمل متغير", "تكرر كود"],
+          "correctAnswer": 0,
+          "explanation": "if بتنفذ الكود لو الشرط صح"
+        },
+        {
+          "id": 1402,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "x = 10\nif x > 5:\n    print(\"Big\")",
+          "correctAnswer": "Big",
+          "explanation": "10 > 5 صح"
+        },
+        {
+          "id": 1403,
+          "type": "fill_blank",
+          "question": "اكتب شرط لو x أكبر من 5",
+          "code": "___ x > 5:\n    print(\"yes\")",
+          "bank": ["if", "else", "while", "for"],
+          "correctAnswer": "if",
+          "explanation": "if للشروط"
+        },
+        {
+          "id": 1404,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "x = 3\nif x > 5:\n    print(\"Big\")",
+          "correctAnswer": "",
+          "explanation": "الشرط غلط، فمفيش طباعة"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "if و else",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 1501,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة else؟",
+          "options": ["تنفذ لو الشرط غلط", "تطبع", "تعمل متغير", "تكرر"],
+          "correctAnswer": 0,
+          "explanation": "else بتنفذ لو if فشلت"
+        },
+        {
+          "id": 1502,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "x = 3\nif x > 5:\n    print(\"Big\")\nelse:\n    print(\"Small\")",
+          "correctAnswer": "Small",
+          "explanation": "3 مش أكبر من 5"
+        },
+        {
+          "id": 1503,
+          "type": "fill_blank",
+          "question": "أضف else",
+          "code": "if x > 5:\n    print(\"Big\")\n___:\n    print(\"Small\")",
+          "bank": ["else", "elif", "if", "while"],
+          "correctAnswer": "else",
+          "explanation": "else لما if تفشل"
+        },
+        {
+          "id": 1504,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "age = 18\nif age >= 18:\n    print(\"Adult\")\nelse:\n    print(\"Minor\")",
+          "correctAnswer": "Adult",
+          "explanation": "18 >= 18 صح"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "title": "elif",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 1601,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة elif؟",
+          "options": ["شرط إضافي", "حلقة", "متغير", "تعليق"],
+          "correctAnswer": 0,
+          "explanation": "elif شرط إضافي وسط if وelse"
+        },
+        {
+          "id": 1602,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "x = 0\nif x > 0:\n    print(\"+\")\nelif x < 0:\n    print(\"-\")\nelse:\n    print(\"zero\")",
+          "correctAnswer": "zero",
+          "explanation": "x = 0، مش أكبر ومش أصغر"
+        },
+        {
+          "id": 1603,
+          "type": "fill_blank",
+          "question": "أضف شرط تاني",
+          "code": "if x > 0:\n    print(\"+\")\n___ x < 0:\n    print(\"-\")\nelse:\n    print(\"zero\")",
+          "bank": ["elif", "else", "if", "while"],
+          "correctAnswer": "elif",
+          "explanation": "elif لشرط إضافي"
+        },
+        {
+          "id": 1604,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "score = 85\nif score >= 90:\n    print(\"A\")\nelif score >= 80:\n    print(\"B\")\nelse:\n    print(\"C\")",
+          "correctAnswer": "B",
+          "explanation": "85 >= 80 صح، فهيطبع B"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "title": "and, or, not",
+      "xpReward": 30,
+      "exercises": [
+        {
+          "id": 1701,
+          "type": "multiple_choice",
+          "question": "إيه معنى and؟",
+          "options": ["الشرطين صح", "واحد على الأقل صح", "عكس الشرط", "مش صح"],
+          "correctAnswer": 0,
+          "explanation": "and بتطلب الاتنين صح"
+        },
+        {
+          "id": 1702,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "x = 10\nif x > 5 and x < 20:\n    print(\"yes\")",
+          "correctAnswer": "yes",
+          "explanation": "10 > 5 و 10 < 20، الاتنين صح"
+        },
+        {
+          "id": 1703,
+          "type": "fill_blank",
+          "question": "أضف or",
+          "code": "if x > 10 ___ x < 0:\n    print(\"out\")",
+          "bank": ["or", "and", "not", "if"],
+          "correctAnswer": "or",
+          "explanation": "or لو واحد على الأقل صح"
+        },
+        {
+          "id": 1704,
+          "type": "predict_output",
+          "question": "إيه اللي هيطلع؟",
+          "code": "x = 5\nif not x == 10:\n    print(\"not ten\")",
+          "correctAnswer": "not ten",
+          "explanation": "x مش 10، فـ not x == 10 صح"
+        }
+      ]
+    }
+  ],
+  "project": {
+    "id": 3,
+    "title": "🎮 لعبة تخمين رقم",
+    "description": "اعمل لعبة بتخمن رقم سري = 7. المستخدم يدخل رقم، والبرنامج يقوله أكبر أو أصغر أو صح.",
+    "requirements": [
+      "الرقم السري = 7",
+      "استخدم input لقراءة التخمين",
+      "استخدم int() للتحويل",
+      "استخدم if/elif/else للمقارنة",
+      "اطبع Too high / Too low / Correct"
+    ],
+    "starterCode": "# Guessing Game\nsecret = 7\n\n# 1. اطلب تخمين من المستخدم\n# 2. حوله لرقم int\n# 3. قارن:\n#    - \"Too high\" لو أكبر\n#    - \"Too low\" لو أصغر  \n#    - \"Correct\" لو صح\n",
+    "testCases": [
+      {
+        "input": "10\n",
+        "expected_output": "Too high",
+        "description": "10 أكبر من 7"
+      },
+      {
+        "input": "3\n",
+        "expected_output": "Too low",
+        "description": "3 أصغر من 7"
+      },
+      {
+        "input": "7\n",
+        "expected_output": "Correct",
+        "description": "7 صح"
+      }
+    ],
+    "requiredKeywords": ["if", "input", "int", "print"],
+    "xpReward": 150,
+    "difficulty": "medium"
+  }
+}

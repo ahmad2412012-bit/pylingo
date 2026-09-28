@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PyLingo - تعلم Python بطريقة ممتعة</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Monaco Editor CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/editor/editor.main.css">
+  
+  <!-- Firebase SDK (compat mode - مش محتاج build tools) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============= الشاشة الرئيسية ============= -->
+  <div id="home-screen" class="screen active">
+    
+    <header class="app-header">
+      <div class="header-stats">
+        <div class="stat">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-value" id="streak-value">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">💎</span>
+          <span class="stat-value" id="gems-value">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">❤️</span>
+          <span class="stat-value" id="hearts-value">5</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">⚡</span>
+          <span class="stat-value" id="xp-value">0</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="home-main">
+      <h1 class="app-title">🐍 PyLingo</h1>
+      <p class="app-subtitle">تعلم Python بطريقة ممتعة</p>
+      
+      <!-- ============= Google Login Section ============= -->
+      <div id="auth-section" style="text-align: center; margin: 30px 0;">
+        
+        <!-- زر تسجيل الدخول -->
+        <div id="login-section">
+          <button id="google-login-btn" class="btn-primary" style="max-width: 320px; margin: 0 auto;">
+            🔐 سجل دخول بحساب Google
+          </button>
+        </div>
+        
+        <!-- معلومات المستخدم (مخفية في الأول) -->
+        <div id="user-info" style="display: none;">
+          <img id="user-avatar" 
+               style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid #58CC02;" 
+               alt="User Avatar" />
+          <p id="user-name" style="font-weight: 700; margin: 10px 0 5px; font-size: 18px; color: #131F24;"></p>
+          <p id="user-email" style="color: #777; font-size: 14px; margin-bottom: 15px;"></p>
+          <button id="logout-btn" class="btn-secondary" 
+                  style="max-width: 200px; margin: 0 auto; display: block;">
+            🚪 تسجيل خروج
+          </button>
+        </div>
+      </div>
+
+      <!-- ============= Units Container ============= -->
+      <div id="units-container" class="units-container">
+        <!-- الـ Units هتتحمل هنا -->
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ============= شاشة الدرس ============= -->
+  <div id="lesson-screen" class="screen">
+    
+    <header class="lesson-header">
+      <button class="icon-btn" onclick="app.closeLesson()">✕</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="lesson-progress"></div>
+      </div>
+      <div class="hearts-display">
+        <span>❤️</span>
+        <span id="lesson-hearts">5</span>
+      </div>
+    </header>
+
+    <main class="lesson-main">
+      <div class="question-area">
+        <h2 id="question-text" class="question-text"></h2>
+        <div id="question-extra" class="question-extra"></div>
+      </div>
+
+      <div id="answers-container" class="answers-container">
+        <!-- الأجوبة هتتحمل هنا -->
+      </div>
+    </main>
+
+    <footer class="lesson-footer">
+      <div id="feedback-area" class="feedback-area"></div>
+      <button id="check-btn" class="btn-primary" disabled>تحقق</button>
+    </footer>
+
+  </div>
+
+  <!-- ============= شاشة المشروع ============= -->
+  <div id="project-screen" class="screen">
+    
+    <header class="lesson-header">
+      <button class="icon-btn" onclick="app.closeProject()">✕</button>
+      <h2 id="project-title" class="project-title"></h2>
+      <div></div>
+    </header>
+
+    <main class="project-main">
+      <div class="project-sidebar">
+        <h3>📋 المطلوب</h3>
+        <p id="project-description" class="project-desc"></p>
+        <h4>✅ الشروط</h4>
+        <ul id="project-requirements" class="requirements-list"></ul>
+      </div>
+
+      <div class="project-editor-area">
+        <div class="editor-toolbar">
+          <button class="btn-run" onclick="app.runProjectCode()">▶ شغّل الكود</button>
+          <button class="btn-submit" onclick="app.submitProject()">✓ تحقق من المشروع</button>
+        </div>
+        <div id="monaco-editor" class="monaco-editor"></div>
+        <div class="output-console">
+          <div class="output-header">📤 النتيجة:</div>
+          <pre id="output-content" class="output-content"></pre>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ============= شاشة الاحتفال ============= -->
+  <div id="complete-screen" class="screen">
+    <div class="complete-content">
+      <div class="confetti">🎉</div>
+      <h1>مبروك!</h1>
+      <p id="complete-message">أكملت الدرس بنجاح</p>
+      
+      <div class="complete-stats">
+        <div class="complete-stat">
+          <div class="complete-stat-value" id="complete-xp">+20</div>
+          <div class="complete-stat-label">XP</div>
+        </div>
+        <div class="complete-stat">
+          <div class="complete-stat-value" id="complete-accuracy">100%</div>
+          <div class="complete-stat-label">الدقة</div>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="app.continueFromComplete()">متابعة</button>
+    </div>
+  </div>
+
+  <!-- ============= شاشة نتيجة المشروع ============= -->
+  <div id="project-result-modal" class="modal">
+    <div class="modal-content">
+      <h2 id="project-result-title"></h2>
+      <div id="project-result-feedback" class="project-feedback"></div>
+      <div class="project-score">
+        <span>النتيجة:</span>
+        <span id="project-score-value" class="score-value">0</span>
+        <span>/ 100</span>
+      </div>
+      <div class="modal-buttons">
+        <button class="btn-secondary" onclick="app.closeProjectModal()">حاول تاني</button>
+        <button class="btn-primary" id="project-continue-btn" onclick="app.continueAfterProject()">متابعة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============= Pyodide ============= -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+  
+  <!-- Monaco Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+
+  <!-- App Scripts -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/pyodide-runner.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
