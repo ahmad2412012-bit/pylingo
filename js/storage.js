@@ -68,18 +68,29 @@ const storage = {
 
   // ============ Hearts Info ============
   getHeartsInfo() {
-    const user = JSON.parse(localStorage.getItem(this.KEYS.USER) || '{}');
+    const user = this.getUser();
     
-    if (!user.hearts || user.hearts >= this.MAX_HEARTS) {
+    // لو القلوب كاملة
+    if (user.hearts >= this.MAX_HEARTS) {
       return {
-        hearts: user.hearts || this.MAX_HEARTS,
+        hearts: user.hearts,
         nextHeartIn: 0,
         maxHearts: this.MAX_HEARTS
       };
     }
     
+    // ✅ لو لسه بينقص، احسب من lastHeartUpdate
+    let lastUpdate = user.lastHeartUpdate;
+    
+    // ✅ لو مفيش lastHeartUpdate (مثلاً القلوب 0 والمستخدم جديد)
+    if (!lastUpdate) {
+      lastUpdate = Date.now();
+      // احفظها
+      user.lastHeartUpdate = lastUpdate;
+      this.setUser(user);
+    }
+    
     const now = Date.now();
-    const lastUpdate = user.lastHeartUpdate || now;
     const timePassed = now - lastUpdate;
     const timeToNext = this.HEART_REGENERATION_TIME - (timePassed % this.HEART_REGENERATION_TIME);
     
@@ -140,25 +151,26 @@ const storage = {
   },
 
   // ============ Hearts (ناقص/زيادة) ============
-  loseHeart() {
-    const user = JSON.parse(localStorage.getItem(this.KEYS.USER) || '{}');
-    
-    if (!user.hearts) user.hearts = this.MAX_HEARTS;
-    
+    loseHeart() {
+    const user = this.getUser();
     const oldHearts = user.hearts;
     user.hearts = Math.max(0, user.hearts - 1);
     
-    // ✅ لو كان كامل قبل كده، ابدأ العداد الآن
+    // ✅ لو كانت كاملة قبل كده → ابدأ العداد
     if (oldHearts === this.MAX_HEARTS) {
       user.lastHeartUpdate = Date.now();
     }
-    // ✅ لو القلوب خلصت (0)، ثبت الوقت من دلوقتي
-    else if (user.hearts === 0) {
+    // ✅ لو لسه بينقص وعندنا lastHeartUpdate → خليه
+    // ✅ لو وصل 0 ومافيش lastHeartUpdate → ابدأ من الآن
+    else if (user.hearts === 0 && !user.lastHeartUpdate) {
       user.lastHeartUpdate = Date.now();
     }
-    // ⚠️ باقي الحالات: سيب lastHeartUpdate زي ما هو (مستني)
+    // ✅ لو وصل 0 ومعند lastHeartUpdate → احتفظ بالوقت القديم عشان العداد يكمل
+    else if (user.hearts === 0 && user.lastHeartUpdate) {
+      // خليه زي ما هو - العداد شغال
+    }
     
-    localStorage.setItem(this.KEYS.USER, JSON.stringify(user));
+    this.setUser(user);
     return user.hearts;
   },
 

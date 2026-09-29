@@ -363,23 +363,23 @@
       "استخدم print لطباعة الطلب"
     ],
     "starterCode": "# Restaurant Program\nmenu = [\"Burger\", \"Pizza\", \"Pasta\"]\n\n# 1. اعرض القائمة (استخدم for loop)\n# 2. اطلب من المستخدم يختار (استخدم input)\n# 3. اطبع الطلب\n# النتيجة: \"You ordered: <اسم الأكلة>\"\n",
-    "testCases": [
-      {
-        "input": "1\n",
-        "expected_output": "You ordered: Burger",
-        "description": "اختيار رقم 1"
-      },
-      {
-        "input": "2\n",
-        "expected_output": "You ordered: Pizza",
-        "description": "اختيار رقم 2"
-      },
-      {
-        "input": "3\n",
-        "expected_output": "You ordered: Pasta",
-        "description": "اختيار رقم 3"
-      }
-    ],
+            "testCases": [
+          {
+            "input": "1\n",
+            "expected_output": "Burger\nPizza\nPasta\nYou ordered: Burger",
+            "description": "اختيار رقم 1"
+          },
+          {
+            "input": "2\n",
+            "expected_output": "Burger\nPizza\nPasta\nYou ordered: Pizza",
+            "description": "اختيار رقم 2"
+          },
+          {
+            "input": "3\n",
+            "expected_output": "Burger\nPizza\nPasta\nYou ordered: Pasta",
+            "description": "اختيار رقم 3"
+          }
+        ],
     "requiredKeywords": ["for", "input", "print"],
     "xpReward": 150,
     "difficulty": "easy"
