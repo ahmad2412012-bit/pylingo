@@ -1955,14 +1955,521 @@ button {
   }
 }
 /* ============ Responsive ============ */
-@media (max-width: 768px) {
-  .project-main { grid-template-columns: 1fr; }
-  .app-title { font-size: 32px; }
-  .question-text { font-size: 22px; }
+/* ============================================ */
+/* ============ Responsive Design ============ */
+/* ============================================ */
+
+/* ============ Very Small Phones (320px - 480px) ============ */
+@media (max-width: 480px) {
+  /* Home Screen */
+  .home-main {
+    padding: 20px 12px 80px;
+  }
+
+  .app-title {
+    font-size: 30px;
+  }
+
+  .app-subtitle {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  /* Header */
+  .app-header {
+    padding: 8px 10px;
+  }
+
+  .header-stats {
+    gap: 10px;
+  }
+
+  .stat {
+    font-size: 14px;
+    gap: 3px;
+  }
+
+  .stat-icon {
+    font-size: 16px;
+  }
+
+  .header-controls {
+    left: 6px;
+    gap: 3px;
+  }
+
+  .control-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  /* Units */
+  .units-container {
+    gap: 20px;
+  }
+
+  .unit {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .unit-header {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .unit-icon {
+    font-size: 30px;
+  }
+
+  .unit-info h3 {
+    font-size: 18px;
+  }
+
+  .unit-info p {
+    font-size: 12px;
+  }
+
+  .unit-lessons {
+    gap: 8px;
+  }
+
+  /* Lesson Nodes */
+  .lesson-node {
+    width: 58px;
+    height: 58px;
+    font-size: 18px;
+    border-bottom-width: 4px;
+  }
+
+  .lesson-node.project {
+    width: 72px;
+    height: 72px;
+    font-size: 26px;
+  }
+
+  /* Lesson Screen */
+  .lesson-header {
+    padding: 12px 12px;
+    gap: 10px;
+  }
+
+  .icon-btn {
+    font-size: 20px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .progress-bar-container {
+    height: 12px;
+  }
+
+  .hearts-display {
+    font-size: 16px;
+  }
+
+  .lesson-main {
+    padding: 20px 12px 180px;
+  }
+
+  .question-text {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+
+  .question-extra {
+    padding: 14px;
+    font-size: 14px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+  }
+
+  .answers-container {
+    gap: 10px;
+  }
+
+  .answer-btn {
+    padding: 14px 16px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  /* Lesson Footer */
+  .lesson-footer {
+    padding: 14px 12px;
+  }
+
+  .feedback-area {
+    padding: 12px;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .btn-primary {
+    font-size: 16px;
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  /* Explanation Screen */
+  .explanation-main {
+    padding: 20px 12px 120px;
+  }
+
+  .explanation-icon {
+    font-size: 60px;
+  }
+
+  .explanation-title {
+    font-size: 22px;
+  }
+
+  .explanation-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .explanation-content {
+    font-size: 15px;
+  }
+
+  .explanation-content h2 {
+    font-size: 18px;
+  }
+
+  .explanation-content h3 {
+    font-size: 16px;
+  }
+
+  .explanation-content pre {
+    font-size: 12px;
+    padding: 12px;
+  }
+
+  .explanation-content ul {
+    padding-right: 20px;
+  }
+
+  .explanation-content ul li {
+    font-size: 14px;
+  }
+
+  .explanation-tip {
+    padding: 12px 14px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  /* Shop */
+  .shop-main {
+    padding: 20px 12px 80px;
+  }
+
+  .shop-header {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .shop-stat {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .shop-stat .stat-icon {
+    font-size: 24px;
+  }
+
+  .shop-stat-value {
+    font-size: 24px;
+  }
+
+  .shop-stat-label {
+    font-size: 12px;
+  }
+
+  .shop-timer-info {
+    padding: 12px;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .timer-value {
+    font-size: 16px;
+  }
+
+  .shop-items {
+    gap: 12px;
+  }
+
+  .shop-item {
+    padding: 14px;
+    gap: 12px;
+    border-radius: 14px;
+  }
+
+  .shop-item-icon {
+    font-size: 32px;
+  }
+
+  .shop-item-info h3 {
+    font-size: 15px;
+  }
+
+  .shop-item-info p {
+    font-size: 12px;
+  }
+
+  .shop-buy-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  /* Achievements */
+  .achievements-main {
+    padding: 16px 12px 80px;
+  }
+
+  .achievements-counter {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+
+  .achievements-list {
+    gap: 10px;
+  }
+
+  .achievement-card {
+    padding: 14px;
+    gap: 12px;
+    border-radius: 14px;
+  }
+
+  .achievement-icon {
+    font-size: 32px;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+
+  .achievement-info h3 {
+    font-size: 15px;
+  }
+
+  .achievement-info p {
+    font-size: 12px;
+  }
+
+  /* Leaderboard */
+  .leaderboard-item {
+    padding: 10px 14px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+
+  .leaderboard-rank {
+    font-size: 16px;
+    min-width: 40px;
+  }
+
+  .leaderboard-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .leaderboard-name {
+    font-size: 14px;
+  }
+
+  .leaderboard-xp {
+    font-size: 13px;
+  }
+
+  /* Complete Screen */
+  .complete-content {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .confetti {
+    font-size: 56px;
+  }
+
+  .complete-content h1 {
+    font-size: 26px;
+  }
+
+  .complete-content > p {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .complete-stats {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .complete-stat {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .complete-stat-value {
+    font-size: 24px;
+  }
+
+  .complete-stat-label {
+    font-size: 12px;
+  }
+
+  /* Modal */
+  .modal-content {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .modal-content h2 {
+    font-size: 20px;
+  }
+
+  .project-feedback .feedback-item {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .project-score {
+    font-size: 16px;
+    margin: 16px 0;
+  }
+
+  .score-value {
+    font-size: 24px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-secondary {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Project Screen */
+  .project-main {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .project-sidebar {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .project-sidebar h3 {
+    font-size: 16px;
+  }
+
+  .project-sidebar h4 {
+    font-size: 14px;
+    margin: 14px 0 8px;
+  }
+
+  .project-desc {
+    font-size: 13px;
+  }
+
+  .requirements-list li {
+    padding: 8px 10px;
+    font-size: 12px;
+    border-right-width: 3px;
+  }
+
+  .editor-toolbar {
+    gap: 8px;
+  }
+
+  .btn-run, .btn-submit {
+    flex: 1;
+    padding: 10px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .monaco-editor {
+    height: 280px;
+    border-radius: 10px;
+  }
+
+  .output-header {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .output-content {
+    padding: 12px;
+    font-size: 12px;
+    min-height: 80px;
+    max-height: 150px;
+  }
+
+  /* Toast */
+  .toast {
+    padding: 10px 16px;
+    font-size: 13px;
+    bottom: 20px;
+    max-width: 92%;
+  }
+
+  /* Theme Menu */
+  .theme-menu {
+    min-width: 120px;
+    padding: 6px;
+    top: 40px;
+  }
+
+  .theme-option {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .theme-color-preview {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Auth */
+  #google-login-btn {
+    font-size: 14px !important;
+    padding: 12px 16px !important;
+  }
+
+  #user-name {
+    font-size: 16px !important;
+  }
+
+  #logout-btn {
+    font-size: 14px !important;
+    padding: 10px 14px !important;
+  }
+}
+
+/* ============ Small Tablets & Large Phones (481px - 768px) ============ */
+@media (min-width: 481px) and (max-width: 768px) {
+  .home-main {
+    padding: 24px 20px 90px;
+  }
+
+  .app-title {
+    font-size: 36px;
+  }
 
   .lesson-node {
-    width: 65px;
-    height: 65px;
+    width: 68px;
+    height: 68px;
     font-size: 22px;
   }
 
@@ -1972,18 +2479,221 @@ button {
     font-size: 30px;
   }
 
+  .question-text {
+    font-size: 22px;
+  }
+
+  .project-main {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .monaco-editor {
+    height: 350px;
+  }
+
   .header-controls {
-    left: 10px;
-    gap: 4px;
+    left: 12px;
+  }
+}
+
+/* ============ Tablets (769px - 1024px) ============ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .home-main {
+    max-width: 800px;
+    padding: 30px 24px 100px;
+  }
+
+  .project-main {
+    grid-template-columns: 300px 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .project-sidebar {
+    padding: 20px;
+  }
+
+  .monaco-editor {
+    height: 380px;
+  }
+
+  .lesson-main {
+    max-width: 750px;
+  }
+
+  .explanation-main {
+    max-width: 750px;
+  }
+
+  .shop-main {
+    max-width: 750px;
+  }
+
+  .achievements-main {
+    max-width: 750px;
+  }
+}
+
+/* ============ Large Desktops (1440px+) ============ */
+@media (min-width: 1440px) {
+  .home-main {
+    max-width: 900px;
+    padding: 40px 30px 120px;
+  }
+
+  .lesson-main {
+    max-width: 850px;
+    padding: 40px 30px 220px;
+  }
+
+  .explanation-main {
+    max-width: 850px;
+    padding: 40px 30px 180px;
+  }
+
+  .shop-main {
+    max-width: 850px;
+    padding: 40px 30px 120px;
+  }
+
+  .achievements-main {
+    max-width: 850px;
+    padding: 30px 30px 120px;
+  }
+
+  .project-main {
+    max-width: 1600px;
+    grid-template-columns: 400px 1fr;
+  }
+
+  .monaco-editor {
+    height: 500px;
+  }
+}
+
+/* ============ Landscape Phones ============ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .app-header {
+    padding: 6px 10px;
+  }
+
+  .header-stats {
+    gap: 10px;
+  }
+
+  .stat {
+    font-size: 14px;
   }
 
   .control-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
   }
 
-  .explanation-icon { font-size: 60px; }
-  .explanation-title { font-size: 22px; }
-  .explanation-card { padding: 20px; }
+  .home-main {
+    padding: 16px 20px 60px;
+  }
+
+  .app-title {
+    font-size: 26px;
+  }
+
+  .app-subtitle {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .lesson-node {
+    width: 55px;
+    height: 55px;
+    font-size: 18px;
+  }
+
+  .lesson-node.project {
+    width: 70px;
+    height: 70px;
+    font-size: 24px;
+  }
+
+  .lesson-main {
+    padding: 12px 16px 140px;
+  }
+
+  .question-text {
+    font-size: 18px;
+  }
+
+  .answer-btn {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .lesson-footer {
+    padding: 10px 12px;
+  }
+
+  .btn-primary {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* ============ Orientation Support ============ */
+@media (orientation: portrait) {
+  .lesson-node:not(.project) {
+    min-width: 55px;
+    min-height: 55px;
+  }
+}
+
+/* ============ Touch Devices ============ */
+@media (hover: none) {
+  .lesson-node:not(.locked):hover {
+    transform: none;
+  }
+
+  .btn-primary:not(:disabled):hover {
+    transform: none;
+  }
+
+  .answer-btn:hover {
+    background: var(--white);
+  }
+
+  .stat-btn:hover {
+    background: transparent;
+  }
+
+  .control-btn:hover {
+    transform: none;
+  }
+}
+
+/* ============ High DPI Displays (Retina) ============ */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .lesson-node {
+    border-bottom-width: 4px;
+  }
+
+  .lesson-node:hover:not(.locked) {
+    border-bottom-width: 6px;
+  }
+}
+
+/* ============ Safe Area for Notched Devices (iPhone X+) ============ */
+@supports (padding: max(0px)) {
+  .app-header {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+
+  .lesson-footer {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+
+  .home-main {
+    padding-bottom: max(100px, calc(80px + env(safe-area-inset-bottom)));
+  }
 }
