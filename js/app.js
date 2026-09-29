@@ -22,7 +22,7 @@ const app = {
     try {
       console.log('📚 Loading units from JSON...');
       const units = [];
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= 20; i++) {
         const response = await fetch('data/unit' + i + '.json');
         if (!response.ok) continue;
         const unit = await response.json();
@@ -37,7 +37,7 @@ const app = {
     }
   },
 
-   async init() {
+  async init() {
     console.log('🚀 PyLingo starting...');
     await this.loadUnits();
 
@@ -47,9 +47,7 @@ const app = {
       return;
     }
 
-    // ✅ حدّث الـ Streak
     storage.updateStreak();
-
     this.renderHome();
     this.updateHeaderStats();
     authModule.init();
@@ -122,13 +120,14 @@ const app = {
 
     this.state.units.forEach((unit, unitIndex) => {
       const prevUnit = unitIndex > 0 ? this.state.units[unitIndex - 1] : null;
-      const isUnitUnlocked = !prevUnit || user.completedProjects.includes(prevUnit.project.id);
+      const prevProjectDone = !prevUnit || !prevUnit.project || user.completedProjects.includes(prevUnit.project.id);
+      const isUnitUnlocked = prevProjectDone;
 
       const unitEl = document.createElement('div');
       unitEl.className = 'unit';
 
       const allLessonsDone = unit.lessons.every(l => user.completedLessons.includes(l.id));
-      const projectDone = user.completedProjects.includes(unit.project.id);
+      const projectDone = unit.project ? user.completedProjects.includes(unit.project.id) : true;
 
       unitEl.innerHTML =
         '<div class="unit-header">' +
@@ -164,20 +163,23 @@ const app = {
         lessonsContainer.appendChild(node);
       });
 
-      const projectUnlocked = isUnitUnlocked && allLessonsDone;
-      const projectNode = document.createElement('div');
-      projectNode.className = 'lesson-node project';
-      if (projectDone) projectNode.classList.add('completed');
-      if (!projectUnlocked) projectNode.classList.add('locked');
+      // ✅ افحص لو فيه مشروع
+      if (unit.project) {
+        const projectUnlocked = isUnitUnlocked && allLessonsDone;
+        const projectNode = document.createElement('div');
+        projectNode.className = 'lesson-node project';
+        if (projectDone) projectNode.classList.add('completed');
+        if (!projectUnlocked) projectNode.classList.add('locked');
 
-      projectNode.textContent = projectDone ? '✓' : '🏆';
-      projectNode.title = unit.project.title;
+        projectNode.textContent = projectDone ? '✓' : '🏆';
+        projectNode.title = unit.project.title;
 
-      if (projectUnlocked && !projectDone) {
-        projectNode.onclick = () => this.startProject(unit.id);
+        if (projectUnlocked && !projectDone) {
+          projectNode.onclick = () => this.startProject(unit.id);
+        }
+
+        lessonsContainer.appendChild(projectNode);
       }
-
-      lessonsContainer.appendChild(projectNode);
     });
   },
 
@@ -371,6 +373,10 @@ const app = {
 
   async startProject(unitId) {
     const unit = this.state.units.find(u => u.id === unitId);
+    if (!unit.project) {
+      alert('الوحدة دي مفيش فيها مشروع');
+      return;
+    }
     const project = unit.project;
     this.state.currentProject = project;
     this.state.currentUnitId = unitId;

@@ -1,0 +1,279 @@
+{
+  "id": 11,
+  "title": "مقدمة Streamlit",
+  "description": "تعلم بناء واجهات ويب بـ Python باستخدام Streamlit",
+  "icon": "🌐",
+  "color": "#FF4B4B",
+  "lessons": [
+    {
+      "id": 46,
+      "title": "Streamlit إيه؟",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 4601,
+          "type": "multiple_choice",
+          "question": "إيه هو Streamlit؟",
+          "options": [
+            "مكتبة Python لبناء واجهات ويب",
+            "لغة برمجة جديدة",
+            "متصفح إنترنت",
+            "لعبة فيديو"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit مكتبة Python بتخليك تبني واجهات ويب بسهولة"
+        },
+        {
+          "id": 4602,
+          "type": "fill_blank",
+          "question": "اكتب الأمر لاستيراد مكتبة Streamlit",
+          "code": "___ streamlit as st",
+          "bank": ["import", "from", "include", "get"],
+          "correctAnswer": "import",
+          "explanation": "import streamlit as st هي الطريقة لاستيراد Streamlit"
+        },
+        {
+          "id": 4603,
+          "type": "multiple_choice",
+          "question": "إيه اختصار streamlit الشائع؟",
+          "options": ["st", "sl", "stream", "lit"],
+          "correctAnswer": 0,
+          "explanation": "بنختصرها لـ st للكتابة السريعة"
+        },
+        {
+          "id": 4604,
+          "type": "predict_output",
+          "question": "إيه اللي هيعمله الكود ده؟",
+          "code": "import streamlit as st\nst.write(\"Hello\")",
+          "correctAnswer": "مش هيطبع حاجة، ده كود Streamlit بيتشغل في صفحة ويب",
+          "explanation": "Streamlit مش بيتشغل في terminal، بيتشغل في واجهة ويب"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "title": "st.title - العناوين",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 4701,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.title()؟",
+          "options": [
+            "بتعرض عنوان كبير في الصفحة",
+            "بتطبع في terminal",
+            "بتعمل ملف",
+            "بتقرأ من المستخدم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.title() بتعرض عنوان كبير في أعلى الصفحة"
+        },
+        {
+          "id": 4702,
+          "type": "fill_blank",
+          "question": "اعرض عنوان اسمه 'أهلاً بيك'",
+          "code": "st.___(\"أهلاً بيك\")",
+          "bank": ["title", "text", "write", "header"],
+          "correctAnswer": "title",
+          "explanation": "st.title() للعنوان الرئيسي"
+        },
+        {
+          "id": 4703,
+          "type": "multiple_choice",
+          "question": "إيه الفرق بين st.title و st.header؟",
+          "options": [
+            "title أكبر، header أصغر",
+            "الاتنين نفس الحاجة",
+            "title للنصوص، header للأرقام",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.title للعنوان الرئيسي، st.header للعناوين الفرعية"
+        },
+        {
+          "id": 4704,
+          "type": "fill_blank",
+          "question": "اعرض عنوان فرعي اسمه 'التفاصيل'",
+          "code": "st.___(\"التفاصيل\")",
+          "bank": ["header", "title", "text", "write"],
+          "correctAnswer": "header",
+          "explanation": "st.header() للعناوين الفرعية"
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "title": "st.write - النصوص",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 4801,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.write()؟",
+          "options": [
+            "بتعرض نص أو قيمة في الصفحة",
+            "بتعمل ملف",
+            "بتقرأ من المستخدم",
+            "بتسجل خروج"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.write() بتعرض أي حاجة في الصفحة"
+        },
+        {
+          "id": 4802,
+          "type": "fill_blank",
+          "question": "اعرض النص 'مرحباً'",
+          "code": "st.___(\"مرحباً\")",
+          "bank": ["write", "print", "text", "show"],
+          "correctAnswer": "write",
+          "explanation": "st.write() للنصوص العادية"
+        },
+        {
+          "id": 4803,
+          "type": "multiple_choice",
+          "question": "إيه الفرق بين print() و st.write()؟",
+          "options": [
+            "print للـ terminal، st.write للصفحة",
+            "الاتنين نفس الحاجة",
+            "print أسرع",
+            "st.write أقدم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "print بتشتغل في terminal، st.write في Streamlit"
+        },
+        {
+          "id": 4804,
+          "type": "fill_blank",
+          "question": "اعرض نتيجة 5 + 3",
+          "code": "st.___(5 + 3)",
+          "bank": ["write", "print", "show", "text"],
+          "correctAnswer": "write",
+          "explanation": "st.write() بتعرض الأرقام كمان"
+        },
+        {
+          "id": 4805,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم st.write() مع الأرقام؟",
+          "options": [
+            "أيوة، بتعرض أي نوع",
+            "لأ، بس نصوص",
+            "لأ، بس صور",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.write() بتشتغل مع النصوص، الأرقام، القوائم، إلخ"
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "title": "أول تطبيق Streamlit",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 4901,
+          "type": "multiple_choice",
+          "question": "إزاي نشغل تطبيق Streamlit؟",
+          "options": [
+            "streamlit run app.py",
+            "python app.py",
+            "st start",
+            "run streamlit"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بنستخدم الأمر streamlit run في الـ terminal"
+        },
+        {
+          "id": 4902,
+          "type": "fill_blank",
+          "question": "اعرض عنوان 'تطبيقي الأول'",
+          "code": "st.___(\"تطبيقي الأول\")",
+          "bank": ["title", "header", "write", "text"],
+          "correctAnswer": "title",
+          "explanation": "st.title() للعنوان الرئيسي"
+        },
+        {
+          "id": 4903,
+          "type": "multiple_choice",
+          "question": "إيه اسم الملف اللي بيتشغل بـ streamlit؟",
+          "options": [
+            "أي ملف .py",
+            "ملف .st",
+            "ملف .streamlit",
+            "ملف .html"
+          ],
+          "correctAnswer": 0,
+          "explanation": "أي ملف Python عادي"
+        },
+        {
+          "id": 4904,
+          "type": "fill_blank",
+          "question": "اكتب سطر يعرض 'أهلاً'",
+          "code": "st.___(\"أهلاً\")",
+          "bank": ["write", "print", "title", "header"],
+          "correctAnswer": "write",
+          "explanation": "st.write() للنصوص العادية"
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "title": "شرح: أول تطبيق كامل",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 5001,
+          "type": "multiple_choice",
+          "question": "إيه اللي بيعمله السطر ده: st.title(\"مرحباً\")",
+          "options": [
+            "يعرض عنوان كبير",
+            "يطبع في terminal",
+            "يعمل متغير",
+            "يقرأ من المستخدم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.title() بتعرض عنوان كبير في الصفحة"
+        },
+        {
+          "id": 5002,
+          "type": "multiple_choice",
+          "question": "إيه أفضل ترتيب لعناصر الصفحة؟",
+          "options": [
+            "title → header → write",
+            "write → title → header",
+            "header → title → write",
+            "أي ترتيب"
+          ],
+          "correctAnswer": 0,
+          "explanation": "العنوان الرئيسي الأول، بعدين الفرعي، بعدين النصوص"
+        },
+        {
+          "id": 5003,
+          "type": "multiple_choice",
+          "question": "لو عايز تعرض 3 معلومات في صفحة، إيه الأفضل؟",
+          "options": [
+            "3 st.write() منفصلين",
+            "st.write() واحد بكل المعلومات",
+            "استخدم st.title() بس",
+            "مش ينفع"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بنستخدم st.write() لكل معلومة عشان تبان منفصلة"
+        },
+        {
+          "id": 5004,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم متغيرات في Streamlit؟",
+          "options": [
+            "أيوة، زي Python العادي",
+            "لأ، ممنوع",
+            "بس نصوص",
+            "بس أرقام"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit بيستخدم Python كامل، فالمتغيرات شغالة عادي"
+        }
+      ]
+    }
+  ]
+}
