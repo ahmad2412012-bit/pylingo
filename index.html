@@ -5,36 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PyLingo - تعلم Python بطريقة ممتعة</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   
-  <!-- Monaco Editor CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/editor/editor.main.css">
   
-  <!-- Firebase SDK (compat mode - مش محتاج build tools) -->
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
   
-  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div id="animated-bg">
+    <canvas id="particles-canvas"></canvas>
+    <div class="gradient-overlay"></div>
+  </div>
 
   <!-- ============= الشاشة الرئيسية ============= -->
   <div id="home-screen" class="screen active">
     
     <header class="app-header">
+      <div class="header-controls">
+        <div style="position: relative;">
+          <button id="theme-toggle" class="control-btn" title="الثيم">🎨</button>
+          <div id="theme-menu" class="theme-menu">
+            <button class="theme-option" data-theme-color="green" title="أخضر">
+              <span class="theme-color-preview" style="background: #58CC02;"></span>
+              أخضر
+            </button>
+            <button class="theme-option" data-theme-color="purple" title="بنفسجي">
+              <span class="theme-color-preview" style="background: #CE82FF;"></span>
+              بنفسجي
+            </button>
+            <button class="theme-option" data-theme-color="blue" title="أزرق">
+              <span class="theme-color-preview" style="background: #1CB0F6;"></span>
+              أزرق
+            </button>
+            <button class="theme-option" data-theme-color="pink" title="وردي">
+              <span class="theme-color-preview" style="background: #FF6B9D;"></span>
+              وردي
+            </button>
+          </div>
+        </div>
+        <button id="dark-mode-toggle" class="control-btn" title="الوضع الليلي">🌙</button>
+        <button id="sound-toggle" class="control-btn" title="الصوت">🔊</button>
+      </div>
+      
       <div class="header-stats">
         <div class="stat">
           <span class="stat-icon">🔥</span>
           <span class="stat-value" id="streak-value">0</span>
         </div>
-        <div class="stat">
+        <button class="stat stat-btn" onclick="app.openLeaderboard()" title="الترتيب">
+          <span class="stat-icon">👑</span>
+        </button>
+        <button class="stat stat-btn" onclick="app.openAchievements()" title="الإنجازات">
+          <span class="stat-icon">🏆</span>
+        </button>
+        <button class="stat stat-btn" onclick="app.openShop()" title="المتجر">
           <span class="stat-icon">💎</span>
           <span class="stat-value" id="gems-value">0</span>
-        </div>
+        </button>
         <div class="stat">
           <span class="stat-icon">❤️</span>
           <span class="stat-value" id="hearts-value">5</span>
@@ -50,23 +83,19 @@
       <h1 class="app-title">🐍 PyLingo</h1>
       <p class="app-subtitle">تعلم Python بطريقة ممتعة</p>
       
-      <!-- ============= Google Login Section ============= -->
       <div id="auth-section" style="text-align: center; margin: 30px 0;">
-        
-        <!-- زر تسجيل الدخول -->
         <div id="login-section">
           <button id="google-login-btn" class="btn-primary" style="max-width: 320px; margin: 0 auto;">
             🔐 سجل دخول بحساب Google
           </button>
         </div>
         
-        <!-- معلومات المستخدم (مخفية في الأول) -->
         <div id="user-info" style="display: none;">
           <img id="user-avatar" 
                style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid #58CC02;" 
                alt="User Avatar" />
-          <p id="user-name" style="font-weight: 700; margin: 10px 0 5px; font-size: 18px; color: #131F24;"></p>
-          <p id="user-email" style="color: #777; font-size: 14px; margin-bottom: 15px;"></p>
+          <p id="user-name" style="font-weight: 700; margin: 10px 0 5px; font-size: 18px; color: var(--dark);"></p>
+          <p id="user-email" style="color: var(--gray-500); font-size: 14px; margin-bottom: 15px;"></p>
           <button id="logout-btn" class="btn-secondary" 
                   style="max-width: 200px; margin: 0 auto; display: block;">
             🚪 تسجيل خروج
@@ -74,17 +103,12 @@
         </div>
       </div>
 
-      <!-- ============= Units Container ============= -->
-      <div id="units-container" class="units-container">
-        <!-- الـ Units هتتحمل هنا -->
-      </div>
+      <div id="units-container" class="units-container"></div>
     </main>
-
   </div>
 
   <!-- ============= شاشة الدرس ============= -->
   <div id="lesson-screen" class="screen">
-    
     <header class="lesson-header">
       <button class="icon-btn" onclick="app.closeLesson()">✕</button>
       <div class="progress-bar-container">
@@ -101,22 +125,17 @@
         <h2 id="question-text" class="question-text"></h2>
         <div id="question-extra" class="question-extra"></div>
       </div>
-
-      <div id="answers-container" class="answers-container">
-        <!-- الأجوبة هتتحمل هنا -->
-      </div>
+      <div id="answers-container" class="answers-container"></div>
     </main>
 
     <footer class="lesson-footer">
       <div id="feedback-area" class="feedback-area"></div>
       <button id="check-btn" class="btn-primary" disabled>تحقق</button>
     </footer>
-
   </div>
 
   <!-- ============= شاشة المشروع ============= -->
   <div id="project-screen" class="screen">
-    
     <header class="lesson-header">
       <button class="icon-btn" onclick="app.closeProject()">✕</button>
       <h2 id="project-title" class="project-title"></h2>
@@ -143,7 +162,94 @@
         </div>
       </div>
     </main>
+  </div>
 
+  <!-- ============= شاشة المتجر ============= -->
+  <div id="shop-screen" class="screen">
+    <header class="lesson-header">
+      <button class="icon-btn" onclick="app.closeShop()">✕</button>
+      <h2 class="project-title">🛒 المتجر</h2>
+      <div></div>
+    </header>
+
+    <main class="shop-main">
+      <div class="shop-header">
+        <div class="shop-stat">
+          <span class="stat-icon">💎</span>
+          <span id="shop-gems" class="shop-stat-value">0</span>
+          <span class="shop-stat-label">جوهرة</span>
+        </div>
+        <div class="shop-stat">
+          <span class="stat-icon">❤️</span>
+          <span id="shop-hearts" class="shop-stat-value">5</span>
+          <span class="shop-stat-label">قلب</span>
+        </div>
+      </div>
+
+      <div class="shop-timer-info">
+        <span>⏰ القلب الجاي في:</span>
+        <span id="heart-timer" class="timer-value">--:--</span>
+      </div>
+
+      <div class="shop-items">
+        <div class="shop-item">
+          <div class="shop-item-icon">❤️</div>
+          <div class="shop-item-info">
+            <h3>قلب واحد</h3>
+            <p>يرجعلك قلب فوراً</p>
+          </div>
+          <button class="shop-buy-btn" onclick="app.buyHearts()">💎 50</button>
+        </div>
+
+        <div class="shop-item disabled">
+          <div class="shop-item-icon">❄️</div>
+          <div class="shop-item-info">
+            <h3>تجميد السلسلة</h3>
+            <p>قريباً...</p>
+          </div>
+          <button class="shop-buy-btn" disabled>💎 200</button>
+        </div>
+
+        <div class="shop-item disabled">
+          <div class="shop-item-icon">⚡</div>
+          <div class="shop-item-info">
+            <h3>XP مضاعف</h3>
+            <p>قريباً...</p>
+          </div>
+          <button class="shop-buy-btn" disabled>💎 100</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============= شاشة الإنجازات ============= -->
+  <div id="achievements-screen" class="screen">
+    <header class="lesson-header">
+      <button class="icon-btn" onclick="app.closeAchievements()">✕</button>
+      <h2 class="project-title">🏆 الإنجازات</h2>
+      <div class="achievements-counter">
+        <span id="achievements-count">0 / 10</span>
+      </div>
+    </header>
+
+    <main class="achievements-main">
+      <div id="achievements-list" class="achievements-list"></div>
+    </main>
+  </div>
+
+  <!-- ============= شاشة الترتيب ============= -->
+  <div id="leaderboard-screen" class="screen">
+    <header class="lesson-header">
+      <button class="icon-btn" onclick="app.closeLeaderboard()">✕</button>
+      <h2 class="project-title">👑 الترتيب</h2>
+      <div class="achievements-counter">
+        ترتيبك: <span id="my-rank">--</span>
+      </div>
+    </header>
+
+    <main class="achievements-main">
+      <div id="leaderboard-list" class="leaderboard-list"></div>
+    </main>
   </div>
 
   <!-- ============= شاشة الاحتفال ============= -->
@@ -185,18 +291,92 @@
     </div>
   </div>
 
-  <!-- ============= Pyodide ============= -->
+  <div id="toast" class="toast"></div>
+
   <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
-  
-  <!-- Monaco Editor -->
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
 
-  <!-- App Scripts -->
-  <script src="js/firebase-config.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/pyodide-runner.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const darkToggle = document.getElementById('dark-mode-toggle');
+      const soundToggle = document.getElementById('sound-toggle');
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeMenu = document.getElementById('theme-menu');
+      const themeOptions = document.querySelectorAll('.theme-option');
+
+      const savedTheme = localStorage.getItem('pylingo_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      if (savedTheme === 'dark') darkToggle.textContent = '☀️';
+
+      darkToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const newTheme = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('pylingo_theme', newTheme);
+        darkToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        if (window.sounds) sounds.playClick();
+      });
+
+      let soundOn = true;
+      try {
+        const s = JSON.parse(localStorage.getItem('pylingo_settings') || '{}');
+        soundOn = s.sound !== false;
+      } catch {}
+      soundToggle.textContent = soundOn ? '🔊' : '🔇';
+
+      soundToggle.addEventListener('click', () => {
+        const current = sounds.enabled;
+        sounds.setEnabled(!current);
+        soundToggle.textContent = !current ? '🔊' : '🔇';
+        if (!current) sounds.playClick();
+      });
+
+      const savedThemeColor = localStorage.getItem('pylingo_theme_color') || 'green';
+      document.documentElement.setAttribute('data-theme-color', savedThemeColor);
+
+      themeOptions.forEach(opt => {
+        if (opt.dataset.themeColor === savedThemeColor) {
+          opt.classList.add('active');
+        }
+      });
+
+      themeToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        themeMenu.classList.toggle('show');
+        if (window.sounds) sounds.playClick();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!themeMenu.contains(e.target) && e.target !== themeToggle) {
+          themeMenu.classList.remove('show');
+        }
+      });
+
+      themeOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+          const color = opt.dataset.themeColor;
+          document.documentElement.setAttribute('data-theme-color', color);
+          localStorage.setItem('pylingo_theme_color', color);
+          
+          themeOptions.forEach(o => o.classList.remove('active'));
+          opt.classList.add('active');
+          themeMenu.classList.remove('show');
+          
+          if (window.sounds) sounds.playCorrect();
+        });
+      });
+    });
+  </script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/pyodide-runner.js"></script>
+<script src="js/sounds.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/achievements.js"></script>
+<script src="js/firestore.js"></script>      
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>

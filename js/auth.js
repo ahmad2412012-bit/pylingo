@@ -1,11 +1,9 @@
 // ============ Firebase Auth Module ============
-// مسؤول عن تسجيل الدخول والخروج بحساب Google
 
 const authModule = {
   auth: null,
   provider: null,
 
-  // ============ Init ============
   init() {
     if (!window.FIREBASE_CONFIG) {
       console.error('❌ Firebase config مش موجود');
@@ -18,7 +16,6 @@ const authModule = {
     }
 
     try {
-      // Initialize Firebase (لو مش initialized قبل كده)
       if (!firebase.apps.length) {
         firebase.initializeApp(window.FIREBASE_CONFIG);
       }
@@ -26,19 +23,20 @@ const authModule = {
       this.auth = firebase.auth();
       this.provider = new firebase.auth.GoogleAuthProvider();
 
-      // Setup UI
       this.setupUI();
-      
-      // Listen to auth state
       this.auth.onAuthStateChanged((user) => this.handleAuthState(user));
 
       console.log('✅ Firebase Auth initialized');
+
+      // ✅ شغل Firestore بعد Firebase مباشرة
+      if (typeof firestoreModule !== 'undefined') {
+        setTimeout(() => firestoreModule.init(), 200);
+      }
     } catch (error) {
       console.error('❌ Firebase init error:', error);
     }
   },
 
-  // ============ Setup UI ============
   setupUI() {
     const loginBtn = document.getElementById('google-login-btn');
     const logoutBtn = document.getElementById('logout-btn');
@@ -51,7 +49,6 @@ const authModule = {
     }
   },
 
-  // ============ Login ============
   async login() {
     try {
       console.log('🔐 Logging in...');
@@ -61,7 +58,6 @@ const authModule = {
       
       console.log('✅ Logged in:', user.displayName);
       
-      // احفظ بيانات المستخدم في LocalStorage
       storage.updateUser({
         uid: user.uid,
         displayName: user.displayName,
@@ -69,10 +65,16 @@ const authModule = {
         photoURL: user.photoURL
       });
 
+      // ✅ مزامنة مع Firestore
+      setTimeout(() => {
+        if (typeof firestoreModule !== 'undefined' && firestoreModule.db) {
+          firestoreModule.syncFromFirestore();
+        }
+      }, 500);
+
     } catch (error) {
       console.error('❌ Login error:', error);
       
-      // رسائل خطأ واضحة
       let message = 'فشل تسجيل الدخول';
       if (error.code === 'auth/popup-closed-by-user') {
         message = 'قفلت نافذة تسجيل الدخول';
@@ -88,13 +90,11 @@ const authModule = {
     }
   },
 
-  // ============ Logout ============
   async logout() {
     try {
       await this.auth.signOut();
       console.log('👋 Logged out');
       
-      // امسح بيانات المستخدم من LocalStorage (بس سيب التقدم)
       const user = storage.getUser();
       delete user.uid;
       delete user.displayName;
@@ -107,7 +107,6 @@ const authModule = {
     }
   },
 
-  // ============ Handle Auth State ============
   handleAuthState(user) {
     const loginSection = document.getElementById('login-section');
     const userInfo = document.getElementById('user-info');
@@ -116,7 +115,6 @@ const authModule = {
     const userEmail = document.getElementById('user-email');
 
     if (user) {
-      // مسجل دخول
       if (loginSection) loginSection.style.display = 'none';
       if (userInfo) userInfo.style.display = 'block';
       if (userAvatar) userAvatar.src = user.photoURL || '';
@@ -125,7 +123,6 @@ const authModule = {
       
       console.log('👤 User logged in:', user.displayName);
     } else {
-      // مش مسجل دخول
       if (loginSection) loginSection.style.display = 'block';
       if (userInfo) userInfo.style.display = 'none';
       
