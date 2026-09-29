@@ -9,17 +9,14 @@
       "id": 61,
       "title": "st.slider - شريط التمرير",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.slider() - شريط التمرير</h2><p>بتعمل <strong>شريط تمرير</strong> لاختيار رقم من مدى معين.</p><h3>📝 مثال:</h3><pre>age = st.slider(\"عمرك؟\", 0, 100, 25)\nst.write(f\"عمرك {age} سنة\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>المعاملات: <code>(label, min, max, default)</code></li><li>بترجع الرقم المختار</li><li>ممكن يعمل شريط لاختيار مدى (range)</li></ul><h3>💡 الفرق عن number_input:</h3><ul><li><code>slider</code> — بالسحب</li><li><code>number_input</code> — بالكتابة</li></ul>",
+      "lessonTip": "slider أحلى للتقييمات والمستويات!",
       "exercises": [
         {
           "id": 6101,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.slider()؟",
-          "options": [
-            "بتعمل شريط تمرير لاختيار رقم",
-            "بتعمل نص",
-            "بتعمل زر",
-            "بتعمل صورة"
-          ],
+          "options": ["بتعمل شريط تمرير لاختيار رقم", "بتعمل نص", "بتعمل زر", "بتعمل صورة"],
           "correctAnswer": 0,
           "explanation": "st.slider() للمستويات والأرقام"
         },
@@ -36,12 +33,7 @@
           "id": 6103,
           "type": "multiple_choice",
           "question": "st.slider() بترجع إيه؟",
-          "options": [
-            "الرقم المختار",
-            "نص",
-            "صورة",
-            "قائمة"
-          ],
+          "options": ["الرقم المختار", "نص", "صورة", "قائمة"],
           "correctAnswer": 0,
           "explanation": "بترجع الرقم اللي المستخدم اختاره"
         },
@@ -49,12 +41,7 @@
           "id": 6104,
           "type": "multiple_choice",
           "question": "ينفع نحدد قيمة ابتدائية للـ slider؟",
-          "options": [
-            "أيوة، بتمرير 3 values",
-            "لأ",
-            "بس للـ text",
-            "مش عارف"
-          ],
+          "options": ["أيوة، بتمرير 3 values", "لأ", "بس للـ text", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "st.slider(label, min, max, default)"
         }
@@ -64,17 +51,14 @@
       "id": 62,
       "title": "st.progress - شريط التقدم",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.progress() - شريط التقدم</h2><p>بتعرض <strong>شريط تقدم</strong> من 0 لـ 100.</p><h3>📝 مثال:</h3><pre>progress = st.progress(0)\nfor i in range(100):\n    progress.progress(i + 1)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بتاخد رقم من 0 لـ 100</li><li>0 = فاضي، 100 = كامل</li><li>مفيد مع التحميل والعمليات الطويلة</li></ul><h3>💡 استخدام شائع:</h3><pre>import time\nfor i in range(100):\n    time.sleep(0.1)\n    progress.progress(i + 1)</pre>",
+      "lessonTip": "progress بيخلي المستخدم يعرف إن حاجة بتحصل!",
       "exercises": [
         {
           "id": 6201,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.progress()؟",
-          "options": [
-            "بتعرض شريط تقدم",
-            "بتعمل زر",
-            "بتعمل نص",
-            "بتعمل صورة"
-          ],
+          "options": ["بتعرض شريط تقدم", "بتعمل زر", "بتعمل نص", "بتعمل صورة"],
           "correctAnswer": 0,
           "explanation": "st.progress() لشريط التقدم (0 لـ 100)"
         },
@@ -91,12 +75,7 @@
           "id": 6203,
           "type": "multiple_choice",
           "question": "st.progress() بتاخد قيم من كام لكام؟",
-          "options": [
-            "0 لـ 100",
-            "0 لـ 1",
-            "1 لـ 10",
-            "أي رقم"
-          ],
+          "options": ["0 لـ 100", "0 لـ 1", "1 لـ 10", "أي رقم"],
           "correctAnswer": 0,
           "explanation": "من 0 (فاضي) لـ 100 (كامل)"
         }
@@ -106,17 +85,14 @@
       "id": 63,
       "title": "st.metric - الأرقام البارزة",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.metric() - الأرقام البارزة</h2><p>بتعرض <strong>رقم مهم</strong> بشكل كبير وواضح. مفيدة للوحات التحكم.</p><h3>📝 مثال:</h3><pre>st.metric(\"المبيعات\", 1500, delta=\"+10%\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>المعاملات: <code>(label, value, delta)</code></li><li><code>delta</code> بتوضح نسبة التغيير</li><li>بتعرض سهم أخضر (زيادة) أو أحمر (نقصان)</li></ul><h3>💡 استخدام:</h3><ul><li>الإحصائيات</li><li>العدادات</li><li>المؤشرات</li></ul>",
+      "lessonTip": "metric بتدي شكل احترافي للإحصائيات!",
       "exercises": [
         {
           "id": 6301,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.metric()؟",
-          "options": [
-            "بتعرض رقم بشكل بارز",
-            "بتعمل زر",
-            "بتعمل نص",
-            "بتعمل صورة"
-          ],
+          "options": ["بتعرض رقم بشكل بارز", "بتعمل زر", "بتعمل نص", "بتعمل صورة"],
           "correctAnswer": 0,
           "explanation": "st.metric() لعرض الإحصائيات بشكل جميل"
         },
@@ -133,12 +109,7 @@
           "id": 6303,
           "type": "multiple_choice",
           "question": "ينفع نضيف نسبة تغيير للـ metric؟",
-          "options": [
-            "أيوة، delta=10",
-            "لأ",
-            "بس نص",
-            "مش عارف"
-          ],
+          "options": ["أيوة، delta=10", "لأ", "بس نص", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "st.metric(label, value, delta=...)"
         }
@@ -148,17 +119,14 @@
       "id": 64,
       "title": "عمليات حسابية مع Streamlit",
       "xpReward": 25,
+      "lessonExplanation": "<h2>العمليات الحسابية في Streamlit</h2><p>Streamlit بيستخدم Python كامل، فكل العمليات شغالة.</p><h3>📝 مثال - آلة حاسبة:</h3><pre>num1 = st.number_input(\"الرقم الأول\", value=0)\nnum2 = st.number_input(\"الرقم الثاني\", value=0)\n\nif st.button(\"اجمع\"):\n    st.write(f\"النتيجة: {num1 + num2}\")</pre><h3>💡 ممكن نعمل:</h3><ul><li>آلة حاسبة كاملة</li><li>حساب المتوسط</li><li>حساب النسب</li><li>عمليات معقدة</li></ul><h3>⚠️ مهم:</h3><p>كل العمليات بتتعمل مع الـ rerun.</p>",
+      "lessonTip": "Streamlit + Python = قوة حسابية كاملة!",
       "exercises": [
         {
           "id": 6401,
           "type": "multiple_choice",
           "question": "ينفع نستخدم + - * / مع st.number_input؟",
-          "options": [
-            "أيوة، عادي زي Python",
-            "لأ",
-            "بس +",
-            "مش عارف"
-          ],
+          "options": ["أيوة، عادي زي Python", "لأ", "بس +", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "Streamlit بيستخدم Python كامل"
         },
@@ -166,12 +134,7 @@
           "id": 6402,
           "type": "multiple_choice",
           "question": "لو عايز أعمل آلة حاسبة، إيه الأفضل؟",
-          "options": [
-            "st.number_input + st.button",
-            "st.text_input بس",
-            "st.write بس",
-            "مش ينفع"
-          ],
+          "options": ["st.number_input + st.button", "st.text_input بس", "st.write بس", "مش ينفع"],
           "correctAnswer": 0,
           "explanation": "المدخلات الرقمية + زر الحساب"
         },
@@ -179,12 +142,7 @@
           "id": 6403,
           "type": "multiple_choice",
           "question": "ينفع نعرض نتيجة حساب في st.metric؟",
-          "options": [
-            "أيوة، عادي",
-            "لأ",
-            "بس نصوص",
-            "مش عارف"
-          ],
+          "options": ["أيوة، عادي", "لأ", "بس نصوص", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "st.metric() بياخد أي رقم"
         },
@@ -192,12 +150,7 @@
           "id": 6404,
           "type": "multiple_choice",
           "question": "إيه الفرق بين st.slider و st.number_input؟",
-          "options": [
-            "slider للتحريك، number_input للكتابة",
-            "الاتنين نفس الحاجة",
-            "slider أسرع",
-            "مفيش فرق"
-          ],
+          "options": ["slider للتحريك، number_input للكتابة", "الاتنين نفس الحاجة", "slider أسرع", "مفيش فرق"],
           "correctAnswer": 0,
           "explanation": "طريقة التفاعل مختلفة"
         }
@@ -207,17 +160,14 @@
       "id": 65,
       "title": "شرح: تطبيق حسابي",
       "xpReward": 25,
+      "lessonExplanation": "<h2>تطبيق حسابي كامل</h2><p>خلينا نبني آلة حاسبة كاملة بـ Streamlit:</p><h3>📝 الكود:</h3><pre>import streamlit as st\n\nst.title(\"🧮 آلة حاسبة\")\n\ncol1, col2 = st.columns(2)\n\nwith col1:\n    num1 = st.number_input(\"الرقم الأول\", value=0.0)\n\nwith col2:\n    num2 = st.number_input(\"الرقم الثاني\", value=0.0)\n\nop = st.selectbox(\"العملية\", [\"+\", \"-\", \"×\", \"÷\"])\n\nif st.button(\"احسب\", type=\"primary\"):\n    if op == \"+\":\n        result = num1 + num2\n    elif op == \"-\":\n        result = num1 - num2\n    elif op == \"×\":\n        result = num1 * num2\n    else:\n        result = num1 / num2 if num2 != 0 else \"خطأ\"\n    \n    st.metric(\"النتيجة\", result)</pre><h3>💡 مميزات التطبيق:</h3><ul><li>يستخدم columns للتخطيط</li><li>زر + selectbox للتفاعل</li><li>metric للعرض</li></ul>",
+      "lessonTip": "جرب تعمل تطبيق حسابي كامل بنفسك!",
       "exercises": [
         {
           "id": 6501,
           "type": "multiple_choice",
           "question": "إيه أحسن طريقة لآلة حاسبة في Streamlit؟",
-          "options": [
-            "أرقام + أزرار + عرض النتيجة",
-            "نصوص بس",
-            "صور",
-            "مفيش طريقة"
-          ],
+          "options": ["أرقام + أزرار + عرض النتيجة", "نصوص بس", "صور", "مفيش طريقة"],
           "correctAnswer": 0,
           "explanation": "المدخلات الرقمية + الأزرار = آلة حاسبة"
         },
@@ -225,12 +175,7 @@
           "id": 6502,
           "type": "multiple_choice",
           "question": "لو عندك 3 metrics، إيه الأفضل؟",
-          "options": [
-            "استخدم st.columns",
-            "استخدم st.write 3 مرات",
-            "استخدم صورة",
-            "مش ينفع"
-          ],
+          "options": ["استخدم st.columns", "استخدم st.write 3 مرات", "استخدم صورة", "مش ينفع"],
           "correctAnswer": 0,
           "explanation": "st.columns لتوزيع العناصر"
         },
@@ -238,12 +183,7 @@
           "id": 6503,
           "type": "multiple_choice",
           "question": "ينفع نعمل آلة حاسبة بأزرار؟",
-          "options": [
-            "أيوة، زر لكل عملية",
-            "لأ",
-            "زر واحد بس",
-            "مش عارف"
-          ],
+          "options": ["أيوة، زر لكل عملية", "لأ", "زر واحد بس", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "زر للجمع، الطرح، الضرب، القسمة"
         },
@@ -251,12 +191,7 @@
           "id": 6504,
           "type": "multiple_choice",
           "question": "إيه أحسن حاجة لعرض النتيجة النهائية؟",
-          "options": [
-            "st.metric",
-            "st.text_input",
-            "st.button",
-            "st.slider"
-          ],
+          "options": ["st.metric", "st.text_input", "st.button", "st.slider"],
           "correctAnswer": 0,
           "explanation": "st.metric() بتعرض الرقم بشكل جميل"
         }

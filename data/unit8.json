@@ -9,6 +9,8 @@
       "id": 36,
       "title": "تعريف Class",
       "xpReward": 30,
+      "lessonExplanation": "<h2>الكلاس (Class)</h2><p>الكلاس هو <strong>قالب</strong> بنعمل منه كائنات (objects). زي \"سيارة\" — كل الكلاس، وكل عربية حقيقية \"كائن\".</p><h3>📝 مثال:</h3><pre>class Dog:\n    pass\n\nd = Dog()\nprint(type(d).__name__)  # Dog</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>class</code> لتعريف الكلاس</li><li>اسم الكلاس بيبدأ بحرف كبير عادةً</li><li>الكلاس ممكن يكون فاضي بـ <code>pass</code></li><li>بنستخدم <code>()</code> لإنشاء كائن جديد</li></ul>",
+      "lessonTip": "OOP بيساعدك تنظم كودك بطريقة احترافية!",
       "exercises": [
         {
           "id": 3601,
@@ -41,6 +43,8 @@
       "id": 37,
       "title": "__init__ و self",
       "xpReward": 30,
+      "lessonExplanation": "<h2>__init__ و self</h2><p><code>__init__</code> دالة خاصة بتشتغل <strong>لما نعمل كائن جديد</strong>. <code>self</code> بيرجع للكائن نفسه.</p><h3>📝 مثال:</h3><pre>class Person:\n    def __init__(self, name):\n        self.name = name\n\np = Person(\"Ali\")\nprint(p.name)  # Ali</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>__init__</code> ليها <code>__</code> على الجنبين</li><li><code>self</code> أول معامل دايماً</li><li>بنستخدم <code>self.x</code> لتخزين البيانات في الكائن</li></ul>",
+      "lessonTip": "self بيعني \"الكائن نفسه\" — زي my في الإنجليزي!",
       "exercises": [
         {
           "id": 3701,
@@ -81,6 +85,8 @@
       "id": 38,
       "title": "Methods",
       "xpReward": 30,
+      "lessonExplanation": "<h2>الطرق (Methods)</h2><p>الـ method هي <strong>دالة جوه الكلاس</strong>.</p><h3>📝 مثال:</h3><pre>class Dog:\n    def bark(self):\n        print(\"Woof\")\n\nd = Dog()\nd.bark()  # Woof</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>كل method ليها <code>self</code></li><li>بنستدعي بـ <code>object.method()</code></li><li>ممكن تعدل بيانات الكائن بـ <code>self.x</code></li></ul><h3>💡 عداد:</h3><pre>class Counter:\n    def __init__(self):\n        self.count = 0\n    def increment(self):\n        self.count += 1</pre>",
+      "lessonTip": "Methods بتخلي الكائنات تفاعلية!",
       "exercises": [
         {
           "id": 3801,

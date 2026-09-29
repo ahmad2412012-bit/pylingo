@@ -9,6 +9,8 @@
       "id": 28,
       "title": "إنشاء Dictionary",
       "xpReward": 25,
+      "lessonExplanation": "<h2>القواميس (Dictionaries)</h2><p>القاموس بيخزن بيانات بشكل <strong>مفتاح-قيمة</strong> (key-value). زي دفتر العناوين: الاسم (مفتاح) والرقم (قيمة).</p><h3>📝 مثال:</h3><pre>person = {\n    \"name\": \"Ali\",\n    \"age\": 25\n}\nprint(person[\"name\"])  # Ali\nprint(person[\"age\"])   # 25</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>القاموس بين <code>{ }</code></li><li>المفتاح (key) لازم يكون <strong>فريد</strong></li><li>القيم ممكن تكون أي نوع</li><li>بنوصل للقيمة بالمفتاح، مش بالفهرس</li></ul>",
+      "lessonTip": "القواميس أساسية في البرمجة الحقيقية! زي JSON في الويب.",
       "exercises": [
         {
           "id": 2801,
@@ -49,6 +51,8 @@
       "id": 29,
       "title": "keys و values",
       "xpReward": 25,
+      "lessonExplanation": "<h2>المفاتيح والقيم</h2><p>القاموس فيه مفاتيح (keys) وقيم (values):</p><h3>📝 الدوال:</h3><ul><li><code>keys()</code> — ترجع كل المفاتيح</li><li><code>values()</code> — ترجع كل القيم</li><li><code>items()</code> — ترجع الاتنين مع بعض</li></ul><h3>مثال:</h3><pre>d = {\"a\": 1, \"b\": 2}\nprint(list(d.keys()))   # ['a', 'b']\nprint(list(d.values())) # [1, 2]</pre><h3>💡 إضافة مفتاح جديد:</h3><pre>d[\"c\"] = 3  # {'a': 1, 'b': 2, 'c': 3}</pre>",
+      "lessonTip": "keys() و values() بتسهلوا التنقل في القاموس!",
       "exercises": [
         {
           "id": 2901,
@@ -89,6 +93,8 @@
       "id": 30,
       "title": "التعديل والحذف",
       "xpReward": 25,
+      "lessonExplanation": "<h2>تعديل وحذف العناصر</h2><p>القواميس قابلة للتعديل:</p><h3>📝 العمليات:</h3><ul><li>التعديل: <code>d[\"key\"] = new_value</code></li><li>الحذف: <code>del d[\"key\"]</code></li><li><code>get()</code> — ترجع القيمة أو default</li></ul><h3>مثال:</h3><pre>d = {\"a\": 1}\nd[\"a\"] = 5     # تعديل\nd[\"b\"] = 2     # إضافة\ndel d[\"a\"]      # حذف\nprint(d)        # {'b': 2}</pre><h3>💡 get() آمنة:</h3><pre>d.get(\"x\", 0)   # 0 (لو مش موجود)</pre>",
+      "lessonTip": "get() أأمن من d[\"key\"] لأنها مابتطلعش خطأ!",
       "exercises": [
         {
           "id": 3001,
@@ -129,6 +135,8 @@
       "id": 31,
       "title": "loops على Dictionary",
       "xpReward": 30,
+      "lessonExplanation": "<h2>الحلقات على القواميس</h2><p>ممكن نلف على القاموس بـ for:</p><h3>📝 الطرق:</h3><ul><li><code>for k in d:</code> — بتلف على المفاتيح</li><li><code>for k, v in d.items():</code> — على المفتاح والقيمة مع بعض</li></ul><h3>مثال:</h3><pre>d = {\"a\": 1, \"b\": 2}\nfor k, v in d.items():\n    print(k, v)</pre><p>النتيجة:</p><pre>a 1\nb 2</pre>",
+      "lessonTip": "items() أفضل طريقة لللف على المفتاح والقيمة!",
       "exercises": [
         {
           "id": 3101,

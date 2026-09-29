@@ -9,6 +9,8 @@
       "id": 14,
       "title": "if الأساسية",
       "xpReward": 25,
+      "lessonExplanation": "<h2>if - الشرط الأساسي</h2><p><code>if</code> بتنفذ كود <strong>لو الشرط صح</strong>. لو الشرط غلط، الكود مش بيتنفذ.</p><h3>📝 مثال:</h3><pre>x = 10\nif x > 5:\n    print(\"Big\")</pre><p>النتيجة:</p><pre>Big</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>لازم <code>:</code> بعد الشرط</li><li>الكود جوه if لازم يكون <strong>مزاح</strong> (indented) — 4 مسافات</li><li>لو الشرط غلط، مفيش حاجة بتتنفذ</li></ul>",
+      "lessonTip": "جرب تغير قيمة x وشوف النتيجة بتتغير إزاي!",
       "exercises": [
         {
           "id": 1401,
@@ -49,6 +51,8 @@
       "id": 15,
       "title": "if و else",
       "xpReward": 25,
+      "lessonExplanation": "<h2>if و else</h2><p><code>else</code> بتنفذ الكود <strong>لو if فشلت</strong>. يعني الكود هيتنفذ في كل الحالات.</p><h3>📝 مثال:</h3><pre>x = 3\nif x > 5:\n    print(\"Big\")\nelse:\n    print(\"Small\")</pre><p>النتيجة:</p><pre>Small</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>else</code> مش محتاج شرط</li><li>لازم <code>:</code> بعد else</li><li>else و if في نفس المستوى (نفس المسافة)</li></ul>",
+      "lessonTip": "else بيخلي البرنامج يرد في كل الحالات!",
       "exercises": [
         {
           "id": 1501,
@@ -89,6 +93,8 @@
       "id": 16,
       "title": "elif",
       "xpReward": 25,
+      "lessonExplanation": "<h2>elif - شرط إضافي</h2><p><code>elif</code> اختصار <strong>else if</strong>. بنستخدمه لما يكون عندنا أكتر من شرط.</p><h3>📝 مثال:</h3><pre>score = 85\nif score >= 90:\n    print(\"A\")\nelif score >= 80:\n    print(\"B\")\nelse:\n    print(\"C\")</pre><p>النتيجة:</p><pre>B</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>ممكن يكون عندنا <strong>أكتر من elif</strong></li><li>Python بيفحص الشروط بالترتيب</li><li>أول شرط يتحقق، الباقي بيتجاهل</li></ul>",
+      "lessonTip": "elif مفيد جداً في التقييمات (A, B, C, D)!",
       "exercises": [
         {
           "id": 1601,
@@ -129,6 +135,8 @@
       "id": 17,
       "title": "and, or, not",
       "xpReward": 30,
+      "lessonExplanation": "<h2>and, or, not</h2><p>عوامل منطقية لربط الشروط:</p><h3>📝 الجدول:</h3><ul><li><code>and</code> — الشرطين لازم يكونوا صح</li><li><code>or</code> — واحد على الأقل يكون صح</li><li><code>not</code> — يعكس النتيجة</li></ul><h3>مثال:</h3><pre>age = 25\nif age >= 18 and age <= 30:\n    print(\"Young Adult\")</pre><p>النتيجة:</p><pre>Young Adult</pre><h3>⚠️ مهم:</h3><ul><li><code>and</code> أدق من <code>or</code></li><li><code>not</code> مفيد لقلب الشرط</li></ul>",
+      "lessonTip": "and و or أساس أي شرط معقد!",
       "exercises": [
         {
           "id": 1701,

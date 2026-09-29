@@ -9,6 +9,8 @@
       "id": 9,
       "title": "الأنواع الرقمية",
       "xpReward": 20,
+      "lessonExplanation": "<h2>الأنواع الرقمية في Python</h2><p>Python فيه نوعين أساسيين من الأرقام:</p><h3>📝 الأنواع:</h3><ul><li><strong>int</strong> — رقم صحيح (زي <code>5</code>, <code>100</code>, <code>-3</code>)</li><li><strong>float</strong> — رقم عشري (زي <code>3.14</code>, <code>0.5</code>, <code>-2.7</code>)</li></ul><h3>💡 التحويل:</h3><pre>int(\"5\")      # 5 (من نص لرقم)\nfloat(\"3.14\") # 3.14 (من نص لعشري)\nint(3.9)      # 3 (بيشيل الكسر)</pre><h3>⚠️ مهم:</h3><ul><li>القسمة <code>/</code> دايماً بترجع float</li><li>لو عايز رقم صحيح من القسمة استخدم <code>//</code></li></ul>",
+      "lessonTip": "جرب تحول رقم لنص وبالعكس وشوف الفرق!",
       "exercises": [
         {
           "id": 901,
@@ -49,6 +51,8 @@
       "id": 10,
       "title": "القسمة والباقي",
       "xpReward": 20,
+      "lessonExplanation": "<h2>القسمة والباقي</h2><p>Python فيها 3 أنواع قسمة:</p><h3>📝 الجدول:</h3><ul><li><code>/</code> — قسمة عادية (بترجع float)</li><li><code>//</code> — قسمة صحيحة (بتشيل الكسر)</li><li><code>%</code> — باقي القسمة</li></ul><h3>مثال:</h3><pre>print(10 / 3)   # 3.333...\nprint(10 // 3)  # 3\nprint(10 % 3)   # 1</pre><h3>⚠️ مهم:</h3><ul><li><code>%</code> مفيد لمعرفة لو الرقم زوجي أو فردي</li><li><code>n % 2 == 0</code> معناها زوجي</li></ul>",
+      "lessonTip": "جرب تعرف لو رقم زوجي أو فردي بـ % 2!",
       "exercises": [
         {
           "id": 1001,
@@ -89,6 +93,8 @@
       "id": 11,
       "title": "دوال رياضية",
       "xpReward": 20,
+      "lessonExplanation": "<h2>دوال رياضية مدمجة</h2><p>Python فيها دوال جاهزة للعمليات الرياضية:</p><h3>📝 الدوال:</h3><ul><li><code>round(x)</code> — تقرب الرقم لأقرب صحيح</li><li><code>abs(x)</code> — القيمة المطلقة (تبعد السالب)</li><li><code>max(a, b)</code> — الأكبر</li><li><code>min(a, b)</code> — الأصغر</li></ul><h3>مثال:</h3><pre>print(round(3.7))   # 4\nprint(round(3.2))   # 3\nprint(abs(-10))     # 10\nprint(max(5, 8))    # 8</pre>",
+      "lessonTip": "round مفيدة جداً لو بتشتغل مع الفلوس أو القياسات!",
       "exercises": [
         {
           "id": 1101,
@@ -129,6 +135,8 @@
       "id": 12,
       "title": "ترتيب العمليات",
       "xpReward": 25,
+      "lessonExplanation": "<h2>ترتيب العمليات (PEMDAS)</h2><p>Python بيحسب العمليات بترتيب محدد:</p><h3>📝 الترتيب:</h3><ol><li><code>()</code> — الأقواس أولاً</li><li><code>**</code> — الأس</li><li><code>* / // %</code> — الضرب والقسمة (من الشمال لليمين)</li><li><code>+ -</code> — الجمع والطرح</li></ol><h3>مثال:</h3><pre>print(2 + 3 * 4)      # 14 (مش 20)\nprint((2 + 3) * 4)    # 20 (الأقواس الأول)\nprint(2 ** 3 * 2)     # 16</pre><h3>⚠️ مهم:</h3><p>لو مش متأكد من الترتيب، <strong>استخدم أقواس</strong>!</p>",
+      "lessonTip": "الأقواس بتخلي الكود أوضح وأأمن من الأخطاء!",
       "exercises": [
         {
           "id": 1201,
@@ -161,6 +169,8 @@
       "id": 13,
       "title": "تحويل الأنواع",
       "xpReward": 25,
+      "lessonExplanation": "<h2>تحويل الأنواع (Type Conversion)</h2><p>ممكن نحول بين الأنواع:</p><h3>📝 الدوال:</h3><ul><li><code>int(x)</code> — يحول لرقم صحيح</li><li><code>float(x)</code> — يحول لرقم عشري</li><li><code>str(x)</code> — يحول لنص</li></ul><h3>مثال:</h3><pre>print(str(5) + \" apples\")  # 5 apples\nprint(int(3.9))            # 3\nprint(float(5))            # 5.0</pre><h3>⚠️ مهم:</h3><ul><li><code>int(3.9)</code> بتشيل الكسر (مش بتقربه)</li><li>التحويل للنص مفيد للطباعة</li></ul>",
+      "lessonTip": "لو عايز تطبع رقم مع كلام، استخدم str() أو f-string!",
       "exercises": [
         {
           "id": 1301,

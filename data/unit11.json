@@ -9,17 +9,14 @@
       "id": 46,
       "title": "Streamlit إيه؟",
       "xpReward": 20,
+      "lessonExplanation": "<h2>Streamlit إيه؟</h2><p><strong>Streamlit</strong> هي مكتبة Python بتخليك تبني <strong>واجهات ويب</strong> بسهولة جداً — بدون HTML أو CSS أو JavaScript!</p><h3>📝 مثال بسيط:</h3><pre>import streamlit as st\nst.write(\"Hello World\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>Streamlit بيشتغل في المتصفح</li><li>لازم نستوردها بـ <code>import streamlit as st</code></li><li>الاختصار <code>st</code> شائع جداً</li><li>بتشتغل بأمر <code>streamlit run app.py</code></li></ul>",
+      "lessonTip": "Streamlit بتخليك تبني تطبيق ويب كامل بـ Python بس!",
       "exercises": [
         {
           "id": 4601,
           "type": "multiple_choice",
           "question": "إيه هو Streamlit؟",
-          "options": [
-            "مكتبة Python لبناء واجهات ويب",
-            "لغة برمجة جديدة",
-            "متصفح إنترنت",
-            "لعبة فيديو"
-          ],
+          "options": ["مكتبة Python لبناء واجهات ويب", "لغة برمجة جديدة", "متصفح إنترنت", "لعبة فيديو"],
           "correctAnswer": 0,
           "explanation": "Streamlit مكتبة Python بتخليك تبني واجهات ويب بسهولة"
         },
@@ -54,17 +51,14 @@
       "id": 47,
       "title": "st.title - العناوين",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.title() - العناوين الكبيرة</h2><p><code>st.title()</code> بتعرض <strong>عنوان كبير</strong> في أعلى الصفحة. زي <code>&lt;h1&gt;</code> في HTML.</p><h3>📝 مثال:</h3><pre>import streamlit as st\nst.title(\"مرحباً بيك\")</pre><h3>📌 العناوين المختلفة:</h3><ul><li><code>st.title()</code> — العنوان الرئيسي (الأكبر)</li><li><code>st.header()</code> — عنوان فرعي</li><li><code>st.subheader()</code> — عنوان أصغر</li></ul><h3>⚠️ ملاحظات:</h3><ul><li>كل صفحة عادةً فيها title واحد</li><li>العناوين بتخلي الصفحة منظمة</li></ul>",
+      "lessonTip": "title أول حاجة في أي صفحة عشان توضح موضوعها!",
       "exercises": [
         {
           "id": 4701,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.title()؟",
-          "options": [
-            "بتعرض عنوان كبير في الصفحة",
-            "بتطبع في terminal",
-            "بتعمل ملف",
-            "بتقرأ من المستخدم"
-          ],
+          "options": ["بتعرض عنوان كبير في الصفحة", "بتطبع في terminal", "بتعمل ملف", "بتقرأ من المستخدم"],
           "correctAnswer": 0,
           "explanation": "st.title() بتعرض عنوان كبير في أعلى الصفحة"
         },
@@ -81,12 +75,7 @@
           "id": 4703,
           "type": "multiple_choice",
           "question": "إيه الفرق بين st.title و st.header؟",
-          "options": [
-            "title أكبر، header أصغر",
-            "الاتنين نفس الحاجة",
-            "title للنصوص، header للأرقام",
-            "مفيش فرق"
-          ],
+          "options": ["title أكبر، header أصغر", "الاتنين نفس الحاجة", "title للنصوص، header للأرقام", "مفيش فرق"],
           "correctAnswer": 0,
           "explanation": "st.title للعنوان الرئيسي، st.header للعناوين الفرعية"
         },
@@ -105,17 +94,14 @@
       "id": 48,
       "title": "st.write - النصوص",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.write() - النصوص والعناصر</h2><p><code>st.write()</code> بتعرض <strong>أي حاجة</strong>: نصوص، أرقام، قوائم، جداول.</p><h3>📝 أمثلة:</h3><pre>st.write(\"Hello\")\nst.write(42)\nst.write([1, 2, 3])</pre><h3>⚠️ الفرق عن print():</h3><ul><li><code>print()</code> — بتطبع في terminal</li><li><code>st.write()</code> — بتعرض في صفحة الويب</li></ul><h3>💡 ميزة:</h3><p>st.write() ذكية — بتعرف تعرض أي نوع بيانات بشكل مناسب!</p>",
+      "lessonTip": "st.write أقوى من print لأنها بتعرض أي نوع بيانات!",
       "exercises": [
         {
           "id": 4801,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.write()؟",
-          "options": [
-            "بتعرض نص أو قيمة في الصفحة",
-            "بتعمل ملف",
-            "بتقرأ من المستخدم",
-            "بتسجل خروج"
-          ],
+          "options": ["بتعرض نص أو قيمة في الصفحة", "بتعمل ملف", "بتقرأ من المستخدم", "بتسجل خروج"],
           "correctAnswer": 0,
           "explanation": "st.write() بتعرض أي حاجة في الصفحة"
         },
@@ -132,12 +118,7 @@
           "id": 4803,
           "type": "multiple_choice",
           "question": "إيه الفرق بين print() و st.write()؟",
-          "options": [
-            "print للـ terminal، st.write للصفحة",
-            "الاتنين نفس الحاجة",
-            "print أسرع",
-            "st.write أقدم"
-          ],
+          "options": ["print للـ terminal، st.write للصفحة", "الاتنين نفس الحاجة", "print أسرع", "st.write أقدم"],
           "correctAnswer": 0,
           "explanation": "print بتشتغل في terminal، st.write في Streamlit"
         },
@@ -154,12 +135,7 @@
           "id": 4805,
           "type": "multiple_choice",
           "question": "ينفع نستخدم st.write() مع الأرقام؟",
-          "options": [
-            "أيوة، بتعرض أي نوع",
-            "لأ، بس نصوص",
-            "لأ، بس صور",
-            "مش عارف"
-          ],
+          "options": ["أيوة، بتعرض أي نوع", "لأ، بس نصوص", "لأ، بس صور", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "st.write() بتشتغل مع النصوص، الأرقام، القوائم، إلخ"
         }
@@ -169,17 +145,14 @@
       "id": 49,
       "title": "أول تطبيق Streamlit",
       "xpReward": 25,
+      "lessonExplanation": "<h2>أول تطبيق Streamlit كامل</h2><p>هنجمع كل اللي اتعلمناه:</p><h3>📝 مثال:</h3><pre>import streamlit as st\n\nst.title(\"تطبيقي الأول\")\nst.header(\"عن التطبيق\")\nst.write(\"ده أول تطبيق ليا بـ Streamlit\")\n\nst.header(\"المميزات\")\nst.write(\"سهل وسريع\")\nst.write(\"مش محتاج HTML\")</pre><h3>🚀 إزاي نشغله؟</h3><ol><li>احفظ الملف باسم <code>app.py</code></li><li>افتح Terminal</li><li>اكتب: <code>streamlit run app.py</code></li><li>المتصفح هيفتح تلقائي</li></ol><h3>⚠️ مهم:</h3><p>أي ملف Python بيتشغل بـ streamlit run (مش python مباشرة).</p>",
+      "lessonTip": "جرب تعمل أول تطبيق Streamlit دلوقتي!",
       "exercises": [
         {
           "id": 4901,
           "type": "multiple_choice",
           "question": "إزاي نشغل تطبيق Streamlit؟",
-          "options": [
-            "streamlit run app.py",
-            "python app.py",
-            "st start",
-            "run streamlit"
-          ],
+          "options": ["streamlit run app.py", "python app.py", "st start", "run streamlit"],
           "correctAnswer": 0,
           "explanation": "بنستخدم الأمر streamlit run في الـ terminal"
         },
@@ -196,12 +169,7 @@
           "id": 4903,
           "type": "multiple_choice",
           "question": "إيه اسم الملف اللي بيتشغل بـ streamlit؟",
-          "options": [
-            "أي ملف .py",
-            "ملف .st",
-            "ملف .streamlit",
-            "ملف .html"
-          ],
+          "options": ["أي ملف .py", "ملف .st", "ملف .streamlit", "ملف .html"],
           "correctAnswer": 0,
           "explanation": "أي ملف Python عادي"
         },
@@ -220,17 +188,14 @@
       "id": 50,
       "title": "شرح: أول تطبيق كامل",
       "xpReward": 25,
+      "lessonExplanation": "<h2>مثال تطبيق كامل</h2><p>خلينا نشوف تطبيق كامل بيستخدم كل اللي اتعلمناه:</p><h3>📝 تطبيق شخصي:</h3><pre>import streamlit as st\n\nst.title(\"صفحتي الشخصية\")\n\nst.header(\"من أنا؟\")\nst.write(\"اسمي أحمد\")\nst.write(\"عمري 20 سنة\")\nst.write(\"بحب البرمجة\")\n\nst.header(\"مهاراتي\")\nst.write(\"Python\")\nst.write(\"Streamlit\")\nst.write(\"HTML\")</pre><h3>💡 نصائح:</h3><ul><li>ابدأ بـ title للعنوان الرئيسي</li><li>استخدم header للأقسام</li><li>استخدم write للمحتوى</li><li>خلي الترتيب منطقي</li></ul>",
+      "lessonTip": "التنظيم بيدي مظهر احترافي للتطبيق!",
       "exercises": [
         {
           "id": 5001,
           "type": "multiple_choice",
           "question": "إيه اللي بيعمله السطر ده: st.title(\"مرحباً\")",
-          "options": [
-            "يعرض عنوان كبير",
-            "يطبع في terminal",
-            "يعمل متغير",
-            "يقرأ من المستخدم"
-          ],
+          "options": ["يعرض عنوان كبير", "يطبع في terminal", "يعمل متغير", "يقرأ من المستخدم"],
           "correctAnswer": 0,
           "explanation": "st.title() بتعرض عنوان كبير في الصفحة"
         },
@@ -238,12 +203,7 @@
           "id": 5002,
           "type": "multiple_choice",
           "question": "إيه أفضل ترتيب لعناصر الصفحة؟",
-          "options": [
-            "title → header → write",
-            "write → title → header",
-            "header → title → write",
-            "أي ترتيب"
-          ],
+          "options": ["title → header → write", "write → title → header", "header → title → write", "أي ترتيب"],
           "correctAnswer": 0,
           "explanation": "العنوان الرئيسي الأول، بعدين الفرعي، بعدين النصوص"
         },
@@ -251,12 +211,7 @@
           "id": 5003,
           "type": "multiple_choice",
           "question": "لو عايز تعرض 3 معلومات في صفحة، إيه الأفضل؟",
-          "options": [
-            "3 st.write() منفصلين",
-            "st.write() واحد بكل المعلومات",
-            "استخدم st.title() بس",
-            "مش ينفع"
-          ],
+          "options": ["3 st.write() منفصلين", "st.write() واحد بكل المعلومات", "استخدم st.title() بس", "مش ينفع"],
           "correctAnswer": 0,
           "explanation": "بنستخدم st.write() لكل معلومة عشان تبان منفصلة"
         },
@@ -264,12 +219,7 @@
           "id": 5004,
           "type": "multiple_choice",
           "question": "ينفع نستخدم متغيرات في Streamlit؟",
-          "options": [
-            "أيوة، زي Python العادي",
-            "لأ، ممنوع",
-            "بس نصوص",
-            "بس أرقام"
-          ],
+          "options": ["أيوة، زي Python العادي", "لأ، ممنوع", "بس نصوص", "بس أرقام"],
           "correctAnswer": 0,
           "explanation": "Streamlit بيستخدم Python كامل، فالمتغيرات شغالة عادي"
         }

@@ -9,17 +9,14 @@
       "id": 66,
       "title": "st.file_uploader - رفع الملفات",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.file_uploader() - رفع الملفات</h2><p>بتخلي المستخدم <strong>يرفع ملف</strong> من جهازه.</p><h3>📝 مثال:</h3><pre>file = st.file_uploader(\"ارفع ملف\", type=[\"txt\", \"csv\"])\nif file:\n    st.write(\"اترفع!\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بترجع الملف أو <code>None</code></li><li><code>type</code> لتحديد أنواع الملفات المسموحة</li><li>الملف مش بيتحفظ على السيرفر (مؤقت)</li></ul><h3>💡 أنواع:</h3><pre>type=[\"png\", \"jpg\"]  # صور\ntype=[\"csv\", \"xlsx\"] # جداول</pre>",
+      "lessonTip": "file_uploader أساسي لتطبيقات تحليل البيانات!",
       "exercises": [
         {
           "id": 6601,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.file_uploader()؟",
-          "options": [
-            "بتخلي المستخدم يرفع ملف",
-            "بتعمل ملف جديد",
-            "بتحذف ملف",
-            "بتقرأ ملف من الجهاز"
-          ],
+          "options": ["بتخلي المستخدم يرفع ملف", "بتعمل ملف جديد", "بتحذف ملف", "بتقرأ ملف من الجهاز"],
           "correctAnswer": 0,
           "explanation": "st.file_uploader() لرفع الملفات"
         },
@@ -36,12 +33,7 @@
           "id": 6603,
           "type": "multiple_choice",
           "question": "ينفع نحدد أنواع الملفات المسموحة؟",
-          "options": [
-            "أيوة، بمعامل type",
-            "لأ",
-            "بس صور",
-            "مش عارف"
-          ],
+          "options": ["أيوة، بمعامل type", "لأ", "بس صور", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "type=['png', 'jpg'] لتحديد الأنواع"
         },
@@ -49,12 +41,7 @@
           "id": 6604,
           "type": "multiple_choice",
           "question": "st.file_uploader() بترجع إيه؟",
-          "options": [
-            "الملف المرفوع أو None",
-            "نص",
-            "رقم",
-            "صورة"
-          ],
+          "options": ["الملف المرفوع أو None", "نص", "رقم", "صورة"],
           "correctAnswer": 0,
           "explanation": "بترجع الملف أو None لو مفيش"
         }
@@ -64,17 +51,14 @@
       "id": 67,
       "title": "st.image - عرض الصور",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.image() - عرض الصور</h2><p>بتعرض <strong>صورة</strong> في الصفحة — من ملف مرفوع أو رابط.</p><h3>📝 مثال:</h3><pre>st.image(\"https://example.com/photo.jpg\")\n\nfile = st.file_uploader(\"ارفع صورة\")\nif file:\n    st.image(file)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بتقبل رابط أو ملف</li><li>ممكن نحدد <code>width</code></li><li>بتشتغل مع png, jpg, gif</li></ul><h3>💡 استخدام:</h3><pre>st.image(file, caption=\"صورتي\", width=300)</pre>",
+      "lessonTip": "st.image بتشتغل مع روابط أو ملفات مرفوعة!",
       "exercises": [
         {
           "id": 6701,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.image()؟",
-          "options": [
-            "بتعرض صورة في الصفحة",
-            "بتعمل صورة",
-            "بتحذف صورة",
-            "بتقرأ صورة"
-          ],
+          "options": ["بتعرض صورة في الصفحة", "بتعمل صورة", "بتحذف صورة", "بتقرأ صورة"],
           "correctAnswer": 0,
           "explanation": "st.image() لعرض الصور"
         },
@@ -91,12 +75,7 @@
           "id": 6703,
           "type": "multiple_choice",
           "question": "ينفع نستخدم st.image() مع رابط؟",
-          "options": [
-            "أيوة، بتمرير الرابط",
-            "لأ",
-            "بس ملفات محلية",
-            "مش عارف"
-          ],
+          "options": ["أيوة، بتمرير الرابط", "لأ", "بس ملفات محلية", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "st.image() بتشتغل مع روابط أو ملفات"
         },
@@ -104,12 +83,7 @@
           "id": 6704,
           "type": "multiple_choice",
           "question": "ينفع نحدد عرض الصورة؟",
-          "options": [
-            "أيوة، width=300",
-            "لأ",
-            "بس طول",
-            "مش عارف"
-          ],
+          "options": ["أيوة، width=300", "لأ", "بس طول", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "st.image(path, width=300)"
         }
@@ -119,17 +93,14 @@
       "id": 68,
       "title": "st.audio و st.video",
       "xpReward": 25,
+      "lessonExplanation": "<h2>st.audio و st.video</h2><p>لعرض الملفات الصوتية والفيديو:</p><h3>📝 أمثلة:</h3><pre>st.audio(\"sound.mp3\")\nst.video(\"video.mp4\")\n\nfile = st.file_uploader(\"ارفع فيديو\", type=[\"mp4\"])\nif file:\n    st.video(file)</pre><h3>⚠️ أنواع الملفات:</h3><ul><li><code>st.audio</code> — mp3, wav</li><li><code>st.video</code> — mp4, avi</li></ul><h3>💡 استخدام:</h3><ul><li>مشغل موسيقى</li><li>مشاهدة فيديوهات</li><li>دروس تفاعلية</li></ul>",
+      "lessonTip": "st.video بيشغل فيديوهات يوتيوب كمان!",
       "exercises": [
         {
           "id": 6801,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.audio()؟",
-          "options": [
-            "بتشغل ملف صوتي",
-            "بتعمل صوت",
-            "بتسجل صوت",
-            "بتحذف صوت"
-          ],
+          "options": ["بتشغل ملف صوتي", "بتعمل صوت", "بتسجل صوت", "بتحذف صوت"],
           "correctAnswer": 0,
           "explanation": "st.audio() لتشغيل الصوت"
         },
@@ -146,12 +117,7 @@
           "id": 6803,
           "type": "multiple_choice",
           "question": "إيه أنواع الملفات اللي st.audio() بتقبلها؟",
-          "options": [
-            "mp3, wav",
-            "mp4, avi",
-            "png, jpg",
-            "txt, doc"
-          ],
+          "options": ["mp3, wav", "mp4, avi", "png, jpg", "txt, doc"],
           "correctAnswer": 0,
           "explanation": "st.audio() للملفات الصوتية"
         }
@@ -161,17 +127,14 @@
       "id": 69,
       "title": "قراءة محتوى الملف",
       "xpReward": 25,
+      "lessonExplanation": "<h2>قراءة محتوى الملف</h2><p>بعد ما نرفع ملف، ممكن نقرا محتواه:</p><h3>📝 مثال - ملف نصي:</h3><pre>file = st.file_uploader(\"ارفع ملف\", type=[\"txt\"])\nif file:\n    content = file.read().decode(\"utf-8\")\n    st.text(content)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>file.read()</code> بترجع bytes</li><li><code>.decode()</code> بتحولها نص</li><li>لـ CSV، استخدم pandas</li></ul><h3>💡 CSV:</h3><pre>import pandas as pd\nif file:\n    df = pd.read_csv(file)\n    st.dataframe(df)</pre>",
+      "lessonTip": "لـ CSV استخدم pandas عشان أسهل!",
       "exercises": [
         {
           "id": 6901,
           "type": "multiple_choice",
           "question": "إزاي نقرأ محتوى ملف نصي رُفع؟",
-          "options": [
-            "file.read().decode()",
-            "file.open()",
-            "file.text()",
-            "file.get()"
-          ],
+          "options": ["file.read().decode()", "file.open()", "file.text()", "file.get()"],
           "correctAnswer": 0,
           "explanation": "file.read() بترجع bytes، .decode() بيحولها نص"
         },
@@ -179,12 +142,7 @@
           "id": 6902,
           "type": "multiple_choice",
           "question": "ينفع نعرض محتوى ملف CSV؟",
-          "options": [
-            "أيوة، بأدوات زي pandas",
-            "لأ",
-            "بس نصوص",
-            "مش عارف"
-          ],
+          "options": ["أيوة، بأدوات زي pandas", "لأ", "بس نصوص", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "ممكن نستخدم pandas لقراءة CSV"
         },
@@ -192,12 +150,7 @@
           "id": 6903,
           "type": "multiple_choice",
           "question": "إيه أحسن طريقة تعرض نص من ملف؟",
-          "options": [
-            "st.text(file)",
-            "st.write(file)",
-            "st.show(file)",
-            "st.print(file)"
-          ],
+          "options": ["st.text(file)", "st.write(file)", "st.show(file)", "st.print(file)"],
           "correctAnswer": 0,
           "explanation": "st.text() للنصوص الطويلة"
         }

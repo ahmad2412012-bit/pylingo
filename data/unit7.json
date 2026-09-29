@@ -9,6 +9,8 @@
       "id": 32,
       "title": "تعريف دالة",
       "xpReward": 25,
+      "lessonExplanation": "<h2>تعريف دالة (Function)</h2><p>الدالة هي <strong>مجموعة كود</strong> بنستخدمها أكتر من مرة. بنعرّفها بكلمة <code>def</code>.</p><h3>📝 مثال:</h3><pre>def greet():\n    print(\"Hello\")\n\ngreet()\ngreet()</pre><p>النتيجة:</p><pre>Hello\nHello</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>def</code> لتعريف الدالة</li><li>لازم <code>:</code> بعد اسم الدالة</li><li>الكود جوه الدالة مزاح (indented)</li><li>الدالة مش بتشتغل لحد ما <strong>نستدعيها</strong></li></ul>",
+      "lessonTip": "الدوال بتخلي الكود أنضف ومتكررش نفسك!",
       "exercises": [
         {
           "id": 3201,
@@ -49,6 +51,8 @@
       "id": 33,
       "title": "parameters",
       "xpReward": 25,
+      "lessonExplanation": "<h2>المعاملات (Parameters)</h2><p>المعاملات بتخلي الدالة تستقبل <strong>قيم من الخارج</strong>.</p><h3>📝 مثال:</h3><pre>def greet(name):\n    print(\"Hi \" + name)\n\ngreet(\"Ali\")   # Hi Ali\ngreet(\"Sara\")  # Hi Sara</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>المعاملات بين <code>()</code></li><li>ممكن يكون عندنا أكتر من معامل</li><li>عدد المعاملات لازم يطابق عدد القيم</li></ul><h3>💡 دالة بمعاملين:</h3><pre>def add(a, b):\n    print(a + b)\n\nadd(2, 3)  # 5</pre>",
+      "lessonTip": "المعاملات بتخلي الدالة تنفع لأكتر من حالة!",
       "exercises": [
         {
           "id": 3301,
@@ -81,6 +85,8 @@
       "id": 34,
       "title": "return",
       "xpReward": 30,
+      "lessonExplanation": "<h2>return - إرجاع قيمة</h2><p><code>return</code> بترجع قيمة من الدالة، وتقدر تستخدمها بعدين.</p><h3>📝 الفرق بين print و return:</h3><ul><li><code>print</code> — بتطبع على الشاشة</li><li><code>return</code> — بترجع القيمة للاستخدام</li></ul><h3>مثال:</h3><pre>def add(a, b):\n    return a + b\n\nresult = add(3, 4)\nprint(result)  # 7</pre><h3>⚠️ مهم:</h3><ul><li>لما الدالة توصل لـ return، بتتوقف</li><li>لو مفيش return، بترجع None</li></ul>",
+      "lessonTip": "return بتخليك تستخدم نتيجة الدالة في مكان تاني!",
       "exercises": [
         {
           "id": 3401,
@@ -121,6 +127,8 @@
       "id": 35,
       "title": "default arguments",
       "xpReward": 30,
+      "lessonExplanation": "<h2>القيم الافتراضية (Default Arguments)</h2><p>ممكن نحدد <strong>قيمة افتراضية</strong> للمعامل، تاستخدم لو مفيش قيمة اتبعتت.</p><h3>📝 مثال:</h3><pre>def greet(name=\"World\"):\n    print(\"Hi \" + name)\n\ngreet()        # Hi World\ngreet(\"Ali\")   # Hi Ali</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>القيم الافتراضية بتتكتب بـ <code>=</code></li><li>لازم تكون <strong>آخر المعاملات</strong></li><li>لو مفيش قيمة اتبعتت، بياخد الافتراضي</li></ul>",
+      "lessonTip": "القيم الافتراضية بتخلي الدالة مرنة أكتر!",
       "exercises": [
         {
           "id": 3501,

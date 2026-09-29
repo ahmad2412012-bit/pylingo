@@ -9,6 +9,8 @@
       "id": 42,
       "title": "import",
       "xpReward": 25,
+      "lessonExplanation": "<h2>import - استيراد المكتبات</h2><p>Python فيها مكتبات كتير جاهزة، بنستخدمها بـ <code>import</code>.</p><h3>📝 أمثلة:</h3><pre>import math\nprint(math.pi)  # 3.14159...\n\nfrom datetime import date\nprint(date.today())</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>import x</code> — بنستخدم <code>x.func()</code></li><li><code>from x import y</code> — بنستخدم <code>y()</code> مباشرة</li><li><code>import x as y</code> — اختصار</li><li>أشهر المكتبات: math, random, datetime</li></ul>",
+      "lessonTip": "المكتبات بتوفر وقت كبير! مش محتاج تكتب كل حاجة من الصفر.",
       "exercises": [
         {
           "id": 4201,
@@ -41,6 +43,8 @@
       "id": 43,
       "title": "random",
       "xpReward": 25,
+      "lessonExplanation": "<h2>مكتبة random</h2><p>للتوليد أرقام عشوائية:</p><h3>📝 الدوال:</h3><ul><li><code>random.randint(1, 6)</code> — رقم عشوائي من 1 لـ 6</li><li><code>random.random()</code> — رقم بين 0 و 1</li><li><code>random.choice(list)</code> — عنصر عشوائي</li></ul><h3>مثال:</h3><pre>import random\nprint(random.randint(1, 6))  # زي الزهر</pre><h3>💡 seed للثبات:</h3><pre>random.seed(1)\nprint(random.randint(1, 10))  # 2 دايماً</pre>",
+      "lessonTip": "random ممتعة جداً في الألعاب! زي لعبة الزهر.",
       "exercises": [
         {
           "id": 4301,
@@ -73,6 +77,8 @@
       "id": 44,
       "title": "math",
       "xpReward": 25,
+      "lessonExplanation": "<h2>مكتبة math</h2><p>للعمليات الرياضية المتقدمة:</p><h3>📝 الدوال:</h3><ul><li><code>math.sqrt(16)</code> — الجذر التربيعي = 4.0</li><li><code>math.floor(3.7)</code> — تقريب لتحت = 3</li><li><code>math.ceil(3.2)</code> — تقريب لفوق = 4</li><li><code>math.factorial(5)</code> — المضروب = 120</li><li><code>math.pi</code> — 3.14159...</li></ul><h3>مثال:</h3><pre>import math\nprint(math.sqrt(16))   # 4.0\nprint(math.floor(3.7))  # 3</pre>",
+      "lessonTip": "math أقوى بكتير من العمليات العادية!",
       "exercises": [
         {
           "id": 4401,
@@ -105,6 +111,8 @@
       "id": 45,
       "title": "datetime",
       "xpReward": 25,
+      "lessonExplanation": "<h2>مكتبة datetime</h2><p>للتعامل مع التواريخ والأوقات:</p><h3>📝 الأمثلة:</h3><pre>from datetime import datetime, date\n\nnow = datetime.now()\nprint(now.year)   # 2024\nprint(now.month)  # 1\nprint(now.day)    # 15\n\nbirthday = date(2000, 5, 20)\nprint(birthday.year)  # 2000</pre><h3>⚠️ ملاحظات:</h3><ul><li><code>datetime.now()</code> — الوقت الحالي</li><li><code>date(y, m, d)</code> — تاريخ محدد</li><li>ممكن نطرح تواريخ للحصول على فرق</li></ul>",
+      "lessonTip": "datetime مفيدة لحساب الأعمار والمواعيد!",
       "exercises": [
         {
           "id": 4501,

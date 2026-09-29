@@ -9,17 +9,14 @@
       "id": 88,
       "title": "تخطيط التطبيق",
       "xpReward": 25,
+      "lessonExplanation": "<h2>تخطيط التطبيق</h2><p>قبل ما تكتب كود، لازم <strong>تخطط</strong> للتطبيق:</p><h3>📝 الخطوات:</h3><ol><li>إيه هدف التطبيق؟ (عرض بيانات، تفاعل، ...)</li><li>إيه الأقسام الرئيسية؟</li><li>إيه البيانات المطلوبة؟</li><li>إيه التفاعلات (أزرار، مدخلات)؟</li></ol><h3>⚠️ نصائح:</h3><ul><li>ابدأ بـ title للعنوان الرئيسي</li><li>استخدم tabs أو columns للتنظيم</li><li>خلي الترتيب منطقي</li><li>استخدم expander للتفاصيل</li></ul><h3>💡 مثال على التنظيم:</h3><pre>st.title(\"لوحة التحكم\")\ncol1, col2 = st.columns(2)  # إحصائيات\nst.tabs([\"البيانات\", \"الرسم\", \"الإعدادات\"])  # أقسام</pre>",
+      "lessonTip": "التخطيط الجيد بيوفر وقت كبير في التطوير!",
       "exercises": [
         {
           "id": 8801,
           "type": "multiple_choice",
           "question": "إيه أول حاجة نعملها قبل بناء تطبيق؟",
-          "options": [
-            "نخطط للعناصر والأقسام",
-            "نكتب الكود علطول",
-            "نعمل صورة",
-            "مش مهم"
-          ],
+          "options": ["نخطط للعناصر والأقسام", "نكتب الكود علطول", "نعمل صورة", "مش مهم"],
           "correctAnswer": 0,
           "explanation": "التخطيط مهم قبل الكود"
         },
@@ -27,12 +24,7 @@
           "id": 8802,
           "type": "multiple_choice",
           "question": "إيه أفضل طريقة لتنظيم صفحة طويلة؟",
-          "options": [
-            "st.tabs أو st.columns",
-            "كل حاجة تحت بعضها",
-            "صفحة واحدة بس",
-            "مش مهم"
-          ],
+          "options": ["st.tabs أو st.columns", "كل حاجة تحت بعضها", "صفحة واحدة بس", "مش مهم"],
           "correctAnswer": 0,
           "explanation": "tabs/columns لتنظيم الصفحة"
         },
@@ -40,12 +32,7 @@
           "id": 8803,
           "type": "multiple_choice",
           "question": "إيه أول عنصر في أي صفحة؟",
-          "options": [
-            "st.title",
-            "st.write",
-            "st.button",
-            "st.image"
-          ],
+          "options": ["st.title", "st.write", "st.button", "st.image"],
           "correctAnswer": 0,
           "explanation": "العنوان الرئيسي أولاً"
         },
@@ -53,12 +40,7 @@
           "id": 8804,
           "type": "multiple_choice",
           "question": "إزاي نخلي الصفحة احترافية؟",
-          "options": [
-            "نستخدم expander + tabs + columns",
-            "نكتب بس",
-            "مفيش طريقة",
-            "مش عارف"
-          ],
+          "options": ["نستخدم expander + tabs + columns", "نكتب بس", "مفيش طريقة", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "التنظيم بيدي مظهر احترافي"
         }
@@ -68,17 +50,14 @@
       "id": 89,
       "title": "دمج المدخلات مع الرسوم",
       "xpReward": 25,
+      "lessonExplanation": "<h2>دمج المدخلات مع الرسوم</h2><p>أقوى حاجة في Streamlit إنك تربط المدخلات بالرسوم:</p><h3>📝 مثال:</h3><pre>import streamlit as st\nimport pandas as pd\n\nst.title(\"📊 تحليل المبيعات\")\n\n# مدخلات\nmonth = st.selectbox(\"اختر الشهر\", [\"يناير\", \"فبراير\", \"مارس\"])\nmin_value = st.slider(\"أقل قيمة\", 0, 1000, 100)\n\n# بيانات\ndata = pd.DataFrame({\n    \"الشهر\": [\"يناير\", \"فبراير\", \"مارس\"],\n    \"المبيعات\": [500, 800, 300]\n})\n\n# فلتر\nfiltered = data[data[\"المبيعات\"] >= min_value]\n\n# عرض\nst.metric(\"المبيعات المفلترة\", filtered[\"المبيعات\"].sum())\nst.bar_chart(filtered.set_index(\"الشهر\"))</pre><h3>💡 الفايدة:</h3><ul><li>المستخدم يتحكم في البيانات</li><li>الرسوم بتتحدث تلقائي</li><li>تجربة تفاعلية</li></ul>",
+      "lessonTip": "ربط المدخلات بالرسوم هو سر التطبيقات التفاعلية!",
       "exercises": [
         {
           "id": 8901,
           "type": "multiple_choice",
           "question": "إزاي نربط slider مع chart؟",
-          "options": [
-            "نخلي قيمة slider تحدد بيانات chart",
-            "مش ينفع",
-            "صعب",
-            "مش عارف"
-          ],
+          "options": ["نخلي قيمة slider تحدد بيانات chart", "مش ينفع", "صعب", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "نقدر نخلي المدخلات تؤثر على الرسم"
         },
@@ -86,12 +65,7 @@
           "id": 8902,
           "type": "multiple_choice",
           "question": "إيه فايدة st.metric في لوحة التحكم؟",
-          "options": [
-            "تعرض أرقام مهمة بشكل بارز",
-            "تعرض صور",
-            "تعرض نصوص",
-            "مش مفيدة"
-          ],
+          "options": ["تعرض أرقام مهمة بشكل بارز", "تعرض صور", "تعرض نصوص", "مش مفيدة"],
           "correctAnswer": 0,
           "explanation": "metric للأرقام المهمة"
         },
@@ -99,12 +73,7 @@
           "id": 8903,
           "type": "multiple_choice",
           "question": "إزاي نستخدم st.columns مع metrics؟",
-          "options": [
-            "كل metric في عمود",
-            "كلهم في عمود",
-            "مش ينفع",
-            "مش عارف"
-          ],
+          "options": ["كل metric في عمود", "كلهم في عمود", "مش ينفع", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "columns لتوزيع metrics"
         },
@@ -112,12 +81,7 @@
           "id": 8904,
           "type": "multiple_choice",
           "question": "ينفع نخلي chart يتفاعل مع فلتر؟",
-          "options": [
-            "أيوة، بـ selectbox + data filtering",
-            "لأ",
-            "بس slider",
-            "مش عارف"
-          ],
+          "options": ["أيوة، بـ selectbox + data filtering", "لأ", "بس slider", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "الفلتر بيغير البيانات اللي بتترسم"
         }
@@ -127,17 +91,14 @@
       "id": 90,
       "title": "حفظ البيانات",
       "xpReward": 25,
+      "lessonExplanation": "<h2>حفظ البيانات في Streamlit</h2><p>Streamlit بيعمل <strong>rerun</strong> مع كل تفاعل، فالمتغيرات بتضيع. الحل: <code>st.session_state</code>.</p><h3>📝 مثال:</h3><pre>import streamlit as st\n\nif \"counter\" not in st.session_state:\n    st.session_state.counter = 0\n\nif st.button(\"زود\"):\n    st.session_state.counter += 1\n\nst.write(f\"العداد: {st.session_state.counter}\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>session_state</code> بتحفظ القيم بين reruns</li><li>بتتحفظ على مستوى الـ session</li><li>بترجع لأول قيمة لو المستخدم عمل refresh</li></ul><h3>💡 استخدام:</h3><ul><li>عدادات</li><li>حفظ مدخلات</li><li>حالة التطبيق</li></ul>",
+      "lessonTip": "session_state هي الحل لمشكلة الـ rerun!",
       "exercises": [
         {
           "id": 9001,
           "type": "multiple_choice",
           "question": "إزاي نحفظ مدخلات المستخدم؟",
-          "options": [
-            "في متغير عادي",
-            "في الملف مباشرة",
-            "مش ينفع",
-            "مش عارف"
-          ],
+          "options": ["في متغير عادي", "في الملف مباشرة", "مش ينفع", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "نخليها في متغير ونستخدمها"
         },
@@ -145,12 +106,7 @@
           "id": 9002,
           "type": "multiple_choice",
           "question": "ينفع نحفظ البيانات في st.session_state؟",
-          "options": [
-            "أيوة، لحفظ مؤقت",
-            "لأ",
-            "بس JSON",
-            "مش عارف"
-          ],
+          "options": ["أيوة، لحفظ مؤقت", "لأ", "بس JSON", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "session_state للحفظ المؤقت"
         },
@@ -158,12 +114,7 @@
           "id": 9003,
           "type": "multiple_choice",
           "question": "ينفع نستخدم الملفات لحفظ البيانات؟",
-          "options": [
-            "أيوة، عن طريق Python",
-            "لأ",
-            "بس نصوص",
-            "مش عارف"
-          ],
+          "options": ["أيوة، عن طريق Python", "لأ", "بس نصوص", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "Streamlit Python كامل"
         }
@@ -173,17 +124,14 @@
       "id": 91,
       "title": "نصائح Streamlit الاحترافية",
       "xpReward": 25,
+      "lessonExplanation": "<h2>نصائح Streamlit الاحترافية</h2><h3>🎯 النصائح:</h3><ol><li><strong>استخدم @st.cache_data</strong> للعمليات البطيئة</li><li><strong>اقسم التطبيق</strong> لصفحات متعددة بـ <code>pages/</code></li><li><strong>خلي الواجهة بسيطة</strong> — التنظيم أهم من الزحمة</li><li><strong>استخدم forms</strong> للأداء الأفضل</li><li><strong>جرب st.set_page_config()</strong> لتخصيص الصفحة</li></ol><h3>📝 مثال set_page_config:</h3><pre>st.set_page_config(\n    page_title=\"تطبيقي\",\n    page_icon=\"🚀\",\n    layout=\"wide\"\n)</pre><h3>💡 caching:</h3><pre>@st.cache_data\ndef load_data():\n    return pd.read_csv(\"big_file.csv\")</pre>",
+      "lessonTip": "caching بيسرّع التطبيق بشكل كبير!",
       "exercises": [
         {
           "id": 9101,
           "type": "multiple_choice",
           "question": "إيه أهم حاجة في Streamlit؟",
-          "options": [
-            "الكود بسيط والمظهر جميل",
-            "السرعة",
-            "الحجم الصغير",
-            "مفيش"
-          ],
+          "options": ["الكود بسيط والمظهر جميل", "السرعة", "الحجم الصغير", "مفيش"],
           "correctAnswer": 0,
           "explanation": "Streamlit بسيط وقوي"
         },
@@ -191,12 +139,7 @@
           "id": 9102,
           "type": "multiple_choice",
           "question": "إيه أفضل طريقة لعرض الإحصائيات؟",
-          "options": [
-            "st.metric + st.columns",
-            "st.write كتير",
-            "st.text",
-            "st.image"
-          ],
+          "options": ["st.metric + st.columns", "st.write كتير", "st.text", "st.image"],
           "correctAnswer": 0,
           "explanation": "metric + columns احترافي"
         },
@@ -204,12 +147,7 @@
           "id": 9103,
           "type": "multiple_choice",
           "question": "إزاي نخلي التطبيق يجذب المستخدم؟",
-          "options": [
-            "استخدم تفاعل وألوان",
-            "اكتب نصوص كتير",
-            "مش مهم",
-            "مش عارف"
-          ],
+          "options": ["استخدم تفاعل وألوان", "اكتب نصوص كتير", "مش مهم", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "التفاعل والتنظيم مهمين"
         },
@@ -217,12 +155,7 @@
           "id": 9104,
           "type": "multiple_choice",
           "question": "إيه أول حاجة بعد كتابة الكود؟",
-          "options": [
-            "نشغّل streamlit run app.py",
-            "نحفظ الملف",
-            "نعرض على النت",
-            "مش مهم"
-          ],
+          "options": ["نشغّل streamlit run app.py", "نحفظ الملف", "نعرض على النت", "مش مهم"],
           "correctAnswer": 0,
           "explanation": "التشغيل بالأمر"
         }
@@ -232,17 +165,14 @@
       "id": 92,
       "title": "🎉 خلاص! إيه الجاي؟",
       "xpReward": 50,
+      "lessonExplanation": "<h2>🎉 مبروك! خلصت Streamlit</h2><p>اتعلمت:</p><ul><li>✅ st.title, st.header, st.write</li><li>✅ st.text_input, st.number_input, st.slider</li><li>✅ st.button, st.checkbox, st.radio, st.selectbox</li><li>✅ st.file_uploader, st.image, st.video</li><li>✅ st.line_chart, st.bar_chart, st.map</li><li>✅ st.columns, st.tabs, st.expander</li><li>✅ st.dataframe, st.table, st.metric</li><li>✅ st.form, st.session_state</li></ul><h3>🚀 الخطوات الجاية:</h3><ol><li><strong>ابني تطبيقات حقيقية</strong> — جرب تعمل آلة حاسبة، قائمة مهام، dashboard</li><li><strong>انشرها على Streamlit Cloud</strong> — مجاناً على streamlit.io/cloud</li><li><strong>اتعلم مكتبات إضافية</strong> — plotly, altair, numpy, pandas</li><li><strong>شارك تطبيقاتك</strong> — على GitHub و Twitter</li></ol><h3>💡 مصادر:</h3><ul><li>docs.streamlit.io</li><li>discuss.streamlit.io</li><li>awesome-streamlit.org</li></ul>",
+      "lessonTip": "أهم حاجة: طبق اللي اتعلمته! 🚀",
       "exercises": [
         {
           "id": 9201,
           "type": "multiple_choice",
           "question": "إيه اللي اتعلمته في الـ 10 وحدات دي؟",
-          "options": [
-            "Streamlit كامل: نصوص، مدخلات، رسوم، تخطيط",
-            "حاجة واحدة بس",
-            "مفيش حاجة",
-            "مش عارف"
-          ],
+          "options": ["Streamlit كامل: نصوص، مدخلات، رسوم، تخطيط", "حاجة واحدة بس", "مفيش حاجة", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "تعلمت Streamlit من الصفر"
         },
@@ -250,12 +180,7 @@
           "id": 9202,
           "type": "multiple_choice",
           "question": "إيه الخطوة الجاية بعد ما تخلص؟",
-          "options": [
-            "ابني تطبيقات حقيقية وانشرها",
-            "اقعد مكانك",
-            "انسى كل حاجة",
-            "مش مهم"
-          ],
+          "options": ["ابني تطبيقات حقيقية وانشرها", "اقعد مكانك", "انسى كل حاجة", "مش مهم"],
           "correctAnswer": 0,
           "explanation": "التطبيق العملي هو الأهم"
         },
@@ -263,12 +188,7 @@
           "id": 9203,
           "type": "multiple_choice",
           "question": "فين ننشر تطبيق Streamlit مجاناً؟",
-          "options": [
-            "Streamlit Cloud",
-            "Facebook",
-            "Instagram",
-            "TikTok"
-          ],
+          "options": ["Streamlit Cloud", "Facebook", "Instagram", "TikTok"],
           "correctAnswer": 0,
           "explanation": "Streamlit Cloud للنشر المجاني"
         },
@@ -276,12 +196,7 @@
           "id": 9204,
           "type": "multiple_choice",
           "question": "إيه ميزة Streamlit الحقيقية؟",
-          "options": [
-            "بناء تطبيقات ويب بـ Python بس",
-            "سرعة التحميل",
-            "حجم الملفات",
-            "مفيش"
-          ],
+          "options": ["بناء تطبيقات ويب بـ Python بس", "سرعة التحميل", "حجم الملفات", "مفيش"],
           "correctAnswer": 0,
           "explanation": "Python كافي لبناء تطبيق ويب"
         },
@@ -289,12 +204,7 @@
           "id": 9205,
           "type": "multiple_choice",
           "question": "مبروك! إيه إحساسك؟",
-          "options": [
-            "فخور إني تعلمت Streamlit",
-            "عادي",
-            "مش مهم",
-            "تعبان"
-          ],
+          "options": ["فخور إني تعلمت Streamlit", "عادي", "مش مهم", "تعبان"],
           "correctAnswer": 0,
           "explanation": "أكيد فخور! 🎉"
         }

@@ -9,17 +9,14 @@
       "id": 84,
       "title": "st.form - النماذج",
       "xpReward": 25,
+      "lessonExplanation": "<h2>st.form() - النماذج</h2><p>النموذج بيجمع مجموعة مدخلات وينفذها <strong>مرة واحدة</strong> لما المستخدم يضغط Submit.</p><h3>📝 مثال:</h3><pre>with st.form(\"نموذجي\"):\n    name = st.text_input(\"الاسم\")\n    age = st.number_input(\"العمر\", 0, 100)\n    submitted = st.form_submit_button(\"أرسل\")</pre><h3>⚠️ ليه نستخدم form؟</h3><ul><li>بدون form: كل تغيير بيعمل rerun</li><li>مع form: rerun بس عند Submit</li><li>أسرع وأحسن للأداء</li></ul><h3>💡 استخدام:</h3><ul><li>تسجيل بيانات</li><li>فورم تواصل</li><li>إعدادات</li></ul>",
+      "lessonTip": "form بتخلي التطبيق أسرع وأحسن!",
       "exercises": [
         {
           "id": 8401,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.form()؟",
-          "options": [
-            "بتجمع المدخلات وتنفذها مرة واحدة",
-            "بتعمل زر",
-            "بتعمل صورة",
-            "بتعمل جدول"
-          ],
+          "options": ["بتجمع المدخلات وتنفذها مرة واحدة", "بتعمل زر", "بتعمل صورة", "بتعمل جدول"],
           "correctAnswer": 0,
           "explanation": "st.form() بتمنع التحديث التلقائي"
         },
@@ -36,12 +33,7 @@
           "id": 8403,
           "type": "multiple_choice",
           "question": "إيه فايدة st.form() عن المدخلات العادية؟",
-          "options": [
-            "ما بتحدثش الصفحة غير لما تضغط Submit",
-            "أسرع",
-            "أجمل",
-            "مفيش فرق"
-          ],
+          "options": ["ما بتحدثش الصفحة غير لما تضغط Submit", "أسرع", "أجمل", "مفيش فرق"],
           "correctAnswer": 0,
           "explanation": "form بيجمع المدخلات"
         },
@@ -49,12 +41,7 @@
           "id": 8404,
           "type": "multiple_choice",
           "question": "إيه اللي لازم يكون جوه form؟",
-          "options": [
-            "st.form_submit_button()",
-            "st.button()",
-            "st.write()",
-            "st.print()"
-          ],
+          "options": ["st.form_submit_button()", "st.button()", "st.write()", "st.print()"],
           "correctAnswer": 0,
           "explanation": "زر الإرسال لازم يكون form_submit_button"
         }
@@ -64,17 +51,14 @@
       "id": 85,
       "title": "st.form_submit_button",
       "xpReward": 25,
+      "lessonExplanation": "<h2>st.form_submit_button() - زر الإرسال</h2><p>زر خاص بالنماذج، بيعمل <strong>rerun للصفحة</strong> لما يتضغط.</p><h3>📝 مثال:</h3><pre>with st.form(\"نموذج\"):\n    name = st.text_input(\"الاسم\")\n    submitted = st.form_submit_button(\"أرسل\")\n\nif submitted:\n    st.success(f\"أهلاً {name}\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>لازم يكون جوه form</li><li>بترجع True لما يتضغط</li><li>مختلف عن st.button العادي</li></ul><h3>💡 الفرق:</h3><ul><li><code>st.button</code> — بره form</li><li><code>st.form_submit_button</code> — جوه form بس</li></ul>",
+      "lessonTip": "form_submit_button هو اللي بيفعّل النموذج!",
       "exercises": [
         {
           "id": 8501,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.form_submit_button()؟",
-          "options": [
-            "زر لإرسال النموذج",
-            "زر عادي",
-            "بتعرض نص",
-            "بتعمل جدول"
-          ],
+          "options": ["زر لإرسال النموذج", "زر عادي", "بتعرض نص", "بتعمل جدول"],
           "correctAnswer": 0,
           "explanation": "زر إرسال النموذج"
         },
@@ -91,12 +75,7 @@
           "id": 8503,
           "type": "multiple_choice",
           "question": "إمتى البيانات تتبعت في form؟",
-          "options": [
-            "لما نضغط Submit",
-            "تلقائي",
-            "لما نكتب",
-            "مش هتتبعت"
-          ],
+          "options": ["لما نضغط Submit", "تلقائي", "لما نكتب", "مش هتتبعت"],
           "correctAnswer": 0,
           "explanation": "لما Submit بس"
         }
@@ -106,17 +85,14 @@
       "id": 86,
       "title": "التحقق من المدخلات",
       "xpReward": 25,
+      "lessonExplanation": "<h2>التحقق من المدخلات</h2><p>لازم نتأكد إن المدخلات صح قبل ما نستخدمها.</p><h3>📝 مثال:</h3><pre>if submitted:\n    if not name:\n        st.error(\"الاسم مطلوب!\")\n    elif age < 18:\n        st.warning(\"لازم 18 سنة على الأقل\")\n    else:\n        st.success(f\"أهلاً {name}\")</pre><h3>⚠️ طرق التحقق:</h3><ul><li><code>if name:</code> — تأكد إن مش فاضي</li><li><code>if age > 0:</code> — تأكد إن الرقم منطقي</li><li><code>and</code> / <code>or</code> — للتحقق المركب</li></ul><h3>💡 رسائل:</h3><ul><li><code>st.error()</code> — خطأ</li><li><code>st.warning()</code> — تحذير</li><li><code>st.success()</code> — نجاح</li></ul>",
+      "lessonTip": "التحقق من المدخلات بيمنع الأخطاء!",
       "exercises": [
         {
           "id": 8601,
           "type": "multiple_choice",
           "question": "إزاي نتأكد إن المستخدم كتب اسم؟",
-          "options": [
-            "if name:",
-            "if name == True:",
-            "if name == '':",
-            "مش ينفع"
-          ],
+          "options": ["if name:", "if name == True:", "if name == '':", "مش ينفع"],
           "correctAnswer": 0,
           "explanation": "if name: بتتحقق إن فيه قيمة"
         },
@@ -124,12 +100,7 @@
           "id": 8602,
           "type": "multiple_choice",
           "question": "إزاي نتحقق إن الرقم أكبر من 0؟",
-          "options": [
-            "if num > 0:",
-            "if num:",
-            "if num != 0:",
-            "كلها صح"
-          ],
+          "options": ["if num > 0:", "if num:", "if num != 0:", "كلها صح"],
           "correctAnswer": 0,
           "explanation": "if num > 0 للتحقق"
         },
@@ -137,12 +108,7 @@
           "id": 8603,
           "type": "multiple_choice",
           "question": "إيه اللي نعمله لو المدخلات غلط؟",
-          "options": [
-            "st.error()",
-            "st.success()",
-            "st.write()",
-            "st.print()"
-          ],
+          "options": ["st.error()", "st.success()", "st.write()", "st.print()"],
           "correctAnswer": 0,
           "explanation": "st.error() لرسالة خطأ"
         },
@@ -150,12 +116,7 @@
           "id": 8604,
           "type": "multiple_choice",
           "question": "ينفع نجمع أكتر من تحقق مع بعض؟",
-          "options": [
-            "أيوة، بـ and أو or",
-            "لأ",
-            "بس واحد",
-            "مش عارف"
-          ],
+          "options": ["أيوة، بـ and أو or", "لأ", "بس واحد", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "بنستخدم and/or للتحقق المركب"
         }
@@ -165,17 +126,14 @@
       "id": 87,
       "title": "st.success، st.error، st.warning",
       "xpReward": 25,
+      "lessonExplanation": "<h2>رسائل التنبيه</h2><p>Streamlit فيها 4 أنواع من الرسائل:</p><h3>📝 الأنواع:</h3><ul><li><code>st.success()</code> — رسالة خضراء (نجاح)</li><li><code>st.error()</code> — رسالة حمراء (خطأ)</li><li><code>st.warning()</code> — رسالة صفراء (تحذير)</li><li><code>st.info()</code> — رسالة زرقاء (معلومة)</li></ul><h3>مثال:</h3><pre>if score >= 60:\n    st.success(\"نجحت!\")\nelse:\n    st.error(\"رسبت\")\n\nif age < 18:\n    st.warning(\"أنت قاصر\")\n\nst.info(\"ده تطبيق تعليمي\")</pre><h3>💡 متى نستخدم كل واحدة:</h3><ul><li>success — نجاح عملية</li><li>error — خطأ في المدخلات</li><li>warning — تحذير</li><li>info — معلومة عامة</li></ul>",
+      "lessonTip": "الألوان بتساعد المستخدم يفهم النتيجة بسرعة!",
       "exercises": [
         {
           "id": 8701,
           "type": "multiple_choice",
           "question": "إيه st.success()؟",
-          "options": [
-            "رسالة نجاح خضراء",
-            "رسالة خطأ حمراء",
-            "رسالة تحذير صفراء",
-            "رسالة عادية"
-          ],
+          "options": ["رسالة نجاح خضراء", "رسالة خطأ حمراء", "رسالة تحذير صفراء", "رسالة عادية"],
           "correctAnswer": 0,
           "explanation": "st.success() للنص الأخضر"
         },
@@ -183,12 +141,7 @@
           "id": 8702,
           "type": "multiple_choice",
           "question": "إيه st.error()؟",
-          "options": [
-            "رسالة خطأ حمراء",
-            "رسالة نجاح",
-            "رسالة تحذير",
-            "مفيش"
-          ],
+          "options": ["رسالة خطأ حمراء", "رسالة نجاح", "رسالة تحذير", "مفيش"],
           "correctAnswer": 0,
           "explanation": "st.error() للأخطاء"
         },
@@ -205,12 +158,7 @@
           "id": 8704,
           "type": "multiple_choice",
           "question": "إمتى نستخدم st.error()؟",
-          "options": [
-            "لما المدخلات غلط",
-            "لما البيانات صح",
-            "لما نحب نظهر حاجة",
-            "مش عارف"
-          ],
+          "options": ["لما المدخلات غلط", "لما البيانات صح", "لما نحب نظهر حاجة", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "للأخطاء"
         }

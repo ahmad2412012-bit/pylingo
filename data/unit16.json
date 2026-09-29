@@ -9,17 +9,14 @@
       "id": 70,
       "title": "st.line_chart - الرسم الخطي",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.line_chart() - الرسم الخطي</h2><p>بترسم <strong>خطوط بيانية</strong> لتتبع التغيير مع الوقت.</p><h3>📝 مثال:</h3><pre>import pandas as pd\n\ndata = pd.DataFrame({\n    \"sales\": [10, 20, 15, 30, 25]\n})\nst.line_chart(data)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بتقبل قوائم أو Pandas DataFrame</li><li>الأفضل للاتجاهات مع الوقت</li><li>بتشتغل تلقائي مع الـ rerun</li></ul><h3>💡 امتى نستخدمها:</h3><ul><li>تتبع المبيعات</li><li>متابعة الأسعار</li><li>إحصائيات مع الوقت</li></ul>",
+      "lessonTip": "line_chart الأحلى للاتجاهات مع الوقت!",
       "exercises": [
         {
           "id": 7001,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.line_chart()؟",
-          "options": [
-            "بترسم خطوط بيانية",
-            "بترسم دوائر",
-            "بترسم مربعات",
-            "بتعمل جدول"
-          ],
+          "options": ["بترسم خطوط بيانية", "بترسم دوائر", "بترسم مربعات", "بتعمل جدول"],
           "correctAnswer": 0,
           "explanation": "st.line_chart() للرسم الخطي"
         },
@@ -36,12 +33,7 @@
           "id": 7003,
           "type": "multiple_choice",
           "question": "إيه نوع البيانات اللي st.line_chart بتقبلها؟",
-          "options": [
-            "قوائم أو Pandas DataFrame",
-            "نصوص",
-            "صور",
-            "ملفات"
-          ],
+          "options": ["قوائم أو Pandas DataFrame", "نصوص", "صور", "ملفات"],
           "correctAnswer": 0,
           "explanation": "بتقبل lists أو DataFrames"
         },
@@ -49,12 +41,7 @@
           "id": 7004,
           "type": "multiple_choice",
           "question": "امتى نستخدم الخط البياني؟",
-          "options": [
-            "لتتبع التغيير مع الوقت",
-            "للمقارنة",
-            "للنسب",
-            "مش عارف"
-          ],
+          "options": ["لتتبع التغيير مع الوقت", "للمقارنة", "للنسب", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "الخطوط للاتجاهات مع الوقت"
         }
@@ -64,17 +51,14 @@
       "id": 71,
       "title": "st.bar_chart - الرسم بالأعمدة",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.bar_chart() - الأعمدة</h2><p>بترسم <strong>أعمدة</strong> للمقارنة بين فئات.</p><h3>📝 مثال:</h3><pre>import pandas as pd\n\ndata = pd.DataFrame({\n    \"فواكه\": [10, 20, 15],\n}, index=[\"تفاح\", \"موز\", \"برتقال\"])\nst.bar_chart(data)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بتقبل قوائم أو DataFrame</li><li>الأفضل للمقارنة</li><li>بتوضح الفروق بسرعة</li></ul><h3>💡 امتى نستخدمها:</h3><ul><li>المقارنة بين المنتجات</li><li>عدد المبيعات</li><li>الإحصائيات حسب الفئة</li></ul>",
+      "lessonTip": "bar_chart الأحلى للمقارنة بين الفئات!",
       "exercises": [
         {
           "id": 7101,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.bar_chart()؟",
-          "options": [
-            "بترسم أعمدة",
-            "بترسم خطوط",
-            "بترسم دوائر",
-            "بتعمل جدول"
-          ],
+          "options": ["بترسم أعمدة", "بترسم خطوط", "بترسم دوائر", "بتعمل جدول"],
           "correctAnswer": 0,
           "explanation": "st.bar_chart() للأعمدة"
         },
@@ -91,12 +75,7 @@
           "id": 7103,
           "type": "multiple_choice",
           "question": "امتى نستخدم الأعمدة؟",
-          "options": [
-            "للمقارنة بين فئات",
-            "للاتجاهات",
-            "للنسب",
-            "مش عارف"
-          ],
+          "options": ["للمقارنة بين فئات", "للاتجاهات", "للنسب", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "الأعمدة للمقارنة"
         },
@@ -104,12 +83,7 @@
           "id": 7104,
           "type": "multiple_choice",
           "question": "الفرق بين line_chart و bar_chart؟",
-          "options": [
-            "خطوط للتغيير، أعمدة للمقارنة",
-            "الاتنين نفس الحاجة",
-            "bar أسرع",
-            "مفيش فرق"
-          ],
+          "options": ["خطوط للتغيير، أعمدة للمقارنة", "الاتنين نفس الحاجة", "bar أسرع", "مفيش فرق"],
           "correctAnswer": 0,
           "explanation": "كل واحد لحاجة"
         }
@@ -119,17 +93,14 @@
       "id": 72,
       "title": "st.area_chart - الرسم المساحي",
       "xpReward": 25,
+      "lessonExplanation": "<h2>st.area_chart() - الرسم المساحي</h2><p>زي <code>line_chart</code> بس <strong>مليان من تحت</strong>.</p><h3>📝 مثال:</h3><pre>import pandas as pd\n\ndata = pd.DataFrame({\n    \"sales\": [10, 20, 15, 30]\n})\nst.area_chart(data)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بتقبل نفس بيانات line_chart</li><li>الشكل أحلى بصرياً</li><li>بتوضح التراكم</li></ul><h3>💡 الفرق عن line_chart:</h3><ul><li><code>line_chart</code> — خط بس</li><li><code>area_chart</code> — خط + مساحة ملونة</li></ul>",
+      "lessonTip": "area_chart بتدي شكل عصري للبيانات!",
       "exercises": [
         {
           "id": 7201,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.area_chart()؟",
-          "options": [
-            "بترسم مساحات مليانة",
-            "بترسم خطوط عادية",
-            "بترسم أعمدة",
-            "بتعمل جدول"
-          ],
+          "options": ["بترسم مساحات مليانة", "بترسم خطوط عادية", "بترسم أعمدة", "بتعمل جدول"],
           "correctAnswer": 0,
           "explanation": "st.area_chart() زي line بس مليان"
         },
@@ -146,12 +117,7 @@
           "id": 7203,
           "type": "multiple_choice",
           "question": "الفرق بين area_chart و line_chart؟",
-          "options": [
-            "area مليان، line خط",
-            "الاتنين نفس الحاجة",
-            "area أسرع",
-            "مفيش فرق"
-          ],
+          "options": ["area مليان، line خط", "الاتنين نفس الحاجة", "area أسرع", "مفيش فرق"],
           "correctAnswer": 0,
           "explanation": "الشكل بس مختلف"
         }
@@ -161,17 +127,14 @@
       "id": 73,
       "title": "st.map - الخرائط",
       "xpReward": 25,
+      "lessonExplanation": "<h2>st.map() - الخرائط</h2><p>بتعرض <strong>خريطة</strong> مع نقاط على إحداثيات معينة.</p><h3>📝 مثال:</h3><pre>import pandas as pd\n\ndata = pd.DataFrame({\n    \"lat\": [30.0444, 25.2769],\n    \"lon\": [31.2357, 55.2962]\n})\nst.map(data)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>لازم الأعمدة اسمها <code>lat</code> و <code>lon</code></li><li>بتعرض خريطة OpenStreetMap</li><li>ممكن نحدد حجم النقاط</li></ul><h3>💡 استخدام:</h3><ul><li>مواقع الفروع</li><li>البيانات الجغرافية</li><li>خرائط التوزيع</li></ul>",
+      "lessonTip": "st.map بسيطة جداً للبيانات الجغرافية!",
       "exercises": [
         {
           "id": 7301,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.map()؟",
-          "options": [
-            "بتعرض خريطة",
-            "بتعرض صورة",
-            "بتعرض جدول",
-            "بتعرض زر"
-          ],
+          "options": ["بتعرض خريطة", "بتعرض صورة", "بتعرض جدول", "بتعرض زر"],
           "correctAnswer": 0,
           "explanation": "st.map() للخرائط"
         },
@@ -188,12 +151,7 @@
           "id": 7303,
           "type": "multiple_choice",
           "question": "إيه البيانات اللي st.map() محتاجها؟",
-          "options": [
-            "latitude و longitude",
-            "نصوص",
-            "صور",
-            "ملفات"
-          ],
+          "options": ["latitude و longitude", "نصوص", "صور", "ملفات"],
           "correctAnswer": 0,
           "explanation": "بتحتاج إحداثيات"
         }
@@ -203,17 +161,14 @@
       "id": 74,
       "title": "شرح: تطبيق بيانات",
       "xpReward": 25,
+      "lessonExplanation": "<h2>تطبيق بيانات كامل</h2><p>خلينا نبني تطبيق يعرض إحصائيات:</p><h3>📝 الكود:</h3><pre>import streamlit as st\nimport pandas as pd\n\nst.title(\"📊 تحليل بيانات المبيعات\")\n\ndata = pd.DataFrame({\n    \"الشهر\": [\"يناير\", \"فبراير\", \"مارس\", \"أبريل\"],\n    \"المبيعات\": [100, 150, 120, 200]\n})\n\ncol1, col2 = st.columns(2)\n\nwith col1:\n    st.metric(\"إجمالي المبيعات\", data[\"المبيعات\"].sum())\n\nwith col2:\n    st.metric(\"أعلى شهر\", data.loc[data[\"المبيعات\"].idxmax(), \"الشهر\"])\n\nst.subheader(\"الرسم البياني\")\nst.line_chart(data.set_index(\"الشهر\"))\n\nst.subheader(\"الجدول\")\nst.dataframe(data)</pre><h3>💡 مميزات:</h3><ul><li>metrics للإحصائيات</li><li>chart للرسم</li><li>dataframe للجدول</li></ul>",
+      "lessonTip": "التطبيق ده بيجمع كل اللي اتعلمته!",
       "exercises": [
         {
           "id": 7401,
           "type": "multiple_choice",
           "question": "إيه أحسن نوع رسم للمقارنة؟",
-          "options": [
-            "st.bar_chart",
-            "st.line_chart",
-            "st.map",
-            "st.text"
-          ],
+          "options": ["st.bar_chart", "st.line_chart", "st.map", "st.text"],
           "correctAnswer": 0,
           "explanation": "الأعمدة للمقارنة"
         },
@@ -221,12 +176,7 @@
           "id": 7402,
           "type": "multiple_choice",
           "question": "إيه أحسن نوع رسم للتغيير مع الوقت؟",
-          "options": [
-            "st.line_chart",
-            "st.bar_chart",
-            "st.map",
-            "st.text"
-          ],
+          "options": ["st.line_chart", "st.bar_chart", "st.map", "st.text"],
           "correctAnswer": 0,
           "explanation": "الخطوط للاتجاهات"
         },
@@ -234,12 +184,7 @@
           "id": 7403,
           "type": "multiple_choice",
           "question": "ينفع نستخدم الرسوم مع pandas؟",
-          "options": [
-            "أيوة، عادي",
-            "لأ",
-            "بس CSV",
-            "مش عارف"
-          ],
+          "options": ["أيوة، عادي", "لأ", "بس CSV", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "Streamlit متوافق مع pandas"
         },
@@ -247,12 +192,7 @@
           "id": 7404,
           "type": "multiple_choice",
           "question": "ينفع نرسم أكتر من chart في صفحة؟",
-          "options": [
-            "أيوة، عادي",
-            "لأ",
-            "بس 2",
-            "مش عارف"
-          ],
+          "options": ["أيوة، عادي", "لأ", "بس 2", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "نقدر نعمل اللي عايزينه"
         }

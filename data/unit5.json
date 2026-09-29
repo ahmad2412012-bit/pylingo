@@ -9,6 +9,8 @@
       "id": 23,
       "title": "إنشاء القوائم",
       "xpReward": 20,
+      "lessonExplanation": "<h2>القوائم (Lists)</h2><p>القائمة هي <strong>مجموعة عناصر مرتبة</strong> بين <code>[ ]</code>. ممكن تحتوي على أي نوع بيانات.</p><h3>📝 أمثلة:</h3><pre>nums = [1, 2, 3]\nfruits = [\"apple\", \"banana\"]\nmixed = [1, \"hello\", 3.14, True]</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>القوائم بين <code>[ ]</code></li><li>العناصر بينهم <code>,</code></li><li>العناصر مرتبة (العد يبدأ من 0)</li><li>ينفع نغير العناصر بعد الإنشاء</li></ul>",
+      "lessonTip": "القوائم أساس البرمجة! جرب تعمل قائمة بأسماء أصحابك!",
       "exercises": [
         {
           "id": 2301,
@@ -49,6 +51,8 @@
       "id": 24,
       "title": "الوصول للعناصر",
       "xpReward": 25,
+      "lessonExplanation": "<h2>الوصول لعناصر القائمة</h2><p>بنستخدم <strong>الفهرس (index)</strong> للوصول لأي عنصر. العد <strong>يبدأ من 0</strong>.</p><h3>📝 مثال:</h3><pre>fruits = [\"apple\", \"banana\", \"cherry\"]\nprint(fruits[0])   # apple\nprint(fruits[1])   # banana\nprint(fruits[-1])  # cherry (الأخير)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>الفهرس الأول = 0</li><li>الفهرس الأخير = -1</li><li>لو الفهرس مش موجود، هيطلع خطأ</li></ul>",
+      "lessonTip": "الفهرس السالب بيعد من الآخر للأول!",
       "exercises": [
         {
           "id": 2401,
@@ -89,6 +93,8 @@
       "id": 25,
       "title": "إضافة وحذف",
       "xpReward": 25,
+      "lessonExplanation": "<h2>إضافة وحذف العناصر</h2><p>القوائم <strong>مرنة</strong> — نضيف ونحذف بسهولة.</p><h3>📝 الدوال:</h3><ul><li><code>append(x)</code> — تضيف في الآخر</li><li><code>insert(i, x)</code> — تضيف في مكان معين</li><li><code>remove(x)</code> — تحذف بالقيمة</li><li><code>pop()</code> — تحذف الأخير</li></ul><h3>مثال:</h3><pre>nums = [1, 2]\nnums.append(3)   # [1, 2, 3]\nnums.pop()       # [1, 2]</pre>",
+      "lessonTip": "append أكثر دالة هتستخدمها مع القوائم!",
       "exercises": [
         {
           "id": 2501,
@@ -129,6 +135,8 @@
       "id": 26,
       "title": "len و loops على القوائم",
       "xpReward": 25,
+      "lessonExplanation": "<h2>len() والحلقات على القوائم</h2><p><code>len()</code> بترجع عدد العناصر، و<code>for</code> بتلف على القائمة.</p><h3>📝 مثال:</h3><pre>nums = [1, 2, 3]\nprint(len(nums))   # 3\n\nfor x in nums:\n    print(x)</pre><h3>⚠️ ملاحظات:</h3><ul><li><code>len()</code> بتشتغل مع أي نوع مجموعة</li><li>for على القائمة بسيطة جداً</li></ul>",
+      "lessonTip": "len مفيدة لمعرفة حجم القائمة قبل العمل عليها!",
       "exercises": [
         {
           "id": 2601,
@@ -169,6 +177,8 @@
       "id": 27,
       "title": "Slicing",
       "xpReward": 30,
+      "lessonExplanation": "<h2>Slicing - التقطيع</h2><p>بنستخدم <code>[start:end]</code> للحصول على جزء من القائمة.</p><h3>📝 مثال:</h3><pre>nums = [0, 1, 2, 3, 4]\nprint(nums[1:4])   # [1, 2, 3]\nprint(nums[:2])    # [0, 1]\nprint(nums[3:])    # [3, 4]</pre><h3>⚠️ مهم جداً:</h3><ul><li>البداية <strong>متضمنة</strong></li><li>النهاية <strong>مش متضمنة</strong></li><li>لو سيبت البداية فاضية = من الأول</li><li>لو سيبت النهاية فاضية = للآخر</li></ul>",
+      "lessonTip": "Slicing مفيد جداً للتعامل مع البيانات!",
       "exercises": [
         {
           "id": 2701,

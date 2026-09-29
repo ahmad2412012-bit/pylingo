@@ -1,4 +1,3 @@
-
 {
   "id": 9,
   "title": "الملفات والأخطاء",
@@ -10,6 +9,8 @@
       "id": 39,
       "title": "try و except",
       "xpReward": 30,
+      "lessonExplanation": "<h2>try و except</h2><p>بنستخدم <code>try/except</code> للتعامل مع الأخطاء <strong>بدون ما البرنامج يوقف</strong>.</p><h3>📝 مثال:</h3><pre>try:\n    x = 10 / 0\nexcept ZeroDivisionError:\n    print(\"خطأ\")</pre><p>النتيجة:</p><pre>خطأ</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>try</code> — الكود اللي ممكن يطلع خطأ</li><li><code>except</code> — الكود اللي يتنفذ لو حصل خطأ</li><li>ممكن تحدد نوع الخطأ (زي ZeroDivisionError)</li><li>لو مفيش except، البرنامج هيقف</li></ul>",
+      "lessonTip": "try/except بتخلي برنامجك مايقعش من أول خطأ!",
       "exercises": [
         {
           "id": 3901,
@@ -50,6 +51,8 @@
       "id": 40,
       "title": "أنواع الأخطاء",
       "xpReward": 25,
+      "lessonExplanation": "<h2>أنواع الأخطاء في Python</h2><p>Python فيها أنواع مختلفة من الأخطاء:</p><h3>📝 الجدول:</h3><ul><li><code>ZeroDivisionError</code> — قسمة على صفر</li><li><code>ValueError</code> — قيمة غير صالحة</li><li><code>TypeError</code> — نوع بيانات غلط</li><li><code>NameError</code> — متغير مش موجود</li><li><code>KeyError</code> — مفتاح مش موجود</li></ul><h3>مثال:</h3><pre>int(\"abc\")   # ValueError\n10 / 0       # ZeroDivisionError</pre><h3>💡 فايدة معرفة الأنواع:</h3><p>تعامل مع كل خطأ بطريقة مناسبة.</p>",
+      "lessonTip": "معرفة نوع الخطأ بتساعدك تحله أسرع!",
       "exercises": [
         {
           "id": 4001,
@@ -81,6 +84,8 @@
       "id": 41,
       "title": "finally",
       "xpReward": 25,
+      "lessonExplanation": "<h2>finally</h2><p><code>finally</code> بتنفذ <strong>في كل الحالات</strong> — سواء حصل خطأ أو لأ.</p><h3>📝 مثال:</h3><pre>try:\n    print(\"A\")\nfinally:\n    print(\"B\")</pre><p>النتيجة:</p><pre>A\nB</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>finally</code> بتنفذ دايماً</li><li>مفيدة لتنظيف الموارد (زي إغلاق ملف)</li><li>ممكن تستخدمها مع except</li></ul><h3>💡 مثال كامل:</h3><pre>try:\n    x = 1 / 0\nexcept:\n    print(\"Error\")\nfinally:\n    print(\"Done\")</pre>",
+      "lessonTip": "finally بتنفذ حتى لو البرنامج عمل return!",
       "exercises": [
         {
           "id": 4101,

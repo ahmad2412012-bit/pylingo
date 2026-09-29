@@ -9,17 +9,14 @@
       "id": 51,
       "title": "st.text_input - النص",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.text_input() - خانة النص</h2><p>بتعمل <strong>خانة المستخدم يكتب فيها نص</strong>. زي <code>input()</code> بس في صفحة الويب.</p><h3>📝 مثال:</h3><pre>name = st.text_input(\"اسمك؟\")\nst.write(\"أهلاً \" + name)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بترجع النص كـ <strong>string</strong></li><li>لو المستخدم مكتبش، بترجع نص فاضي <code>\"\"</code></li><li>ممكن نحدد قيمة افتراضية</li></ul><h3>💡 الفرق عن input():</h3><ul><li><code>input()</code> — في terminal</li><li><code>st.text_input()</code> — في الصفحة</li></ul>",
+      "lessonTip": "st.text_input هي input() بتاعت Streamlit!",
       "exercises": [
         {
           "id": 5101,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.text_input()؟",
-          "options": [
-            "بتعمل خانة لإدخال نص",
-            "بتطبع نص",
-            "بتعمل ملف",
-            "بتحذف نص"
-          ],
+          "options": ["بتعمل خانة لإدخال نص", "بتطبع نص", "بتعمل ملف", "بتحذف نص"],
           "correctAnswer": 0,
           "explanation": "st.text_input() بتعمل خانة المستخدم يكتب فيها نص"
         },
@@ -36,12 +33,7 @@
           "id": 5103,
           "type": "multiple_choice",
           "question": "st.text_input() بترجع إيه؟",
-          "options": [
-            "النص اللي المستخدم كتبه",
-            "رقم",
-            "صورة",
-            "ملف"
-          ],
+          "options": ["النص اللي المستخدم كتبه", "رقم", "صورة", "ملف"],
           "correctAnswer": 0,
           "explanation": "بترجع النص كـ string"
         },
@@ -49,12 +41,7 @@
           "id": 5104,
           "type": "multiple_choice",
           "question": "إيه الفرق بين st.text_input و input؟",
-          "options": [
-            "text_input في الصفحة، input في terminal",
-            "الاتنين نفس الحاجة",
-            "input أسرع",
-            "text_input للنصوص، input للأرقام"
-          ],
+          "options": ["text_input في الصفحة، input في terminal", "الاتنين نفس الحاجة", "input أسرع", "text_input للنصوص، input للأرقام"],
           "correctAnswer": 0,
           "explanation": "input للـ terminal، st.text_input للواجهة"
         }
@@ -64,17 +51,14 @@
       "id": 52,
       "title": "st.text_area - نص طويل",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.text_area() - نص طويل</h2><p>زي <code>st.text_input</code> بس بخانة <strong>كبيرة</strong> للنصوص الطويلة.</p><h3>📝 مثال:</h3><pre>notes = st.text_area(\"اكتب ملاحظاتك\")\nst.write(\"ملاحظاتك: \" + notes)</pre><h3>⚠️ امتى نستخدمها:</h3><ul><li>للملاحظات</li><li>للرسائل الطويلة</li><li>للتعليقات</li></ul><h3>💡 الفرق:</h3><ul><li><code>text_input</code> — سطر واحد</li><li><code>text_area</code> — متعدد السطور</li></ul>",
+      "lessonTip": "text_area أفضل للملاحظات الطويلة!",
       "exercises": [
         {
           "id": 5201,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.text_area()؟",
-          "options": [
-            "بتعمل خانة نص كبيرة",
-            "بتعمل خانة صغيرة",
-            "بتطبع",
-            "بتحذف"
-          ],
+          "options": ["بتعمل خانة نص كبيرة", "بتعمل خانة صغيرة", "بتطبع", "بتحذف"],
           "correctAnswer": 0,
           "explanation": "st.text_area() للنصوص الطويلة زي الملاحظات"
         },
@@ -91,12 +75,7 @@
           "id": 5203,
           "type": "multiple_choice",
           "question": "إمتى نستخدم st.text_area()؟",
-          "options": [
-            "للنصوص الطويلة",
-            "للكلمات القصيرة",
-            "للأرقام",
-            "للصور"
-          ],
+          "options": ["للنصوص الطويلة", "للكلمات القصيرة", "للأرقام", "للصور"],
           "correctAnswer": 0,
           "explanation": "لما المستخدم يحتاج يكتب كتير"
         }
@@ -106,17 +85,14 @@
       "id": 53,
       "title": "st.number_input - الأرقام",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.number_input() - خانة الأرقام</h2><p>بتعمل <strong>خانة للأرقام</strong> بس (مش نصوص).</p><h3>📝 مثال:</h3><pre>age = st.number_input(\"عمرك؟\", min_value=0, max_value=100)\nst.write(f\"عمرك {age} سنة\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بترجع <strong>رقم</strong> (int أو float)</li><li>ممكن نحدد <code>min_value</code> و <code>max_value</code></li><li>في أزرار + و - للزيادة والنقصان</li></ul><h3>💡 الفرق عن text_input:</h3><ul><li><code>text_input</code> — للنصوص</li><li><code>number_input</code> — للأرقام</li></ul>",
+      "lessonTip": "number_input بيوفر عليك int() و float()!",
       "exercises": [
         {
           "id": 5301,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.number_input()؟",
-          "options": [
-            "بتعمل خانة للأرقام",
-            "بتعمل خانة نصوص",
-            "بتطبع رقم",
-            "بتحذف رقم"
-          ],
+          "options": ["بتعمل خانة للأرقام", "بتعمل خانة نصوص", "بتطبع رقم", "بتحذف رقم"],
           "correctAnswer": 0,
           "explanation": "st.number_input() للأرقام"
         },
@@ -133,12 +109,7 @@
           "id": 5303,
           "type": "multiple_choice",
           "question": "st.number_input() بترجع إيه؟",
-          "options": [
-            "رقم (int أو float)",
-            "نص",
-            "صورة",
-            "قائمة"
-          ],
+          "options": ["رقم (int أو float)", "نص", "صورة", "قائمة"],
           "correctAnswer": 0,
           "explanation": "بترجع رقم"
         },
@@ -146,12 +117,7 @@
           "id": 5304,
           "type": "multiple_choice",
           "question": "إيه الفرق بين st.text_input و st.number_input؟",
-          "options": [
-            "الأول للنصوص، التاني للأرقام",
-            "الاتنين نفس الحاجة",
-            "التاني أسرع",
-            "مفيش فرق"
-          ],
+          "options": ["الأول للنصوص، التاني للأرقام", "الاتنين نفس الحاجة", "التاني أسرع", "مفيش فرق"],
           "correctAnswer": 0,
           "explanation": "كل واحد لحاجة مختلفة"
         }
@@ -161,17 +127,14 @@
       "id": 54,
       "title": "st.date_input - التواريخ",
       "xpReward": 25,
+      "lessonExplanation": "<h2>st.date_input() - خانة التواريخ</h2><p>بتعمل <strong>خانة لاختيار تاريخ</strong> من تقويم.</p><h3>📝 مثال:</h3><pre>from datetime import date\n\nbirthdate = st.date_input(\"تاريخ ميلادك\")\nst.write(f\"اتولدت في {birthdate}\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بترجع <code>date</code> object</li><li>بتفتح تقويم للاختيار</li><li>ممكن نحدد تاريخ افتراضي</li></ul><h3>💡 استخدمات:</h3><ul><li>تاريخ الميلاد</li><li>مواعيد</li><li>تواريخ مهام</li></ul>",
+      "lessonTip": "date_input بتوفر تقويم تفاعلي جاهز!",
       "exercises": [
         {
           "id": 5401,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.date_input()؟",
-          "options": [
-            "بتعمل خانة لاختيار تاريخ",
-            "بتعمل خانة نصوص",
-            "بتطبع تاريخ",
-            "بتحذف تاريخ"
-          ],
+          "options": ["بتعمل خانة لاختيار تاريخ", "بتعمل خانة نصوص", "بتطبع تاريخ", "بتحذف تاريخ"],
           "correctAnswer": 0,
           "explanation": "st.date_input() لاختيار التواريخ"
         },
@@ -188,12 +151,7 @@
           "id": 5403,
           "type": "multiple_choice",
           "question": "st.date_input() بترجع إيه؟",
-          "options": [
-            "تاريخ (date object)",
-            "نص",
-            "رقم",
-            "قائمة"
-          ],
+          "options": ["تاريخ (date object)", "نص", "رقم", "قائمة"],
           "correctAnswer": 0,
           "explanation": "بترجع date object"
         }
@@ -203,17 +161,14 @@
       "id": 55,
       "title": "استخدام المدخلات",
       "xpReward": 25,
+      "lessonExplanation": "<h2>استخدام المدخلات في التطبيق</h2><p>بعد ما نجيب المدخلات، بنستخدمها في التطبيق.</p><h3>📝 مثال:</h3><pre>name = st.text_input(\"اسمك؟\")\nage = st.number_input(\"عمرك؟\", min_value=0, max_value=100)\n\nif name:\n    st.write(f\"أهلاً {name}! عمرك {age} سنة\")</pre><h3>💡 نصائح:</h3><ul><li>اتأكد من المدخلات قبل الاستخدام</li><li>استخدم f-string للطباعة</li><li>استخدم if name: للتحقق إن مفيش فراغ</li></ul><h3>⚠️ مهم:</h3><p>Streamlit بيعمل <strong>rerun</strong> للصفحة مع كل تفاعل.</p>",
+      "lessonTip": "دائماً تأكد من المدخلات قبل ما تستخدمها!",
       "exercises": [
         {
           "id": 5501,
           "type": "multiple_choice",
           "question": "إزاي نعرض النص اللي المستخدم كتبه؟",
-          "options": [
-            "st.write(name)",
-            "st.print(name)",
-            "st.show(name)",
-            "st.display(name)"
-          ],
+          "options": ["st.write(name)", "st.print(name)", "st.show(name)", "st.display(name)"],
           "correctAnswer": 0,
           "explanation": "st.write() بتعرض القيمة"
         },
@@ -221,12 +176,7 @@
           "id": 5502,
           "type": "multiple_choice",
           "question": "إيه الفرق بين المدخلات والمتغيرات العادية؟",
-          "options": [
-            "المدخلات بتجي من المستخدم",
-            "الاتنين نفس الحاجة",
-            "المتغيرات أسرع",
-            "مفيش فرق"
-          ],
+          "options": ["المدخلات بتجي من المستخدم", "الاتنين نفس الحاجة", "المتغيرات أسرع", "مفيش فرق"],
           "correctAnswer": 0,
           "explanation": "المدخلات بتجي من المستخدم، المتغيرات بنحددها"
         },
@@ -234,12 +184,7 @@
           "id": 5503,
           "type": "multiple_choice",
           "question": "ينفع نجمع رقم من st.number_input مع رقم تاني؟",
-          "options": [
-            "أيوة، عادي زي Python",
-            "لأ، ممنوع",
-            "بس نصوص",
-            "مش عارف"
-          ],
+          "options": ["أيوة، عادي زي Python", "لأ، ممنوع", "بس نصوص", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "Streamlit بيستخدم Python كامل"
         },
@@ -247,12 +192,7 @@
           "id": 5504,
           "type": "multiple_choice",
           "question": "لو عايز أطبع 'أهلاً' مع اسم المستخدم، إيه الأفضل؟",
-          "options": [
-            "st.write(\"أهلاً \" + name)",
-            "st.write(\"أهلاً\")",
-            "st.write(name)",
-            "st.write(\"name\")"
-          ],
+          "options": ["st.write(\"أهلاً \" + name)", "st.write(\"أهلاً\")", "st.write(name)", "st.write(\"name\")"],
           "correctAnswer": 0,
           "explanation": "بنجمع النص مع المتغير"
         },
@@ -260,12 +200,7 @@
           "id": 5505,
           "type": "multiple_choice",
           "question": "ينفع نستخدم f-string في Streamlit؟",
-          "options": [
-            "أيوة، عادي",
-            "لأ، ممنوع",
-            "بس نصوص",
-            "مش عارف"
-          ],
+          "options": ["أيوة، عادي", "لأ، ممنوع", "بس نصوص", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "Streamlit Python كامل، فـ f-string شغال"
         }

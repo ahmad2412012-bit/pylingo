@@ -9,17 +9,14 @@
       "id": 75,
       "title": "st.columns - الأعمدة",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.columns() - تقسيم الصفحة</h2><p>بتقسم الصفحة لـ <strong>أعمدة</strong> جانبية لعرض العناصر جنب بعض.</p><h3>📝 مثال:</h3><pre>col1, col2 = st.columns(2)\n\nwith col1:\n    st.write(\"العمود الأول\")\n\nwith col2:\n    st.write(\"العمود التاني\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>st.columns(n)</code> — n أعمدة متساوية</li><li><code>with col:</code> للكتابة في عمود معين</li><li>ممكن نخلي عمود أعرض: <code>st.columns([2, 1])</code></li></ul><h3>💡 استخدام:</h3><ul><li>عرض metrics جنب بعض</li><li>صور + نصوص</li><li>تقسيم الصفحة</li></ul>",
+      "lessonTip": "columns بتخلي الصفحة منظمة واحترافية!",
       "exercises": [
         {
           "id": 7501,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.columns()؟",
-          "options": [
-            "بتقسم الصفحة لأعمدة",
-            "بتعمل جدول",
-            "بتعمل صورة",
-            "بتعمل زر"
-          ],
+          "options": ["بتقسم الصفحة لأعمدة", "بتعمل جدول", "بتعمل صورة", "بتعمل زر"],
           "correctAnswer": 0,
           "explanation": "st.columns() لتقسيم الصفحة"
         },
@@ -36,12 +33,7 @@
           "id": 7503,
           "type": "multiple_choice",
           "question": "إزاي نكتب في عمود معين؟",
-          "options": [
-            "with col1:",
-            "col1.write()",
-            "st.col1()",
-            "col(1)"
-          ],
+          "options": ["with col1:", "col1.write()", "st.col1()", "col(1)"],
           "correctAnswer": 0,
           "explanation": "with col1: st.write(...)"
         },
@@ -49,12 +41,7 @@
           "id": 7504,
           "type": "multiple_choice",
           "question": "ينفع نخلي عمود أعرض من التاني؟",
-          "options": [
-            "أيوة، st.columns([2, 1])",
-            "لأ",
-            "بس متساوي",
-            "مش عارف"
-          ],
+          "options": ["أيوة، st.columns([2, 1])", "لأ", "بس متساوي", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "st.columns([2, 1]) بتخلي الأول ضعف التاني"
         }
@@ -64,17 +51,14 @@
       "id": 76,
       "title": "st.tabs - التبويبات",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.tabs() - التبويبات</h2><p>بتعمل <strong>تبويبات</strong> زي المتصفح، كل واحدة فيها محتوى مختلف.</p><h3>📝 مثال:</h3><pre>tab1, tab2 = st.tabs([\"الأول\", \"التاني\"])\n\nwith tab1:\n    st.write(\"محتوى التبويب الأول\")\n\nwith tab2:\n    st.write(\"محتوى التبويب التاني\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>بتاخد قائمة بأسماء التبويبات</li><li>بنستخدم <code>with tab:</code> للكتابة</li><li>المستخدم بيضغط على التبويب يشوف محتواه</li></ul><h3>💡 استخدام:</h3><ul><li>تقسيم التطبيق لأقسام</li><li>عرض بيانات مختلفة</li><li>تنظيم المحتوى الطويل</li></ul>",
+      "lessonTip": "tabs بتوفر مساحة وتنظم المحتوى!",
       "exercises": [
         {
           "id": 7601,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.tabs()؟",
-          "options": [
-            "بتعمل تبويبات",
-            "بتعمل أعمدة",
-            "بتعمل صورة",
-            "بتعمل زر"
-          ],
+          "options": ["بتعمل تبويبات", "بتعمل أعمدة", "بتعمل صورة", "بتعمل زر"],
           "correctAnswer": 0,
           "explanation": "st.tabs() لتبويبات زي المتصفح"
         },
@@ -91,12 +75,7 @@
           "id": 7603,
           "type": "multiple_choice",
           "question": "إزاي نكتب في تبويب؟",
-          "options": [
-            "with tab1:",
-            "tab1.write()",
-            "st.tab1()",
-            "tab(1)"
-          ],
+          "options": ["with tab1:", "tab1.write()", "st.tab1()", "tab(1)"],
           "correctAnswer": 0,
           "explanation": "with tab1: st.write(...)"
         }
@@ -106,17 +85,14 @@
       "id": 77,
       "title": "st.expander - الطي",
       "xpReward": 20,
+      "lessonExplanation": "<h2>st.expander() - الأقسام القابلة للطي</h2><p>بتعمل <strong>قسم مخفي</strong> يفتح ويقفل بالضغط عليه. مفيد لاخفاء التفاصيل.</p><h3>📝 مثال:</h3><pre>with st.expander(\"اضغط لعرض التفاصيل\"):\n    st.write(\"التفاصيل هنا\")\n    st.write(\"معلومة إضافية\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>القسم مقفول افتراضياً</li><li>المستخدم يضغط عليه يفتح</li><li>بنستخدم <code>with st.expander():</code></li></ul><h3>💡 استخدام:</h3><ul><li>شرح إضافي</li><li>تفاصيل تقنية</li><li>أسئلة شائعة</li></ul>",
+      "lessonTip": "expander بيخلي الصفحة نضيفة بدون تفاصيل كتير!",
       "exercises": [
         {
           "id": 7701,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.expander()؟",
-          "options": [
-            "بتعمل قسم ينطوي ويفتح",
-            "بتعمل أعمدة",
-            "بتعمل تبويب",
-            "بتعمل صورة"
-          ],
+          "options": ["بتعمل قسم ينطوي ويفتح", "بتعمل أعمدة", "بتعمل تبويب", "بتعمل صورة"],
           "correctAnswer": 0,
           "explanation": "st.expander() لقسم مخفي"
         },
@@ -133,12 +109,7 @@
           "id": 7703,
           "type": "multiple_choice",
           "question": "امتى نستخدم st.expander()؟",
-          "options": [
-            "للمعلومات الإضافية",
-            "للعنوان الرئيسي",
-            "للأزرار",
-            "مش عارف"
-          ],
+          "options": ["للمعلومات الإضافية", "للعنوان الرئيسي", "للأزرار", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "لما نحب نخفي تفاصيل ثانوية"
         }
@@ -148,17 +119,14 @@
       "id": 78,
       "title": "st.container - الحاويات",
       "xpReward": 25,
+      "lessonExplanation": "<h2>st.container() - الحاويات</h2><p>بتجمع عناصر في <strong>حاوية</strong> واحدة. مفيدة لتنظيم الصفحة.</p><h3>📝 مثال:</h3><pre>with st.container():\n    st.write(\"عنصر 1\")\n    st.write(\"عنصر 2\")\n    st.button(\"زر\")</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>الحاوية بتجمع العناصر</li><li>بتساعد في التنظيم</li><li>ممكن نخلي الحاوية بـ border</li></ul><h3>💡 استخدام:</h3><ul><li>تجميع عناصر منطقية</li><li>تطبيق CSS مخصص</li><li>تنظيم الصفحة</li></ul>",
+      "lessonTip": "container مفيدة لتجميع العناصر المرتبطة!",
       "exercises": [
         {
           "id": 7801,
           "type": "multiple_choice",
           "question": "إيه وظيفة st.container()؟",
-          "options": [
-            "بتجمع عناصر في حاوية",
-            "بتعمل صفحة جديدة",
-            "بتعمل صورة",
-            "بتعمل زر"
-          ],
+          "options": ["بتجمع عناصر في حاوية", "بتعمل صفحة جديدة", "بتعمل صورة", "بتعمل زر"],
           "correctAnswer": 0,
           "explanation": "st.container() لتجميع العناصر"
         },
@@ -175,12 +143,7 @@
           "id": 7803,
           "type": "multiple_choice",
           "question": "إيه فايدة st.container()؟",
-          "options": [
-            "تنظيم العناصر",
-            "تسريع الصفحة",
-            "تخفي العناصر",
-            "مش عارف"
-          ],
+          "options": ["تنظيم العناصر", "تسريع الصفحة", "تخفي العناصر", "مش عارف"],
           "correctAnswer": 0,
           "explanation": "بتساعد في تنظيم الصفحة"
         }

@@ -9,6 +9,8 @@
       "id": 18,
       "title": "for loop",
       "xpReward": 25,
+      "lessonExplanation": "<h2>حلقة for</h2><p>حلقة <code>for</code> بتلف على <strong>عناصر مجموعة</strong> (قائمة، نص، range).</p><h3>📝 مثال:</h3><pre>for i in [1, 2, 3]:\n    print(i)</pre><p>النتيجة:</p><pre>1\n2\n3</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li><code>i</code> بياخد كل عنصر بالترتيب</li><li>لازم <code>:</code> بعد for</li><li>الكود جوه for لازم يكون مزاح (indented)</li></ul><h3>💡 الفرق بين for و while:</h3><ul><li><code>for</code> — لما نعرف عدد اللفات</li><li><code>while</code> — لما نعتمد على شرط</li></ul>",
+      "lessonTip": "for بتلف على أي حاجة: قوائم، نصوص، أرقام!",
       "exercises": [
         {
           "id": 1801,
@@ -49,6 +51,8 @@
       "id": 19,
       "title": "range()",
       "xpReward": 25,
+      "lessonExplanation": "<h2>range() - توليد الأرقام</h2><p><code>range()</code> بتولّد سلسلة أرقام تستخدمها مع for.</p><h3>📝 الاستخدامات:</h3><ul><li><code>range(5)</code> — من 0 لـ 4</li><li><code>range(1, 6)</code> — من 1 لـ 5</li><li><code>range(0, 10, 2)</code> — من 0 لـ 8 بخطوة 2</li></ul><h3>مثال:</h3><pre>for i in range(3):\n    print(i)</pre><p>النتيجة:</p><pre>0\n1\n2</pre><h3>⚠️ مهم:</h3><ul><li>النهاية <strong>مش متضمنة</strong></li><li>لو بدأت بـ 0، تقدر متكتبهاش</li></ul>",
+      "lessonTip": "range(1, 6) بتدي 1, 2, 3, 4, 5 — مش 6!",
       "exercises": [
         {
           "id": 1901,
@@ -89,6 +93,8 @@
       "id": 20,
       "title": "break و continue",
       "xpReward": 30,
+      "lessonExplanation": "<h2>break و continue</h2><p>أوامر للتحكم في الحلقة:</p><h3>📝 الاستخدامات:</h3><ul><li><code>break</code> — <strong>توقف الحلقة</strong> خالص</li><li><code>continue</code> — <strong>تخطى الدورة الحالية</strong> وروح للي بعدها</li></ul><h3>مثال break:</h3><pre>for i in range(5):\n    if i == 3:\n        break\n    print(i)</pre><p>النتيجة:</p><pre>0\n1\n2</pre><h3>مثال continue:</h3><pre>for i in range(5):\n    if i == 2:\n        continue\n    print(i)</pre><p>النتيجة:</p><pre>0\n1\n3\n4</pre>",
+      "lessonTip": "break بتوقف الحلقة، continue بس بتتخطى اللفة!",
       "exercises": [
         {
           "id": 2001,
@@ -129,6 +135,8 @@
       "id": 21,
       "title": "حلقات متداخلة",
       "xpReward": 30,
+      "lessonExplanation": "<h2>حلقات متداخلة (Nested Loops)</h2><p>ممكن نحط حلقة <strong>جوه حلقة تانية</strong>.</p><h3>📝 مثال:</h3><pre>for i in range(2):\n    for j in range(2):\n        print(i, j)</pre><p>النتيجة:</p><pre>0 0\n0 1\n1 0\n1 1</pre><h3>⚠️ مهم:</h3><ul><li>الحلقة الداخلية بتلف كاملة مع كل لفة من الخارجية</li><li>عدد اللفات الكلي = عدد الخارجية × عدد الداخلية</li><li>مفيدة للجداول والأشكال</li></ul>",
+      "lessonTip": "الحلقات المتداخلة مفيدة للجداول والأنماط!",
       "exercises": [
         {
           "id": 2101,
@@ -160,6 +168,8 @@
       "id": 22,
       "title": "for على القوائم",
       "xpReward": 25,
+      "lessonExplanation": "<h2>for على القوائم</h2><p>for بتلف على عناصر القائمة بسهولة:</p><h3>📝 مثال:</h3><pre>fruits = [\"apple\", \"banana\"]\nfor f in fruits:\n    print(f)</pre><p>النتيجة:</p><pre>apple\nbanana</pre><h3>💡 استخدام شائع:</h3><pre>total = 0\nfor n in [1, 2, 3, 4]:\n    total = total + n\nprint(total)  # 10</pre><h3>⚠️ مهم:</h3><ul><li>المتغير بياخد قيمة كل عنصر</li><li>ينفع نستخدم أي اسم للمتغير</li></ul>",
+      "lessonTip": "for على القوائم أكثر استخداماً في البرمجة الحقيقية!",
       "exercises": [
         {
           "id": 2201,
