@@ -1534,6 +1534,426 @@ button {
 
 [data-theme="dark"] .stat-value { color: #D0D8DD; }
 
+/* ============================================ */
+/* ============ Animations System ============ */
+/* ============================================ */
+
+/* ============ Keyframes ============ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-12px); }
+  30% { transform: translateX(12px); }
+  45% { transform: translateX(-8px); }
+  60% { transform: translateX(8px); }
+  75% { transform: translateX(-4px); }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(88, 204, 2, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(88, 204, 2, 0.6);
+  }
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.15); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ============ Screen Transitions ============ */
+.screen.active {
+  animation: fadeIn 0.35s ease-out;
+}
+
+/* ============ Explanation Screen ============ */
+.explanation-icon {
+  animation: floatIcon 3s ease-in-out infinite, popIn 0.5s ease-out;
+}
+
+.explanation-title {
+  animation: slideInRight 0.5s ease-out 0.1s both;
+}
+
+.explanation-card {
+  animation: fadeInUp 0.5s ease-out 0.2s both;
+}
+
+.explanation-tip {
+  animation: fadeInUp 0.5s ease-out 0.35s both;
+}
+
+.explanation-content h2 {
+  animation: fadeIn 0.4s ease-out 0.3s both;
+}
+
+.explanation-content pre {
+  animation: fadeIn 0.4s ease-out 0.4s both;
+}
+
+/* ============ Lesson Screen ============ */
+.question-text {
+  animation: slideInRight 0.4s ease-out;
+}
+
+.question-extra {
+  animation: fadeInUp 0.5s ease-out 0.15s both;
+}
+
+/* Staggered answers */
+.answer-btn {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.answers-container .answer-btn:nth-child(1) { animation-delay: 0.1s; }
+.answers-container .answer-btn:nth-child(2) { animation-delay: 0.18s; }
+.answers-container .answer-btn:nth-child(3) { animation-delay: 0.26s; }
+.answers-container .answer-btn:nth-child(4) { animation-delay: 0.34s; }
+.answers-container .answer-btn:nth-child(5) { animation-delay: 0.42s; }
+
+/* Answer states */
+.answer-btn.selected {
+  animation: pulse 0.4s ease-in-out;
+}
+
+.answer-btn.correct {
+  animation: bounceIn 0.5s ease-out;
+  box-shadow: 0 0 25px rgba(88, 204, 2, 0.5);
+}
+
+.answer-btn.wrong {
+  animation: shake 0.5s ease-out;
+}
+
+/* Feedback */
+.feedback-area.show {
+  animation: slideUp 0.4s ease-out;
+}
+
+.feedback-area.correct {
+  animation: slideUp 0.4s ease-out, glow 2s ease-in-out 0.4s infinite;
+}
+
+/* ============ Home Screen ============ */
+.app-title {
+  animation: popIn 0.6s ease-out;
+}
+
+.app-subtitle {
+  animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+/* Unit cards - staggered */
+.unit {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.unit:nth-child(1) { animation-delay: 0.05s; }
+.unit:nth-child(2) { animation-delay: 0.1s; }
+.unit:nth-child(3) { animation-delay: 0.15s; }
+.unit:nth-child(4) { animation-delay: 0.2s; }
+.unit:nth-child(5) { animation-delay: 0.25s; }
+.unit:nth-child(6) { animation-delay: 0.3s; }
+.unit:nth-child(7) { animation-delay: 0.35s; }
+.unit:nth-child(8) { animation-delay: 0.4s; }
+.unit:nth-child(9) { animation-delay: 0.45s; }
+.unit:nth-child(10) { animation-delay: 0.5s; }
+
+/* ============ Lesson Node ============ */
+.lesson-node {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-node:not(.locked):hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.lesson-node.completed {
+  animation: popIn 0.5s ease-out;
+}
+
+.lesson-node.project:not(.locked):hover {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* ============ Buttons ============ */
+.btn-primary:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(88, 204, 2, 0.25);
+}
+
+.btn-primary:not(:disabled):active {
+  transform: translateY(2px);
+}
+
+.control-btn:hover {
+  animation: pulse 0.6s ease-in-out;
+}
+
+/* ============ Complete Screen ============ */
+#complete-screen.active .complete-content {
+  animation: bounceIn 0.6s ease-out;
+}
+
+.confetti {
+  animation: bounce 1s infinite, popIn 0.5s ease-out;
+}
+
+.complete-stat {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.complete-stat:nth-child(1) { animation-delay: 0.3s; }
+.complete-stat:nth-child(2) { animation-delay: 0.4s; }
+
+.complete-content h1 {
+  animation: popIn 0.6s ease-out 0.2s both;
+}
+
+/* ============ Shop ============ */
+.shop-stat {
+  animation: popIn 0.5s ease-out both;
+}
+
+.shop-stat:nth-child(1) { animation-delay: 0.1s; }
+.shop-stat:nth-child(2) { animation-delay: 0.2s; }
+
+.shop-item {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.shop-item:nth-child(1) { animation-delay: 0.15s; }
+.shop-item:nth-child(2) { animation-delay: 0.25s; }
+.shop-item:nth-child(3) { animation-delay: 0.35s; }
+
+.shop-item:not(.disabled):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(88, 204, 2, 0.15);
+}
+
+/* ============ Achievements ============ */
+.achievement-card {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.achievement-card:nth-child(1) { animation-delay: 0.05s; }
+.achievement-card:nth-child(2) { animation-delay: 0.1s; }
+.achievement-card:nth-child(3) { animation-delay: 0.15s; }
+.achievement-card:nth-child(4) { animation-delay: 0.2s; }
+.achievement-card:nth-child(5) { animation-delay: 0.25s; }
+.achievement-card:nth-child(6) { animation-delay: 0.3s; }
+.achievement-card:nth-child(7) { animation-delay: 0.35s; }
+.achievement-card:nth-child(8) { animation-delay: 0.4s; }
+.achievement-card:nth-child(9) { animation-delay: 0.45s; }
+.achievement-card:nth-child(10) { animation-delay: 0.5s; }
+
+.achievement-card.unlocked .achievement-icon {
+  animation: popIn 0.5s ease-out;
+}
+
+.achievement-card.unlocked:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(88, 204, 2, 0.2);
+}
+
+/* ============ Leaderboard ============ */
+.leaderboard-item {
+  animation: slideInRight 0.4s ease-out both;
+}
+
+.leaderboard-item:nth-child(1) { animation-delay: 0.05s; }
+.leaderboard-item:nth-child(2) { animation-delay: 0.1s; }
+.leaderboard-item:nth-child(3) { animation-delay: 0.15s; }
+.leaderboard-item:nth-child(4) { animation-delay: 0.2s; }
+.leaderboard-item:nth-child(5) { animation-delay: 0.25s; }
+.leaderboard-item:nth-child(6) { animation-delay: 0.3s; }
+.leaderboard-item:nth-child(7) { animation-delay: 0.35s; }
+.leaderboard-item:nth-child(8) { animation-delay: 0.4s; }
+.leaderboard-item:nth-child(9) { animation-delay: 0.45s; }
+.leaderboard-item:nth-child(10) { animation-delay: 0.5s; }
+
+.leaderboard-item.is-me {
+  animation: slideInRight 0.4s ease-out, glow 2s ease-in-out 0.5s infinite;
+}
+
+/* ============ Modal ============ */
+.modal.active .modal-content {
+  animation: bounceIn 0.4s ease-out;
+}
+
+/* ============ Toast ============ */
+.toast.show {
+  animation: slideUp 0.35s ease-out;
+}
+
+/* ============ Theme Menu ============ */
+.theme-menu.show {
+  animation: fadeInDown 0.25s ease-out;
+}
+
+/* ============ Header Stats Pulse ============ */
+.stat-value.updated {
+  animation: pulse 0.5s ease-in-out;
+}
+
+.stat-icon.pulse {
+  animation: heartbeat 0.8s ease-in-out;
+}
+
+/* ============ Hearts Animation ============ */
+.hearts-display span:first-child {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+/* ============ Progress Bar ============ */
+.progress-bar-fill {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+}
+
+/* ============ Streak Fire Animation ============ */
+#streak-value {
+  display: inline-block;
+}
+
+#streak-value.updated {
+  animation: popIn 0.5s ease-out;
+}
+
+/* ============ User Avatar ============ */
+#user-avatar {
+  transition: transform 0.3s ease;
+}
+
+#user-avatar:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* ============ Reduce Motion (Accessibility) ============ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 /* ============ Responsive ============ */
 @media (max-width: 768px) {
   .project-main { grid-template-columns: 1fr; }
