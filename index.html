@@ -107,6 +107,41 @@
     </main>
   </div>
 
+  <!-- ============= شاشة الشرح ============= -->
+  <div id="explanation-screen" class="screen">
+    <header class="lesson-header">
+      <button class="icon-btn" onclick="app.closeExplanation()">✕</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" style="width: 100%; background: #1CB0F6;"></div>
+      </div>
+      <div class="hearts-display">
+        <span>📖</span>
+      </div>
+    </header>
+
+    <main class="explanation-main">
+      <div class="explanation-header">
+        <div class="explanation-icon" id="explanation-icon">📖</div>
+        <h1 class="explanation-title" id="explanation-title">شرح الدرس</h1>
+      </div>
+
+      <div class="explanation-card">
+        <div class="explanation-content" id="explanation-content"></div>
+      </div>
+
+      <div class="explanation-tip" id="explanation-tip" style="display: none;">
+        <span class="tip-icon">💡</span>
+        <span id="explanation-tip-text"></span>
+      </div>
+    </main>
+
+    <footer class="lesson-footer">
+      <button id="understood-btn" class="btn-primary" onclick="app.startExercises()">
+        ✅ فهمت، ابدأ الأسئلة
+      </button>
+    </footer>
+  </div>
+
   <!-- ============= شاشة الدرس ============= -->
   <div id="lesson-screen" class="screen">
     <header class="lesson-header">

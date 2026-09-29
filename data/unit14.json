@@ -1,0 +1,266 @@
+{
+  "id": 14,
+  "title": "الأرقام المتقدمة",
+  "description": "تعلم الأرقام والعدادات في Streamlit",
+  "icon": "🔢",
+  "color": "#FFC800",
+  "lessons": [
+    {
+      "id": 61,
+      "title": "st.slider - شريط التمرير",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 6101,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.slider()؟",
+          "options": [
+            "بتعمل شريط تمرير لاختيار رقم",
+            "بتعمل نص",
+            "بتعمل زر",
+            "بتعمل صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.slider() للمستويات والأرقام"
+        },
+        {
+          "id": 6102,
+          "type": "fill_blank",
+          "question": "اعمل شريط من 0 لـ 100",
+          "code": "value = st.___(\"اختار رقم:\", 0, 100)",
+          "bank": ["slider", "number_input", "text_input", "range"],
+          "correctAnswer": "slider",
+          "explanation": "st.slider() لشريط التمرير"
+        },
+        {
+          "id": 6103,
+          "type": "multiple_choice",
+          "question": "st.slider() بترجع إيه؟",
+          "options": [
+            "الرقم المختار",
+            "نص",
+            "صورة",
+            "قائمة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بترجع الرقم اللي المستخدم اختاره"
+        },
+        {
+          "id": 6104,
+          "type": "multiple_choice",
+          "question": "ينفع نحدد قيمة ابتدائية للـ slider؟",
+          "options": [
+            "أيوة، بتمرير 3 values",
+            "لأ",
+            "بس للـ text",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.slider(label, min, max, default)"
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "title": "st.progress - شريط التقدم",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 6201,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.progress()؟",
+          "options": [
+            "بتعرض شريط تقدم",
+            "بتعمل زر",
+            "بتعمل نص",
+            "بتعمل صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.progress() لشريط التقدم (0 لـ 100)"
+        },
+        {
+          "id": 6202,
+          "type": "fill_blank",
+          "question": "اعرض شريط تقدم بنسبة 50%",
+          "code": "st.___(50)",
+          "bank": ["progress", "slider", "bar", "show"],
+          "correctAnswer": "progress",
+          "explanation": "st.progress() للشريط"
+        },
+        {
+          "id": 6203,
+          "type": "multiple_choice",
+          "question": "st.progress() بتاخد قيم من كام لكام؟",
+          "options": [
+            "0 لـ 100",
+            "0 لـ 1",
+            "1 لـ 10",
+            "أي رقم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "من 0 (فاضي) لـ 100 (كامل)"
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "title": "st.metric - الأرقام البارزة",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 6301,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.metric()؟",
+          "options": [
+            "بتعرض رقم بشكل بارز",
+            "بتعمل زر",
+            "بتعمل نص",
+            "بتعمل صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.metric() لعرض الإحصائيات بشكل جميل"
+        },
+        {
+          "id": 6302,
+          "type": "fill_blank",
+          "question": "اعرض المبيعات = 1500",
+          "code": "st.___(\"المبيعات\", 1500)",
+          "bank": ["metric", "number", "show", "display"],
+          "correctAnswer": "metric",
+          "explanation": "st.metric() للأرقام المهمة"
+        },
+        {
+          "id": 6303,
+          "type": "multiple_choice",
+          "question": "ينفع نضيف نسبة تغيير للـ metric؟",
+          "options": [
+            "أيوة، delta=10",
+            "لأ",
+            "بس نص",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.metric(label, value, delta=...)"
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "title": "عمليات حسابية مع Streamlit",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 6401,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم + - * / مع st.number_input؟",
+          "options": [
+            "أيوة، عادي زي Python",
+            "لأ",
+            "بس +",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit بيستخدم Python كامل"
+        },
+        {
+          "id": 6402,
+          "type": "multiple_choice",
+          "question": "لو عايز أعمل آلة حاسبة، إيه الأفضل؟",
+          "options": [
+            "st.number_input + st.button",
+            "st.text_input بس",
+            "st.write بس",
+            "مش ينفع"
+          ],
+          "correctAnswer": 0,
+          "explanation": "المدخلات الرقمية + زر الحساب"
+        },
+        {
+          "id": 6403,
+          "type": "multiple_choice",
+          "question": "ينفع نعرض نتيجة حساب في st.metric؟",
+          "options": [
+            "أيوة، عادي",
+            "لأ",
+            "بس نصوص",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.metric() بياخد أي رقم"
+        },
+        {
+          "id": 6404,
+          "type": "multiple_choice",
+          "question": "إيه الفرق بين st.slider و st.number_input؟",
+          "options": [
+            "slider للتحريك، number_input للكتابة",
+            "الاتنين نفس الحاجة",
+            "slider أسرع",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "طريقة التفاعل مختلفة"
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "title": "شرح: تطبيق حسابي",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 6501,
+          "type": "multiple_choice",
+          "question": "إيه أحسن طريقة لآلة حاسبة في Streamlit؟",
+          "options": [
+            "أرقام + أزرار + عرض النتيجة",
+            "نصوص بس",
+            "صور",
+            "مفيش طريقة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "المدخلات الرقمية + الأزرار = آلة حاسبة"
+        },
+        {
+          "id": 6502,
+          "type": "multiple_choice",
+          "question": "لو عندك 3 metrics، إيه الأفضل؟",
+          "options": [
+            "استخدم st.columns",
+            "استخدم st.write 3 مرات",
+            "استخدم صورة",
+            "مش ينفع"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.columns لتوزيع العناصر"
+        },
+        {
+          "id": 6503,
+          "type": "multiple_choice",
+          "question": "ينفع نعمل آلة حاسبة بأزرار؟",
+          "options": [
+            "أيوة، زر لكل عملية",
+            "لأ",
+            "زر واحد بس",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "زر للجمع، الطرح، الضرب، القسمة"
+        },
+        {
+          "id": 6504,
+          "type": "multiple_choice",
+          "question": "إيه أحسن حاجة لعرض النتيجة النهائية؟",
+          "options": [
+            "st.metric",
+            "st.text_input",
+            "st.button",
+            "st.slider"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.metric() بتعرض الرقم بشكل جميل"
+        }
+      ]
+    }
+  ]
+}

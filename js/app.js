@@ -119,21 +119,15 @@ const app = {
     container.innerHTML = '';
 
     this.state.units.forEach((unit, unitIndex) => {
-      // ✅ الوحدة تفتح فقط لما الوحدة السابقة تخلص بالكامل
       let isUnitUnlocked = true;
       
       if (unitIndex > 0) {
         const prevUnit = this.state.units[unitIndex - 1];
-        
-        // كل دروس الوحدة السابقة خلصت؟
         const allPrevLessonsDone = prevUnit.lessons.every(l => 
           user.completedLessons.includes(l.id)
         );
-        
-        // المشروع بتاع الوحدة السابقة خلص (لو موجود)؟
         const prevProjectDone = !prevUnit.project || 
           user.completedProjects.includes(prevUnit.project.id);
-        
         isUnitUnlocked = allPrevLessonsDone && prevProjectDone;
       }
 
@@ -177,7 +171,6 @@ const app = {
         lessonsContainer.appendChild(node);
       });
 
-      // ✅ افحص لو فيه مشروع
       if (unit.project) {
         const projectUnlocked = isUnitUnlocked && allLessonsDone;
         const projectNode = document.createElement('div');
@@ -211,7 +204,6 @@ const app = {
       return;
     }
 
-    // ✅ تأكد إن الوحدة مفتوحة
     const unitIndex = this.state.units.findIndex(u => u.id === unitId);
     if (unitIndex > 0) {
       const prevUnit = this.state.units[unitIndex - 1];
@@ -241,8 +233,57 @@ const app = {
 
     document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
 
+    // ✅ اعرض شاشة الشرح الأول
+    this.showExplanation(lesson, unit);
+  },
+
+  showExplanation(lesson, unit) {
+    this.showScreen('explanation-screen');
+    sounds.playClick();
+
+    document.getElementById('explanation-icon').textContent = unit.icon || '📖';
+    document.getElementById('explanation-title').textContent = lesson.title;
+
+    const contentEl = document.getElementById('explanation-content');
+    
+    if (lesson.lessonExplanation) {
+      contentEl.innerHTML = lesson.lessonExplanation;
+    } else {
+      contentEl.innerHTML = `
+        <div class="explanation-placeholder">
+          <div style="font-size: 60px; margin-bottom: 20px;">📚</div>
+          <h2>استعد للأسئلة!</h2>
+          <p>هذا الدرس عبارة عن ${lesson.exercises.length} سؤال تفاعلي.</p>
+          <p>اقرأ السؤال بتركيز واختار الإجابة الصح.</p>
+          <p style="color: var(--primary); font-weight: 800; margin-top: 20px;">
+            بالتوفيق! 💪
+          </p>
+        </div>
+      `;
+    }
+
+    const tipEl = document.getElementById('explanation-tip');
+    const tipTextEl = document.getElementById('explanation-tip-text');
+    
+    if (lesson.lessonTip) {
+      tipTextEl.textContent = lesson.lessonTip;
+      tipEl.style.display = 'flex';
+    } else {
+      tipEl.style.display = 'none';
+    }
+  },
+
+  startExercises() {
+    sounds.playClick();
     this.showScreen('lesson-screen');
     this.renderExercise();
+  },
+
+  closeExplanation() {
+    if (confirm('متأكد إنك عايز تخرج؟')) {
+      this.showScreen('home-screen');
+      this.renderHome();
+    }
   },
 
   renderExercise() {

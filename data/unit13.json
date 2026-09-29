@@ -1,0 +1,301 @@
+{
+  "id": 13,
+  "title": "الأزرار والتفاعل",
+  "description": "تعلم الأزرار والاختيارات في Streamlit",
+  "icon": "🔘",
+  "color": "#CE82FF",
+  "lessons": [
+    {
+      "id": 56,
+      "title": "st.button - الأزرار",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 5601,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.button()؟",
+          "options": [
+            "بتعمل زر",
+            "بتعمل نص",
+            "بتعمل خانة إدخال",
+            "بتعمل صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.button() بتعمل زر المستخدم يضغط عليه"
+        },
+        {
+          "id": 5602,
+          "type": "fill_blank",
+          "question": "اعمل زر مكتوب عليه 'اضغط'",
+          "code": "if st.___(\"اضغط\"):\n    st.write(\"ضغطت!\")",
+          "bank": ["button", "click", "push", "action"],
+          "correctAnswer": "button",
+          "explanation": "st.button() بتعمل زر"
+        },
+        {
+          "id": 5603,
+          "type": "multiple_choice",
+          "question": "st.button() بترجع إيه؟",
+          "options": [
+            "True لو اتضغط، False لو لأ",
+            "نص",
+            "رقم",
+            "صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بترجع True/False حسب الحالة"
+        },
+        {
+          "id": 5604,
+          "type": "multiple_choice",
+          "question": "إمتى الكود اللي جوه if st.button() يتنفذ؟",
+          "options": [
+            "لما المستخدم يضغط الزر",
+            "علطول",
+            "لما الصفحة تفتح",
+            "مش هيتنفذ أبداً"
+          ],
+          "correctAnswer": 0,
+          "explanation": "لما الزر يتضغط بس"
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "title": "st.checkbox - مربع الاختيار",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 5701,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.checkbox()؟",
+          "options": [
+            "بتعمل مربع اختيار (صح/غلط)",
+            "بتعمل زر",
+            "بتعمل نص",
+            "بتعمل صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.checkbox() بتعمل مربع نعم/لأ"
+        },
+        {
+          "id": 5702,
+          "type": "fill_blank",
+          "question": "اعمل مربع اختيار",
+          "code": "agree = st.___(\"موافق؟\")",
+          "bank": ["checkbox", "button", "text_input", "radio"],
+          "correctAnswer": "checkbox",
+          "explanation": "st.checkbox() لمربع الاختيار"
+        },
+        {
+          "id": 5703,
+          "type": "multiple_choice",
+          "question": "st.checkbox() بترجع إيه؟",
+          "options": [
+            "True لو اتحدد، False لو لأ",
+            "نص",
+            "رقم",
+            "قائمة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بترجع True/False"
+        },
+        {
+          "id": 5704,
+          "type": "multiple_choice",
+          "question": "إيه الفرق بين st.button و st.checkbox؟",
+          "options": [
+            "button مؤقت، checkbox بيفضل",
+            "الاتنين نفس الحاجة",
+            "checkbox أسرع",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "button True لحظة الضغط بس، checkbox بيفضل True/False"
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "title": "st.radio - اختيار واحد",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 5801,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.radio()؟",
+          "options": [
+            "بتخلي المستخدم يختار من خيارات",
+            "بتعمل زر",
+            "بتعمل نص",
+            "بتعمل صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.radio() للاختيار من مجموعة"
+        },
+        {
+          "id": 5802,
+          "type": "fill_blank",
+          "question": "اعمل اختيار بين 3 ألوان",
+          "code": "color = st.___(\"اختار لون:\", [\"أحمر\", \"أخضر\", \"أزرق\"])",
+          "bank": ["radio", "button", "checkbox", "selectbox"],
+          "correctAnswer": "radio",
+          "explanation": "st.radio() للاختيار من خيارات"
+        },
+        {
+          "id": 5803,
+          "type": "multiple_choice",
+          "question": "st.radio() بترجع إيه؟",
+          "options": [
+            "الخيار اللي المستخدم اختاره",
+            "True/False",
+            "نص",
+            "رقم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بترجع الخيار المختار"
+        },
+        {
+          "id": 5804,
+          "type": "multiple_choice",
+          "question": "الفرق بين st.radio و st.checkbox؟",
+          "options": [
+            "radio اختيار واحد، checkbox متعدد",
+            "الاتنين نفس الحاجة",
+            "radio أسرع",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "radio لاختيار واحد بس، checkbox لأكتر من واحد"
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "title": "st.selectbox - القائمة المنسدلة",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 5901,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.selectbox()؟",
+          "options": [
+            "بتعمل قائمة منسدلة للاختيار",
+            "بتعمل زر",
+            "بتعمل نص",
+            "بتعمل مربع"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.selectbox() لقائمة منسدلة"
+        },
+        {
+          "id": 5902,
+          "type": "fill_blank",
+          "question": "اعمل قائمة منسدلة للمدن",
+          "code": "city = st.___(\"اختر مدينة:\", [\"القاهرة\", \"دبي\", \"الرياض\"])",
+          "bank": ["selectbox", "radio", "checkbox", "button"],
+          "correctAnswer": "selectbox",
+          "explanation": "st.selectbox() للقائمة المنسدلة"
+        },
+        {
+          "id": 5903,
+          "type": "multiple_choice",
+          "question": "الفرق بين st.selectbox و st.radio؟",
+          "options": [
+            "selectbox في قائمة منسدلة، radio على الشاشة",
+            "الاتنين نفس الحاجة",
+            "selectbox أسرع",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "شكل العرض مختلف"
+        },
+        {
+          "id": 5904,
+          "type": "multiple_choice",
+          "question": "st.selectbox() بترجع إيه؟",
+          "options": [
+            "العنصر المختار",
+            "True/False",
+            "نص",
+            "رقم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بترجع العنصر المختار من القائمة"
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "title": "شرح: تطبيق تفاعلي",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 6001,
+          "type": "multiple_choice",
+          "question": "إيه اللي بيحصل لما المستخدم يتفاعل مع Streamlit؟",
+          "options": [
+            "الصفحة بتحدّث تلقائياً",
+            "الصفحة بتقفل",
+            "مفيش حاجة",
+            "الصفحة بتعمل Refresh"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit بيعمل rerun للصفحة مع كل تفاعل"
+        },
+        {
+          "id": 6002,
+          "type": "multiple_choice",
+          "question": "إيه أفضل طريقة لتنظيم التفاعل؟",
+          "options": [
+            "استخدم if st.button() للتحكم",
+            "استخدم print",
+            "استخدم input",
+            "مش ينفع"
+          ],
+          "correctAnswer": 0,
+          "explanation": "الـ if st.button() شغال دايماً مع Streamlit"
+        },
+        {
+          "id": 6003,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم أكثر من st.checkbox؟",
+          "options": [
+            "أيوة، عادي",
+            "لأ، واحد بس",
+            "بس اتنين",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بنستخدم كتير حسب الحاجة"
+        },
+        {
+          "id": 6004,
+          "type": "multiple_choice",
+          "question": "ينفع نجمع أكتر من st.button مع بعض؟",
+          "options": [
+            "أيوة، عادي",
+            "لأ",
+            "بس 2",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit مرن في كل حاجة"
+        },
+        {
+          "id": 6005,
+          "type": "multiple_choice",
+          "question": "إيه أحسن طريقة تعرض نتيجة بعد ضغط زر؟",
+          "options": [
+            "st.write() جوه if",
+            "print جوه if",
+            "return جوه if",
+            "مفيش طريقة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.write() بتعرض النتائج في الصفحة"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "id": 17,
+  "title": "التخطيط والتنظيم",
+  "description": "تعلم تنظيم الصفحة بـ columns و tabs و expander",
+  "icon": "🎨",
+  "color": "#FF6B9D",
+  "lessons": [
+    {
+      "id": 75,
+      "title": "st.columns - الأعمدة",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 7501,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.columns()؟",
+          "options": [
+            "بتقسم الصفحة لأعمدة",
+            "بتعمل جدول",
+            "بتعمل صورة",
+            "بتعمل زر"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.columns() لتقسيم الصفحة"
+        },
+        {
+          "id": 7502,
+          "type": "fill_blank",
+          "question": "اعمل 3 أعمدة",
+          "code": "col1, col2, col3 = st.___(3)",
+          "bank": ["columns", "rows", "layout", "grid"],
+          "correctAnswer": "columns",
+          "explanation": "st.columns(3) لـ 3 أعمدة"
+        },
+        {
+          "id": 7503,
+          "type": "multiple_choice",
+          "question": "إزاي نكتب في عمود معين؟",
+          "options": [
+            "with col1:",
+            "col1.write()",
+            "st.col1()",
+            "col(1)"
+          ],
+          "correctAnswer": 0,
+          "explanation": "with col1: st.write(...)"
+        },
+        {
+          "id": 7504,
+          "type": "multiple_choice",
+          "question": "ينفع نخلي عمود أعرض من التاني؟",
+          "options": [
+            "أيوة، st.columns([2, 1])",
+            "لأ",
+            "بس متساوي",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.columns([2, 1]) بتخلي الأول ضعف التاني"
+        }
+      ]
+    },
+    {
+      "id": 76,
+      "title": "st.tabs - التبويبات",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 7601,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.tabs()؟",
+          "options": [
+            "بتعمل تبويبات",
+            "بتعمل أعمدة",
+            "بتعمل صورة",
+            "بتعمل زر"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.tabs() لتبويبات زي المتصفح"
+        },
+        {
+          "id": 7602,
+          "type": "fill_blank",
+          "question": "اعمل تبويبين",
+          "code": "tab1, tab2 = st.___([\"أول\", \"تاني\"])",
+          "bank": ["tabs", "columns", "sections", "pages"],
+          "correctAnswer": "tabs",
+          "explanation": "st.tabs() للتبويبات"
+        },
+        {
+          "id": 7603,
+          "type": "multiple_choice",
+          "question": "إزاي نكتب في تبويب؟",
+          "options": [
+            "with tab1:",
+            "tab1.write()",
+            "st.tab1()",
+            "tab(1)"
+          ],
+          "correctAnswer": 0,
+          "explanation": "with tab1: st.write(...)"
+        }
+      ]
+    },
+    {
+      "id": 77,
+      "title": "st.expander - الطي",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 7701,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.expander()؟",
+          "options": [
+            "بتعمل قسم ينطوي ويفتح",
+            "بتعمل أعمدة",
+            "بتعمل تبويب",
+            "بتعمل صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.expander() لقسم مخفي"
+        },
+        {
+          "id": 7702,
+          "type": "fill_blank",
+          "question": "اعمل قسم قابل للطي",
+          "code": "with st.___(\"اضغط لعرض التفاصيل\"):\n    st.write(\"التفاصيل هنا\")",
+          "bank": ["expander", "container", "box", "toggle"],
+          "correctAnswer": "expander",
+          "explanation": "st.expander() للطي"
+        },
+        {
+          "id": 7703,
+          "type": "multiple_choice",
+          "question": "امتى نستخدم st.expander()؟",
+          "options": [
+            "للمعلومات الإضافية",
+            "للعنوان الرئيسي",
+            "للأزرار",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "لما نحب نخفي تفاصيل ثانوية"
+        }
+      ]
+    },
+    {
+      "id": 78,
+      "title": "st.container - الحاويات",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 7801,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.container()؟",
+          "options": [
+            "بتجمع عناصر في حاوية",
+            "بتعمل صفحة جديدة",
+            "بتعمل صورة",
+            "بتعمل زر"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.container() لتجميع العناصر"
+        },
+        {
+          "id": 7802,
+          "type": "fill_blank",
+          "question": "اعمل حاوية",
+          "code": "with st.___():\n    st.write(\"محتوى\")",
+          "bank": ["container", "box", "group", "section"],
+          "correctAnswer": "container",
+          "explanation": "st.container() للحاوية"
+        },
+        {
+          "id": 7803,
+          "type": "multiple_choice",
+          "question": "إيه فايدة st.container()؟",
+          "options": [
+            "تنظيم العناصر",
+            "تسريع الصفحة",
+            "تخفي العناصر",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بتساعد في تنظيم الصفحة"
+        }
+      ]
+    }
+  ]
+}

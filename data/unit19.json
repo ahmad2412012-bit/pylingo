@@ -1,0 +1,220 @@
+{
+  "id": 19,
+  "title": "النماذج (Forms)",
+  "description": "تعلم النماذج والتحقق من المدخلات",
+  "icon": "📝",
+  "color": "#1CB0F6",
+  "lessons": [
+    {
+      "id": 84,
+      "title": "st.form - النماذج",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 8401,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.form()؟",
+          "options": [
+            "بتجمع المدخلات وتنفذها مرة واحدة",
+            "بتعمل زر",
+            "بتعمل صورة",
+            "بتعمل جدول"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.form() بتمنع التحديث التلقائي"
+        },
+        {
+          "id": 8402,
+          "type": "fill_blank",
+          "question": "اعمل form",
+          "code": "with st.___(\"بياناتي\"):\n    name = st.text_input(\"اسمك\")",
+          "bank": ["form", "container", "block", "group"],
+          "correctAnswer": "form",
+          "explanation": "st.form() للنماذج"
+        },
+        {
+          "id": 8403,
+          "type": "multiple_choice",
+          "question": "إيه فايدة st.form() عن المدخلات العادية؟",
+          "options": [
+            "ما بتحدثش الصفحة غير لما تضغط Submit",
+            "أسرع",
+            "أجمل",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "form بيجمع المدخلات"
+        },
+        {
+          "id": 8404,
+          "type": "multiple_choice",
+          "question": "إيه اللي لازم يكون جوه form؟",
+          "options": [
+            "st.form_submit_button()",
+            "st.button()",
+            "st.write()",
+            "st.print()"
+          ],
+          "correctAnswer": 0,
+          "explanation": "زر الإرسال لازم يكون form_submit_button"
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "title": "st.form_submit_button",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 8501,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.form_submit_button()؟",
+          "options": [
+            "زر لإرسال النموذج",
+            "زر عادي",
+            "بتعرض نص",
+            "بتعمل جدول"
+          ],
+          "correctAnswer": 0,
+          "explanation": "زر إرسال النموذج"
+        },
+        {
+          "id": 8502,
+          "type": "fill_blank",
+          "question": "أضف زر إرسال",
+          "code": "submitted = st.___(\"أرسل\")",
+          "bank": ["form_submit_button", "button", "submit", "send"],
+          "correctAnswer": "form_submit_button",
+          "explanation": "st.form_submit_button() للأرسال"
+        },
+        {
+          "id": 8503,
+          "type": "multiple_choice",
+          "question": "إمتى البيانات تتبعت في form؟",
+          "options": [
+            "لما نضغط Submit",
+            "تلقائي",
+            "لما نكتب",
+            "مش هتتبعت"
+          ],
+          "correctAnswer": 0,
+          "explanation": "لما Submit بس"
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "title": "التحقق من المدخلات",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 8601,
+          "type": "multiple_choice",
+          "question": "إزاي نتأكد إن المستخدم كتب اسم؟",
+          "options": [
+            "if name:",
+            "if name == True:",
+            "if name == '':",
+            "مش ينفع"
+          ],
+          "correctAnswer": 0,
+          "explanation": "if name: بتتحقق إن فيه قيمة"
+        },
+        {
+          "id": 8602,
+          "type": "multiple_choice",
+          "question": "إزاي نتحقق إن الرقم أكبر من 0؟",
+          "options": [
+            "if num > 0:",
+            "if num:",
+            "if num != 0:",
+            "كلها صح"
+          ],
+          "correctAnswer": 0,
+          "explanation": "if num > 0 للتحقق"
+        },
+        {
+          "id": 8603,
+          "type": "multiple_choice",
+          "question": "إيه اللي نعمله لو المدخلات غلط؟",
+          "options": [
+            "st.error()",
+            "st.success()",
+            "st.write()",
+            "st.print()"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.error() لرسالة خطأ"
+        },
+        {
+          "id": 8604,
+          "type": "multiple_choice",
+          "question": "ينفع نجمع أكتر من تحقق مع بعض؟",
+          "options": [
+            "أيوة، بـ and أو or",
+            "لأ",
+            "بس واحد",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بنستخدم and/or للتحقق المركب"
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "title": "st.success، st.error، st.warning",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 8701,
+          "type": "multiple_choice",
+          "question": "إيه st.success()؟",
+          "options": [
+            "رسالة نجاح خضراء",
+            "رسالة خطأ حمراء",
+            "رسالة تحذير صفراء",
+            "رسالة عادية"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.success() للنص الأخضر"
+        },
+        {
+          "id": 8702,
+          "type": "multiple_choice",
+          "question": "إيه st.error()؟",
+          "options": [
+            "رسالة خطأ حمراء",
+            "رسالة نجاح",
+            "رسالة تحذير",
+            "مفيش"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.error() للأخطاء"
+        },
+        {
+          "id": 8703,
+          "type": "fill_blank",
+          "question": "أظهر رسالة تحذير",
+          "code": "st.___(\"انتبه!\")",
+          "bank": ["warning", "error", "success", "info"],
+          "correctAnswer": "warning",
+          "explanation": "st.warning() للتحذير"
+        },
+        {
+          "id": 8704,
+          "type": "multiple_choice",
+          "question": "إمتى نستخدم st.error()؟",
+          "options": [
+            "لما المدخلات غلط",
+            "لما البيانات صح",
+            "لما نحب نظهر حاجة",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "للأخطاء"
+        }
+      ]
+    }
+  ]
+}

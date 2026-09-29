@@ -1,0 +1,249 @@
+{
+  "id": 18,
+  "title": "الجداول وعرض البيانات",
+  "description": "تعلم عرض الجداول والبيانات في Streamlit",
+  "icon": "📋",
+  "color": "#FF9600",
+  "lessons": [
+    {
+      "id": 79,
+      "title": "st.dataframe - الجداول التفاعلية",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 7901,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.dataframe()؟",
+          "options": [
+            "بتعرض جدول تفاعلي",
+            "بتعرض نص",
+            "بتعرض صورة",
+            "بتعرض زر"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.dataframe() للجداول التفاعلية"
+        },
+        {
+          "id": 7902,
+          "type": "fill_blank",
+          "question": "اعرض جدول من البيانات",
+          "code": "st.___(data)",
+          "bank": ["dataframe", "table", "grid", "list"],
+          "correctAnswer": "dataframe",
+          "explanation": "st.dataframe() للجداول"
+        },
+        {
+          "id": 7903,
+          "type": "multiple_choice",
+          "question": "إيه أنواع البيانات اللي st.dataframe بتقبلها؟",
+          "options": [
+            "Pandas DataFrame أو قوائم",
+            "نصوص بس",
+            "صور بس",
+            "ملفات بس"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بتقبل DataFrames و Lists"
+        },
+        {
+          "id": 7904,
+          "type": "multiple_choice",
+          "question": "إيه ميزة st.dataframe عن st.table؟",
+          "options": [
+            "تفاعلي (sort + scroll)",
+            "أسرع",
+            "أجمل",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "dataframe تفاعلي، table ثابت"
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "title": "st.table - الجداول الثابتة",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 8001,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.table()؟",
+          "options": [
+            "بتعرض جدول ثابت",
+            "بتعرض جدول تفاعلي",
+            "بتعرض صورة",
+            "بتعرض نص"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.table() لجداول ثابتة"
+        },
+        {
+          "id": 8002,
+          "type": "fill_blank",
+          "question": "اعرض جدول ثابت",
+          "code": "st.___(data)",
+          "bank": ["table", "dataframe", "grid", "list"],
+          "correctAnswer": "table",
+          "explanation": "st.table() للجدول الثابت"
+        },
+        {
+          "id": 8003,
+          "type": "multiple_choice",
+          "question": "امتى نستخدم st.table()؟",
+          "options": [
+            "للبيانات الصغيرة",
+            "للبيانات الكبيرة",
+            "للصور",
+            "للنصوص"
+          ],
+          "correctAnswer": 0,
+          "explanation": "table للبيانات الصغيرة بس"
+        }
+      ]
+    },
+    {
+      "id": 81,
+      "title": "st.json - عرض JSON",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 8101,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.json()؟",
+          "options": [
+            "بتعرض بيانات JSON",
+            "بتعرض صورة",
+            "بتعرض زر",
+            "بتعرض صوت"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.json() لعرض JSON بشكل جميل"
+        },
+        {
+          "id": 8102,
+          "type": "fill_blank",
+          "question": "اعرض بيانات JSON",
+          "code": "st.___({\"name\": \"Ali\", \"age\": 25})",
+          "bank": ["json", "dataframe", "table", "dict"],
+          "correctAnswer": "json",
+          "explanation": "st.json() للـ JSON"
+        },
+        {
+          "id": 8103,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم st.json مع Dictionaries؟",
+          "options": [
+            "أيوة، عادي",
+            "لأ",
+            "بس قوائم",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.json() بتشتغل مع dict"
+        }
+      ]
+    },
+    {
+      "id": 82,
+      "title": "st.metric - المقاييس",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 8201,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.metric()؟",
+          "options": [
+            "بتعرض رقم بشكل بارز",
+            "بتعرض جدول",
+            "بتعرض صورة",
+            "بتعرض صوت"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.metric() للأرقام المهمة"
+        },
+        {
+          "id": 8202,
+          "type": "fill_blank",
+          "question": "اعرض المبيعات 1000 بزيادة 10%",
+          "code": "st.___(\"المبيعات\", 1000, delta=\"10%\")",
+          "bank": ["metric", "number", "stat", "show"],
+          "correctAnswer": "metric",
+          "explanation": "st.metric() للعرض البارز"
+        },
+        {
+          "id": 8203,
+          "type": "multiple_choice",
+          "question": "إيه فايدة delta في st.metric؟",
+          "options": [
+            "بتوضح نسبة التغيير",
+            "بتعرض الصورة",
+            "بتخفي الرقم",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "delta للأشارة للتغيير"
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "title": "شرح: لوحة بيانات",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 8301,
+          "type": "multiple_choice",
+          "question": "إيه أحسن طريقة لعرض إحصائيات؟",
+          "options": [
+            "st.columns + st.metric",
+            "st.write 10 مرات",
+            "st.image",
+            "st.audio"
+          ],
+          "correctAnswer": 0,
+          "explanation": "columns لتنظيم metrics"
+        },
+        {
+          "id": 8302,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم DataFrame مع Streamlit؟",
+          "options": [
+            "أيوة، عادي",
+            "لأ",
+            "بس JSON",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "pandas + Streamlit توافق ممتاز"
+        },
+        {
+          "id": 8303,
+          "type": "multiple_choice",
+          "question": "إيه أحسن طريقة لجداول كبيرة؟",
+          "options": [
+            "st.dataframe",
+            "st.table",
+            "st.write",
+            "st.text"
+          ],
+          "correctAnswer": 0,
+          "explanation": "dataframe للبيانات الكبيرة"
+        },
+        {
+          "id": 8304,
+          "type": "multiple_choice",
+          "question": "ينفع نعمل فلاتر على st.dataframe؟",
+          "options": [
+            "أيوة، Streamlit فيه ميزات تفاعلية",
+            "لأ",
+            "بس sort",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "dataframe تفاعلي مع sort و search"
+        }
+      ]
+    }
+  ]
+}

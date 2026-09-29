@@ -1,0 +1,207 @@
+{
+  "id": 15,
+  "title": "الملفات والصور",
+  "description": "تعلم رفع وعرض الملفات والصور في Streamlit",
+  "icon": "📁",
+  "color": "#00C2A8",
+  "lessons": [
+    {
+      "id": 66,
+      "title": "st.file_uploader - رفع الملفات",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 6601,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.file_uploader()؟",
+          "options": [
+            "بتخلي المستخدم يرفع ملف",
+            "بتعمل ملف جديد",
+            "بتحذف ملف",
+            "بتقرأ ملف من الجهاز"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.file_uploader() لرفع الملفات"
+        },
+        {
+          "id": 6602,
+          "type": "fill_blank",
+          "question": "اعمل خانة لرفع صورة",
+          "code": "file = st.___(\"ارفع صورة\", type=[\"png\", \"jpg\"])",
+          "bank": ["file_uploader", "text_input", "button", "image"],
+          "correctAnswer": "file_uploader",
+          "explanation": "st.file_uploader() للملفات"
+        },
+        {
+          "id": 6603,
+          "type": "multiple_choice",
+          "question": "ينفع نحدد أنواع الملفات المسموحة؟",
+          "options": [
+            "أيوة، بمعامل type",
+            "لأ",
+            "بس صور",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "type=['png', 'jpg'] لتحديد الأنواع"
+        },
+        {
+          "id": 6604,
+          "type": "multiple_choice",
+          "question": "st.file_uploader() بترجع إيه؟",
+          "options": [
+            "الملف المرفوع أو None",
+            "نص",
+            "رقم",
+            "صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بترجع الملف أو None لو مفيش"
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "title": "st.image - عرض الصور",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 6701,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.image()؟",
+          "options": [
+            "بتعرض صورة في الصفحة",
+            "بتعمل صورة",
+            "بتحذف صورة",
+            "بتقرأ صورة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.image() لعرض الصور"
+        },
+        {
+          "id": 6702,
+          "type": "fill_blank",
+          "question": "اعرض صورة من ملف",
+          "code": "st.___(file)",
+          "bank": ["image", "show", "display", "picture"],
+          "correctAnswer": "image",
+          "explanation": "st.image() للصور"
+        },
+        {
+          "id": 6703,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم st.image() مع رابط؟",
+          "options": [
+            "أيوة، بتمرير الرابط",
+            "لأ",
+            "بس ملفات محلية",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.image() بتشتغل مع روابط أو ملفات"
+        },
+        {
+          "id": 6704,
+          "type": "multiple_choice",
+          "question": "ينفع نحدد عرض الصورة؟",
+          "options": [
+            "أيوة، width=300",
+            "لأ",
+            "بس طول",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.image(path, width=300)"
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "title": "st.audio و st.video",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 6801,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.audio()؟",
+          "options": [
+            "بتشغل ملف صوتي",
+            "بتعمل صوت",
+            "بتسجل صوت",
+            "بتحذف صوت"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.audio() لتشغيل الصوت"
+        },
+        {
+          "id": 6802,
+          "type": "fill_blank",
+          "question": "اعرض مقطع فيديو",
+          "code": "st.___(file)",
+          "bank": ["video", "audio", "image", "media"],
+          "correctAnswer": "video",
+          "explanation": "st.video() للفيديو"
+        },
+        {
+          "id": 6803,
+          "type": "multiple_choice",
+          "question": "إيه أنواع الملفات اللي st.audio() بتقبلها؟",
+          "options": [
+            "mp3, wav",
+            "mp4, avi",
+            "png, jpg",
+            "txt, doc"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.audio() للملفات الصوتية"
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "title": "قراءة محتوى الملف",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 6901,
+          "type": "multiple_choice",
+          "question": "إزاي نقرأ محتوى ملف نصي رُفع؟",
+          "options": [
+            "file.read().decode()",
+            "file.open()",
+            "file.text()",
+            "file.get()"
+          ],
+          "correctAnswer": 0,
+          "explanation": "file.read() بترجع bytes، .decode() بيحولها نص"
+        },
+        {
+          "id": 6902,
+          "type": "multiple_choice",
+          "question": "ينفع نعرض محتوى ملف CSV؟",
+          "options": [
+            "أيوة، بأدوات زي pandas",
+            "لأ",
+            "بس نصوص",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "ممكن نستخدم pandas لقراءة CSV"
+        },
+        {
+          "id": 6903,
+          "type": "multiple_choice",
+          "question": "إيه أحسن طريقة تعرض نص من ملف؟",
+          "options": [
+            "st.text(file)",
+            "st.write(file)",
+            "st.show(file)",
+            "st.print(file)"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.text() للنصوص الطويلة"
+        }
+      ]
+    }
+  ]
+}

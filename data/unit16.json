@@ -1,0 +1,262 @@
+{
+  "id": 16,
+  "title": "الرسوم البيانية",
+  "description": "تعلم عرض البيانات بالرسوم في Streamlit",
+  "icon": "📊",
+  "color": "#8B5CF6",
+  "lessons": [
+    {
+      "id": 70,
+      "title": "st.line_chart - الرسم الخطي",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 7001,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.line_chart()؟",
+          "options": [
+            "بترسم خطوط بيانية",
+            "بترسم دوائر",
+            "بترسم مربعات",
+            "بتعمل جدول"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.line_chart() للرسم الخطي"
+        },
+        {
+          "id": 7002,
+          "type": "fill_blank",
+          "question": "ارسم خط بياني للبيانات",
+          "code": "st.___(data)",
+          "bank": ["line_chart", "bar_chart", "area_chart", "chart"],
+          "correctAnswer": "line_chart",
+          "explanation": "st.line_chart() للخطوط"
+        },
+        {
+          "id": 7003,
+          "type": "multiple_choice",
+          "question": "إيه نوع البيانات اللي st.line_chart بتقبلها؟",
+          "options": [
+            "قوائم أو Pandas DataFrame",
+            "نصوص",
+            "صور",
+            "ملفات"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بتقبل lists أو DataFrames"
+        },
+        {
+          "id": 7004,
+          "type": "multiple_choice",
+          "question": "امتى نستخدم الخط البياني؟",
+          "options": [
+            "لتتبع التغيير مع الوقت",
+            "للمقارنة",
+            "للنسب",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "الخطوط للاتجاهات مع الوقت"
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "title": "st.bar_chart - الرسم بالأعمدة",
+      "xpReward": 20,
+      "exercises": [
+        {
+          "id": 7101,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.bar_chart()؟",
+          "options": [
+            "بترسم أعمدة",
+            "بترسم خطوط",
+            "بترسم دوائر",
+            "بتعمل جدول"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.bar_chart() للأعمدة"
+        },
+        {
+          "id": 7102,
+          "type": "fill_blank",
+          "question": "ارسم أعمدة للبيانات",
+          "code": "st.___(data)",
+          "bank": ["bar_chart", "line_chart", "area_chart", "pie_chart"],
+          "correctAnswer": "bar_chart",
+          "explanation": "st.bar_chart() للأعمدة"
+        },
+        {
+          "id": 7103,
+          "type": "multiple_choice",
+          "question": "امتى نستخدم الأعمدة؟",
+          "options": [
+            "للمقارنة بين فئات",
+            "للاتجاهات",
+            "للنسب",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "الأعمدة للمقارنة"
+        },
+        {
+          "id": 7104,
+          "type": "multiple_choice",
+          "question": "الفرق بين line_chart و bar_chart؟",
+          "options": [
+            "خطوط للتغيير، أعمدة للمقارنة",
+            "الاتنين نفس الحاجة",
+            "bar أسرع",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "كل واحد لحاجة"
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "title": "st.area_chart - الرسم المساحي",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 7201,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.area_chart()؟",
+          "options": [
+            "بترسم مساحات مليانة",
+            "بترسم خطوط عادية",
+            "بترسم أعمدة",
+            "بتعمل جدول"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.area_chart() زي line بس مليان"
+        },
+        {
+          "id": 7202,
+          "type": "fill_blank",
+          "question": "ارسم area chart",
+          "code": "st.___(data)",
+          "bank": ["area_chart", "line_chart", "bar_chart", "chart"],
+          "correctAnswer": "area_chart",
+          "explanation": "st.area_chart() للمساحات"
+        },
+        {
+          "id": 7203,
+          "type": "multiple_choice",
+          "question": "الفرق بين area_chart و line_chart؟",
+          "options": [
+            "area مليان، line خط",
+            "الاتنين نفس الحاجة",
+            "area أسرع",
+            "مفيش فرق"
+          ],
+          "correctAnswer": 0,
+          "explanation": "الشكل بس مختلف"
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "title": "st.map - الخرائط",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 7301,
+          "type": "multiple_choice",
+          "question": "إيه وظيفة st.map()؟",
+          "options": [
+            "بتعرض خريطة",
+            "بتعرض صورة",
+            "بتعرض جدول",
+            "بتعرض زر"
+          ],
+          "correctAnswer": 0,
+          "explanation": "st.map() للخرائط"
+        },
+        {
+          "id": 7302,
+          "type": "fill_blank",
+          "question": "اعرض خريطة",
+          "code": "st.___(data)",
+          "bank": ["map", "chart", "geo", "location"],
+          "correctAnswer": "map",
+          "explanation": "st.map() للخرائط"
+        },
+        {
+          "id": 7303,
+          "type": "multiple_choice",
+          "question": "إيه البيانات اللي st.map() محتاجها؟",
+          "options": [
+            "latitude و longitude",
+            "نصوص",
+            "صور",
+            "ملفات"
+          ],
+          "correctAnswer": 0,
+          "explanation": "بتحتاج إحداثيات"
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "title": "شرح: تطبيق بيانات",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 7401,
+          "type": "multiple_choice",
+          "question": "إيه أحسن نوع رسم للمقارنة؟",
+          "options": [
+            "st.bar_chart",
+            "st.line_chart",
+            "st.map",
+            "st.text"
+          ],
+          "correctAnswer": 0,
+          "explanation": "الأعمدة للمقارنة"
+        },
+        {
+          "id": 7402,
+          "type": "multiple_choice",
+          "question": "إيه أحسن نوع رسم للتغيير مع الوقت؟",
+          "options": [
+            "st.line_chart",
+            "st.bar_chart",
+            "st.map",
+            "st.text"
+          ],
+          "correctAnswer": 0,
+          "explanation": "الخطوط للاتجاهات"
+        },
+        {
+          "id": 7403,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم الرسوم مع pandas؟",
+          "options": [
+            "أيوة، عادي",
+            "لأ",
+            "بس CSV",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit متوافق مع pandas"
+        },
+        {
+          "id": 7404,
+          "type": "multiple_choice",
+          "question": "ينفع نرسم أكتر من chart في صفحة؟",
+          "options": [
+            "أيوة، عادي",
+            "لأ",
+            "بس 2",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "نقدر نعمل اللي عايزينه"
+        }
+      ]
+    }
+  ]
+}

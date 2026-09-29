@@ -1,0 +1,304 @@
+{
+  "id": 20,
+  "title": "شرح: لوحة تحكم كاملة",
+  "description": "اجمع كل اللي اتعلمته في تطبيق واحد",
+  "icon": "🎓",
+  "color": "#58CC02",
+  "lessons": [
+    {
+      "id": 88,
+      "title": "تخطيط التطبيق",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 8801,
+          "type": "multiple_choice",
+          "question": "إيه أول حاجة نعملها قبل بناء تطبيق؟",
+          "options": [
+            "نخطط للعناصر والأقسام",
+            "نكتب الكود علطول",
+            "نعمل صورة",
+            "مش مهم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "التخطيط مهم قبل الكود"
+        },
+        {
+          "id": 8802,
+          "type": "multiple_choice",
+          "question": "إيه أفضل طريقة لتنظيم صفحة طويلة؟",
+          "options": [
+            "st.tabs أو st.columns",
+            "كل حاجة تحت بعضها",
+            "صفحة واحدة بس",
+            "مش مهم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "tabs/columns لتنظيم الصفحة"
+        },
+        {
+          "id": 8803,
+          "type": "multiple_choice",
+          "question": "إيه أول عنصر في أي صفحة؟",
+          "options": [
+            "st.title",
+            "st.write",
+            "st.button",
+            "st.image"
+          ],
+          "correctAnswer": 0,
+          "explanation": "العنوان الرئيسي أولاً"
+        },
+        {
+          "id": 8804,
+          "type": "multiple_choice",
+          "question": "إزاي نخلي الصفحة احترافية؟",
+          "options": [
+            "نستخدم expander + tabs + columns",
+            "نكتب بس",
+            "مفيش طريقة",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "التنظيم بيدي مظهر احترافي"
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "title": "دمج المدخلات مع الرسوم",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 8901,
+          "type": "multiple_choice",
+          "question": "إزاي نربط slider مع chart؟",
+          "options": [
+            "نخلي قيمة slider تحدد بيانات chart",
+            "مش ينفع",
+            "صعب",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "نقدر نخلي المدخلات تؤثر على الرسم"
+        },
+        {
+          "id": 8902,
+          "type": "multiple_choice",
+          "question": "إيه فايدة st.metric في لوحة التحكم؟",
+          "options": [
+            "تعرض أرقام مهمة بشكل بارز",
+            "تعرض صور",
+            "تعرض نصوص",
+            "مش مفيدة"
+          ],
+          "correctAnswer": 0,
+          "explanation": "metric للأرقام المهمة"
+        },
+        {
+          "id": 8903,
+          "type": "multiple_choice",
+          "question": "إزاي نستخدم st.columns مع metrics؟",
+          "options": [
+            "كل metric في عمود",
+            "كلهم في عمود",
+            "مش ينفع",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "columns لتوزيع metrics"
+        },
+        {
+          "id": 8904,
+          "type": "multiple_choice",
+          "question": "ينفع نخلي chart يتفاعل مع فلتر؟",
+          "options": [
+            "أيوة، بـ selectbox + data filtering",
+            "لأ",
+            "بس slider",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "الفلتر بيغير البيانات اللي بتترسم"
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "title": "حفظ البيانات",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 9001,
+          "type": "multiple_choice",
+          "question": "إزاي نحفظ مدخلات المستخدم؟",
+          "options": [
+            "في متغير عادي",
+            "في الملف مباشرة",
+            "مش ينفع",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "نخليها في متغير ونستخدمها"
+        },
+        {
+          "id": 9002,
+          "type": "multiple_choice",
+          "question": "ينفع نحفظ البيانات في st.session_state؟",
+          "options": [
+            "أيوة، لحفظ مؤقت",
+            "لأ",
+            "بس JSON",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "session_state للحفظ المؤقت"
+        },
+        {
+          "id": 9003,
+          "type": "multiple_choice",
+          "question": "ينفع نستخدم الملفات لحفظ البيانات؟",
+          "options": [
+            "أيوة، عن طريق Python",
+            "لأ",
+            "بس نصوص",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit Python كامل"
+        }
+      ]
+    },
+    {
+      "id": 91,
+      "title": "نصائح Streamlit الاحترافية",
+      "xpReward": 25,
+      "exercises": [
+        {
+          "id": 9101,
+          "type": "multiple_choice",
+          "question": "إيه أهم حاجة في Streamlit؟",
+          "options": [
+            "الكود بسيط والمظهر جميل",
+            "السرعة",
+            "الحجم الصغير",
+            "مفيش"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit بسيط وقوي"
+        },
+        {
+          "id": 9102,
+          "type": "multiple_choice",
+          "question": "إيه أفضل طريقة لعرض الإحصائيات؟",
+          "options": [
+            "st.metric + st.columns",
+            "st.write كتير",
+            "st.text",
+            "st.image"
+          ],
+          "correctAnswer": 0,
+          "explanation": "metric + columns احترافي"
+        },
+        {
+          "id": 9103,
+          "type": "multiple_choice",
+          "question": "إزاي نخلي التطبيق يجذب المستخدم؟",
+          "options": [
+            "استخدم تفاعل وألوان",
+            "اكتب نصوص كتير",
+            "مش مهم",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "التفاعل والتنظيم مهمين"
+        },
+        {
+          "id": 9104,
+          "type": "multiple_choice",
+          "question": "إيه أول حاجة بعد كتابة الكود؟",
+          "options": [
+            "نشغّل streamlit run app.py",
+            "نحفظ الملف",
+            "نعرض على النت",
+            "مش مهم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "التشغيل بالأمر"
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "title": "🎉 خلاص! إيه الجاي؟",
+      "xpReward": 50,
+      "exercises": [
+        {
+          "id": 9201,
+          "type": "multiple_choice",
+          "question": "إيه اللي اتعلمته في الـ 10 وحدات دي؟",
+          "options": [
+            "Streamlit كامل: نصوص، مدخلات، رسوم، تخطيط",
+            "حاجة واحدة بس",
+            "مفيش حاجة",
+            "مش عارف"
+          ],
+          "correctAnswer": 0,
+          "explanation": "تعلمت Streamlit من الصفر"
+        },
+        {
+          "id": 9202,
+          "type": "multiple_choice",
+          "question": "إيه الخطوة الجاية بعد ما تخلص؟",
+          "options": [
+            "ابني تطبيقات حقيقية وانشرها",
+            "اقعد مكانك",
+            "انسى كل حاجة",
+            "مش مهم"
+          ],
+          "correctAnswer": 0,
+          "explanation": "التطبيق العملي هو الأهم"
+        },
+        {
+          "id": 9203,
+          "type": "multiple_choice",
+          "question": "فين ننشر تطبيق Streamlit مجاناً؟",
+          "options": [
+            "Streamlit Cloud",
+            "Facebook",
+            "Instagram",
+            "TikTok"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Streamlit Cloud للنشر المجاني"
+        },
+        {
+          "id": 9204,
+          "type": "multiple_choice",
+          "question": "إيه ميزة Streamlit الحقيقية؟",
+          "options": [
+            "بناء تطبيقات ويب بـ Python بس",
+            "سرعة التحميل",
+            "حجم الملفات",
+            "مفيش"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Python كافي لبناء تطبيق ويب"
+        },
+        {
+          "id": 9205,
+          "type": "multiple_choice",
+          "question": "مبروك! إيه إحساسك؟",
+          "options": [
+            "فخور إني تعلمت Streamlit",
+            "عادي",
+            "مش مهم",
+            "تعبان"
+          ],
+          "correctAnswer": 0,
+          "explanation": "أكيد فخور! 🎉"
+        }
+      ]
+    }
+  ]
+}
