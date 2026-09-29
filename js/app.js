@@ -119,9 +119,23 @@ const app = {
     container.innerHTML = '';
 
     this.state.units.forEach((unit, unitIndex) => {
-      const prevUnit = unitIndex > 0 ? this.state.units[unitIndex - 1] : null;
-      const prevProjectDone = !prevUnit || !prevUnit.project || user.completedProjects.includes(prevUnit.project.id);
-      const isUnitUnlocked = prevProjectDone;
+      // ✅ الوحدة تفتح فقط لما الوحدة السابقة تخلص بالكامل
+      let isUnitUnlocked = true;
+      
+      if (unitIndex > 0) {
+        const prevUnit = this.state.units[unitIndex - 1];
+        
+        // كل دروس الوحدة السابقة خلصت؟
+        const allPrevLessonsDone = prevUnit.lessons.every(l => 
+          user.completedLessons.includes(l.id)
+        );
+        
+        // المشروع بتاع الوحدة السابقة خلص (لو موجود)؟
+        const prevProjectDone = !prevUnit.project || 
+          user.completedProjects.includes(prevUnit.project.id);
+        
+        isUnitUnlocked = allPrevLessonsDone && prevProjectDone;
+      }
 
       const unitEl = document.createElement('div');
       unitEl.className = 'unit';
@@ -195,6 +209,23 @@ const app = {
       sounds.playWrong();
       alert('مفيش قلوب! استنى شوية أو اشتري من المتجر.');
       return;
+    }
+
+    // ✅ تأكد إن الوحدة مفتوحة
+    const unitIndex = this.state.units.findIndex(u => u.id === unitId);
+    if (unitIndex > 0) {
+      const prevUnit = this.state.units[unitIndex - 1];
+      const allPrevLessonsDone = prevUnit.lessons.every(l => 
+        user.completedLessons.includes(l.id)
+      );
+      const prevProjectDone = !prevUnit.project || 
+        user.completedProjects.includes(prevUnit.project.id);
+      
+      if (!allPrevLessonsDone || !prevProjectDone) {
+        sounds.playWrong();
+        alert('لازم تخلص الوحدة السابقة الأول!');
+        return;
+      }
     }
 
     const unit = this.state.units.find(u => u.id === unitId);
