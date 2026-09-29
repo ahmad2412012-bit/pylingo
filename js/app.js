@@ -37,7 +37,7 @@ const app = {
     }
   },
 
-  async init() {
+   async init() {
     console.log('🚀 PyLingo starting...');
     await this.loadUnits();
 
@@ -47,25 +47,21 @@ const app = {
       return;
     }
 
+    // ✅ حدّث الـ Streak
+    storage.updateStreak();
+
     this.renderHome();
     this.updateHeaderStats();
     authModule.init();
 
-    // ✅ Fallback: شغل Firestore بعد ثانية لو مش اشتغل
     setTimeout(() => {
       if (typeof firestoreModule !== 'undefined' && !firestoreModule.db) {
         console.log('⚡ Fallback: initializing Firestore...');
         firestoreModule.init();
       }
-    }, 1000);
+    }, 1500);
 
     this.startHeartsTimer();
-
-    const user = storage.getUser();
-    const today = new Date().toDateString();
-    if (user.lastActive !== today) {
-      storage.updateUser({ lastActive: today });
-    }
   },
 
   updateHeaderStats() {

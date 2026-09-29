@@ -100,6 +100,46 @@ const storage = {
       maxHearts: this.MAX_HEARTS
     };
   },
+    // ============ Streak Management ============
+  updateStreak() {
+    const user = this.getUser();
+    const today = new Date().toDateString();
+    const lastActive = user.lastActive;
+    
+    if (!lastActive) {
+      // أول مرة
+      user.streak = 1;
+      user.lastActive = today;
+      this.setUser(user);
+      console.log('🔥 Streak started: 1');
+      return user.streak;
+    }
+    
+    if (lastActive === today) {
+      // نفس اليوم - مفيش تغيير
+      return user.streak;
+    }
+    
+    // احسب الفرق بين اليوم وآخر يوم
+    const lastDate = new Date(lastActive);
+    const todayDate = new Date(today);
+    const diffDays = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 1) {
+      // يوم واحد بس - كمّل السلسلة
+      user.streak += 1;
+      user.lastActive = today;
+      console.log('🔥 Streak increased:', user.streak);
+    } else {
+      // فات يومين أو أكتر - ابدأ من جديد
+      user.streak = 1;
+      user.lastActive = today;
+      console.log('🔥 Streak reset: 1');
+    }
+    
+    this.setUser(user);
+    return user.streak;
+  },
 
   // ============ Progress ============
   getProgress() {
