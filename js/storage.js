@@ -100,6 +100,7 @@ const storage = {
       maxHearts: this.MAX_HEARTS
     };
   },
+
     // ============ Streak Management ============
   updateStreak() {
     const user = this.getUser();
@@ -140,7 +141,30 @@ const storage = {
     this.setUser(user);
     return user.streak;
   },
+  // ✅ ستريك الدروس: +1 لكل درس كامل بدون أخطاء
+  incrementStreak() {
+    const user = this.getUser();
+    user.lessonStreak = (user.lessonStreak || 0) + 1;
+    user.lastActive = new Date().toDateString();
+    this.setUser(user);
+    if (typeof firestoreModule !== 'undefined' && firestoreModule.currentUser) {
+      firestoreModule.saveToFirestore();
+    }
+    console.log('🔥 Lesson streak:', user.lessonStreak);
+    return user.lessonStreak;
+  },
 
+  // ✅ تصفير ستريك الدروس فقط عند أي غلط
+  resetStreak() {
+    const user = this.getUser();
+    user.lessonStreak = 0;
+    this.setUser(user);
+    if (typeof firestoreModule !== 'undefined' && firestoreModule.currentUser) {
+      firestoreModule.saveToFirestore();
+    }
+    console.log('💔 Lesson streak reset to 0');
+    return 0;
+  },
   // ============ Progress ============
   getProgress() {
     const data = localStorage.getItem(this.KEYS.PROGRESS);

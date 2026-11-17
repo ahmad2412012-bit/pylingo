@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - PyLingo</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Tahoma', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #131f24 0%, #1a2c35 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: #1e2b32;
+            padding: 40px 32px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid #2e4049;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-box h1 {
+            text-align: center;
+            color: #58CC02;
+            margin-bottom: 6px;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .login-box .sub {
+            text-align: center;
+            color: #9aa8b0;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        .login-box .sub strong {
+            color: #58CC02;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 13px;
+            color: #9aa8b0;
+            margin-bottom: 6px;
+            margin-right: 4px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            border: 2px solid #2e4049;
+            background: #131f24;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .login-box input::placeholder {
+            color: #5a6b74;
+        }
+
+        .login-box input:focus {
+            border-color: #58CC02;
+            box-shadow: 0 0 0 3px rgba(88, 204, 2, 0.15);
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: transform 0.1s, filter 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .login-box button:active {
+            transform: scale(0.97);
+        }
+
+        .login-box button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-login {
+            background: #58CC02;
+            color: #fff;
+            box-shadow: 0 4px 0 #3fa300;
+        }
+
+        .btn-login:hover:not(:disabled) {
+            filter: brightness(1.05);
+        }
+
+        .btn-login:active:not(:disabled) {
+            box-shadow: 0 2px 0 #3fa300;
+            transform: translateY(2px) scale(0.99);
+        }
+
+        .btn-signup {
+            background: #1CB0F6;
+            color: #fff;
+            box-shadow: 0 4px 0 #1386bd;
+        }
+
+        .btn-signup:hover:not(:disabled) {
+            filter: brightness(1.05);
+        }
+
+        .btn-signup:active:not(:disabled) {
+            box-shadow: 0 2px 0 #1386bd;
+            transform: translateY(2px) scale(0.99);
+        }
+
+        .divider {
+            text-align: center;
+            color: #5a6b74;
+            margin: 18px 0;
+            font-size: 13px;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 38%;
+            height: 1px;
+            background: #2e4049;
+        }
+
+        .divider::before {
+            right: 0;
+        }
+
+        .divider::after {
+            left: 0;
+        }
+
+        .btn-google {
+            background: #fff;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 0 #b8b8b8;
+        }
+
+        .btn-google:hover:not(:disabled) {
+            filter: brightness(0.97);
+        }
+
+        .btn-google:active:not(:disabled) {
+            box-shadow: 0 2px 0 #b8b8b8;
+            transform: translateY(2px) scale(0.99);
+        }
+
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+        }
+
+        #auth-message {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            min-height: 22px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        #auth-message.error {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        #auth-message.success {
+            color: #58CC02;
+            background: rgba(88, 204, 2, 0.1);
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #5a6b74;
+            font-size: 12px;
+            margin-top: 22px;
+            line-height: 1.6;
+        }
+
+        .footer-note a {
+            color: #58CC02;
+            text-decoration: none;
+        }
+
+        /* تحميل مؤقت */
+        .loading {
+            position: fixed;
+            inset: 0;
+            background: rgba(19, 31, 36, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .loading.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #2e4049;
+            border-top-color: #58CC02;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box" id="login-form">
+        <h1>🐍 PyLingo</h1>
+        <p class="sub">سجّل دخولك أو أنشئ حساب جديد <strong>مجاناً</strong></p>
+
+        <label class="field-label" for="email-input">البريد الإلكتروني</label>
+        <input type="email" id="email-input" placeholder="example@email.com" autocomplete="email" autofocus>
+
+        <label class="field-label" for="password-input">كلمة المرور</label>
+        <input type="password" id="password-input" placeholder="••••••••" autocomplete="current-password" minlength="6">
+
+        <button class="btn-login" id="email-login-btn">تسجيل الدخول</button>
+        <button class="btn-signup" id="signup-btn">إنشاء حساب جديد</button>
+
+        <div class="divider">أو</div>
+
+        <button class="btn-google" id="google-login-btn">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+            المتابعة بحساب Google
+        </button>
+
+        <div id="auth-message"></div>
+
+        <p class="footer-note">
+            بتسجيلك أنت توافق على شروط الاستخدام وسياسة الخصوصية
+        </p>
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Firebase SDK (compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <!-- Project scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/firestore.js"></script>
+    <script src="js/auth.js"></script>
+
+    <!-- Init + loading state -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ✅ تهيئة Firebase Auth
+            if (typeof authModule !== 'undefined') {
+                authModule.init();
+            } else {
+                console.error('❌ authModule مش محمّل');
+            }
+
+            // ✅ إظهار لودنج أثناء العمليات (اختياري)
+            const buttons = document.querySelectorAll(
+                '#email-login-btn, #signup-btn, #google-login-btn'
+            );
+            const loadingEl = document.getElementById('loading');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // نعرض اللودنج بعد لحظة صغيرة عشان ما يمنع رسائل الخطأ
+                    setTimeout(() => {
+                        if (loadingEl) loadingEl.classList.add('show');
+                    }, 100);
+                    // نخفيه بعد ثانيتين لو صار في خطأ وما راح المستخدم
+                    setTimeout(() => {
+                        if (loadingEl) loadingEl.classList.remove('show');
+                    }, 3000);
+                });
+            });
+
+            // نخفي اللودنج لما نغادر الصفحة أو عند النجاح
+            window.addEventListener('beforeunload', () => {
+                if (loadingEl) loadingEl.classList.remove('show');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

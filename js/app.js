@@ -12,7 +12,12 @@ const app = {
     currentUnitId: null,
     currentProject: null,
     monacoEditor: null,
-    pendingAction: null
+    pendingAction: null,
+    // ✅ NEW: خصائص الاختبار العشوائي والستريك
+    currentExercises: [],
+    isQuiz: false,
+    lessonMistakes: 0,
+    quizUnitId: null
   },
 
   heartsTimer: null,
@@ -48,7 +53,9 @@ const app = {
       return;
     }
 
-    storage.updateStreak();
+    // ⚠️ تم تعطيل الستريك اليومي القديم — الستريك الآن يعتمد على الدروس
+    // storage.updateStreak();
+
     this.renderHome();
     this.updateHeaderStats();
     authModule.init();
@@ -67,10 +74,11 @@ const app = {
     const user = storage.getUser();
     const prevUser = this._prevStats || {};
 
+    const lessonStreak = user.lessonStreak || 0;
     const streakEl = document.getElementById('streak-value');
-    if (streakEl && streakEl.textContent !== String(user.streak)) {
-      streakEl.textContent = user.streak;
-      if (user.streak > (prevUser.streak || 0)) {
+    if (streakEl && streakEl.textContent !== String(lessonStreak)) {
+      streakEl.textContent = lessonStreak;
+      if (lessonStreak > (prevUser.lessonStreak || 0)) {
         this.pulseElement(streakEl);
       }
     }
@@ -100,7 +108,7 @@ const app = {
     }
 
     this._prevStats = {
-      streak: user.streak,
+      lessonStreak: user.lessonStreak || 0,
       gems: user.gems,
       hearts: user.hearts,
       xp: user.xp
@@ -199,24 +207,24 @@ const app = {
         const allPrevLessonsDone = prevUnit.lessons.every(l =>
           user.completedLessons.includes(l.id)
         );
-        const prevProjectDone = !prevUnit.project ||
-          user.completedProjects.includes(prevUnit.project.id);
-        isUnitUnlocked = allPrevLessonsDone && prevProjectDone;
+        // ✅ بدل المشروع: الوحدة الجديدة تتفتح لما تنجح في اختبار الوحدة السابقة
+        const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
+        isUnitUnlocked = allPrevLessonsDone && prevQuizDone;
       }
 
       const unitEl = document.createElement('div');
       unitEl.className = 'unit';
 
       const allLessonsDone = unit.lessons.every(l => user.completedLessons.includes(l.id));
-      const projectDone = unit.project ? user.completedProjects.includes(unit.project.id) : true;
+      const quizDone = user.completedProjects.includes(unit.id + '-quiz');
 
       unitEl.innerHTML =
         '<div class="unit-header">' +
-          '<div class="unit-icon">' + unit.icon + '</div>' +
-          '<div class="unit-info">' +
-            '<h3>' + unit.title + '</h3>' +
-            '<p>' + unit.description + '</p>' +
-          '</div>' +
+        '<div class="unit-icon">' + unit.icon + '</div>' +
+        '<div class="unit-info">' +
+        '<h3>' + unit.title + '</h3>' +
+        '<p>' + unit.description + '</p>' +
+        '</div>' +
         '</div>' +
         '<div class="unit-lessons" id="unit-' + unit.id + '-lessons"></div>';
 
@@ -244,21 +252,22 @@ const app = {
         lessonsContainer.appendChild(node);
       });
 
-      if (unit.project) {
-        const projectUnlocked = isUnitUnlocked && allLessonsDone;
-        const projectNode = document.createElement('div');
-        projectNode.className = 'lesson-node project';
-        if (projectDone) projectNode.classList.add('completed');
-        if (!projectUnlocked) projectNode.classList.add('locked');
+      // ✅ NEW: اختبار الوحدة العشوائي بدل المشروع الكتابي
+      {
+        const quizUnlocked = isUnitUnlocked && allLessonsDone;
+        const quizNode = document.createElement('div');
+        quizNode.className = 'lesson-node project';
+        if (quizDone) quizNode.classList.add('completed');
+        if (!quizUnlocked) quizNode.classList.add('locked');
 
-        projectNode.textContent = projectDone ? '✓' : '🏆';
-        projectNode.title = unit.project.title;
+        quizNode.textContent = quizDone ? '✓' : '📝';
+        quizNode.title = 'اختبار الوحدة - ' + unit.title;
 
-        if (projectUnlocked && !projectDone) {
-          projectNode.onclick = () => this.startProject(unit.id);
+        if (quizUnlocked) {
+          quizNode.onclick = () => this.startUnitQuiz(unit.id);
         }
 
-        lessonsContainer.appendChild(projectNode);
+        lessonsContainer.appendChild(quizNode);
       }
     });
   },
@@ -283,10 +292,10 @@ const app = {
       const allPrevLessonsDone = prevUnit.lessons.every(l =>
         user.completedLessons.includes(l.id)
       );
-      const prevProjectDone = !prevUnit.project ||
-        user.completedProjects.includes(prevUnit.project.id);
+      // ✅ بدل المشروع: لازم تنجح في اختبار الوحدة السابقة
+      const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
 
-      if (!allPrevLessonsDone || !prevProjectDone) {
+      if (!allPrevLessonsDone || !prevQuizDone) {
         sounds.playWrong();
         alert('لازم تخلص الوحدة السابقة الأول!');
         return;
@@ -304,9 +313,70 @@ const app = {
     this.state.selectedAnswer = null;
     this.state.lessonHearts = user.hearts;
 
+    // ✅ NEW: إعداد وضع الدرس العادي
+    this.state.isQuiz = false;
+    this.state.lessonMistakes = 0;
+    this.state.currentExercises = lesson.exercises;
+
     document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
 
     this.showExplanation(lesson, unit);
+  },
+
+  // ============ ✅ NEW: بدء اختبار الوحدة العشوائي ============
+  startUnitQuiz(unitId) {
+    const user = storage.getUser();
+
+    if (user.hearts <= 0) {
+      sounds.playWrong();
+      alert('مفيش قلوب! استنى شوية أو اشتري من المتجر.');
+      return;
+    }
+
+    const unit = this.state.units.find(u => u.id === unitId);
+    if (!unit) return;
+
+    // جمع كل الأسئلة من كل الدروس
+    let allExercises = [];
+    unit.lessons.forEach(lesson => {
+      if (lesson.exercises && lesson.exercises.length) {
+        allExercises = allExercises.concat(lesson.exercises);
+      }
+    });
+
+    if (allExercises.length === 0) {
+      alert('لا توجد أسئلة في هذه الوحدة');
+      return;
+    }
+
+    // خلط الأسئلة (Fisher–Yates)
+    for (let i = allExercises.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allExercises[i], allExercises[j]] = [allExercises[j], allExercises[i]];
+    }
+
+    // اختيار 10 أسئلة (أو أقل لو الوحدة صغيرة)
+    const quizCount = Math.min(10, allExercises.length);
+    const quizExercises = allExercises.slice(0, quizCount);
+
+    // إعداد الحالة
+    this.state.currentLesson = null;
+    this.state.currentUnitId = unitId;
+    this.state.quizUnitId = unitId;
+    this.state.currentExercises = quizExercises;
+    this.state.isQuiz = true;
+    this.state.lessonMistakes = 0;
+    this.state.currentExerciseIndex = 0;
+    this.state.correctCount = 0;
+    this.state.totalCount = quizExercises.length;
+    this.state.selectedAnswer = null;
+    this.state.lessonHearts = user.hearts;
+
+    document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
+
+    // ✅ الاختبار ما بحتاج شاشة شرح — يدخل مباشرة عالأسئلة
+    this.showScreen('lesson-screen');
+    this.renderExercise();
   },
 
   showExplanation(lesson, unit) {
@@ -323,11 +393,11 @@ const app = {
     } else {
       contentEl.innerHTML =
         '<div class="explanation-placeholder">' +
-          '<div style="font-size: 60px; margin-bottom: 20px;">📚</div>' +
-          '<h2>استعد للأسئلة!</h2>' +
-          '<p>هذا الدرس عبارة عن ' + lesson.exercises.length + ' سؤال تفاعلي.</p>' +
-          '<p>اقرأ السؤال بتركيز واختار الإجابة الصح.</p>' +
-          '<p style="color: var(--primary); font-weight: 800; margin-top: 20px;">بالتوفيق! 💪</p>' +
+        '<div style="font-size: 60px; margin-bottom: 20px;">📚</div>' +
+        '<h2>استعد للأسئلة!</h2>' +
+        '<p>هذا الدرس عبارة عن ' + lesson.exercises.length + ' سؤال تفاعلي.</p>' +
+        '<p>اقرأ السؤال بتركيز واختار الإجابة الصح.</p>' +
+        '<p style="color: var(--primary); font-weight: 800; margin-top: 20px;">بالتوفيق! 💪</p>' +
         '</div>';
     }
 
@@ -356,7 +426,8 @@ const app = {
   },
 
   renderExercise() {
-    const exercise = this.state.currentLesson.exercises[this.state.currentExerciseIndex];
+    // ✅ NEW: نستخدم currentExercises (يشتغل للدرس والاختبار)
+    const exercise = this.state.currentExercises[this.state.currentExerciseIndex];
     this.state.selectedAnswer = null;
 
     const progress = ((this.state.currentExerciseIndex) / this.state.totalCount) * 100;
@@ -422,7 +493,8 @@ const app = {
   },
 
   checkAnswer() {
-    const exercise = this.state.currentLesson.exercises[this.state.currentExerciseIndex];
+    // ✅ NEW: نستخدم currentExercises
+    const exercise = this.state.currentExercises[this.state.currentExerciseIndex];
     let isCorrect = false;
 
     if (exercise.type === 'multiple_choice') {
@@ -449,6 +521,16 @@ const app = {
       this.state.lessonHearts--;
       storage.loseHeart();
       document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
+
+      // ✅ NEW: تسجيل الخطأ + تصفير الستريك فوراً (في الدروس فقط، مش الاختبار)
+      if (!this.state.isQuiz) {
+        this.state.lessonMistakes++;
+        const user = storage.getUser();
+        if (user.streak > 0) {
+          storage.resetStreak();
+        }
+      }
+
       this.updateHeaderStats();
 
       feedback.textContent = '❌ غلط. الإجابة الصح: ' +
@@ -472,7 +554,12 @@ const app = {
     this.state.currentExerciseIndex++;
 
     if (this.state.currentExerciseIndex >= this.state.totalCount) {
-      this.completeLesson();
+      // ✅ NEW: التوجيه حسب الوضع
+      if (this.state.isQuiz) {
+        this.completeQuiz();
+      } else {
+        this.completeLesson();
+      }
     } else {
       this.renderExercise();
     }
@@ -486,6 +573,13 @@ const app = {
     storage.markLessonComplete(lesson.id);
     storage.addXP(lesson.xpReward || 20);
     storage.addGems(5);
+
+    // ✅ NEW: زيادة الستريك لو الدرس كامل بدون أي خطأ
+    // (لو فيه خطأ، الستريك اتصفّر أثناء الدرس في checkAnswer)
+    if (this.state.lessonMistakes === 0) {
+      storage.incrementStreak();
+    }
+
     this.updateHeaderStats();
 
     achievementsModule.checkAndNotify();
@@ -493,9 +587,44 @@ const app = {
     const accuracy = Math.round((this.state.correctCount / this.state.totalCount) * 100);
     document.getElementById('complete-xp').textContent = '+' + (lesson.xpReward || 20);
     document.getElementById('complete-accuracy').textContent = accuracy + '%';
-    document.getElementById('complete-message').textContent = 'أكملت الدرس بنجاح! (+5 💎)';
+
+    const msg = this.state.lessonMistakes === 0
+      ? 'درس كامل بدون أخطاء! 🔥 الستريك +1 (+5 💎)'
+      : 'أكملت الدرس، بس عندك ' + this.state.lessonMistakes + ' غلط. الستريك صفر (+5 💎)';
+    document.getElementById('complete-message').textContent = msg;
 
     this.state.pendingAction = { type: 'lesson' };
+    this.showScreen('complete-screen');
+    this.showConfetti();
+  },
+
+  // ============ ✅ NEW: إكمال اختبار الوحدة ============
+  completeQuiz() {
+    const accuracy = Math.round((this.state.correctCount / this.state.totalCount) * 100);
+    const passed = accuracy >= 70;
+
+    sounds.playComplete();
+
+    if (passed) {
+      storage.addXP(30);
+      storage.addGems(10);
+      // ✅ نعلّم الاختبار كمكتمل عشان يفتح الوحدة التالية
+      storage.markProjectComplete(this.state.quizUnitId + '-quiz');
+    } else {
+      storage.addXP(10);
+      storage.addGems(5);
+    }
+
+    this.updateHeaderStats();
+    achievementsModule.checkAndNotify();
+
+    document.getElementById('complete-xp').textContent = '+' + (passed ? 30 : 10);
+    document.getElementById('complete-accuracy').textContent = accuracy + '%';
+    document.getElementById('complete-message').textContent = passed
+      ? '🎉 نجحت في اختبار الوحدة! (+10 💎)'
+      : 'محتاج 70% على الأقل للنجاح. حاول تاني! (+5 💎)';
+
+    this.state.pendingAction = { type: 'quiz' };
     this.showScreen('complete-screen');
     this.showConfetti();
   },
@@ -716,8 +845,8 @@ const app = {
       card.innerHTML =
         '<div class="achievement-icon">' + (isUnlocked ? ach.icon : '🔒') + '</div>' +
         '<div class="achievement-info">' +
-          '<h3>' + ach.title + '</h3>' +
-          '<p>' + ach.description + '</p>' +
+        '<h3>' + ach.title + '</h3>' +
+        '<p>' + ach.description + '</p>' +
         '</div>' +
         (isUnlocked ? '<div class="achievement-check">✓</div>' : '');
       container.appendChild(card);
