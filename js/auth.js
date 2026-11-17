@@ -56,6 +56,15 @@ const authModule = {
         this.signupWithEmail(email.trim(), password);
       });
     }
+    // ✅ زرار نسيت كلمة المرور
+    const forgotBtn = document.getElementById('forgot-password-btn');
+    if (forgotBtn) {
+      forgotBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const email = (document.getElementById('email-input') || {}).value || '';
+        this.resetPassword(email.trim());
+      });
+    }
 
     // Enter key داخل الحقول
     const passwordInput = document.getElementById('password-input');
@@ -108,7 +117,20 @@ const authModule = {
       this.showError(error);
     }
   },
-
+  // ✅ إرسال رابط استعادة كلمة المرور
+  async resetPassword(email) {
+    this.clearMessage();
+    if (!email) {
+      this.showMessage('❌ اكتب إيميلك في الخانة فوق الأول عشان نبعتلك الرابط', 'error');
+      return;
+    }
+    try {
+      await this.auth.sendPasswordResetEmail(email);
+      this.showMessage('✅ تم إرسال رابط استعادة كلمة المرور لإيميلك. (تأكد من صندوق الوارد أو الـ Spam)', 'success');
+    } catch (error) {
+      this.showError(error);
+    }
+  },
   // ============ إنشاء حساب جديد ============
   async signupWithEmail(email, password) {
     this.clearMessage();
