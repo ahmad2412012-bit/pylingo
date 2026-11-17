@@ -522,12 +522,22 @@ const app = {
       storage.loseHeart();
       document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
 
-      // ✅ NEW: تسجيل الخطأ + تصفير الستريك فوراً (في الدروس فقط، مش الاختبار)
+      // ✅ NEW: تسجيل الخطأ + حماية الستريك (في الدروس فقط)
       if (!this.state.isQuiz) {
         this.state.lessonMistakes++;
         const user = storage.getUser();
-        if (user.streak > 0) {
-          storage.resetStreak();
+        
+        if ((user.lessonStreak || 0) > 0) {
+          if ((user.streakFreezes || 0) > 0) {
+            // استخدام التجميد
+            user.streakFreezes--;
+            storage.setUser(user);
+            this.showToast('❄️ تم استخدام تجميد السلسلة! ستريكك بأمان.', 'success');
+          } else {
+            // تصفير الستريك
+            storage.resetStreak();
+            this.showToast('💔 غلطت، رجع الستريك صفر!', 'error');
+          }
         }
       }
 
@@ -571,9 +581,18 @@ const app = {
     sounds.playComplete();
 
     storage.markLessonComplete(lesson.id);
-    storage.addXP(lesson.xpReward || 20);
+    
+    // ✅ NEW: التحقق من الـ XP المضاعف
+    const user = storage.getUser();
+    let xpToAdd = lesson.xpReward || 20;
+    if (user.doubleXPActive) {
+      xpToAdd *= 2;
+      user.doubleXPActive = false; // إلغاء التفعيل بعد استخدامه مرة واحدة
+      storage.setUser(user);
+      this.showToast('⚡ تم استخدام XP المضاعف!', 'success');
+    }
+    storage.addXP(xpToAdd);
     storage.addGems(5);
-
     // ✅ NEW: زيادة الستريك لو الدرس كامل بدون أي خطأ
     // (لو فيه خطأ، الستريك اتصفّر أثناء الدرس في checkAnswer)
     if (this.state.lessonMistakes === 0) {
@@ -803,6 +822,8 @@ const app = {
         timerEl.textContent = this.formatTime(heartsInfo.nextHeartIn);
       }
     }
+        const freezesEl = document.getElementById('shop-freezes'); // لو حبيت تضيفه في الـ HTML بعدين
+    // أو ممكن تكتفي بالرسائل اللي بتظهر (Toast)
   },
 
   buyHearts() {
@@ -817,6 +838,39 @@ const app = {
       sounds.playWrong();
       this.showToast('❌ ' + result.error, 'error');
     }
+  },
+    buyStreakFreeze() {
+    const user = storage.getUser();
+    if (user.gems < 200) {
+      sounds.playWrong();
+      this.showToast('❌ مش معاك جواهر كفاية!', 'error');
+      return;
+    }
+    user.gems -= 200;
+    user.streakFreezes = (user.streakFreezes || 0) + 1;
+    storage.setUser(user);
+    
+    sounds.playLevelUp();
+    this.updateHeaderStats();
+    this.renderShop();
+    this.showToast('✅ تم شراء تجميد السلسلة!', 'success');
+  },
+
+  buyDoubleXP() {
+    const user = storage.getUser();
+    if (user.gems < 100) {
+      sounds.playWrong();
+      this.showToast('❌ مش معاك جواهر كفاية!', 'error');
+      return;
+    }
+    user.gems -= 100;
+    user.doubleXPActive = true;
+    storage.setUser(user);
+    
+    sounds.playLevelUp();
+    this.updateHeaderStats();
+    this.renderShop();
+    this.showToast('✅ تم شراء XP مضاعف للدرس القادم!', 'success');
   },
 
   openAchievements() {
