@@ -1,0 +1,69 @@
+{
+  "id": "unit28",
+  "title": "تصوير البيانات (Matplotlib)",
+  "description": "تعلم إزاي تحول الأرقام لرسوم بيانية خطية وأعمدة تفهمها بسرعة",
+  "icon": "📉",
+  "lessons": [
+    {
+      "id": "unit28_lesson1",
+      "title": "مقدمة في Matplotlib",
+      "lessonExplanation": "<h2>إزاي نرسم رسم بياني؟</h2><p>مكتبة <strong>Matplotlib</strong> هي الأشهر في بايثون لرسم البيانات. الجزء اللي هنستخدمه منها اسمه <code>pyplot</code>.</p><p>عشان نعرض الرسم، بنستخدم دالة <code>show()</code> في الآخر. وبنرسم خطوط باستخدام دالة <code>plot()</code>.</p><pre><code>import matplotlib.pyplot as plt\n\nx = [1, 2, 3]\ny = [10, 20, 15]\nplt.plot(x, y)\nplt.show()</code></pre>",
+      "lessonTip": "اختصار pyplot الشهير دايماً بيكون plt.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه الدالة اللي بنستخدمها عشان نعرض الرسم البياني على الشاشة؟",
+          "options": ["plt.draw()", "plt.show()", "plt.display()", "plt.view()"],
+          "correctAnswer": 1,
+          "explanation": "دالة show() هي اللي بتفتح نافذة الرسم البياني."
+        },
+        {
+          "type": "fill_blank",
+          "question": "اكمل الكود لاستدعاء مكتبة الرسم:",
+          "code": "import matplotlib.pyplot as ______",
+          "correctAnswer": "plt",
+          "bank": ["plt", "plot", "graph", "mpl"],
+          "explanation": "الاختصار القياسي هو plt."
+        }
+      ]
+    },
+    {
+      "id": "unit28_lesson2",
+      "title": "الرسوم البيانية بالأعمدة (Bar Charts)",
+      "lessonExplanation": "<h2>رسم الأعمدة (Bar Chart)</h2><p>لو عايز تقارن بين حاجات مختلفة (زي مبيعات 4 منتجات)، الرسم بالأعمدة هو الأفضل. بنستخدم دالة <code>bar()</code> بدل <code>plot()</code>.</p><pre><code>products = ['A', 'B', 'C']\nsales = [50, 80, 30]\nplt.bar(products, sales)\nplt.show()</code></pre>",
+      "lessonTip": "دالة plot() بترسم خط متصل، لكن bar() بترسم أعمدة واقفة.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه الدالة اللي بنرسم بيها أعمدة (Bar Chart)؟",
+          "options": ["plt.line()", "plt.plot()", "plt.bar()", "plt.hist()"],
+          "correctAnswer": 2,
+          "explanation": "دالة bar() مخصصة لرسم الأعمدة البيانية."
+        }
+      ]
+    },
+    {
+      "id": "unit28_lesson3",
+      "title": "تسمية الرسم (Titles & Labels)",
+      "lessonExplanation": "<h2>عشان الرسم يبقى واضح</h2><p>الرسم من غير عنوان أو تسميات للمحاور بيبقى مش واضح. بنقدر نضيف:</p><ul><li><code>plt.title()</code>: عنوان الرسم.</li><li><code>plt.xlabel()</code>: اسم المحور الأفقي (X).</li><li><code>plt.ylabel()</code>: اسم المحور الرأسي (Y).</li></ul><pre><code>plt.plot(x, y)\nplt.title('المبيعات اليومية')\nplt.xlabel('اليوم')\nplt.ylabel('المبلغ')\nplt.show()</code></pre>",
+      "lessonTip": "دائماً ضيف عنوان ومسميات للمحاور عشان اللي بيشوف الرسم يفهمه فوراً.",
+      "exercises": [
+        {
+          "type": "fill_blank",
+          "question": "اكتب الدالة اللي بتضيف عنوان للرسم البياني:",
+          "code": "plt.______('مبيعات الشهر')",
+          "correctAnswer": "title",
+          "bank": ["title", "name", "header", "text"],
+          "explanation": "دالة title() بتضيف عنوان في أعلى الرسم البياني."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "إيه الدالة اللي بتسمي المحور الأفقي (X)؟",
+          "options": ["plt.xlabel()", "plt.ylabel()", "plt.xname()", "plt.xtitle()"],
+          "correctAnswer": 0,
+          "explanation": "xlabel لتسمية المحور السيني (الأفقي)، و ylabel للصادي (الرأسي)."
+        }
+      ]
+    }
+  ]
+}

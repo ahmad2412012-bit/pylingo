@@ -219,7 +219,21 @@ const app = {
     // لوب على الأقسام
     this.sections.forEach((section) => {
       const sectionUnits = section.units.map(uid => this.state.units.find(u => u.id === uid)).filter(Boolean);
-      if (sectionUnits.length === 0) return; // لو مفيش ملفات للقسم ده، تجاوزه
+            // لو مفيش ملفات للقسم ده، نعرضه بس نقول قريباً
+      if (sectionUnits.length === 0) {
+        const emptyDivider = document.createElement('div');
+        emptyDivider.className = 'section-divider';
+        emptyDivider.innerHTML = `<span class="section-icon">${section.icon}</span><h2>${section.title}</h2>`;
+        container.appendChild(emptyDivider);
+        
+        const emptyMsg = document.createElement('div');
+        emptyMsg.style.textAlign = 'center';
+        emptyMsg.style.padding = '20px';
+        emptyMsg.style.color = '#9aa8b0';
+        emptyMsg.textContent = 'قريباً... (الوحدات دي لسه هتنزل)';
+        container.appendChild(emptyMsg);
+        return;
+      }
 
       // 1. عرض فاصل القسم (Section Divider)
       const divider = document.createElement('div');

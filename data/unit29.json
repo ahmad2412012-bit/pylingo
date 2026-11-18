@@ -1,0 +1,70 @@
+{
+  "id": "unit29",
+  "title": "الحسابات السريعة (NumPy)",
+  "description": "تعلم إزاي تتعامل مع المصفوفات والأرقام الضخمة بسرعة فائقة",
+  "icon": "🔢",
+  "lessons": [
+    {
+      "id": "unit29_lesson1",
+      "title": "إيه هي مكتبة NumPy؟",
+      "lessonExplanation": "<h2>أقوى مكتبة للأرقام</h2><p>القوائم (Lists) العادية في بايثون بطيئة جداً في الحسابات لو كان عندك ملايين الأرقام. هنا بيجي دور مكتبة <strong>NumPy</strong> (اختصار Numerical Python).</p><p>NumPy بتوفر هيكل بيانات اسمه <strong>Array</strong> (مصفوفة)، وده أسرع بمرات كتير من القوائم العادية، وبيوفر مساحة في الذاكرة.</p><pre><code>import numpy as np\n\n# إنشاء مصفوفة\nmy_array = np.array([1, 2, 3, 4])\nprint(my_array)</code></pre>",
+      "lessonTip": "الاختصار العالمي لمكتبة NumPy هو np، ودايماً بنكتب import numpy as np.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "ليه بنستخدم NumPy بدل القوائم (Lists) العادية؟",
+          "options": ["عشان بتطبع ألوان", "عشان أسرع بكتير في الحسابات الرياضية", "عشان بتشتغل على الإنترنت", "عشان بتحفظ الصور"],
+          "correctAnswer": 1,
+          "explanation": "NumPy مصممة خصيصاً لتنفيذ العمليات الرياضية على مصفوفات ضخمة بسرعة عالية جداً."
+        },
+        {
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان نستورد مكتبة NumPy بالاختصار الشهير:",
+          "code": "import numpy as ______",
+          "correctAnswer": "np",
+          "bank": ["np", "num", "numpy", "n"],
+          "explanation": "الاختصار المعروف لمكتبة NumPy هو np."
+        }
+      ]
+    },
+    {
+      "id": "unit29_lesson2",
+      "title": "العمليات الرياضية على المصفوفات",
+      "lessonExplanation": "<h2>قوة الـ Vectorization</h2><p>في بايثون العادية، لو عايز تجمع رقم على كل عنصر في قائمة، لازم تعمل حلقة تكرار (Loop).</p><p>لكن في NumPy، بتقدر تجمع أو تضرب الرقم في كل عناصر المصفوفة مرة واحدة من غير ما تكتب حلقات تكرار!</p><pre><code>arr = np.array([1, 2, 3])\n\n# جمع 10 على كل عنصر\nprint(arr + 10) \n# النتيجة: [11 12 13]</code></pre>",
+      "lessonTip": "NumPy بتطبق العملية الرياضية على كل عنصر في المصفوفة تلقائياً (Element-wise).",
+      "exercises": [
+        {
+          "type": "predict_output",
+          "question": "إيه اللي هيطبعه الكود ده؟",
+          "code": "arr = np.array([2, 4, 6])\nprint(arr * 2)",
+          "correctAnswer": "[4 8 12]",
+          "bank": ["[4 8 12]", "[2 4 6 2 4 6]", "[2 4 6]", "Error"],
+          "explanation": "الضرب في 2 هيطبق على كل عنصر، فـ 2*2=4، و4*2=8، و6*2=12."
+        }
+      ]
+    },
+    {
+      "id": "unit29_lesson3",
+      "title": "دوال جاهزة في NumPy",
+      "lessonExplanation": "<h2>توليد المصفوفات</h2><p>NumPy فيها دوال بتوفر وقتك في إنشاء مصفوفات جاهزة:</p><ul><li><code>np.zeros((3,3))</code>: بتعمل مصفوفة كلها أصفار.</li><li><code>np.ones((2,2))</code>: بتعمل مصفوفة كلها آحاد (1).</li><li><code>np.arange(1, 10)</code>: بتعمل مصفوفة فيها أرقام من 1 لـ 9 (زي الـ range).</li></ul><pre><code>print(np.ones(4))\n# النتيجة: [1. 1. 1. 1.]</code></pre>",
+      "lessonTip": "دالة arange مفيدة جداً لتوليد تسلسل من الأرقام بسرعة.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه الدالة اللي بنستخدمها عشان نعمل مصفوفة كل عناصرها أصفار؟",
+          "options": ["np.empty()", "np.zeros()", "np.null()", "np.zero()"],
+          "correctAnswer": 1,
+          "explanation": "دالة zeros() بتعمل مصفوفة مكونة من أصفار."
+        },
+        {
+          "type": "predict_output",
+          "question": "إيه اللي الكود ده هيطبعه؟",
+          "code": "print(np.arange(1, 5))",
+          "correctAnswer": "[1 2 3 4]",
+          "bank": ["[1 2 3 4]", "[1 2 3 4 5]", "[0 1 2 3 4]", "[1, 2, 3, 4]"],
+          "explanation": "دالة arange بتبدأ من الرقم الأول (1) وتقف قبل الرقم الأخير (5)، يعني هتطلع 1 لـ 4."
+        }
+      ]
+    }
+  ]
+}

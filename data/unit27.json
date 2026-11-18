@@ -1,0 +1,77 @@
+{
+  "id": "unit27",
+  "title": "التعديل والتصفية في البيانات (Data Manipulation)",
+  "description": "تعلم إزاي تختار أعمدة معينة، وتفلتر الصفوف، وتحسب إحصائيات من بياناتك",
+  "icon": "📊",
+  "lessons": [
+    {
+      "id": "unit27_lesson1",
+      "title": "اختيار الأعمدة (Selecting Columns)",
+      "lessonExplanation": "<h2>إزاي نجيب عمود معين؟</h2><p>لو عندك جدول فيه بيانات طلاب (الاسم، العمر، الدرجة)، ومحتاج تجيب أعمار الطلاب بس، بنكتب اسم العمود بين أقواس مربعة.</p><pre><code># لو الجدول اسمه data\nages = data['Age']\nprint(ages)</code></pre><p>لما تختار عمود واحد، النتيجة بتبقى <strong>Series</strong>.</p>",
+      "lessonTip": "عشان تجيب أكتر من عمود، بتحط أسماء الأعمدة جوه قائمة (List) زي كده: data[['Name', 'Age']].",
+      "exercises": [
+        {
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان نختار عمود 'Salary' من الجدول:",
+          "code": "salaries = df[______]",
+          "correctAnswer": "'Salary'",
+          "bank": ["'Salary'", "Salary", "(Salary)", "{Salary}"],
+          "explanation": "بنكتب اسم العمود بين علامات تنصيص جوه الأقواس المربعة."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "لو اخترت عمود واحد من DataFrame، النتيجة بتكون إيه؟",
+          "options": ["DataFrame", "List", "Series", "String"],
+          "correctAnswer": 2,
+          "explanation": "اختيار عمود واحد بيرجع Series (عمود واحد)."
+        }
+      ]
+    },
+    {
+      "id": "unit27_lesson2",
+      "title": "تصفية البيانات (Filtering Rows)",
+      "lessonExplanation": "<h2>إزاي نفلتر الصفوف؟</h2><p>تخيل إنك عايز تجيب الطلاب اللي درجتهم أكبر من 50 بس. في Pandas بنكتب الشرط جوه الأقواس المربعة.</p><pre><code>passed_students = data[data['Score'] > 50]\nprint(passed_students)</code></pre><p>ده بيعرضلك جدول جديد فيه بس الصفوف اللي بتحقق الشرط.</p>",
+      "lessonTip": "ممكن تجمع أكتر من شرط باستخدام & (و) أو | (أو).",
+      "exercises": [
+        {
+          "type": "predict_output",
+          "question": "إيه اللي الكود ده هيعمله؟",
+          "code": "filtered = df[df['Age'] >= 18]",
+          "correctAnswer": "يعرض الصفوف اللي العمر فيها 18 أو أكبر",
+          "bank": ["يعرض الصفوف اللي العمر فيها 18 أو أكبر", "يعرض الصفوف اللي العمر فيها أقل من 18", "يمسح الأعمار", "يعرض أول 18 صف"],
+          "explanation": "الشرط >= 18 معناه أكبر من أو يساوي 18."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "عايز تجيب البيانات اللي فيها 'City' بتساوي 'Cairo'، تكتب إيه؟",
+          "options": ["df[df['City'] == 'Cairo']", "df['City'] = 'Cairo'", "df[City == Cairo]", "df.where(City, Cairo)"],
+          "correctAnswer": 0,
+          "explanation": "بنكتب الشرط كامل جوه الأقواس المربعة، وبنستخدم == للمقارنة."
+        }
+      ]
+    },
+    {
+      "id": "unit27_lesson3",
+      "title": "الإحصائيات الأساسية (Basic Statistics)",
+      "lessonExplanation": "<h2>حساب الأرقام بسرعة</h2><p>Pandas فيها دوال جاهزة بتوفر عليك وقت كبير في الحسابات:</p><ul><li><code>sum()</code>: بيجمع كل الأرقام.</li><li><code>mean()</code>: بيجيب المتوسط الحسابي.</li><li><code>max()</code>: بيجيب أكبر رقم.</li><li><code>describe()</code>: بيطلعلك تقرير كامل بكل الإحصائيات مرة واحدة.</li></ul><pre><code>average_score = data['Score'].mean()</code></pre>",
+      "lessonTip": "دالة describe() من أهم الدوال عشان تفهم بياناتك بسرعة.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه الدالة اللي بتجيب المتوسط الحسابي؟",
+          "options": ["average()", "mean()", "mid()", "sum()"],
+          "correctAnswer": 1,
+          "explanation": "دالة mean() هي المسؤولة عن حساب المتوسط."
+        },
+        {
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان نجيب أعلى درجة في عمود 'Score':",
+          "code": "highest = data['Score'].______()",
+          "correctAnswer": "max",
+          "bank": ["max", "min", "sum", "mean"],
+          "explanation": "دالة max() بترجع أكبر قيمة في العمود."
+        }
+      ]
+    }
+  ]
+}

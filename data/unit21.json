@@ -1,0 +1,69 @@
+{
+  "id": "unit21",
+  "title": "تطوير الويب (Web Development)",
+  "description": "تعلم إزاي تبني مواقع ويب باستخدام لغة بايثون",
+  "icon": "🌐",
+  "lessons": [
+    {
+      "id": "unit21_lesson1",
+      "title": "إيه هو الويب وإزاي بيشتغل؟",
+      "lessonExplanation": "<h2>إزاي بيشتغل الإنترنت؟</h2><p>لما بتفتح موقع، المتصفح (Client) بيبعت طلب (Request) لسيرفر (Server)، السيرفر بيرد عليه بالصفحة (Response).</p><p>بايثون بتقدر تكون هي السيرفر اللي بيبني الصفحات دي باستخدام مكتبات زي <strong>Flask</strong> أو <strong>Django</strong>.</p>",
+      "lessonTip": "المتصفح دايماً بيسأل، والسيرفر دايماً بيرد.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "مين اللي بيبعت الـ Request (الطلب) في تطبيقات الويب؟",
+          "options": ["السيرفر (Server)", "المتصفح (Client)", "قاعدة البيانات (Database)", "لغة بايثون"],
+          "correctAnswer": 1,
+          "explanation": "المتصفح (Client) هو اللي بيبعت الطلب للموقع عشان يفتحه."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "إيه هي أشهر مكتبة في بايثون لبناء تطبيقات ويب؟",
+          "options": ["Pandas", "NumPy", "Flask", "Tkinter"],
+          "correctAnswer": 2,
+          "explanation": "Flask هي إطار عمل (Framework) خفيف وسهل لبناء المواقع."
+        }
+      ]
+    },
+    {
+      "id": "unit21_lesson2",
+      "title": "أول تطبيق ويب بـ Flask",
+      "lessonExplanation": "<h2>إزاي نعمل سيرفر بسيط؟</h2><p>بنستورد Flask، ونعمل تطبيق، وبنحدد مسار (Route) عشان نعرض صفحة.</p><pre><code>from flask import Flask\napp = Flask(__name__)\n\n@app.route('/')\ndef home():\n    return 'أهلاً بيك في موقعي!'</code></pre>",
+      "lessonTip": "علامة / بتعني الصفحة الرئيسية للموقع.",
+      "exercises": [
+        {
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان نستورد مكتبة Flask:",
+          "code": "______ flask import Flask",
+          "correctAnswer": "from",
+          "bank": ["from", "import", "use", "include"],
+          "explanation": "بنكتب from flask import Flask عشان نستخدمها."
+        },
+        {
+          "type": "predict_output",
+          "question": "إيه اللي هيظهر للمستخدم لما يفتح الصفحة الرئيسية؟",
+          "code": "@app.route('/')\ndef home():\n    return 'Welcome!'",
+          "correctAnswer": "Welcome!",
+          "bank": ["Welcome!", "/", "home", "app"],
+          "explanation": "الدالة home بترجع النص 'Welcome!' اللي هيظهر في المتصفح."
+        }
+      ]
+    },
+    {
+      "id": "unit21_lesson3",
+      "title": "صفحات متعددة (Routes)",
+      "lessonExplanation": "<h2>بناء صفحات مختلفة</h2><p>الموقع الواحد فيه صفحات كتير (الرئيسية، من نحن، اتصل بنا). بنعمل لكل صفحة Route خاص بيها.</p><pre><code>@app.route('/about')\ndef about():\n    return 'صفحة من نحن'</code></pre>",
+      "lessonTip": "كل Route لازم يكون ليه اسم مميز يبدأ بعلامة /.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إزاي نعمل مسار لصفحة اسمها 'contact'؟",
+          "options": ["@app.route('/contact')", "@app.route('contact')", "@app.route('/contact/')", "route.contact('/')"],
+          "correctAnswer": 0,
+          "explanation": "المسار لازم يكون بين علامتين تنصيص ويبدأ بعلامة /"
+        }
+      ]
+    }
+  ]
+}

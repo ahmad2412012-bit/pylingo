@@ -1,0 +1,76 @@
+{
+  "id": "unit26",
+  "title": "مقدمة في تحليل البيانات (Pandas)",
+  "description": "تعلم إزاي تستخدم مكتبة Pandas للتعامل مع البيانات الضخمة",
+  "icon": "📈",
+  "lessons": [
+    {
+      "id": "unit26_lesson1",
+      "title": "إيه هي مكتبة Pandas؟",
+      "lessonExplanation": "<h2>مكتبة تحليل البيانات الأشهر</h2><p>تخيل إنك عندك ملف Excel فيه آلاف الصفوف من البيانات (مبيعات، درجات طلاب، أو إحصائيات). إزاي هتقرأه وتعدل عليه بـ بايثون؟</p><p>هنا بيجي دور مكتبة <strong>Pandas</strong>. دي أقوى مكتبة في بايثون بتخليك تتعامل مع البيانات دي كأنها جداول ذكية.</p><p>أهم هيكلين بيانات فيها هما:</p><ul><li><strong>Series:</strong> عمود واحد من البيانات.</li><li><strong>DataFrame:</strong> جدول كامل (صفوف وأعمدة) زي شيت الإكسيل بالظبط.</li></ul>",
+      "lessonTip": "الـ DataFrame هو الأداة الأساسية اللي هتستخدمها 90% من الوقت في تحليل البيانات.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه هو الـ DataFrame في مكتبة Pandas؟",
+          "options": ["صورة بيانية", "جدول بيانات ثنائي الأبعاد (صفوف وأعمدة)", "نوع من أنواع الحلقات", "ملف نصي عادي"],
+          "correctAnswer": 1,
+          "explanation": "الـ DataFrame بشبه جدول الإكسيل، فيه صفوف (Rows) وأعمدة (Columns)."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "إيه الفرق بين Series و DataFrame؟",
+          "options": ["مفيش فرق", "Series عمود واحد، و DataFrame جدول كامل", "DataFrame عمود واحد، و Series جدول كامل", "Series بيستخدم للأرقام بس"],
+          "correctAnswer": 1,
+          "explanation": "الـ Series هو عبارة عن عمود واحد (1D)، بينما الـ DataFrame هو جدول كامل (2D)."
+        }
+      ]
+    },
+    {
+      "id": "unit26_lesson2",
+      "title": "استيراد المكتبة وقراءة الملفات",
+      "lessonExplanation": "<h2>إزاي نبدأ؟</h2><p>أول خطوة دايماً بنستورد المكتبة، وبنسميها اختصار <code>pd</code> عشان نوفر كتابة الكود.</p><pre><code>import pandas as pd</code></pre><p>بعدها بنقدر نقرأ ملفات البيانات (زي ملفات CSV) باستخدام دالة <code>read_csv</code>.</p><pre><code>data = pd.read_csv('sales.csv')\nprint(data)</code></pre>",
+      "lessonTip": "ملفات الـ CSV هي ملفات نصية بسيطة بتفصل بين الأرقام بفاصلة، وهي أشهر صيغة لتبادل البيانات.",
+      "exercises": [
+        {
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان نستورد مكتبة Pandas بالاختصار الشهير:",
+          "code": "import pandas as ______",
+          "correctAnswer": "pd",
+          "bank": ["pd", "pandas", "p", "df"],
+          "explanation": "المعروف عالمياً إننا بنختصر Pandas بـ pd."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "إيه الدالة اللي بنستخدمها لقراءة ملف اسمه data.csv؟",
+          "options": ["pd.read_csv('data.csv')", "pd.open('data.csv')", "pd.get_file('data.csv')", "pd.load('data.csv')"],
+          "correctAnswer": 0,
+          "explanation": "دالة read_csv هي المخصصة لقراءة ملفات CSV في Pandas."
+        }
+      ]
+    },
+    {
+      "id": "unit26_lesson3",
+      "title": "استكشاف البيانات (Head & Tail)",
+      "lessonExplanation": "<h2>إزاي نبص على البيانات؟</h2><p>لما تقرأ ملف فيه 10,000 صف، مش منطقي تطبعه كله عشان تشوفه. بنستخدم دوال معينة عشان ناخد فكرة سريعة:</p><ul><li><code>head()</code>: بيوريك أول 5 صفوف.</li><li><code>tail()</code>: بيوريك آخر 5 صفوف.</li></ul><pre><code>data.head()\ndata.tail(3) # بيوريك آخر 3 صفوف بس</code></pre>",
+      "lessonTip": "لو حطيت رقم جوه الأقواس زي head(10)، هيوريك أول 10 صفوف.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "لو عايز أشوف أول 5 صفوف من الـ DataFrame، بستخدم إيه؟",
+          "options": ["data.show()", "data.head()", "data.first()", "data.top()"],
+          "correctAnswer": 1,
+          "explanation": "دالة head() هي اللي بتعرض أول عدد من الصفوف (5 بشكل افتراضي)."
+        },
+        {
+          "type": "predict_output",
+          "question": "إيه اللي الكود ده هيعمله؟",
+          "code": "data.tail()",
+          "correctAnswer": "يعرض آخر 5 صفوف",
+          "bank": ["يعرض أول 5 صفوف", "يعرض آخر 5 صفوف", "يمسح الجدول", "يعرض كل الصفوف"],
+          "explanation": "دالة tail() بترجع آخر 5 صفوف من البيانات."
+        }
+      ]
+    }
+  ]
+}

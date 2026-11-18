@@ -1,0 +1,68 @@
+{
+  "id": "unit22",
+  "title": "قوالب الويب (Templates)",
+  "description": "تعلم إزاي تفصل كود بايثون عن تصميم HTML وتنقل البيانات بينهم",
+  "icon": "📄",
+  "lessons": [
+    {
+      "id": "unit22_lesson1",
+      "title": "إيه هي الـ Templates؟",
+      "lessonExplanation": "<h2>فصل التصميم عن المنطق</h2><p>في الوحدة اللي فاتت كنا بنرجع نصوص بسيطة <code>return 'Welcome!'</code>، لكن المواقع الحقيقية بترجع صفحات HTML كاملة.</p><p>باستخدام دالة <code>render_template</code> في Flask، بنقدر نرجع ملف HTML جاهز.</p><pre><code>from flask import Flask, render_template\n\n@app.route('/')\ndef home():\n    return render_template('index.html')</code></pre>",
+      "lessonTip": "ملفات الـ HTML بتتحط دايماً جوه مجلد اسمه templates.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه الدالة اللي بنستخدمها عشان نرجع صفحة HTML؟",
+          "options": ["return_html()", "render_template()", "get_page()", "show_html()"],
+          "correctAnswer": 1,
+          "explanation": "دالة render_template بتدور على ملف HTML وترجعه للمتصفح."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "إيه اسم المجلد اللي لازم نحط فيه ملفات الـ HTML في Flask؟",
+          "options": ["html", "pages", "templates", "views"],
+          "correctAnswer": 2,
+          "explanation": "Flask بيدور تلقائياً على أي ملف HTML جوه مجلد اسمه templates."
+        }
+      ]
+    },
+    {
+      "id": "unit22_lesson2",
+      "title": "تمرير المتغيرات (Jinja2)",
+      "lessonExplanation": "<h2>إزاي نبعت بيانات من بايثون للـ HTML؟</h2><p>بنستخدم محرك قوالب اسمه <strong>Jinja2</strong>. بنقدر نبعت متغير من بايثون ونعرضه في الـ HTML باستخدام الأقواس المجعدة <code>{{ }}</code>.</p><pre><code># في بايثون:\nreturn render_template('index.html', username='Ali')\n\n# في ملف index.html:\n&lt;h1&gt;أهلاً {{ username }}&lt;/h1&gt;</code></pre>",
+      "lessonTip": "علامة {{ }} بتستخدم لعرض المتغيرات، و {% %} بتستخدم للأوامر زي الحلقات والشروط.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إزاي نعرض متغير اسمه 'name' جوه ملف HTML باستخدام Jinja؟",
+          "options": ["[[ name ]]", "(( name ))", "{{ name }}", "<< name >>"],
+          "correctAnswer": 2,
+          "explanation": "بنستخدم {{ }} لعرض قيمة المتغير في صفحة الـ HTML."
+        },
+        {
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان نبعت متغير 'age' للـ Template:",
+          "code": "return render_template('profile.html', ______=25)",
+          "correctAnswer": "age",
+          "bank": ["age", "name", "var", "value"],
+          "explanation": "بنكتب اسم المتغير اللي هنستخدمه في الـ HTML."
+        }
+      ]
+    },
+    {
+      "id": "unit22_lesson3",
+      "title": "استقبال بيانات من المستخدم (Forms)",
+      "lessonExplanation": "<h2>إزاي نستقبل مدخلات؟</h2><p>لما المستخدم بيكتب في فورم (زي تسجيل الدخول)، البيانات بتتبعت للسيرفر. بنستخدم <code>request.form</code> عشان نقراها.</p><pre><code>from flask import request\n\n@app.route('/login', methods=['POST'])\ndef login():\n    username = request.form.get('username')</code></pre>",
+      "lessonTip": "الفورمات اللي بتبعت بيانات سرية أو كبيرة لازم تستخدم method='POST'.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إزاي بنقرا البيانات اللي جاية من فورم في Flask؟",
+          "options": ["request.get()", "request.form.get()", "form.read()", "input.value()"],
+          "correctAnswer": 1,
+          "explanation": "request.form.get() بترجع قيمة الحقل المطلوب من الفورم."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "unit24",
+  "title": "واجهات برمجة التطبيقات (APIs)",
+  "description": "تعلم إزاي تخلي تطبيقاتك تتكلم مع بعضها باستخدام JSON",
+  "icon": "🔌",
+  "lessons": [
+    {
+      "id": "unit24_lesson1",
+      "title": "إيه هو الـ API؟",
+      "lessonExplanation": "<h2>الـ API زي الجرسون في المطعم!</h2><p>تخيل إنك في مطعم، إنت (المستخدم) بتطلب أكل من الجرسون (الـ API)، والجرسون بيروح للمطبخ (السيرفر) ويجيبلك الأكل (البيانات).</p><p>في البرمجة، الـ API (Application Programming Interface) هو وسيط بيسمح لبرنامجين إنهم يتكلموا مع بعض ويتبادلوا البيانات من غير ما يعرفوا تفاصيل بعض.</p>",
+      "lessonTip": "الـ API بيرجع البيانات في شكل نصوص منظمة عشان أي برنامج يقدر يفهمها.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه أفضل تشبيه للـ API؟",
+          "options": ["المطبخ اللي بيطبخ الأكل", "الجرسون اللي بينقل الطلبات بينك وبين المطبخ", "العميل اللي بياكل", "منيو الأكل"],
+          "correctAnswer": 1,
+          "explanation": "الـ API هو الوسيط اللي بيستقبل طلبك ويروح للسيرفر يجيبلك اللي إنت عايزه."
+        }
+      ]
+    },
+    {
+      "id": "unit24_lesson2",
+      "title": "صيغة البيانات JSON",
+      "lessonExplanation": "<h2>ليه بنستخدم JSON؟</h2><p>عشان السيرفر يبعت بيانات لمتصفح أو تطبيق موبايل، لازم يستخدم صيغة يفهمها الكل. أشهر صيغة هي <strong>JSON</strong> (JavaScript Object Notation).</p><p>شكل الـ JSON بشبه جداً القواميس (Dictionaries) في بايثون جداً، بيكون بين أقواس مجعدة <code>{}</code>.</p><pre><code>{\n  \"name\": \"Ahmed\",\n  \"age\": 20,\n  \"is_admin\": true\n}</code></pre>",
+      "lessonTip": "في الـ JSON، المفاتيح (Keys) لازم تكون بين علامات تنصيص \" \".",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه هو الشكل الصحيح لملف JSON؟",
+          "options": ["[name: Ahmed]", "{'name': 'Ahmed'}", "{\"name\": \"Ahmed\"}", "<name>Ahmed</name>"],
+          "correctAnswer": 2,
+          "explanation": "الـ JSON بيستخدم أقواس مجعدة ومفاتيح بين علامات تنصيص مزدوجة."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "أقرب هيكل بيانات في بايثون لملف الـ JSON هو إيه؟",
+          "options": ["القائمة (List)", "القاموس (Dictionary)", "الصف (Tuple)", "المجموعة (Set)"],
+          "correctAnswer": 1,
+          "explanation": "الـ JSON بيستخدم نظام (مفتاح: قيمة) وده بالظبط هو القاموس في بايثون."
+        }
+      ]
+    },
+    {
+      "id": "unit24_lesson3",
+      "title": "بناء API بـ Flask",
+      "lessonExplanation": "<h2>إزاي نرجع JSON من بايثون؟</h2><p>في Flask، بنستخدم دالة <code>jsonify</code> عشان نحول القاموس بتاعنا لملف JSON ونبعته للمتصفح أو التطبيق.</p><pre><code>from flask import Flask, jsonify\n\n@app.route('/api/user')\ndef get_user():\n    data = {\"name\": \"Sara\", \"role\": \"admin\"}\n    return jsonify(data)</code></pre>",
+      "lessonTip": "دالة jsonify بتخلي السيرفر يرد بصيغة JSON بدل نص عادي.",
+      "exercises": [
+        {
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان نحول القاموس لـ JSON:",
+          "code": "from flask import ______\nreturn jsonify({\"status\": \"ok\"})",
+          "correctAnswer": "jsonify",
+          "bank": ["jsonify", "json", "render_template", "request"],
+          "explanation": "بنستورد jsonify من مكتبة flask عشان نستخدمها."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "id": "unit23",
+  "title": "قواعد البيانات (Databases)",
+  "description": "تعلم إزاي تخزن بيانات المستخدمين وتسترجعها بأمان",
+  "icon": "🗄️",
+  "lessons": [
+    {
+      "id": "unit23_lesson1",
+      "title": "مقدمة في قواعد البيانات (SQL)",
+      "lessonExplanation": "<h2>ليه محتاجين قاعدة بيانات؟</h2><p>لو موقعك فيه مستخدمين بيسجلوا حسابات، مش منطقي تحفظ بياناتهم في متغيرات لأنها بتتمسح لما السيرفر يقفل. هنا بيجي دور قاعدة البيانات زي <strong>SQLite</strong> أو <strong>PostgreSQL</strong>.</p><p>بنستخدم لغة اسمها <strong>SQL</strong> عشان نكلم قاعدة البيانات ونسألها عن بيانات أو نضيف بيانات جديدة.</p>",
+      "lessonTip": "قاعدة بيانات SQLite بتبقى عبارة عن ملف صغير جوه مشروعك، سهلة جداً للتعلم.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه هي اللغة اللي بنستخدمها عشان نتعامل مع قواعد البيانات؟",
+          "options": ["Python", "HTML", "SQL", "Flask"],
+          "correctAnswer": 2,
+          "explanation": "SQL (Structured Query Language) هي اللغة القياسية للتعامل مع قواعد البيانات."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "ليه بنخزن بيانات المستخدمين في قاعدة بيانات بدل المتغيرات العادية؟",
+          "options": ["عشان الكود يبقى أقصر", "عشان البيانات متتمسحش لما السيرفر يقفل", "عشان الشكل يبقى أحلى", "عشان بايثون بتحب قواعد البيانات"],
+          "correctAnswer": 1,
+          "explanation": "المتغيرات بتتمسح من الذاكرة، لكن قاعدة البيانات بتحفظ البيانات بشكل دائم."
+        }
+      ]
+    },
+    {
+      "id": "unit23_lesson2",
+      "title": "التعامل مع البيانات (SQLAlchemy)",
+      "lessonExplanation": "<h2>إيه هو الـ ORM؟</h2><p>بدل ما نكتب أوامر SQL معقدة جوه بايثون، بنستخدم مكتبة اسمها <strong>SQLAlchemy</strong>. دي بتخليك تتعامل مع جداول قاعدة البيانات كأنها كلاسات (Classes) وكائنات (Objects) في بايثون.</p><pre><code>class User(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80))</code></pre>",
+      "lessonTip": "ORM اختصار لـ Object Relational Mapper، وده بيخلي شغلك مع الداتابيز أسهل بكتير.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه هو الـ ORM؟",
+          "options": ["لغة برمجة جديدة", "أداة بتربط الكود بكائنات بايثون بقاعدة البيانات", "نوع من أنواع المتصفحات", "مكتبة لتصميم الصفحات"],
+          "correctAnswer": 1,
+          "explanation": "الـ ORM بيخليك تستخدم كلاسات بايثون بدل ما تكتب أوامر SQL يدوياً."
+        },
+        {
+          "type": "predict_output",
+          "question": "إيه الأمر اللي بيجيب كل المستخدمين من جدول اسمه users؟",
+          "code": "SELECT * FROM users",
+          "correctAnswer": "SELECT * FROM users",
+          "bank": ["SELECT * FROM users", "GET users", "FETCH ALL users", "SHOW users"],
+          "explanation": "النجمة * معناها كل الأعمدة، و FROM بتحدد اسم الجدول."
+        }
+      ]
+    },
+    {
+      "id": "unit23_lesson3",
+      "title": "الأمان ومنع الاختراق (SQL Injection)",
+      "lessonExplanation": "<h2>خطر الـ SQL Injection</h2><p>لو خدت كلام المستخدم وحطيته مباشرة في أمر SQL، ممكن حد يكتب كود يخربلك الداتابيز كلها! عشان كده بنستخدم الـ ORM أو الـ Parameterized Queries عشان نعزل كلام المستخدم عن أوامر الداتابيز.</p>",
+      "lessonTip": "عمرك ما تدمج نص المستخدم (Input) مباشرة في أمر SQL.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه هو الـ SQL Injection؟",
+          "options": ["هجوم بيخرب شكل الموقع", "استغلال مدخلات المستخدم لتنفيذ أوامر SQL خبيثة", "طريقة لتحسين سرعة الموقع", "مشكلة في تصميم الـ HTML"],
+          "correctAnswer": 1,
+          "explanation": "المخترق بيستغل خانة بحث أو فورم عشان يحقن أوامر SQL تدمر الداتابيز."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "unit25",
+  "title": "نشر التطبيقات (Deployment)",
+  "description": "تعلم إزاي ترفع موقعك من جهازك للعالم كله",
+  "icon": "🚀",
+  "lessons": [
+    {
+      "id": "unit25_lesson1",
+      "title": "إيه هو الـ Hosting؟",
+      "lessonExplanation": "<h2>من الـ Localhost للعالمية</h2><p>لحد دلوقتي إحنا بنشغل الموقع على جهازنا وبنفتحه من خلال <code>localhost</code> (يعني الجهاز بتاعي).</p><p>عشان الناس تشوف موقعك، لازم تحطه على سيرفر شغال 24 ساعة على الإنترنت. العملية دي اسمها <strong>Hosting</strong> أو <strong>Deployment</strong>.</p><p>في خدمات كتير مجانية أو مدفوعة بتقدم الخدمة دي لبايثون زي: <strong>Render</strong>، <strong>PythonAnywhere</strong>، و <strong>Heroku</strong>.</p>",
+      "lessonTip": "كلمة Localhost معناها إن الموقع شغال على جهازك إنت بس، محدش تاني يقدر يشوفه.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه معنى Localhost؟",
+          "options": ["موقع على الإنترنت", "سيرفر مجاني", "جهازك الشخصي اللي بيشغل السيرفر", "شركة استضافة"],
+          "correctAnswer": 2,
+          "explanation": "Localhost يعني إنك بتشغل السيرفر محلياً على جهازك وعنوان الـ IP بيبقى 127.0.0.1."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "إيه هي أشهر منصات الاستضافة المجانية لتطبيقات بايثون؟",
+          "options": ["Photoshop", "Render", "Facebook", "Microsoft Word"],
+          "correctAnswer": 1,
+          "explanation": "Render و PythonAnywhere من أشهر المنصات اللي بتستضيف كود بايثون مجاناً."
+        }
+      ]
+    },
+    {
+      "id": "unit25_lesson2",
+      "title": "متغيرات البيئة (Environment Variables)",
+      "lessonExplanation": "<h2>إزاي تحمي أسرارك؟</h2><p>وقت ما بترفع الكود على GitHub، إنت مش منطقي إنك ترفع كلمة سر قاعدة البيانات أو الـ Secret Key بتاع الموقع معاك! ده خطر أمني كبير.</p><p>الحل هو استخدام ملف اسمه <code>.env</code> فيه المتغيرات دي، والسيرفر بيقراها وقت التشغيل من غير ما تكون مكتوبة في الكود الأساسي.</p><pre><code># في ملف .env\nSECRET_KEY=my_secret_password\n\n# في بايثون\nimport os\nkey = os.environ.get('SECRET_KEY')</code></pre>",
+      "lessonTip": "عمرك ما ترفع ملف .env على GitHub، دايماً ضيفه في ملف .gitignore.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "ليه بنستخدم متغيرات البيئة (Environment Variables)؟",
+          "options": ["عشان الكود يبقى ألوانه أحلى", "عشان نخفي البيانات الحساسة زي كلمات المرور والمفاتيح", "عشان نسرع الموقع", "عشان نعمل قواعد بيانات"],
+          "correctAnswer": 1,
+          "explanation": "بنستخدمها عشان نحمي البيانات السرية ومتبقاش مكشوفة في الكود."
+        }
+      ]
+    },
+    {
+      "id": "unit25_lesson3",
+      "title": "ختام قسم الويب",
+      "lessonExplanation": "<h2>مبروك! إنت بقيت Web Developer</h2><p>في القسم ده إنت اتعلمت:</p><ul><li>بناء سيرفر باستخدام Flask.</li><li>عرض صفحات HTML وتمرير بيانات ليها (Templates).</li><li>تخزين البيانات في قواعد بيانات (Databases).</li><li>بناء واجهات برمجية (APIs) باستخدام JSON.</li><li>رفع الموقع على الإنترنت (Deployment).</li></ul><p>دي أساسيات أي موقع ويب احترافي. الخطوة الجاية ليك هي إنك تتعلم <strong>Django</strong> أو تتعمق أكتر في <strong>Flask</strong> وتعمل مشاريع حقيقية!</p>",
+      "lessonTip": "بناء المشاريع الحقيقية هو أسرع طريقة للتعلم.",
+      "exercises": [
+        {
+          "type": "multiple_choice",
+          "question": "إيه اللي بنستخدمه عشان نبني سيرفر ويب في بايثون؟",
+          "options": ["Pandas", "Flask", "Matplotlib", "Turtle"],
+          "correctAnswer": 1,
+          "explanation": "Flask هو إطار العمل اللي استخدمناه طول القسم ده."
+        }
+      ]
+    }
+  ]
+}
