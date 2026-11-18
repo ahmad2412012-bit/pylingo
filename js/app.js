@@ -20,14 +20,14 @@ const app = {
     isReplay: false
   },
 
-  // ✅ الأقسام الجديدة (تم فصلها عن أسماء الوحدات عشان تشتغل مع ملفاتك الحالية)
-  sections: [
-    { id: 'basics', title: 'القسم 1: أساسيات بايثون', icon: '🐍' },
-    { id: 'data_structures', title: 'القسم 2: هياكل البيانات', icon: '📊' },
-    { id: 'oop', title: 'القسم 3: البرمجة الكائنية', icon: '🏗️' },
-    { id: 'web', title: 'القسم 4: تطوير الويب', icon: '🌐' },
-    { id: 'data_science', title: 'القسم 5: تحليل البيانات', icon: '📈' },
-    { id: 'ai', title: 'القسم 6: الذكاء الاصطناعي', icon: '🤖' }
+  // أسماء الأقسام (هتتقسم تلقائياً كل 5 وحدات)
+  sectionTitles: [
+    { title: 'القسم 1: أساسيات بايثون', icon: '🐍' },
+    { title: 'القسم 2: هياكل البيانات', icon: '📊' },
+    { title: 'القسم 3: البرمجة الكائنية', icon: '🏗️' },
+    { title: 'القسم 4: تطوير الويب', icon: '🌐' },
+    { title: 'القسم 5: تحليل البيانات', icon: '📈' },
+    { title: 'القسم 6: الذكاء الاصطناعي', icon: '🤖' }
   ],
 
   heartsTimer: null,
@@ -38,7 +38,6 @@ const app = {
     try {
       console.log('📚 Loading units from JSON...');
       const units = [];
-      // رفعنا الرقم لـ 30 عشان نقرأ الوحدات الجديدة
       for (let i = 1; i <= 30; i++) {
         const response = await fetch('data/unit' + i + '.json');
         if (!response.ok) continue;
@@ -202,93 +201,93 @@ const app = {
     return minutes + ':' + seconds.toString().padStart(2, '0');
   },
 
+  // ✅ هنا السر: بنلف على الوحدات اللي موجودة فعلاً عندك وبنرتبهم كل 5 في قسم
   renderHome() {
     const container = document.getElementById('units-container');
     const user = storage.getUser();
     container.innerHTML = '';
 
-    // لوب على الأقسام (كل قسم هياخد 5 وحدات بالترتيب)
-    this.sections.forEach((section, index) => {
-      const startIdx = index * 5;
-      const endIdx = startIdx + 5;
-      const sectionUnits = this.state.units.slice(startIdx, endIdx);
+    if (!this.state.units || this.state.units.length === 0) {
+      container.innerHTML = '<p style="text-align:center; color:orange;">⏳ جاري تحميل الدروس...</p>';
+      return;
+    }
 
-      if (sectionUnits.length === 0) return; // لو مفيش وحدات للقسم ده، تجاوزه
-
-      // 1. عرض فاصل القسم (Section Divider)
-      const divider = document.createElement('div');
-      divider.className = 'section-divider';
-      divider.innerHTML = `<span class="section-icon">${section.icon}</span><h2>${section.title}</h2>`;
-      container.appendChild(divider);
-
-      // 2. عرض وحدات القسم
-      sectionUnits.forEach((unit, localIdx) => {
-        const unitIndex = startIdx + localIdx; // الترتيب العام للوحدة
+    this.state.units.forEach((unit, index) => {
+      // كل 5 وحدات، بنضيف فاصل القسم
+      if (index % 5 === 0) {
+        const sectionIndex = Math.floor(index / 5);
+        const secData = this.sectionTitles[sectionIndex] || { title: 'قسم جديد', icon: '📚' };
         
-        let isUnitUnlocked = true;
-        if (unitIndex > 0) {
-          const prevUnit = this.state.units[unitIndex - 1];
-          const allPrevLessonsDone = prevUnit.lessons.every(l => user.completedLessons.includes(l.id));
-          const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
-          isUnitUnlocked = allPrevLessonsDone && prevQuizDone;
+        const divider = document.createElement('div');
+        divider.className = 'section-divider';
+        divider.innerHTML = `<span class="section-icon">${secData.icon}</span><h2>${secData.title}</h2>`;
+        container.appendChild(divider);
+      }
+
+      // عرض الوحدة نفسها
+      let isUnitUnlocked = true;
+      if (index > 0) {
+        const prevUnit = this.state.units[index - 1];
+        const allPrevLessonsDone = prevUnit.lessons.every(l => user.completedLessons.includes(l.id));
+        const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
+        isUnitUnlocked = allPrevLessonsDone && prevQuizDone;
+      }
+
+      const unitEl = document.createElement('div');
+      unitEl.className = 'unit';
+
+      const allLessonsDone = unit.lessons.every(l => user.completedLessons.includes(l.id));
+      const quizDone = user.completedProjects.includes(unit.id + '-quiz');
+
+      unitEl.innerHTML =
+        '<div class="unit-header">' +
+        '<div class="unit-icon">' + unit.icon + '</div>' +
+        '<div class="unit-info">' +
+        '<h3>' + unit.title + '</h3>' +
+        '<p>' + unit.description + '</p>' +
+        '</div>' +
+        '</div>' +
+        '<div class="unit-lessons" id="unit-' + unit.id + '-lessons"></div>';
+
+      container.appendChild(unitEl);
+
+      const lessonsContainer = document.getElementById('unit-' + unit.id + '-lessons');
+
+      unit.lessons.forEach((lesson, idx) => {
+        const isCompleted = user.completedLessons.includes(lesson.id);
+        const prevLesson = idx > 0 ? unit.lessons[idx - 1] : null;
+        const isUnlocked = isUnitUnlocked && (!prevLesson || user.completedLessons.includes(prevLesson.id));
+
+        const node = document.createElement('div');
+        node.className = 'lesson-node';
+        if (isCompleted) node.classList.add('completed');
+        if (!isUnlocked) node.classList.add('locked');
+
+        node.textContent = isCompleted ? '✓' : (idx + 1);
+        node.title = lesson.title;
+
+        if (isUnlocked) {
+          node.onclick = () => this.startLesson(unit.id, lesson.id);
         }
 
-        const unitEl = document.createElement('div');
-        unitEl.className = 'unit';
-
-        const allLessonsDone = unit.lessons.every(l => user.completedLessons.includes(l.id));
-        const quizDone = user.completedProjects.includes(unit.id + '-quiz');
-
-        unitEl.innerHTML =
-          '<div class="unit-header">' +
-          '<div class="unit-icon">' + unit.icon + '</div>' +
-          '<div class="unit-info">' +
-          '<h3>' + unit.title + '</h3>' +
-          '<p>' + unit.description + '</p>' +
-          '</div>' +
-          '</div>' +
-          '<div class="unit-lessons" id="unit-' + unit.id + '-lessons"></div>';
-
-        container.appendChild(unitEl);
-
-        const lessonsContainer = document.getElementById('unit-' + unit.id + '-lessons');
-
-        unit.lessons.forEach((lesson, idx) => {
-          const isCompleted = user.completedLessons.includes(lesson.id);
-          const prevLesson = idx > 0 ? unit.lessons[idx - 1] : null;
-          const isUnlocked = isUnitUnlocked && (!prevLesson || user.completedLessons.includes(prevLesson.id));
-
-          const node = document.createElement('div');
-          node.className = 'lesson-node';
-          if (isCompleted) node.classList.add('completed');
-          if (!isUnlocked) node.classList.add('locked');
-
-          node.textContent = isCompleted ? '✓' : (idx + 1);
-          node.title = lesson.title;
-
-          if (isUnlocked) {
-            node.onclick = () => this.startLesson(unit.id, lesson.id);
-          }
-
-          lessonsContainer.appendChild(node);
-        });
-
-        // اختبار الوحدة
-        const quizUnlocked = isUnitUnlocked && allLessonsDone;
-        const quizNode = document.createElement('div');
-        quizNode.className = 'lesson-node project';
-        if (quizDone) quizNode.classList.add('completed');
-        if (!quizUnlocked) quizNode.classList.add('locked');
-
-        quizNode.textContent = quizDone ? '✓' : '📝';
-        quizNode.title = 'اختبار الوحدة - ' + unit.title;
-
-        if (quizUnlocked) {
-          quizNode.onclick = () => this.startUnitQuiz(unit.id);
-        }
-
-        lessonsContainer.appendChild(quizNode);
+        lessonsContainer.appendChild(node);
       });
+
+      // اختبار الوحدة
+      const quizUnlocked = isUnitUnlocked && allLessonsDone;
+      const quizNode = document.createElement('div');
+      quizNode.className = 'lesson-node project';
+      if (quizDone) quizNode.classList.add('completed');
+      if (!quizUnlocked) quizNode.classList.add('locked');
+
+      quizNode.textContent = quizDone ? '✓' : '📝';
+      quizNode.title = 'اختبار الوحدة - ' + unit.title;
+
+      if (quizUnlocked) {
+        quizNode.onclick = () => this.startUnitQuiz(unit.id);
+      }
+
+      lessonsContainer.appendChild(quizNode);
     });
   },
 
