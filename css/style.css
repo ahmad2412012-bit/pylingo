@@ -2696,4 +2696,30 @@ button {
   .home-main {
     padding-bottom: max(100px, calc(80px + env(safe-area-inset-bottom)));
   }
+  /* ============ Section Dividers ============ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 50px 0 25px;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--primary) 0%, #3fa300 100%);
+  border-radius: 16px;
+  color: white;
+  box-shadow: 0 6px 20px rgba(88, 204, 2, 0.3);
+  text-align: center;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.section-divider h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.section-icon {
+  font-size: 2.2rem;
+}
 }

@@ -13,12 +13,22 @@ const app = {
     currentProject: null,
     monacoEditor: null,
     pendingAction: null,
-    // ✅ NEW: خصائص الاختبار العشوائي والستريك
     currentExercises: [],
     isQuiz: false,
     lessonMistakes: 0,
-    quizUnitId: null
+    quizUnitId: null,
+    isReplay: false
   },
+
+  // ✅ الأقسام الجديدة (تقدر تغير الأسماء والإيموجي زي ما تحب)
+  sections: [
+    { id: 'basics', title: 'القسم 1: أساسيات بايثون', icon: '🐍', units: ['unit1', 'unit2', 'unit3', 'unit4', 'unit5'] },
+    { id: 'data_structures', title: 'القسم 2: هياكل البيانات', icon: '📊', units: ['unit6', 'unit7', 'unit8', 'unit9', 'unit10'] },
+    { id: 'oop', title: 'القسم 3: البرمجة الكائنية', icon: '🏗️', units: ['unit11', 'unit12', 'unit13', 'unit14', 'unit15'] },
+    { id: 'web', title: 'القسم 4: تطوير الويب', icon: '🌐', units: ['unit16', 'unit17', 'unit18', 'unit19', 'unit20'] },
+    { id: 'data_science', title: 'القسم 5: تحليل البيانات', icon: '📈', units: ['unit21', 'unit22', 'unit23', 'unit24', 'unit25'] },
+    { id: 'ai', title: 'القسم 6: الذكاء الاصطناعي', icon: '🤖', units: ['unit26', 'unit27', 'unit28', 'unit29', 'unit30'] }
+  ],
 
   heartsTimer: null,
   _syncTimeout: null,
@@ -28,7 +38,8 @@ const app = {
     try {
       console.log('📚 Loading units from JSON...');
       const units = [];
-      for (let i = 1; i <= 20; i++) {
+      // رفعنا الرقم لـ 30 عشان نقرأ الوحدات الجديدة
+      for (let i = 1; i <= 30; i++) {
         const response = await fetch('data/unit' + i + '.json');
         if (!response.ok) continue;
         const unit = await response.json();
@@ -52,9 +63,6 @@ const app = {
         '<p style="text-align:center; color:red;">❌ مفيش دروس</p>';
       return;
     }
-
-    // ⚠️ تم تعطيل الستريك اليومي القديم — الستريك الآن يعتمد على الدروس
-    // storage.updateStreak();
 
     this.renderHome();
     this.updateHeaderStats();
@@ -199,61 +207,79 @@ const app = {
     const user = storage.getUser();
     container.innerHTML = '';
 
-    this.state.units.forEach((unit, unitIndex) => {
-      let isUnitUnlocked = true;
+    // تجهيز قائمة مسطحة بكل الوحدات اللي موجودة عشان نظام القفل يشتغل صح
+    let allUnitsFlattened = [];
+    this.sections.forEach(sec => {
+      sec.units.forEach(uid => {
+        const u = this.state.units.find(x => x.id === uid);
+        if (u) allUnitsFlattened.push(u);
+      });
+    });
 
-      if (unitIndex > 0) {
-        const prevUnit = this.state.units[unitIndex - 1];
-        const allPrevLessonsDone = prevUnit.lessons.every(l =>
-          user.completedLessons.includes(l.id)
-        );
-        // ✅ بدل المشروع: الوحدة الجديدة تتفتح لما تنجح في اختبار الوحدة السابقة
-        const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
-        isUnitUnlocked = allPrevLessonsDone && prevQuizDone;
-      }
+    // لوب على الأقسام
+    this.sections.forEach((section) => {
+      const sectionUnits = section.units.map(uid => this.state.units.find(u => u.id === uid)).filter(Boolean);
+      if (sectionUnits.length === 0) return; // لو مفيش ملفات للقسم ده، تجاوزه
 
-      const unitEl = document.createElement('div');
-      unitEl.className = 'unit';
+      // 1. عرض فاصل القسم (Section Divider)
+      const divider = document.createElement('div');
+      divider.className = 'section-divider';
+      divider.innerHTML = `<span class="section-icon">${section.icon}</span><h2>${section.title}</h2>`;
+      container.appendChild(divider);
 
-      const allLessonsDone = unit.lessons.every(l => user.completedLessons.includes(l.id));
-      const quizDone = user.completedProjects.includes(unit.id + '-quiz');
-
-      unitEl.innerHTML =
-        '<div class="unit-header">' +
-        '<div class="unit-icon">' + unit.icon + '</div>' +
-        '<div class="unit-info">' +
-        '<h3>' + unit.title + '</h3>' +
-        '<p>' + unit.description + '</p>' +
-        '</div>' +
-        '</div>' +
-        '<div class="unit-lessons" id="unit-' + unit.id + '-lessons"></div>';
-
-      container.appendChild(unitEl);
-
-      const lessonsContainer = document.getElementById('unit-' + unit.id + '-lessons');
-
-      unit.lessons.forEach((lesson, idx) => {
-        const isCompleted = user.completedLessons.includes(lesson.id);
-        const prevLesson = idx > 0 ? unit.lessons[idx - 1] : null;
-        const isUnlocked = isUnitUnlocked && (!prevLesson || user.completedLessons.includes(prevLesson.id));
-
-        const node = document.createElement('div');
-        node.className = 'lesson-node';
-        if (isCompleted) node.classList.add('completed');
-        if (!isUnlocked) node.classList.add('locked');
-
-        node.textContent = isCompleted ? '✓' : (idx + 1);
-        node.title = lesson.title;
-
-        if (isUnlocked && !isCompleted) {
-          node.onclick = () => this.startLesson(unit.id, lesson.id);
+      // 2. عرض وحدات القسم
+      sectionUnits.forEach((unit) => {
+        const unitIndex = allUnitsFlattened.findIndex(u => u.id === unit.id);
+        
+        let isUnitUnlocked = true;
+        if (unitIndex > 0) {
+          const prevUnit = allUnitsFlattened[unitIndex - 1];
+          const allPrevLessonsDone = prevUnit.lessons.every(l => user.completedLessons.includes(l.id));
+          const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
+          isUnitUnlocked = allPrevLessonsDone && prevQuizDone;
         }
 
-        lessonsContainer.appendChild(node);
-      });
+        const unitEl = document.createElement('div');
+        unitEl.className = 'unit';
 
-      // ✅ NEW: اختبار الوحدة العشوائي بدل المشروع الكتابي
-      {
+        const allLessonsDone = unit.lessons.every(l => user.completedLessons.includes(l.id));
+        const quizDone = user.completedProjects.includes(unit.id + '-quiz');
+
+        unitEl.innerHTML =
+          '<div class="unit-header">' +
+          '<div class="unit-icon">' + unit.icon + '</div>' +
+          '<div class="unit-info">' +
+          '<h3>' + unit.title + '</h3>' +
+          '<p>' + unit.description + '</p>' +
+          '</div>' +
+          '</div>' +
+          '<div class="unit-lessons" id="unit-' + unit.id + '-lessons"></div>';
+
+        container.appendChild(unitEl);
+
+        const lessonsContainer = document.getElementById('unit-' + unit.id + '-lessons');
+
+        unit.lessons.forEach((lesson, idx) => {
+          const isCompleted = user.completedLessons.includes(lesson.id);
+          const prevLesson = idx > 0 ? unit.lessons[idx - 1] : null;
+          const isUnlocked = isUnitUnlocked && (!prevLesson || user.completedLessons.includes(prevLesson.id));
+
+          const node = document.createElement('div');
+          node.className = 'lesson-node';
+          if (isCompleted) node.classList.add('completed');
+          if (!isUnlocked) node.classList.add('locked');
+
+          node.textContent = isCompleted ? '✓' : (idx + 1);
+          node.title = lesson.title;
+
+          if (isUnlocked) {
+            node.onclick = () => this.startLesson(unit.id, lesson.id);
+          }
+
+          lessonsContainer.appendChild(node);
+        });
+
+        // اختبار الوحدة
         const quizUnlocked = isUnitUnlocked && allLessonsDone;
         const quizNode = document.createElement('div');
         quizNode.className = 'lesson-node project';
@@ -268,7 +294,7 @@ const app = {
         }
 
         lessonsContainer.appendChild(quizNode);
-      }
+      });
     });
   },
 
@@ -286,22 +312,6 @@ const app = {
       return;
     }
 
-    const unitIndex = this.state.units.findIndex(u => u.id === unitId);
-    if (unitIndex > 0) {
-      const prevUnit = this.state.units[unitIndex - 1];
-      const allPrevLessonsDone = prevUnit.lessons.every(l =>
-        user.completedLessons.includes(l.id)
-      );
-      // ✅ بدل المشروع: لازم تنجح في اختبار الوحدة السابقة
-      const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
-
-      if (!allPrevLessonsDone || !prevQuizDone) {
-        sounds.playWrong();
-        alert('لازم تخلص الوحدة السابقة الأول!');
-        return;
-      }
-    }
-
     const unit = this.state.units.find(u => u.id === unitId);
     const lesson = unit.lessons.find(l => l.id === lessonId);
 
@@ -312,18 +322,15 @@ const app = {
     this.state.totalCount = lesson.exercises.length;
     this.state.selectedAnswer = null;
     this.state.lessonHearts = user.hearts;
-
-    // ✅ NEW: إعداد وضع الدرس العادي
     this.state.isQuiz = false;
     this.state.lessonMistakes = 0;
     this.state.currentExercises = lesson.exercises;
+    this.state.isReplay = user.completedLessons.includes(lessonId);
 
     document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
-
     this.showExplanation(lesson, unit);
   },
 
-  // ============ ✅ NEW: بدء اختبار الوحدة العشوائي ============
   startUnitQuiz(unitId) {
     const user = storage.getUser();
 
@@ -336,7 +343,6 @@ const app = {
     const unit = this.state.units.find(u => u.id === unitId);
     if (!unit) return;
 
-    // جمع كل الأسئلة من كل الدروس
     let allExercises = [];
     unit.lessons.forEach(lesson => {
       if (lesson.exercises && lesson.exercises.length) {
@@ -349,17 +355,14 @@ const app = {
       return;
     }
 
-    // خلط الأسئلة (Fisher–Yates)
     for (let i = allExercises.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [allExercises[i], allExercises[j]] = [allExercises[j], allExercises[i]];
     }
 
-    // اختيار 10 أسئلة (أو أقل لو الوحدة صغيرة)
     const quizCount = Math.min(10, allExercises.length);
     const quizExercises = allExercises.slice(0, quizCount);
 
-    // إعداد الحالة
     this.state.currentLesson = null;
     this.state.currentUnitId = unitId;
     this.state.quizUnitId = unitId;
@@ -371,10 +374,9 @@ const app = {
     this.state.totalCount = quizExercises.length;
     this.state.selectedAnswer = null;
     this.state.lessonHearts = user.hearts;
+    this.state.isReplay = user.completedProjects.includes(unitId + '-quiz');
 
     document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
-
-    // ✅ الاختبار ما بحتاج شاشة شرح — يدخل مباشرة عالأسئلة
     this.showScreen('lesson-screen');
     this.renderExercise();
   },
@@ -426,7 +428,6 @@ const app = {
   },
 
   renderExercise() {
-    // ✅ NEW: نستخدم currentExercises (يشتغل للدرس والاختبار)
     const exercise = this.state.currentExercises[this.state.currentExerciseIndex];
     this.state.selectedAnswer = null;
 
@@ -493,15 +494,8 @@ const app = {
   },
 
   checkAnswer() {
-    // ✅ NEW: نستخدم currentExercises
     const exercise = this.state.currentExercises[this.state.currentExerciseIndex];
-    let isCorrect = false;
-
-    if (exercise.type === 'multiple_choice') {
-      isCorrect = this.state.selectedAnswer === exercise.correctAnswer;
-    } else {
-      isCorrect = this.state.selectedAnswer === exercise.correctAnswer;
-    }
+    let isCorrect = this.state.selectedAnswer === exercise.correctAnswer;
 
     const feedback = document.getElementById('feedback-area');
     const checkBtn = document.getElementById('check-btn');
@@ -514,7 +508,9 @@ const app = {
       checkBtn.textContent = 'متابعة';
       checkBtn.onclick = () => this.nextExercise();
 
-      storage.addXP(10);
+      if (!this.state.isReplay && !this.state.isQuiz) {
+        storage.addXP(10);
+      }
       this.updateHeaderStats();
     } else {
       sounds.playWrong();
@@ -522,19 +518,16 @@ const app = {
       storage.loseHeart();
       document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
 
-      // ✅ NEW: تسجيل الخطأ + حماية الستريك (في الدروس فقط)
-      if (!this.state.isQuiz) {
+      if (!this.state.isQuiz && !this.state.isReplay) {
         this.state.lessonMistakes++;
         const user = storage.getUser();
         
         if ((user.lessonStreak || 0) > 0) {
           if ((user.streakFreezes || 0) > 0) {
-            // استخدام التجميد
             user.streakFreezes--;
             storage.setUser(user);
             this.showToast('❄️ تم استخدام تجميد السلسلة! ستريكك بأمان.', 'success');
           } else {
-            // تصفير الستريك
             storage.resetStreak();
             this.showToast('💔 غلطت، رجع الستريك صفر!', 'error');
           }
@@ -542,7 +535,6 @@ const app = {
       }
 
       this.updateHeaderStats();
-
       feedback.textContent = '❌ غلط. الإجابة الصح: ' +
         (exercise.type === 'multiple_choice' ? exercise.options[exercise.correctAnswer] : exercise.correctAnswer);
       feedback.className = 'feedback-area show wrong';
@@ -564,7 +556,6 @@ const app = {
     this.state.currentExerciseIndex++;
 
     if (this.state.currentExerciseIndex >= this.state.totalCount) {
-      // ✅ NEW: التوجيه حسب الوضع
       if (this.state.isQuiz) {
         this.completeQuiz();
       } else {
@@ -577,71 +568,85 @@ const app = {
 
   completeLesson() {
     const lesson = this.state.currentLesson;
-
     sounds.playComplete();
-
-    storage.markLessonComplete(lesson.id);
     
-    // ✅ NEW: التحقق من الـ XP المضاعف
-    const user = storage.getUser();
+    const accuracy = Math.round((this.state.correctCount / this.state.totalCount) * 100);
     let xpToAdd = lesson.xpReward || 20;
-    if (user.doubleXPActive) {
-      xpToAdd *= 2;
-      user.doubleXPActive = false; // إلغاء التفعيل بعد استخدامه مرة واحدة
-      storage.setUser(user);
-      this.showToast('⚡ تم استخدام XP المضاعف!', 'success');
-    }
-    storage.addXP(xpToAdd);
-    storage.addGems(5);
-    // ✅ NEW: زيادة الستريك لو الدرس كامل بدون أي خطأ
-    // (لو فيه خطأ، الستريك اتصفّر أثناء الدرس في checkAnswer)
-    if (this.state.lessonMistakes === 0) {
-      storage.incrementStreak();
+
+    if (!this.state.isReplay) {
+      storage.markLessonComplete(lesson.id);
+      const user = storage.getUser();
+      if (user.doubleXPActive) {
+        xpToAdd *= 2;
+        user.doubleXPActive = false;
+        storage.setUser(user);
+        this.showToast('⚡ تم استخدام XP المضاعف!', 'success');
+      }
+      storage.addXP(xpToAdd);
+      storage.addGems(5);
+
+      if (this.state.lessonMistakes === 0) {
+        storage.incrementStreak();
+      }
+
+      document.getElementById('complete-xp').textContent = '+' + xpToAdd;
+      document.getElementById('complete-message').textContent = this.state.lessonMistakes === 0
+        ? 'درس كامل بدون أخطاء! 🔥 الستريك +1 (+5 💎)'
+        : 'أكملت الدرس، بس عندك ' + this.state.lessonMistakes + ' غلط. الستريك صفر (+5 💎)';
+    } else {
+      document.getElementById('complete-xp').textContent = '+0';
+      document.getElementById('complete-message').textContent = 'مراجعة ممتازة! 🌟 (مفيش مكافآت إضافية)';
     }
 
     this.updateHeaderStats();
-
     achievementsModule.checkAndNotify();
-
-    const accuracy = Math.round((this.state.correctCount / this.state.totalCount) * 100);
-    document.getElementById('complete-xp').textContent = '+' + (lesson.xpReward || 20);
     document.getElementById('complete-accuracy').textContent = accuracy + '%';
-
-    const msg = this.state.lessonMistakes === 0
-      ? 'درس كامل بدون أخطاء! 🔥 الستريك +1 (+5 💎)'
-      : 'أكملت الدرس، بس عندك ' + this.state.lessonMistakes + ' غلط. الستريك صفر (+5 💎)';
-    document.getElementById('complete-message').textContent = msg;
 
     this.state.pendingAction = { type: 'lesson' };
     this.showScreen('complete-screen');
     this.showConfetti();
   },
 
-  // ============ ✅ NEW: إكمال اختبار الوحدة ============
   completeQuiz() {
     const accuracy = Math.round((this.state.correctCount / this.state.totalCount) * 100);
     const passed = accuracy >= 70;
 
     sounds.playComplete();
 
+    let xpReward = 0;
+    let gemReward = 0;
+
     if (passed) {
-      storage.addXP(30);
-      storage.addGems(10);
-      // ✅ نعلّم الاختبار كمكتمل عشان يفتح الوحدة التالية
       storage.markProjectComplete(this.state.quizUnitId + '-quiz');
+      if (!this.state.isReplay) {
+        xpReward = 30;
+        gemReward = 10;
+      }
     } else {
-      storage.addXP(10);
-      storage.addGems(5);
+      if (!this.state.isReplay) {
+        xpReward = 10;
+        gemReward = 5;
+      }
     }
+
+    if (xpReward > 0) storage.addXP(xpReward);
+    if (gemReward > 0) storage.addGems(gemReward);
 
     this.updateHeaderStats();
     achievementsModule.checkAndNotify();
 
-    document.getElementById('complete-xp').textContent = '+' + (passed ? 30 : 10);
+    document.getElementById('complete-xp').textContent = '+' + xpReward;
     document.getElementById('complete-accuracy').textContent = accuracy + '%';
-    document.getElementById('complete-message').textContent = passed
-      ? '🎉 نجحت في اختبار الوحدة! (+10 💎)'
-      : 'محتاج 70% على الأقل للنجاح. حاول تاني! (+5 💎)';
+    
+    if (this.state.isReplay) {
+      document.getElementById('complete-message').textContent = passed
+        ? 'مراجعة ممتازة للاختبار! 🌟 (مفيش مكافآت إضافية)'
+        : 'محتاج 70% على الأقل للنجاح. حاول تاني!';
+    } else {
+      document.getElementById('complete-message').textContent = passed
+        ? '🎉 نجحت في اختبار الوحدة! (+10 💎)'
+        : 'محتاج 70% على الأقل للنجاح. حاول تاني! (+5 💎)';
+    }
 
     this.state.pendingAction = { type: 'quiz' };
     this.showScreen('complete-screen');
@@ -656,141 +661,6 @@ const app = {
 
   closeLesson() {
     if (confirm('متأكد إنك عايز تخرج؟ هتخسر تقدم الدرس.')) {
-      this.showScreen('home-screen');
-      this.renderHome();
-    }
-  },
-
-  async startProject(unitId) {
-    const unit = this.state.units.find(u => u.id === unitId);
-    if (!unit.project) {
-      alert('الوحدة دي مفيش فيها مشروع');
-      return;
-    }
-    const project = unit.project;
-    this.state.currentProject = project;
-    this.state.currentUnitId = unitId;
-
-    document.getElementById('project-title').textContent = project.title;
-    document.getElementById('project-description').textContent = project.description;
-
-    const reqList = document.getElementById('project-requirements');
-    reqList.innerHTML = '';
-    project.requirements.forEach(req => {
-      const li = document.createElement('li');
-      li.textContent = req;
-      reqList.appendChild(li);
-    });
-
-    document.getElementById('output-content').textContent = '';
-
-    this.showScreen('project-screen');
-    await this.initMonaco(project.starterCode);
-  },
-
-  initMonaco(initialCode) {
-    return new Promise((resolve) => {
-      require.config({
-        paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' }
-      });
-
-      require(['vs/editor/editor.main'], () => {
-        const editorEl = document.getElementById('monaco-editor');
-        editorEl.innerHTML = '';
-
-        this.state.monacoEditor = monaco.editor.create(editorEl, {
-          value: initialCode,
-          language: 'python',
-          theme: 'vs-dark',
-          fontSize: 15,
-          fontFamily: 'JetBrains Mono, monospace',
-          minimap: { enabled: false },
-          scrollBeyondLastLine: false,
-          automaticLayout: true,
-          tabSize: 4,
-          lineNumbers: 'on'
-        });
-
-        resolve();
-      });
-    });
-  },
-
-  async runProjectCode() {
-    const code = this.state.monacoEditor.getValue();
-    const outputEl = document.getElementById('output-content');
-    outputEl.textContent = '⏳ جاري التشغيل...';
-
-    const testCase = this.state.currentProject.testCases[0];
-    const result = await runPython(code, testCase.input);
-
-    if (result.success) {
-      outputEl.textContent = result.output || '(مفيش output)';
-    } else {
-      outputEl.textContent = '❌ خطأ:\n' + (result.error || 'خطأ غير معروف');
-    }
-  },
-
-  async submitProject() {
-    const code = this.state.monacoEditor.getValue();
-    const project = this.state.currentProject;
-
-    const modal = document.getElementById('project-result-modal');
-    const title = document.getElementById('project-result-title');
-    const feedbackEl = document.getElementById('project-result-feedback');
-    const scoreEl = document.getElementById('project-score-value');
-
-    title.textContent = '⏳ جاري التقييم...';
-    feedbackEl.innerHTML = '';
-    scoreEl.textContent = '...';
-    modal.classList.add('active');
-
-    const result = await evaluateProject(code, project.testCases, project.requiredKeywords);
-
-    if (result.passed) {
-      title.textContent = '🎉 مبروك!';
-      sounds.playLevelUp();
-
-      storage.markProjectComplete(project.id);
-      storage.addXP(project.xpReward);
-      storage.addGems(10);
-      this.updateHeaderStats();
-
-      setTimeout(() => {
-        achievementsModule.checkAndNotify();
-      }, 500);
-
-      setTimeout(() => this.showConfetti(), 500);
-      document.getElementById('project-continue-btn').style.display = 'block';
-    } else {
-      title.textContent = '❌ لسه محتاج تحاول';
-      sounds.playWrong();
-      document.getElementById('project-continue-btn').style.display = 'none';
-    }
-
-    feedbackEl.innerHTML = '';
-    result.feedback.forEach(fb => {
-      const div = document.createElement('div');
-      div.className = 'feedback-item ' + fb.type;
-      div.textContent = fb.text;
-      feedbackEl.appendChild(div);
-    });
-
-    scoreEl.textContent = result.score;
-  },
-
-  closeProjectModal() {
-    document.getElementById('project-result-modal').classList.remove('active');
-  },
-
-  continueAfterProject() {
-    document.getElementById('project-result-modal').classList.remove('active');
-    this.showScreen('home-screen');
-    this.renderHome();
-  },
-
-  closeProject() {
-    if (confirm('متأكد إنك عايز تخرج؟ هتخسر تقدم المشروع.')) {
       this.showScreen('home-screen');
       this.renderHome();
     }
@@ -822,13 +692,10 @@ const app = {
         timerEl.textContent = this.formatTime(heartsInfo.nextHeartIn);
       }
     }
-        const freezesEl = document.getElementById('shop-freezes'); // لو حبيت تضيفه في الـ HTML بعدين
-    // أو ممكن تكتفي بالرسائل اللي بتظهر (Toast)
   },
 
   buyHearts() {
     const result = storage.buyHearts(1, 50);
-
     if (result.success) {
       sounds.playLevelUp();
       this.updateHeaderStats();
@@ -839,7 +706,8 @@ const app = {
       this.showToast('❌ ' + result.error, 'error');
     }
   },
-    buyStreakFreeze() {
+
+  buyStreakFreeze() {
     const user = storage.getUser();
     if (user.gems < 200) {
       sounds.playWrong();
@@ -893,7 +761,6 @@ const app = {
 
     achievementsModule.list.forEach(ach => {
       const isUnlocked = unlocked.includes(ach.id);
-
       const card = document.createElement('div');
       card.className = 'achievement-card' + (isUnlocked ? ' unlocked' : ' locked');
       card.innerHTML =
@@ -915,7 +782,6 @@ const app = {
   async openLeaderboard() {
     this.showScreen('leaderboard-screen');
     sounds.playClick();
-
     this.renderLeaderboard();
     await this.loadLeaderboard();
   },
@@ -928,7 +794,6 @@ const app = {
   renderLeaderboard() {
     const container = document.getElementById('leaderboard-list');
     if (!container) return;
-
     container.innerHTML = '<div class="leaderboard-loading">⏳ جاري التحميل...</div>';
   },
 
@@ -951,7 +816,6 @@ const app = {
       }
 
       container.innerHTML = '';
-
       const myRankEl = document.getElementById('my-rank');
       if (myRankEl && myRank) {
         myRankEl.textContent = '#' + myRank;
@@ -960,13 +824,11 @@ const app = {
       users.forEach((user, index) => {
         const rank = index + 1;
         let rankIcon = '#' + rank;
-
         if (rank === 1) rankIcon = '🥇';
         else if (rank === 2) rankIcon = '🥈';
         else if (rank === 3) rankIcon = '🥉';
 
         const isMe = firestoreModule.currentUser && user.uid === firestoreModule.currentUser.uid;
-
         const item = document.createElement('div');
         item.className = 'leaderboard-item' + (isMe ? ' is-me' : '');
         item.innerHTML =
@@ -976,7 +838,6 @@ const app = {
           '<div class="leaderboard-xp">' + (user.xp || 0) + ' ⚡</div>';
         container.appendChild(item);
       });
-
     } catch (error) {
       console.error('❌ Load leaderboard error:', error);
       container.innerHTML = '<div class="leaderboard-empty">❌ خطأ في التحميل</div>';
@@ -990,7 +851,6 @@ const app = {
 
     toast.textContent = message;
     toast.className = 'toast show ' + type;
-
     setTimeout(() => {
       toast.className = 'toast';
     }, 2500);
