@@ -20,14 +20,14 @@ const app = {
     isReplay: false
   },
 
-  // ✅ الأقسام الجديدة (تقدر تغير الأسماء والإيموجي زي ما تحب)
+  // ✅ الأقسام الجديدة (تم فصلها عن أسماء الوحدات عشان تشتغل مع ملفاتك الحالية)
   sections: [
-    { id: 'basics', title: 'القسم 1: أساسيات بايثون', icon: '🐍', units: ['unit1', 'unit2', 'unit3', 'unit4', 'unit5'] },
-    { id: 'data_structures', title: 'القسم 2: هياكل البيانات', icon: '📊', units: ['unit6', 'unit7', 'unit8', 'unit9', 'unit10'] },
-    { id: 'oop', title: 'القسم 3: البرمجة الكائنية', icon: '🏗️', units: ['unit11', 'unit12', 'unit13', 'unit14', 'unit15'] },
-    { id: 'web', title: 'القسم 4: تطوير الويب', icon: '🌐', units: ['unit16', 'unit17', 'unit18', 'unit19', 'unit20'] },
-    { id: 'data_science', title: 'القسم 5: تحليل البيانات', icon: '📈', units: ['unit21', 'unit22', 'unit23', 'unit24', 'unit25'] },
-    { id: 'ai', title: 'القسم 6: الذكاء الاصطناعي', icon: '🤖', units: ['unit26', 'unit27', 'unit28', 'unit29', 'unit30'] }
+    { id: 'basics', title: 'القسم 1: أساسيات بايثون', icon: '🐍' },
+    { id: 'data_structures', title: 'القسم 2: هياكل البيانات', icon: '📊' },
+    { id: 'oop', title: 'القسم 3: البرمجة الكائنية', icon: '🏗️' },
+    { id: 'web', title: 'القسم 4: تطوير الويب', icon: '🌐' },
+    { id: 'data_science', title: 'القسم 5: تحليل البيانات', icon: '📈' },
+    { id: 'ai', title: 'القسم 6: الذكاء الاصطناعي', icon: '🤖' }
   ],
 
   heartsTimer: null,
@@ -207,33 +207,13 @@ const app = {
     const user = storage.getUser();
     container.innerHTML = '';
 
-    // تجهيز قائمة مسطحة بكل الوحدات اللي موجودة عشان نظام القفل يشتغل صح
-    let allUnitsFlattened = [];
-    this.sections.forEach(sec => {
-      sec.units.forEach(uid => {
-        const u = this.state.units.find(x => x.id === uid);
-        if (u) allUnitsFlattened.push(u);
-      });
-    });
+    // لوب على الأقسام (كل قسم هياخد 5 وحدات بالترتيب)
+    this.sections.forEach((section, index) => {
+      const startIdx = index * 5;
+      const endIdx = startIdx + 5;
+      const sectionUnits = this.state.units.slice(startIdx, endIdx);
 
-    // لوب على الأقسام
-    this.sections.forEach((section) => {
-      const sectionUnits = section.units.map(uid => this.state.units.find(u => u.id === uid)).filter(Boolean);
-            // لو مفيش ملفات للقسم ده، نعرضه بس نقول قريباً
-      if (sectionUnits.length === 0) {
-        const emptyDivider = document.createElement('div');
-        emptyDivider.className = 'section-divider';
-        emptyDivider.innerHTML = `<span class="section-icon">${section.icon}</span><h2>${section.title}</h2>`;
-        container.appendChild(emptyDivider);
-        
-        const emptyMsg = document.createElement('div');
-        emptyMsg.style.textAlign = 'center';
-        emptyMsg.style.padding = '20px';
-        emptyMsg.style.color = '#9aa8b0';
-        emptyMsg.textContent = 'قريباً... (الوحدات دي لسه هتنزل)';
-        container.appendChild(emptyMsg);
-        return;
-      }
+      if (sectionUnits.length === 0) return; // لو مفيش وحدات للقسم ده، تجاوزه
 
       // 1. عرض فاصل القسم (Section Divider)
       const divider = document.createElement('div');
@@ -242,12 +222,12 @@ const app = {
       container.appendChild(divider);
 
       // 2. عرض وحدات القسم
-      sectionUnits.forEach((unit) => {
-        const unitIndex = allUnitsFlattened.findIndex(u => u.id === unit.id);
+      sectionUnits.forEach((unit, localIdx) => {
+        const unitIndex = startIdx + localIdx; // الترتيب العام للوحدة
         
         let isUnitUnlocked = true;
         if (unitIndex > 0) {
-          const prevUnit = allUnitsFlattened[unitIndex - 1];
+          const prevUnit = this.state.units[unitIndex - 1];
           const allPrevLessonsDone = prevUnit.lessons.every(l => user.completedLessons.includes(l.id));
           const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
           isUnitUnlocked = allPrevLessonsDone && prevQuizDone;
