@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} 
 
 :root {
   --primary: #58CC02;
@@ -2721,5 +2721,262 @@ button {
 
 .section-icon {
   font-size: 2.2rem;
+}
+/* ============ Sections Sidebar ============ */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px; /* مخفية برة الشاشة */
+  width: 300px;
+  height: 100vh;
+  background: var(--bg-card, #1e2b32);
+  box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+  z-index: 1000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid var(--gray-300, #2e4049);
+}
+
+.sidebar.show {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid var(--gray-200, #2e4049);
+  background: var(--primary, #58CC02);
+  color: white;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.sidebar-header .icon-btn {
+  color: white;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.sidebar-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-item {
+  padding: 15px;
+  background: var(--bg-main, #131f24);
+  border: 2px solid var(--gray-200, #2e4049);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  color: var(--text-main, #fff);
+  transition: all 0.2s;
+}
+
+.sidebar-item:hover {
+  border-color: var(--primary, #58CC02);
+  transform: translateX(-5px);
+}
+
+.sidebar-item.active {
+  background: var(--primary, #58CC02);
+  color: white;
+  border-color: var(--primary, #58CC02);
+}
+
+.sidebar-item.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--gray-100, #1a2c35);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.sidebar-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* =========================================
+   📱 Mobile Responsiveness (التوافق مع الموبايل)
+   ========================================= */
+
+/* للشاشات المتوسطة (التابلت والموبايل الكبير) */
+@media (max-width: 768px) {
+  /* 1. الهيدر والزرار */
+  .app-header {
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .header-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .header-stats {
+    width: 100%;
+    justify-content: space-around;
+    gap: 5px;
+    padding: 10px 0;
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .stat {
+    padding: 5px 8px;
+    gap: 4px;
+  }
+
+  .stat-value {
+    font-size: 14px;
+  }
+  
+  .stat-icon {
+    font-size: 16px;
+  }
+
+  /* 2. القائمة الجانبية (تاخد مساحة أكبر) */
+  .sidebar {
+    width: 85vw;
+    right: -100vw;
+  }
+
+  /* 3. شاشة الدروس */
+  .lesson-header {
+    padding: 10px;
+  }
+  
+  .lesson-main {
+    padding: 15px;
+  }
+
+  .question-text {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .answer-btn {
+    padding: 15px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .lesson-footer {
+    padding: 15px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .check-btn {
+    width: 100%;
+  }
+
+  /* 4. المتجر */
+  .shop-items {
+    flex-direction: column;
+  }
+
+  .shop-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .shop-item-info {
+    text-align: center;
+  }
+
+  .shop-buy-btn {
+    width: 100%;
+  }
+
+  /* 5. الشاشة الرئيسية */
+  .home-main {
+    padding: 15px;
+  }
+  
+  .unit {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .unit-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .unit-lessons {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .lesson-node {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+
+  /* 6. شاشة الاحتفال (المبروك) */
+  .complete-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* للشاشات الصغيرة جداً (الموبايلات الصغيرة) */
+@media (max-width: 480px) {
+  .stat-icon {
+    font-size: 14px;
+  }
+  
+  .stat-value {
+    font-size: 12px;
+  }
+
+  .header-stats {
+    gap: 2px;
+  }
+
+  .sidebar {
+    width: 100vw; /* القائمة تاخد الشاشة كلها عشان الكلام يبان */
+  }
+
+  .answer-btn {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .question-text {
+    font-size: 18px;
+  }
 }
 }
