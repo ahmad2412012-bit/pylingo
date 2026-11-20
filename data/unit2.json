@@ -206,6 +206,48 @@
           "explanation": "int() بتشيل الكسر"
         }
       ]
+    },
+    {
+      "id": 14,
+      "title": "الأرقام المركبة (Complex)",
+      "xpReward": 20,
+      "lessonExplanation": "<h2>الأرقام المركبة (Complex Numbers)</h2><p>الرقم المركب هو رقم بيتكون من جزئين: جزء حقيقي (Real) وجزء تخيلي (Imaginary).</p><h3>📝 طريقة الكتابة:</h3><p>بنكتبه باستخدام حرف <code>j</code> (أو <code>J</code>) كرمز للجزء التخيلي.</p><pre>z = 3 + 4j\nprint(z) # (3+4j)</pre><h3>💡 الدالة complex():</h3><p>ممكن نستخدم دالة <code>complex()</code> عشان نعمله:</p><pre>x = complex(2, 5)\nprint(x) # (2+5j)</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>تقدر تجيب الجزء الحقيقي بـ <code>z.real</code></li><li>وتجيب الجزء التخيلي بـ <code>z.imag</code></li></ul>",
+      "lessonTip": "بايثون بتدعم الأرقام المركبة جاهزة، ومش محتاج مكتبات خارجية.",
+      "exercises": [
+        {
+          "id": 1401,
+          "type": "multiple_choice",
+          "question": "إيه الحرف اللي بنستخدمه للتعبير عن الجزء التخيلي في بايثون؟",
+          "options": ["i", "j", "x", "c"],
+          "correctAnswer": 1,
+          "explanation": "في الرياضيات بنستخدم i، لكن في بايثون بنستخدم j."
+        },
+        {
+          "id": 1402,
+          "type": "predict_output",
+          "question": "إيه اللي هيطبعه الكود ده؟",
+          "code": "z = 2 + 3j\nprint(z.real)",
+          "correctAnswer": "2.0",
+          "explanation": "z.real بترجع الجزء الحقيقي وهو 2 (بيتطبع كـ float)."
+        },
+        {
+          "id": 1403,
+          "type": "fill_blank",
+          "question": "اكمل الكود عشان نكتب رقم مركب:",
+          "code": "z = 5 + 2___",
+          "bank": ["j", "i", "c", "x"],
+          "correctAnswer": "j",
+          "explanation": "بنستخدم حرف j للجزء التخيلي."
+        },
+        {
+          "id": 1404,
+          "type": "multiple_choice",
+          "question": "إزاي نجيب الجزء التخيلي من متغير اسمه z؟",
+          "options": ["z.real", "z.imag", "z.imaginary", "z.i"],
+          "correctAnswer": 1,
+          "explanation": "z.imag بترجع الجزء التخيلي."
+        }
+      ]
     }
   ],
   "project": {
