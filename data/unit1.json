@@ -1,7 +1,7 @@
 {
   "id": 1,
   "title": "الأساسيات",
-  "description": "print, comments, variables, strings, input, while loop",
+  "description": "print, comments, variables, data types, input, while loop",
   "icon": "🌱",
   "color": "#58CC02",
   "lessons": [
@@ -151,51 +151,52 @@
     },
     {
       "id": 4,
-      "title": "النصوص (Strings)",
+      "title": "أنواع البيانات (Data Types)",
       "xpReward": 20,
-      "lessonExplanation": "<h2>النصوص (Strings)</h2><p>النص هو أي كلام بين <strong>علامات تنصيص</strong>. ممكن ندمج نصوص بـ <code>+</code> أو نكررها بـ <code>*</code>.</p><h3>📝 أمثلة:</h3><pre>name = \"Ali\"\nprint(\"Hello \" + name)  # Hello Ali\nprint(\"a\" * 3)         # aaa</pre><h3>⚠️ ملاحظات مهمة:</h3><ul><li>النصوص بين <code>\" \"</code> أو <code>' '</code></li><li><code>+</code> بتدمج النصوص</li><li><code>*</code> بتكرر النص</li><li><code>len()</code> بترجع طول النص</li></ul>",
-      "lessonTip": "جرب تدمج اسمك مع تحية: print(\"أهلاً \" + \"اسمك\")",
+      "lessonExplanation": "<h2>أنواع البيانات (Data Types)</h2><p>في بايثون، كل قيمة ليها نوع بيانات بيحدد إنت تقدر تعمل بيها إيه. دي أهم الأنواع:</p><ul><li><strong>int (أرقام صحيحة):</strong> زي <code>5</code> أو <code>-10</code>.</li><li><strong>float (أرقام عشرية):</strong> زي <code>3.14</code> أو <code>-0.5</code>.</li><li><strong>str (نصوص):</strong> أي كلام بين علامات تنصيص <code>\"Ahmed\"</code>.</li><li><strong>bool (قيم منطقية):</strong> قيمتين بس: <code>True</code> (صح) أو <code>False</code> (غلط).</li><li><strong>complex (أرقام مركبة):</strong> بنكتبها بـ <code>j</code> زي <code>2+3j</code>.</li><li><strong>None (لا شيء):</strong> بتعني إن المتغير فاضي، بنكتبها <code>None</code> (بحرف N كبير).</li></ul><h3>⚠️ ملاحظات مهمة:</h3><ul><li>تقدر تعرف نوع أي حاجة بـ <code>type()</code> زي <code>print(type(5))</code>.</li></ul>",
+      "lessonTip": "عشان تعرف نوع أي متغير استخدم الدالة type() زي كده: print(type(5))",
       "exercises": [
         {
           "id": 401,
           "type": "multiple_choice",
-          "question": "إزاي نكتب نص في Python؟",
-          "options": ["بين \" \"", "بدون علامات", "بين ()", "بين []"],
-          "correctAnswer": 0,
-          "explanation": "النصوص بين علامات تنصيص"
+          "question": "النص \"Hello\" ده من نوع إيه؟",
+          "options": ["int", "float", "str", "bool"],
+          "correctAnswer": 2,
+          "explanation": "أي نص بين علامات تنصيص بنعتبره str (String)."
         },
         {
           "id": 402,
-          "type": "predict_output",
-          "question": "إيه اللي هيطلع؟",
-          "code": "name = \"Ali\"\nprint(\"Hello \" + name)",
-          "correctAnswer": "Hello Ali",
-          "explanation": "+ بتدمج النصوص"
+          "type": "multiple_choice",
+          "question": "الرقم 3.14 ده من نوع إيه؟",
+          "options": ["int", "float", "str", "complex"],
+          "correctAnswer": 1,
+          "explanation": "الأرقام اللي فيها كسور (عشرية) بنسميها float."
         },
         {
           "id": 403,
           "type": "fill_blank",
-          "question": "ادمج الاسمين",
-          "code": "first = \"Hello \"\nlast = \"World\"\nprint(first ___ last)",
-          "bank": ["+", "-", "*", "&"],
-          "correctAnswer": "+",
-          "explanation": "+ لدمج النصوص"
+          "question": "اكتب الرقم المركب 2+3i في بايثون:",
+          "code": "x = ______",
+          "bank": ["2+3j", "2+3i", "2+3", "complex(2, 3i)"],
+          "correctAnswer": "2+3j",
+          "explanation": "في بايثون بنستخدم حرف j عشان نرمز للجزء التخيلي."
         },
         {
           "id": 404,
-          "type": "multiple_choice",
-          "question": "إيه طول النص 'Hello'؟",
-          "options": ["5", "4", "6", "1"],
-          "correctAnswer": 0,
-          "explanation": "Hello = 5 حروف"
+          "type": "predict_output",
+          "question": "إيه نوع البيانات اللي هيطبعه الكود ده؟",
+          "code": "is_valid = True\nprint(type(is_valid))",
+          "correctAnswer": "bool",
+          "bank": ["bool", "str", "int", "float"],
+          "explanation": "True و False هما القيمتين الوحيدتين لنوع bool."
         },
         {
           "id": 405,
-          "type": "predict_output",
-          "question": "إيه اللي هيطلع؟",
-          "code": "print(\"a\" * 3)",
-          "correctAnswer": "aaa",
-          "explanation": "* بتكرر النص"
+          "type": "multiple_choice",
+          "question": "إمتى بنستخدم كلمة None؟",
+          "options": ["لما نكتب رقم كسري", "لما يكون المتغير مفيش ليه قيمة", "لما نكتب نص", "لما نستخدم True/False"],
+          "correctAnswer": 1,
+          "explanation": "None بتعني إن المتغير فاضي أو لسه متحددتش له قيمة."
         }
       ]
     },
