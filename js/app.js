@@ -10,17 +10,15 @@ const app = {
     totalCount: 0,
     lessonHearts: 5,
     currentUnitId: null,
-    currentProject: null,
-    monacoEditor: null,
     pendingAction: null,
     currentExercises: [],
     isQuiz: false,
     lessonMistakes: 0,
     quizUnitId: null,
-    isReplay: false
+    isReplay: false,
+    currentSectionIndex: 0
   },
 
-  // أسماء الأقسام (هتتقسم تلقائياً كل 5 وحدات)
   sectionTitles: [
     { title: 'القسم 1: أساسيات بايثون', icon: '🐍' },
     { title: 'القسم 2: هياكل البيانات', icon: '📊' },
@@ -63,18 +61,80 @@ const app = {
       return;
     }
 
+    const savedSection = localStorage.getItem('pylingo_current_section');
+    if (savedSection) this.state.currentSectionIndex = parseInt(savedSection);
+
+    this.setupSidebar();
     this.renderHome();
     this.updateHeaderStats();
-    authModule.init();
+    
+    if (typeof authModule !== 'undefined') authModule.init();
 
     setTimeout(() => {
       if (typeof firestoreModule !== 'undefined' && !firestoreModule.db) {
-        console.log('⚡ Fallback: initializing Firestore...');
         firestoreModule.init();
       }
     }, 1500);
 
     this.startHeartsTimer();
+  },
+
+  // ✅ 1. منطق القائمة الجانبية (بيسمح بالدخول لأي قسم)
+  setupSidebar() {
+    const menuBtn = document.getElementById('sections-menu-btn');
+    const closeBtn = document.getElementById('close-sidebar-btn');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    if (menuBtn) menuBtn.onclick = () => this.openSidebar();
+    if (closeBtn) closeBtn.onclick = () => this.closeSidebar();
+    if (overlay) overlay.onclick = () => this.closeSidebar();
+  },
+
+  openSidebar() {
+    this.renderSidebar();
+    const sidebar = document.getElementById('sections-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar) sidebar.classList.add('show');
+    if (overlay) overlay.classList.add('show');
+    if (typeof sounds !== 'undefined' && sounds.playClick) sounds.playClick();
+  },
+
+  closeSidebar() {
+    const sidebar = document.getElementById('sections-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar) sidebar.classList.remove('show');
+    if (overlay) overlay.classList.remove('show');
+  },
+
+  switchSection(index) {
+    this.state.currentSectionIndex = index;
+    localStorage.setItem('pylingo_current_section', index);
+    this.renderHome();
+    this.closeSidebar();
+    if (typeof sounds !== 'undefined' && sounds.playClick) sounds.playClick();
+  },
+
+  renderSidebar() {
+    const container = document.getElementById('sections-list');
+    if (!container) return;
+    container.innerHTML = '';
+
+    this.sectionTitles.forEach((sec, index) => {
+      const startIdx = index * 5;
+      if (startIdx >= this.state.units.length) return;
+
+      const item = document.createElement('div');
+      item.className = 'sidebar-item';
+      if (index === this.state.currentSectionIndex) item.classList.add('active');
+      
+      // ✅ شيلنا علامة القفل من هنا عشان يدخل يتفرج
+      item.innerHTML = `<span style="font-size: 24px;">${sec.icon}</span> <span>${sec.title}</span>`;
+      
+      // ✅ بيسمح بالضغط على أي قسم
+      item.onclick = () => this.switchSection(index);
+      
+      container.appendChild(item);
+    });
   },
 
   updateHeaderStats() {
@@ -85,47 +145,32 @@ const app = {
     const streakEl = document.getElementById('streak-value');
     if (streakEl && streakEl.textContent !== String(lessonStreak)) {
       streakEl.textContent = lessonStreak;
-      if (lessonStreak > (prevUser.lessonStreak || 0)) {
-        this.pulseElement(streakEl);
-      }
+      if (lessonStreak > (prevUser.lessonStreak || 0)) this.pulseElement(streakEl);
     }
 
     const gemsEl = document.getElementById('gems-value');
     if (gemsEl && gemsEl.textContent !== String(user.gems)) {
       gemsEl.textContent = user.gems;
-      if (user.gems > (prevUser.gems || 0)) {
-        this.pulseElement(gemsEl);
-      }
+      if (user.gems > (prevUser.gems || 0)) this.pulseElement(gemsEl);
     }
 
     const heartsEl = document.getElementById('hearts-value');
     if (heartsEl && heartsEl.textContent !== String(user.hearts)) {
       heartsEl.textContent = user.hearts;
-      if (user.hearts < (prevUser.hearts || 5)) {
-        this.shakeElement(heartsEl);
-      }
+      if (user.hearts < (prevUser.hearts || 5)) this.shakeElement(heartsEl);
     }
 
     const xpEl = document.getElementById('xp-value');
     if (xpEl && xpEl.textContent !== String(user.xp)) {
       xpEl.textContent = user.xp;
-      if (user.xp > (prevUser.xp || 0)) {
-        this.pulseElement(xpEl);
-      }
+      if (user.xp > (prevUser.xp || 0)) this.pulseElement(xpEl);
     }
 
-    this._prevStats = {
-      lessonStreak: user.lessonStreak || 0,
-      gems: user.gems,
-      hearts: user.hearts,
-      xp: user.xp
-    };
+    this._prevStats = { lessonStreak: user.lessonStreak || 0, gems: user.gems, hearts: user.hearts, xp: user.xp };
 
     if (typeof firestoreModule !== 'undefined' && firestoreModule.currentUser) {
       clearTimeout(this._syncTimeout);
-      this._syncTimeout = setTimeout(() => {
-        firestoreModule.saveToFirestore();
-      }, 3000);
+      this._syncTimeout = setTimeout(() => firestoreModule.saveToFirestore(), 3000);
     }
   },
 
@@ -149,7 +194,6 @@ const app = {
     const colors = ['#58CC02', '#1CB0F6', '#FFC800', '#CE82FF', '#FF4B4B', '#FF6B9D'];
     const container = document.getElementById('complete-screen');
     if (!container) return;
-
     for (let i = 0; i < 50; i++) {
       const piece = document.createElement('div');
       piece.className = 'confetti-piece';
@@ -160,33 +204,28 @@ const app = {
       piece.style.width = (Math.random() * 8 + 6) + 'px';
       piece.style.height = (Math.random() * 8 + 6) + 'px';
       container.appendChild(piece);
-
       setTimeout(() => piece.remove(), 3500);
     }
   },
 
   startHeartsTimer() {
     if (this.heartsTimer) clearInterval(this.heartsTimer);
-
     this.heartsTimer = setInterval(() => {
       const user = storage.getUser();
       const info = storage.getHeartsInfo();
-
-      document.getElementById('hearts-value').textContent = user.hearts;
-      document.getElementById('gems-value').textContent = user.gems;
-
+      
+      const hEl = document.getElementById('hearts-value');
+      if (hEl) hEl.textContent = user.hearts;
+      const gEl = document.getElementById('gems-value');
+      if (gEl) gEl.textContent = user.gems;
+      
       const shopTimer = document.getElementById('heart-timer');
       if (shopTimer) {
-        if (user.hearts >= storage.MAX_HEARTS) {
-          shopTimer.textContent = 'كاملة ❤️';
-        } else {
-          shopTimer.textContent = this.formatTime(info.nextHeartIn);
-        }
+        if (user.hearts >= storage.MAX_HEARTS) shopTimer.textContent = 'كاملة ❤️';
+        else shopTimer.textContent = this.formatTime(info.nextHeartIn);
       }
-
       const lessonHearts = document.getElementById('lesson-hearts');
       if (lessonHearts) lessonHearts.textContent = user.hearts;
-
       const shopHearts = document.getElementById('shop-hearts');
       const shopGems = document.getElementById('shop-gems');
       if (shopHearts) shopHearts.textContent = user.hearts;
@@ -201,7 +240,7 @@ const app = {
     return minutes + ':' + seconds.toString().padStart(2, '0');
   },
 
-  // ✅ هنا السر: بنلف على الوحدات اللي موجودة فعلاً عندك وبنرتبهم كل 5 في قسم
+  // ✅ 2. عرض القسم اللي اختاره المستخدم (مع قفل الدروس)
   renderHome() {
     const container = document.getElementById('units-container');
     const user = storage.getUser();
@@ -212,22 +251,29 @@ const app = {
       return;
     }
 
-    this.state.units.forEach((unit, index) => {
-      // كل 5 وحدات، بنضيف فاصل القسم
-      if (index % 5 === 0) {
-        const sectionIndex = Math.floor(index / 5);
-        const secData = this.sectionTitles[sectionIndex] || { title: 'قسم جديد', icon: '📚' };
-        
-        const divider = document.createElement('div');
-        divider.className = 'section-divider';
-        divider.innerHTML = `<span class="section-icon">${secData.icon}</span><h2>${secData.title}</h2>`;
-        container.appendChild(divider);
-      }
+    const currentSec = this.state.currentSectionIndex;
+    const startIdx = currentSec * 5;
+    const endIdx = startIdx + 5;
+    const sectionUnits = this.state.units.slice(startIdx, endIdx);
+    const secData = this.sectionTitles[currentSec] || { title: 'قسم جديد', icon: '📚' };
 
-      // عرض الوحدة نفسها
+    const divider = document.createElement('div');
+    divider.className = 'section-divider';
+    divider.innerHTML = `<span class="section-icon">${secData.icon}</span><h2>${secData.title}</h2>`;
+    container.appendChild(divider);
+
+    if (sectionUnits.length === 0) {
+      container.innerHTML += '<p style="text-align:center; color:#9aa8b0; margin-top:20px;">قريباً... (الوحدات دي لسه هتنزل)</p>';
+      return;
+    }
+
+    sectionUnits.forEach((unit, localIdx) => {
+      const unitIndex = startIdx + localIdx;
+      
+      // ✅ هنا بيتشيك إذا كان الدرس مفتوح ولا مقفول بناءً على اللي قبله
       let isUnitUnlocked = true;
-      if (index > 0) {
-        const prevUnit = this.state.units[index - 1];
+      if (unitIndex > 0) {
+        const prevUnit = this.state.units[unitIndex - 1];
         const allPrevLessonsDone = prevUnit.lessons.every(l => user.completedLessons.includes(l.id));
         const prevQuizDone = user.completedProjects.includes(prevUnit.id + '-quiz');
         isUnitUnlocked = allPrevLessonsDone && prevQuizDone;
@@ -250,7 +296,6 @@ const app = {
         '<div class="unit-lessons" id="unit-' + unit.id + '-lessons"></div>';
 
       container.appendChild(unitEl);
-
       const lessonsContainer = document.getElementById('unit-' + unit.id + '-lessons');
 
       unit.lessons.forEach((lesson, idx) => {
@@ -261,32 +306,26 @@ const app = {
         const node = document.createElement('div');
         node.className = 'lesson-node';
         if (isCompleted) node.classList.add('completed');
-        if (!isUnlocked) node.classList.add('locked');
+        if (!isUnlocked) node.classList.add('locked'); // ✅ لو مقفول بتتحط عليه علامة القفل ومش هيتفتح
 
         node.textContent = isCompleted ? '✓' : (idx + 1);
         node.title = lesson.title;
-
-        if (isUnlocked) {
-          node.onclick = () => this.startLesson(unit.id, lesson.id);
-        }
-
+        
+        // ✅ الشرط ده بيمنع إنه يدخل الدرس لو لسا مقفول
+        if (isUnlocked) node.onclick = () => this.startLesson(unit.id, lesson.id);
+        
         lessonsContainer.appendChild(node);
       });
 
-      // اختبار الوحدة
       const quizUnlocked = isUnitUnlocked && allLessonsDone;
       const quizNode = document.createElement('div');
       quizNode.className = 'lesson-node project';
       if (quizDone) quizNode.classList.add('completed');
       if (!quizUnlocked) quizNode.classList.add('locked');
-
       quizNode.textContent = quizDone ? '✓' : '📝';
       quizNode.title = 'اختبار الوحدة - ' + unit.title;
-
-      if (quizUnlocked) {
-        quizNode.onclick = () => this.startUnitQuiz(unit.id);
-      }
-
+      
+      if (quizUnlocked) quizNode.onclick = () => this.startUnitQuiz(unit.id);
       lessonsContainer.appendChild(quizNode);
     });
   },
@@ -298,9 +337,8 @@ const app = {
 
   startLesson(unitId, lessonId) {
     const user = storage.getUser();
-
     if (user.hearts <= 0) {
-      sounds.playWrong();
+      if (typeof sounds !== 'undefined') sounds.playWrong();
       alert('مفيش قلوب! استنى شوية أو اشتري من المتجر.');
       return;
     }
@@ -326,9 +364,8 @@ const app = {
 
   startUnitQuiz(unitId) {
     const user = storage.getUser();
-
     if (user.hearts <= 0) {
-      sounds.playWrong();
+      if (typeof sounds !== 'undefined') sounds.playWrong();
       alert('مفيش قلوب! استنى شوية أو اشتري من المتجر.');
       return;
     }
@@ -338,15 +375,10 @@ const app = {
 
     let allExercises = [];
     unit.lessons.forEach(lesson => {
-      if (lesson.exercises && lesson.exercises.length) {
-        allExercises = allExercises.concat(lesson.exercises);
-      }
+      if (lesson.exercises && lesson.exercises.length) allExercises = allExercises.concat(lesson.exercises);
     });
 
-    if (allExercises.length === 0) {
-      alert('لا توجد أسئلة في هذه الوحدة');
-      return;
-    }
+    if (allExercises.length === 0) return alert('لا توجد أسئلة في هذه الوحدة');
 
     for (let i = allExercises.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -376,39 +408,26 @@ const app = {
 
   showExplanation(lesson, unit) {
     this.showScreen('explanation-screen');
-    sounds.playClick();
-
+    if (typeof sounds !== 'undefined') sounds.playClick();
     document.getElementById('explanation-icon').textContent = unit.icon || '📖';
     document.getElementById('explanation-title').textContent = lesson.title;
 
     const contentEl = document.getElementById('explanation-content');
-
-    if (lesson.lessonExplanation) {
-      contentEl.innerHTML = lesson.lessonExplanation;
-    } else {
-      contentEl.innerHTML =
-        '<div class="explanation-placeholder">' +
-        '<div style="font-size: 60px; margin-bottom: 20px;">📚</div>' +
-        '<h2>استعد للأسئلة!</h2>' +
-        '<p>هذا الدرس عبارة عن ' + lesson.exercises.length + ' سؤال تفاعلي.</p>' +
-        '<p>اقرأ السؤال بتركيز واختار الإجابة الصح.</p>' +
-        '<p style="color: var(--primary); font-weight: 800; margin-top: 20px;">بالتوفيق! 💪</p>' +
-        '</div>';
+    if (lesson.lessonExplanation) contentEl.innerHTML = lesson.lessonExplanation;
+    else {
+      contentEl.innerHTML = '<div class="explanation-placeholder"><div style="font-size: 60px; margin-bottom: 20px;">📚</div><h2>استعد للأسئلة!</h2><p>هذا الدرس عبارة عن ' + lesson.exercises.length + ' سؤال تفاعلي.</p></div>';
     }
 
     const tipEl = document.getElementById('explanation-tip');
     const tipTextEl = document.getElementById('explanation-tip-text');
-
     if (lesson.lessonTip) {
       tipTextEl.textContent = lesson.lessonTip;
       tipEl.style.display = 'flex';
-    } else {
-      tipEl.style.display = 'none';
-    }
+    } else tipEl.style.display = 'none';
   },
 
   startExercises() {
-    sounds.playClick();
+    if (typeof sounds !== 'undefined') sounds.playClick();
     this.showScreen('lesson-screen');
     this.renderExercise();
   },
@@ -423,20 +442,13 @@ const app = {
   renderExercise() {
     const exercise = this.state.currentExercises[this.state.currentExerciseIndex];
     this.state.selectedAnswer = null;
-
     const progress = ((this.state.currentExerciseIndex) / this.state.totalCount) * 100;
     document.getElementById('lesson-progress').style.width = progress + '%';
-
     document.getElementById('question-text').textContent = exercise.question;
 
     const extra = document.getElementById('question-extra');
-    if (exercise.code) {
-      extra.textContent = exercise.code;
-      extra.style.display = 'block';
-    } else {
-      extra.textContent = '';
-      extra.style.display = 'none';
-    }
+    if (exercise.code) { extra.textContent = exercise.code; extra.style.display = 'block'; } 
+    else { extra.textContent = ''; extra.style.display = 'none'; }
 
     const answersContainer = document.getElementById('answers-container');
     answersContainer.innerHTML = '';
@@ -483,30 +495,26 @@ const app = {
     btn.classList.add('selected');
     this.state.selectedAnswer = value;
     document.getElementById('check-btn').disabled = false;
-    sounds.playSelect();
+    if (typeof sounds !== 'undefined') sounds.playSelect();
   },
 
   checkAnswer() {
     const exercise = this.state.currentExercises[this.state.currentExerciseIndex];
     let isCorrect = this.state.selectedAnswer === exercise.correctAnswer;
-
     const feedback = document.getElementById('feedback-area');
     const checkBtn = document.getElementById('check-btn');
 
     if (isCorrect) {
-      sounds.playCorrect();
+      if (typeof sounds !== 'undefined') sounds.playCorrect();
       this.state.correctCount++;
       feedback.textContent = '✅ صح! ' + (exercise.explanation || '');
       feedback.className = 'feedback-area show correct';
       checkBtn.textContent = 'متابعة';
       checkBtn.onclick = () => this.nextExercise();
-
-      if (!this.state.isReplay && !this.state.isQuiz) {
-        storage.addXP(10);
-      }
+      if (!this.state.isReplay && !this.state.isQuiz) storage.addXP(10);
       this.updateHeaderStats();
     } else {
-      sounds.playWrong();
+      if (typeof sounds !== 'undefined') sounds.playWrong();
       this.state.lessonHearts--;
       storage.loseHeart();
       document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
@@ -514,7 +522,6 @@ const app = {
       if (!this.state.isQuiz && !this.state.isReplay) {
         this.state.lessonMistakes++;
         const user = storage.getUser();
-        
         if ((user.lessonStreak || 0) > 0) {
           if ((user.streakFreezes || 0) > 0) {
             user.streakFreezes--;
@@ -528,32 +535,25 @@ const app = {
       }
 
       this.updateHeaderStats();
-      feedback.textContent = '❌ غلط. الإجابة الصح: ' +
-        (exercise.type === 'multiple_choice' ? exercise.options[exercise.correctAnswer] : exercise.correctAnswer);
+      feedback.textContent = '❌ غلط. الإجابة الصح: ' + (exercise.type === 'multiple_choice' ? exercise.options[exercise.correctAnswer] : exercise.correctAnswer);
       feedback.className = 'feedback-area show wrong';
       checkBtn.textContent = 'فهمت';
       checkBtn.onclick = () => this.nextExercise();
     }
-
     checkBtn.disabled = false;
   },
 
   nextExercise() {
     if (this.state.lessonHearts <= 0) {
-      sounds.playHeartLost();
+      if (typeof sounds !== 'undefined') sounds.playHeartLost();
       alert('خلصت القلوب! هترجع تلقائياً أو اشتري من المتجر.');
       this.closeLesson();
       return;
     }
-
     this.state.currentExerciseIndex++;
-
     if (this.state.currentExerciseIndex >= this.state.totalCount) {
-      if (this.state.isQuiz) {
-        this.completeQuiz();
-      } else {
-        this.completeLesson();
-      }
+      if (this.state.isQuiz) this.completeQuiz();
+      else this.completeLesson();
     } else {
       this.renderExercise();
     }
@@ -561,8 +561,7 @@ const app = {
 
   completeLesson() {
     const lesson = this.state.currentLesson;
-    sounds.playComplete();
-    
+    if (typeof sounds !== 'undefined') sounds.playComplete();
     const accuracy = Math.round((this.state.correctCount / this.state.totalCount) * 100);
     let xpToAdd = lesson.xpReward || 20;
 
@@ -577,10 +576,7 @@ const app = {
       }
       storage.addXP(xpToAdd);
       storage.addGems(5);
-
-      if (this.state.lessonMistakes === 0) {
-        storage.incrementStreak();
-      }
+      if (this.state.lessonMistakes === 0) storage.incrementStreak();
 
       document.getElementById('complete-xp').textContent = '+' + xpToAdd;
       document.getElementById('complete-message').textContent = this.state.lessonMistakes === 0
@@ -592,9 +588,8 @@ const app = {
     }
 
     this.updateHeaderStats();
-    achievementsModule.checkAndNotify();
+    if (typeof achievementsModule !== 'undefined') achievementsModule.checkAndNotify();
     document.getElementById('complete-accuracy').textContent = accuracy + '%';
-
     this.state.pendingAction = { type: 'lesson' };
     this.showScreen('complete-screen');
     this.showConfetti();
@@ -603,42 +598,28 @@ const app = {
   completeQuiz() {
     const accuracy = Math.round((this.state.correctCount / this.state.totalCount) * 100);
     const passed = accuracy >= 70;
+    if (typeof sounds !== 'undefined') sounds.playComplete();
 
-    sounds.playComplete();
-
-    let xpReward = 0;
-    let gemReward = 0;
-
+    let xpReward = 0, gemReward = 0;
     if (passed) {
       storage.markProjectComplete(this.state.quizUnitId + '-quiz');
-      if (!this.state.isReplay) {
-        xpReward = 30;
-        gemReward = 10;
-      }
+      if (!this.state.isReplay) { xpReward = 30; gemReward = 10; }
     } else {
-      if (!this.state.isReplay) {
-        xpReward = 10;
-        gemReward = 5;
-      }
+      if (!this.state.isReplay) { xpReward = 10; gemReward = 5; }
     }
 
     if (xpReward > 0) storage.addXP(xpReward);
     if (gemReward > 0) storage.addGems(gemReward);
 
     this.updateHeaderStats();
-    achievementsModule.checkAndNotify();
-
+    if (typeof achievementsModule !== 'undefined') achievementsModule.checkAndNotify();
     document.getElementById('complete-xp').textContent = '+' + xpReward;
     document.getElementById('complete-accuracy').textContent = accuracy + '%';
     
     if (this.state.isReplay) {
-      document.getElementById('complete-message').textContent = passed
-        ? 'مراجعة ممتازة للاختبار! 🌟 (مفيش مكافآت إضافية)'
-        : 'محتاج 70% على الأقل للنجاح. حاول تاني!';
+      document.getElementById('complete-message').textContent = passed ? 'مراجعة ممتازة للاختبار! 🌟' : 'محتاج 70% على الأقل للنجاح.';
     } else {
-      document.getElementById('complete-message').textContent = passed
-        ? '🎉 نجحت في اختبار الوحدة! (+10 💎)'
-        : 'محتاج 70% على الأقل للنجاح. حاول تاني! (+5 💎)';
+      document.getElementById('complete-message').textContent = passed ? '🎉 نجحت في اختبار الوحدة! (+10 💎)' : 'محتاج 70% على الأقل للنجاح. حاول تاني! (+5 💎)';
     }
 
     this.state.pendingAction = { type: 'quiz' };
@@ -662,7 +643,7 @@ const app = {
   openShop() {
     this.renderShop();
     this.showScreen('shop-screen');
-    sounds.playClick();
+    if (typeof sounds !== 'undefined') sounds.playClick();
   },
 
   closeShop() {
@@ -673,29 +654,25 @@ const app = {
   renderShop() {
     const user = storage.getUser();
     const heartsInfo = storage.getHeartsInfo();
-
     document.getElementById('shop-gems').textContent = user.gems;
     document.getElementById('shop-hearts').textContent = user.hearts;
 
     const timerEl = document.getElementById('heart-timer');
     if (timerEl) {
-      if (user.hearts >= storage.MAX_HEARTS) {
-        timerEl.textContent = 'كاملة ❤️';
-      } else {
-        timerEl.textContent = this.formatTime(heartsInfo.nextHeartIn);
-      }
+      if (user.hearts >= storage.MAX_HEARTS) timerEl.textContent = 'كاملة ❤️';
+      else timerEl.textContent = this.formatTime(heartsInfo.nextHeartIn);
     }
   },
 
   buyHearts() {
     const result = storage.buyHearts(1, 50);
     if (result.success) {
-      sounds.playLevelUp();
+      if (typeof sounds !== 'undefined') sounds.playLevelUp();
       this.updateHeaderStats();
       this.renderShop();
       this.showToast('✅ تم شراء قلب!', 'success');
     } else {
-      sounds.playWrong();
+      if (typeof sounds !== 'undefined') sounds.playWrong();
       this.showToast('❌ ' + result.error, 'error');
     }
   },
@@ -703,15 +680,14 @@ const app = {
   buyStreakFreeze() {
     const user = storage.getUser();
     if (user.gems < 200) {
-      sounds.playWrong();
+      if (typeof sounds !== 'undefined') sounds.playWrong();
       this.showToast('❌ مش معاك جواهر كفاية!', 'error');
       return;
     }
     user.gems -= 200;
     user.streakFreezes = (user.streakFreezes || 0) + 1;
     storage.setUser(user);
-    
-    sounds.playLevelUp();
+    if (typeof sounds !== 'undefined') sounds.playLevelUp();
     this.updateHeaderStats();
     this.renderShop();
     this.showToast('✅ تم شراء تجميد السلسلة!', 'success');
@@ -720,15 +696,14 @@ const app = {
   buyDoubleXP() {
     const user = storage.getUser();
     if (user.gems < 100) {
-      sounds.playWrong();
+      if (typeof sounds !== 'undefined') sounds.playWrong();
       this.showToast('❌ مش معاك جواهر كفاية!', 'error');
       return;
     }
     user.gems -= 100;
     user.doubleXPActive = true;
     storage.setUser(user);
-    
-    sounds.playLevelUp();
+    if (typeof sounds !== 'undefined') sounds.playLevelUp();
     this.updateHeaderStats();
     this.renderShop();
     this.showToast('✅ تم شراء XP مضاعف للدرس القادم!', 'success');
@@ -737,7 +712,7 @@ const app = {
   openAchievements() {
     this.renderAchievements();
     this.showScreen('achievements-screen');
-    sounds.playClick();
+    if (typeof sounds !== 'undefined') sounds.playClick();
   },
 
   closeAchievements() {
@@ -748,7 +723,6 @@ const app = {
   renderAchievements() {
     const container = document.getElementById('achievements-list');
     if (!container) return;
-
     const unlocked = achievementsModule.getUnlocked();
     container.innerHTML = '';
 
@@ -758,23 +732,18 @@ const app = {
       card.className = 'achievement-card' + (isUnlocked ? ' unlocked' : ' locked');
       card.innerHTML =
         '<div class="achievement-icon">' + (isUnlocked ? ach.icon : '🔒') + '</div>' +
-        '<div class="achievement-info">' +
-        '<h3>' + ach.title + '</h3>' +
-        '<p>' + ach.description + '</p>' +
-        '</div>' +
+        '<div class="achievement-info"><h3>' + ach.title + '</h3><p>' + ach.description + '</p></div>' +
         (isUnlocked ? '<div class="achievement-check">✓</div>' : '');
       container.appendChild(card);
     });
 
     const countEl = document.getElementById('achievements-count');
-    if (countEl) {
-      countEl.textContent = unlocked.length + ' / ' + achievementsModule.list.length;
-    }
+    if (countEl) countEl.textContent = unlocked.length + ' / ' + achievementsModule.list.length;
   },
 
   async openLeaderboard() {
     this.showScreen('leaderboard-screen');
-    sounds.playClick();
+    if (typeof sounds !== 'undefined') sounds.playClick();
     this.renderLeaderboard();
     await this.loadLeaderboard();
   },
@@ -810,9 +779,7 @@ const app = {
 
       container.innerHTML = '';
       const myRankEl = document.getElementById('my-rank');
-      if (myRankEl && myRank) {
-        myRankEl.textContent = '#' + myRank;
-      }
+      if (myRankEl && myRank) myRankEl.textContent = '#' + myRank;
 
       users.forEach((user, index) => {
         const rank = index + 1;
@@ -841,12 +808,9 @@ const app = {
     type = type || 'success';
     const toast = document.getElementById('toast');
     if (!toast) return;
-
     toast.textContent = message;
     toast.className = 'toast show ' + type;
-    setTimeout(() => {
-      toast.className = 'toast';
-    }, 2500);
+    setTimeout(() => toast.className = 'toast', 2500);
   },
 
   resetProgress() {
