@@ -38,12 +38,18 @@ const app = {
     try {
       const promises = [];
       for (let i = 1; i <= 30; i++) {
-        promises.push(fetch('data/unit' + i + '.json').then(res => res.ok ? res.json() : null).catch(() => null));
+        promises.push(
+          fetch('data/unit' + i + '.json')
+            .then(res => (res.ok ? res.json() : null))
+            .catch(() => null)
+        );
       }
       const results = await Promise.all(promises);
       this.state.units = results.filter(u => u !== null);
       return this.state.units;
-    } catch (error) { return []; }
+    } catch (error) {
+      return [];
+    }
   },
 
   async init() {
@@ -51,13 +57,14 @@ const app = {
     if (this.state.units.length === 0) return;
 
     const savedSection = localStorage.getItem('pylingo_current_section');
-    if (savedSection) this.state.currentSectionIndex = parseInt(savedSection);
+    if (savedSection) this.state.currentSectionIndex = parseInt(savedSection, 10) || 0;
 
     this.setupSidebar();
+    this.setupGlobalButtons();
     this.generateDailyQuests();
     this.renderHome();
     this.updateHeaderStats();
-    
+
     if (typeof authModule !== 'undefined') authModule.init();
 
     setTimeout(() => {
@@ -65,6 +72,56 @@ const app = {
     }, 1500);
 
     this.startHeartsTimer();
+  },
+
+  // تفعيل كل الأزرار الأساسية والاحتياطية
+  setupGlobalButtons() {
+    const bindings = [
+      ['run-code-btn', () => this.runCodeTask()],
+      ['reset-code-btn', () => this.resetCodeDraft()],
+      ['close-code-btn', () => this.closeCodeTask()],
+      ['start-exercises-btn', () => this.startExercises()],
+      ['close-explanation-btn', () => this.closeExplanation()],
+      ['continue-complete-btn', () => this.continueFromComplete()],
+      ['close-lesson-btn', () => this.closeLesson()],
+      ['open-shop-btn', () => this.openShop()],
+      ['close-shop-btn', () => this.closeShop()],
+      ['buy-hearts-btn', () => this.buyHearts()],
+      ['buy-freeze-btn', () => this.buyStreakFreeze()],
+      ['buy-double-xp-btn', () => this.buyDoubleXP()],
+      ['open-achievements-btn', () => this.openAchievements()],
+      ['close-achievements-btn', () => this.closeAchievements()],
+      ['open-leaderboard-btn', () => this.openLeaderboard()],
+      ['close-leaderboard-btn', () => this.closeLeaderboard()],
+      ['open-quests-btn', () => this.openQuests()],
+      ['close-quests-btn', () => this.closeQuests()],
+      ['open-mistakes-btn', () => this.openMistakes()],
+      ['close-mistakes-btn', () => this.closeMistakes()]
+    ];
+
+    bindings.forEach(([id, handler]) => {
+      const el = document.getElementById(id);
+      if (el) {
+        if (el.tagName === 'BUTTON' && !el.getAttribute('type')) {
+          el.setAttribute('type', 'button');
+        }
+        el.onclick = (e) => {
+          e.preventDefault();
+          handler();
+        };
+      }
+    });
+
+    // تفويض لأي زر يحمل data-action
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-action]');
+      if (!target) return;
+      const action = target.dataset.action;
+      if (typeof this[action] === 'function') {
+        e.preventDefault();
+        this[action]();
+      }
+    });
   },
 
   setupSidebar() {
@@ -170,8 +227,8 @@ const app = {
           <h3>${q.text}</h3>
           <p>${Math.min(q.current, q.target)} / ${q.target}</p>
         </div>
-        ${q.current >= q.target && !q.claimed 
-          ? `<button class="btn-primary" onclick="app.claimQuest('${q.id}', ${q.reward})" style="padding: 5px 15px; font-size: 14px; width:auto;">استلام 💎${q.reward}</button>` 
+        ${q.current >= q.target && !q.claimed
+          ? `<button type="button" class="btn-primary" onclick="app.claimQuest('${q.id}', ${q.reward})" style="padding: 5px 15px; font-size: 14px; width:auto;">استلام 💎${q.reward}</button>`
           : (q.claimed ? '<div class="achievement-check">✓</div>' : '')}
       `;
       container.appendChild(card);
@@ -210,11 +267,11 @@ const app = {
       return;
     }
 
-    container.innerHTML = `<button class="btn-primary" onclick="app.startMistakesReview()" style="margin-bottom:20px;">🚀 ابدأ مراجعة الأخطاء</button>`;
+    container.innerHTML = `<button type="button" class="btn-primary" onclick="app.startMistakesReview()" style="margin-bottom:20px;">🚀 ابدأ مراجعة الأخطاء</button>`;
     mistakes.forEach((ex, i) => {
       const card = document.createElement('div');
       card.className = 'achievement-card';
-      card.innerHTML = `<div class="achievement-icon">🩹</div><div class="achievement-info"><h3>سؤال ${i + 1}</h3><p style="font-size:12px; color:var(--gray-500);">${ex.question.substring(0, 50)}...</p></div>`;
+      card.innerHTML = `<div class="achievement-icon">🩹</div><div class="achievement-info"><h3>سؤال ${i + 1}</h3><p style="font-size:12px; color:var(--gray-500);">${(ex.question || '').substring(0, 50)}...</p></div>`;
       container.appendChild(card);
     });
   },
@@ -296,7 +353,7 @@ const app = {
         node.textContent = isCompleted ? '✓' : (idx + 1);
         node.title = lesson.title;
         if (isUnlocked) node.onclick = () => this.startLesson(unit.id, lesson.id);
-        if(lessonsContainer) lessonsContainer.appendChild(node);
+        if (lessonsContainer) lessonsContainer.appendChild(node);
       });
 
       const quizUnlocked = isUnitUnlocked && allLessonsDone;
@@ -305,7 +362,7 @@ const app = {
       quizNode.textContent = quizDone ? '✓' : '🚀';
       quizNode.title = 'مشروع الوحدة - ' + unit.title;
       if (quizUnlocked) quizNode.onclick = () => this.startUnitProject(unit.id);
-      if(lessonsContainer) lessonsContainer.appendChild(quizNode);
+      if (lessonsContainer) lessonsContainer.appendChild(quizNode);
     });
   },
 
@@ -325,7 +382,7 @@ const app = {
     this.state.currentUnitId = unitId;
     this.state.currentExerciseIndex = 0;
     this.state.correctCount = 0;
-    
+
     let exercises = [...lesson.exercises];
     exercises.push(this.createLessonCodeChallenge(unit, lesson));
 
@@ -340,98 +397,214 @@ const app = {
 
     const heartsEl = document.getElementById('lesson-hearts');
     if (heartsEl) heartsEl.textContent = this.state.lessonHearts;
-    
+
     this.showExplanation(lesson, unit);
   },
 
+  // فكرة تطبيقية مفصلة + أسماء متغيرات إلزامية لكل درس
   createLessonCodeChallenge(unit, lesson) {
     const title = lesson.title || '';
-    let challenge = {
-      question: `تحدّي كود: طبّق فكرة درس "${title}"`,
+    const base = {
+      question: `تطبيق عملي لدرس "${title}"`,
+      ideaTitle: `فكرة الكود: ${title}`,
+      explanation: `في هذا التحدي ستطبق مفهوم "${title}" داخل الوحدة (${unit.title}) وتطبع النتيجة النهائية بدقة.`,
+      requiredVariables: [],
       starterCode: '# اكتب الكود هنا\n',
       expectedOutput: 'Hello',
       testInput: '',
       hints: [
-        'ابدأ بالمثال الموجود في شرح الدرس.',
-        'استخدم print() لإظهار النتيجة.',
-        'جرّب الكود خطوة بخطوة قبل التحقق.'
+        'التزم باسم المتغير المطلوب كما هو مكتوب تماماً.',
+        'اختبر الكود بالضغط على زر تشغيل الكود قبل التحقق.'
       ]
     };
 
     if (/print|أمر/.test(title)) {
-      challenge.starterCode = '# اطبع Hello\n';
-      challenge.expectedOutput = 'Hello';
-    } else if (/تعليق|comments/.test(title)) {
-      challenge.question = 'تحدّي كود: اكتب تعليقاً ثم اطبع Hello';
-      challenge.starterCode = '# اكتب تعليق هنا\n';
-      challenge.expectedOutput = 'Hello';
-      challenge.hints.unshift('التعليق يبدأ بالرمز # ولا يظهر في النتيجة.');
-    } else if (/متغير|variable/.test(title)) {
-      challenge.question = 'تحدّي كود: خزّن قيمة في متغير واطبعها';
-      challenge.starterCode = 'name = "PyLingo"\n# اطبع المتغير هنا\n';
-      challenge.expectedOutput = 'PyLingo';
-      challenge.hints.unshift('عيّن قيمة بالرمز = ثم استخدم print(name).');
-    } else if (/نص|string/.test(title)) {
-      challenge.question = 'تحدّي كود: ادمج نصين واطبع النتيجة';
-      challenge.starterCode = 'first = "Py"\nsecond = "thon"\n';
-      challenge.expectedOutput = 'Python';
-      challenge.hints.unshift('دمج النصوص يتم بالرمز +.');
-    } else if (/مدخل|input/.test(title)) {
-      challenge.question = 'تحدّي كود: اقرأ الاسم وأهّل به';
-      challenge.starterCode = 'name = input()\nprint("Hello " + name)\n';
-      challenge.expectedOutput = 'Hello PyLingo';
-      challenge.testInput = 'PyLingo';
-      challenge.hints.unshift('input() تقرأ النص الذي يكتبه المستخدم.');
-    } else if (/حلقة|while|for|loop/.test(title)) {
-      challenge.question = 'تحدّي كود: اطبع Python ثلاث مرات';
-      challenge.starterCode = 'for i in range(3):\n    # اطبع هنا\n';
-      challenge.expectedOutput = 'Python\nPython\nPython';
-      challenge.hints.unshift('الحلقة for و range(3) تنفذ الأمر ثلاث مرات.');
-    } else if (/قائمة|list|مصفوف/.test(title)) {
-      challenge.question = 'تحدّي كود: اطبع أول عنصر في قائمة';
-      challenge.starterCode = 'items = ["Python", "PyLingo"]\n';
-      challenge.expectedOutput = 'Python';
-      challenge.hints.unshift('فهرس أول عنصر في القائمة هو 0.');
-    } else if (/قاموس|dict|dictionary/.test(title)) {
-      challenge.question = 'تحدّي كود: اطبع قيمة من قاموس';
-      challenge.starterCode = 'data = {"language": "Python"}\n';
-      challenge.expectedOutput = 'Python';
-      challenge.hints.unshift('الوصول للقيمة يتم عبر اسم المفتاح: data["language"].');
-    } else if (/دالة|function|functions/.test(title)) {
-      challenge.question = 'تحدّي كود: أنشئ دالة ترجع Hello';
-      challenge.starterCode = 'def greet():\n    # ارجع النص هنا\n';
-      challenge.expectedOutput = 'Hello';
-      challenge.hints.unshift('تعريف الدالة يستخدم def ويمكن إرجاع قيمة بـ return.');
-    } else if (/صنف|class|كائني|oop/.test(title)) {
-      challenge.question = 'تحدّي كود: أنشئ صنفاً تعيد دالتها Hello';
-      challenge.starterCode = 'class Bot:\n    def speak(self):\n        # ارجع النص هنا\n';
-      challenge.expectedOutput = 'Hello';
-      challenge.hints.unshift('أنشئ الصنف Bot، واستخدم Bot().speak() للطباعة.');
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'طباعة رسالة ترحيبية باسم متغير',
+        explanation: 'أنشئ متغيراً باسم greeting_msg يحتوي على "Welcome to Python" ثم اطبعه باستخدام print().',
+        requiredVariables: ['greeting_msg'],
+        starterCode: '# عرّف المتغير greeting_msg بقيمة "Welcome to Python"\n# ثم اطبعه\n',
+        expectedOutput: 'Welcome to Python',
+        hints: ['اسم المتغير يجب أن يكون greeting_msg.', 'استخدم print(greeting_msg).']
+      };
     }
 
-    return { type: 'write_code', ...challenge };
+    if (/تعليق|comments/.test(title)) {
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'توثيق الكود بتعليق وطباعة حالة',
+        explanation: 'اكتب تعليقاً يشرح البرنامج يبدأ بالرمز #، ثم عرّف متغيراً باسم note_status بقيمة "Ready" واطبعه.',
+        requiredVariables: ['note_status'],
+        starterCode: '# اكتب تعليقاً هنا\n',
+        expectedOutput: 'Ready',
+        hints: ['أي سطر يبدأ بـ # يعتبر تعليقاً.', 'المتغير المطلوب اسمه note_status.']
+      };
+    }
+
+    if (/متغير|variable/.test(title)) {
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'تخزين اسم الطالب وعمره وطباعتهما',
+        explanation: 'عرّف متغيرين: student_name بقيمة "Ahmad" و student_age بقيمة 14، ثم اطبع "Ahmad - 14".',
+        requiredVariables: ['student_name', 'student_age'],
+        starterCode: 'student_name = "Ahmad"\nstudent_age = 14\n# اطبع النتيجة المطلوبة\n',
+        expectedOutput: 'Ahmad - 14',
+        hints: ['استخدم f-string أو + مع str() لطباعة الرقم مع النص.', 'الأسماء المطلوبة: student_name و student_age.']
+      };
+    }
+
+    if (/نص|string/.test(title)) {
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'دمج نصين في متغير واحد',
+        explanation: 'عرّف first_part = "Py" و second_part = "Lingo"، ثم ادمجهما في متغير باسم full_name واطبعه.',
+        requiredVariables: ['first_part', 'second_part', 'full_name'],
+        starterCode: 'first_part = "Py"\nsecond_part = "Lingo"\n# كوّن المتغير full_name واطبعه\n',
+        expectedOutput: 'PyLingo',
+        hints: ['اجمع النصين بالرمز + داخل full_name.', 'تأكد من وجود المتغيرات الثلاثة.']
+      };
+    }
+
+    if (/مدخل|input/.test(title)) {
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'استقبال اسم المستخدم والترحيب به',
+        explanation: 'اقرأ الاسم في متغير باسم user_input باستخدام input()، ثم اطبع "Hi " متبوعاً بقيمة user_input.',
+        requiredVariables: ['user_input'],
+        starterCode: 'user_input = input()\nprint("Hi " + user_input)\n',
+        expectedOutput: 'Hi Ahmad',
+        testInput: 'Ahmad\n',
+        hints: ['اسم المتغير الإلزامي هو user_input.', 'استخدم input() بدون نص إضافي أو حسب المطلوب.']
+      };
+    }
+
+    if (/حلقة|while|for|loop/.test(title)) {
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'تكرار طباعة كلمة عبر حلقة',
+        explanation: 'عرّف متغيراً باسم repeat_count بقيمة 3، واستخدم حلقة لطباعة "Code" ثلاث مرات في أسطر منفصلة.',
+        requiredVariables: ['repeat_count'],
+        starterCode: 'repeat_count = 3\n# استخدم حلقة لطباعة Code ثلاث مرات\n',
+        expectedOutput: 'Code\nCode\nCode',
+        hints: ['يمكن استخدام for _ in range(repeat_count):', 'اطبع "Code" داخل الحلقة.']
+      };
+    }
+
+    if (/قائمة|list|مصفوف/.test(title)) {
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'الوصول إلى عنصر محدد من قائمة',
+        explanation: 'عرّف قائمة باسم top_cars تحتوي ["M5", "M4", "LFA"] ثم خزّن العنصر الثاني في selected_car واطبعه.',
+        requiredVariables: ['top_cars', 'selected_car'],
+        starterCode: 'top_cars = ["M5", "M4", "LFA"]\n# خزّن العنصر الثاني في selected_car واطبعه\n',
+        expectedOutput: 'M4',
+        hints: ['الفهرسة تبدأ من 0، فالعنصر الثاني رقمه 1.', 'عرّف المتغير selected_car.']
+      };
+    }
+
+    if (/قاموس|dict|dictionary/.test(title)) {
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'استخراج قيمة من قاموس عبر المفتاح',
+        explanation: 'عرّف قاموساً باسم car_info يحتوي {"brand": "BMW", "year": 2026} ثم خزّن قيمة "brand" في car_brand واطبعها.',
+        requiredVariables: ['car_info', 'car_brand'],
+        starterCode: 'car_info = {"brand": "BMW", "year": 2026}\n# خزّن القيمة في car_brand واطبعها\n',
+        expectedOutput: 'BMW',
+        hints: ['استخدم car_info["brand"].', 'المتغير المطلوب اسمه car_brand.']
+      };
+    }
+
+    if (/دالة|function|functions/.test(title)) {
+      return {
+        ...base,
+        type: 'write_code',
+        ideaTitle: 'إنشاء دالة تجمع رقمين وتطبع النتيجة',
+        explanation: 'عرّف دالة باسم add_nums(a, b) ترجع a + b، وخزّن ناتج استدعائها (4, 6) في متغير باسم total_sum واطبعه.',
+        requiredVariables: ['total_sum'],
+        starterCode: 'def add_nums(a, b):\n    return a + b\n\ntotal_sum = add_nums(4, 6)\nprint(total_sum)\n',
+        expectedOutput: '10',
+        hints: ['الدالة ترجع المجموع بـ return.', 'المتغير المطلوب اسمه total_sum.']
+      };
+    }
+
+    return {
+      ...base,
+      type: 'write_code',
+      ideaTitle: `تطبيق مباشر لمفهوم ${title}`,
+      explanation: `عرّف متغيراً باسم lesson_result بقيمة "Done" واطبعه لتأكيد فهمك لفكرة "${title}".`,
+      requiredVariables: ['lesson_result'],
+      starterCode: 'lesson_result = "Done"\nprint(lesson_result)\n',
+      expectedOutput: 'Done',
+      hints: ['عرّف المتغير lesson_result أولاً.', 'اطبع قيمته باستخدام print(lesson_result).']
+    };
+  },
+
+  // مشروع متكامل لكل وحدة (مخصص إن وجد أو مولّد تلقائياً لكل وحدة)
+  buildUnitProjectTask(unit) {
+    if (unit.project) {
+      const p = unit.project;
+      return {
+        key: `unit-${unit.id}-project`,
+        title: p.title,
+        heading: p.title,
+        ideaTitle: `فكرة مشروع الوحدة: ${p.title}`,
+        description: p.description,
+        requiredVariables: p.requiredVariables || [],
+        requirements: p.requirements || [],
+        hints: p.hints || p.requirements || [],
+        starterCode: p.starterCode || '# اكتب مشروع الوحدة هنا\n',
+        testCases: p.testCases || [],
+        requiredKeywords: p.requiredKeywords || [],
+        xpReward: p.xpReward || 150,
+        unitId: unit.id
+      };
+    }
+
+    return {
+      key: `unit-${unit.id}-project`,
+      title: `مشروع وحدة: ${unit.title}`,
+      heading: `🚀 مشروع نهاية الوحدة: ${unit.title}`,
+      ideaTitle: `فكرة المشروع: تطبيق شامل لمفاهيم "${unit.title}"`,
+      description: `اجمع أفكار دروس الوحدة (${unit.description || unit.title}) في برنامج واحد مرتب يطبع نتيجة واضحة.`,
+      requiredVariables: ['project_title', 'project_score'],
+      requirements: [
+        'عرّف المتغير project_title بنص عنوان المشروع',
+        'عرّف المتغير project_score برقم النتيجة (مثلاً 100)',
+        'اطبع النتيجة النهائية بصيغة: Project Ready: 100'
+      ],
+      hints: [
+        'تأكد من كتابة المتغيرين project_title و project_score بنفس الاسم.',
+        'الاختبار يتحقق من طباعة "Project Ready: 100".'
+      ],
+      starterCode: 'project_title = "' + unit.title + '"\nproject_score = 100\nprint("Project Ready:", project_score)\n',
+      testCases: [
+        {
+          input: '',
+          expected_output: 'Project Ready: 100',
+          description: 'اختبار النتيجة النهائية لمشروع الوحدة'
+        }
+      ],
+      requiredKeywords: ['print'],
+      xpReward: 150,
+      unitId: unit.id
+    };
   },
 
   startUnitProject(unitId) {
     const unit = this.state.units.find(u => u.id === unitId);
-    if (!unit || !unit.project) return;
+    if (!unit) return;
 
-    const project = unit.project;
     this.state.codeTaskMode = 'project';
-    this.state.codeTask = {
-      key: `unit-${unitId}-project`,
-      title: project.title,
-      heading: project.title,
-      description: project.description,
-      icon: '🚀',
-      requirements: project.requirements || [],
-      hints: project.requirements || [],
-      starterCode: project.starterCode || '# اكتب مشروع الوحدة هنا\n',
-      testCases: project.testCases || [],
-      requiredKeywords: project.requiredKeywords || [],
-      xpReward: project.xpReward || 150,
-      unitId
-    };
+    this.state.codeTask = this.buildUnitProjectTask(unit);
     this.showCodeTask();
   },
 
@@ -439,23 +612,39 @@ const app = {
     const task = this.state.codeTask;
     if (!task) return;
 
-    document.getElementById('code-task-title').textContent =
-      this.state.codeTaskMode === 'project' ? 'مشروع نهاية الوحدة' : 'تحدّي نهاية الدرس';
-    document.getElementById('code-task-icon').textContent = task.icon || '⌨️';
-    document.getElementById('code-task-heading').textContent = task.heading || task.title || 'اكتب الكود';
-    document.getElementById('code-task-description').textContent = task.description || task.question || '';
+    const titleEl = document.getElementById('code-task-title');
+    if (titleEl) {
+      titleEl.textContent = this.state.codeTaskMode === 'project' ? 'مشروع نهاية الوحدة' : 'شاشة كتابة كود بايثون';
+    }
+
+    const iconEl = document.getElementById('code-task-icon');
+    if (iconEl) iconEl.textContent = task.icon || (this.state.codeTaskMode === 'project' ? '🚀' : '🐍');
+
+    const headingEl = document.getElementById('code-task-heading');
+    if (headingEl) headingEl.textContent = task.ideaTitle || task.heading || task.title || 'اكتب الكود';
+
+    const descEl = document.getElementById('code-task-description');
+    if (descEl) {
+      const varsHtml = (task.requiredVariables && task.requiredVariables.length)
+        ? `<div class="required-vars-box" style="margin-top:10px; padding:10px; border-radius:8px; background:rgba(28,176,246,0.12);">
+             <strong>📌 أسماء المتغيرات المطلوبة:</strong>
+             <code>${task.requiredVariables.join(', ')}</code>
+           </div>`
+        : '';
+      descEl.innerHTML = `<p>${task.explanation || task.description || task.question || ''}</p>${varsHtml}`;
+    }
 
     const requirements = document.getElementById('code-task-requirements');
     if (requirements) {
       requirements.innerHTML = task.requirements && task.requirements.length
-        ? `<h4>متطلبات المهمة</h4><ul class="code-task-requirements">${task.requirements.map(item => `<li>${item}</li>`).join('')}</ul>`
+        ? `<h4>خطوات ومتطلبات التنفيذ</h4><ul class="code-task-requirements">${task.requirements.map(item => `<li>${item}</li>`).join('')}</ul>`
         : '';
     }
 
     const hints = document.getElementById('code-task-hints');
     if (hints) {
       hints.innerHTML = task.hints && task.hints.length
-        ? `<h4>أفكار تساعدك</h4><ul>${task.hints.map(item => `<li>${item}</li>`).join('')}</ul>`
+        ? `<h4>شرح الفكرة وتلميحات</h4><ul>${task.hints.map(item => `<li>${item}</li>`).join('')}</ul>`
         : '';
     }
 
@@ -465,9 +654,23 @@ const app = {
       editor.oninput = () => storage.saveCodeDraft(task.key, editor.value);
     }
 
-    document.getElementById('code-output-content').textContent = 'اضغط «تشغيل الكود» لترى النتيجة.';
-    document.getElementById('code-output-content').className = '';
+    const outputEl = document.getElementById('code-output-content');
+    if (outputEl) {
+      outputEl.textContent = 'اكتب الكود ثم اضغط «تشغيل الكود» لرؤية النتيجة والتحقق.';
+      outputEl.className = '';
+    }
+
     this.showScreen('code-screen');
+  },
+
+  validateRequiredVariables(code, requiredVars = []) {
+    if (!requiredVars || requiredVars.length === 0) return { ok: true, missing: [] };
+    const missing = requiredVars.filter(varName => {
+      const assignRegex = new RegExp(`(^|\\n)[ \\t]*${varName}[ \\t]*=(?!=)`, 'm');
+      const defRegex = new RegExp(`(^|\\n)[ \\t]*def[ \\t]+${varName}[ \\t]*\\(`, 'm');
+      return !assignRegex.test(code) && !defRegex.test(code);
+    });
+    return { ok: missing.length === 0, missing };
   },
 
   closeCodeTask() {
@@ -501,6 +704,14 @@ const app = {
     output.textContent = 'جاري تشغيل كود بايثون...';
     output.className = '';
 
+    const varCheck = this.validateRequiredVariables(code, task.requiredVariables);
+    if (!varCheck.ok) {
+      output.textContent = `⚠️ تأكد من تعريف المتغيرات بالاسم المطلوب تماماً: ${varCheck.missing.join(', ')}`;
+      output.className = 'error';
+      if (button) { button.disabled = false; button.textContent = 'تشغيل الكود ▶'; }
+      return;
+    }
+
     try {
       if (this.state.codeTaskMode === 'project') {
         const evaluation = await evaluateProject(code, task.testCases, task.requiredKeywords);
@@ -525,14 +736,16 @@ const app = {
         if (result.success && actual === (task.expectedOutput || '').trim()) {
           output.textContent = '✅ النتيجة صحيحة:\n' + actual;
           output.className = 'success';
+          this.state.correctCount++;
           storage.removeMistake(task.question || task.heading);
 
           setTimeout(() => {
             this.showScreen('lesson-screen');
             this.nextExercise();
-          }, 500);
+          }, 600);
         } else {
-          output.textContent = '❌ الناتج غير مطابق:\n' + (actual || 'لا يوجد ناتج') +
+          output.textContent =
+            '❌ الناتج غير مطابق:\n' + (actual || result.error || 'لا يوجد ناتج') +
             '\nالنتيجة المتوقعة:\n' + (task.expectedOutput || '');
           output.className = 'error';
           this.state.lessonHearts--;
@@ -560,7 +773,7 @@ const app = {
     const unit = this.state.units.find(u => u.id === unitId);
     let allExercises = [];
     unit.lessons.forEach(l => allExercises = allExercises.concat(l.exercises));
-    
+
     for (let i = allExercises.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [allExercises[i], allExercises[j]] = [allExercises[j], allExercises[i]];
@@ -595,14 +808,14 @@ const app = {
     const titleEl = document.getElementById('explanation-title');
     const contentEl = document.getElementById('explanation-content');
     const tipEl = document.getElementById('explanation-tip');
-    
-    if(iconEl) iconEl.textContent = unit.icon || '📖';
-    if(titleEl) titleEl.textContent = lesson.title;
-    if(contentEl) contentEl.innerHTML = lesson.lessonExplanation || '<h2>استعد!</h2>';
-    
+
+    if (iconEl) iconEl.textContent = unit.icon || '📖';
+    if (titleEl) titleEl.textContent = lesson.title;
+    if (contentEl) contentEl.innerHTML = lesson.lessonExplanation || '<h2>استعد!</h2>';
+
     if (lesson.lessonTip && tipEl) {
       const tipTextEl = document.getElementById('explanation-tip-text');
-      if(tipTextEl) tipTextEl.textContent = lesson.lessonTip;
+      if (tipTextEl) tipTextEl.textContent = lesson.lessonTip;
       tipEl.style.display = 'flex';
     } else if (tipEl) {
       tipEl.style.display = 'none';
@@ -629,7 +842,10 @@ const app = {
         key: `lesson-${this.state.currentLesson ? this.state.currentLesson.id : 'review'}-code`,
         title: this.state.currentLesson ? this.state.currentLesson.title : 'تحدّي الكود',
         heading: exercise.question,
-        description: 'اكتب الكود في المستطيل الكبير، ثم شغّله لمعرفة النتيجة.',
+        ideaTitle: exercise.ideaTitle || exercise.question,
+        explanation: exercise.explanation || 'اكتب الكود في المحرر ثم شغّله للتحقق.',
+        description: exercise.explanation || 'اكتب الكود في المستطيل الكبير، ثم شغّله لمعرفة النتيجة.',
+        requiredVariables: exercise.requiredVariables || [],
         icon: '⌨️',
         requirements: [],
         hints: exercise.hints || [],
@@ -641,31 +857,22 @@ const app = {
       this.showCodeTask();
       return;
     }
-    
+
     this.state.selectedAnswer = null;
     const progress = ((this.state.currentExerciseIndex) / this.state.totalCount) * 100;
     const progEl = document.getElementById('lesson-progress');
     if (progEl) progEl.style.width = progress + '%';
-    
+
     const qText = document.getElementById('question-text');
-    if(qText) qText.textContent = exercise.question;
+    if (qText) qText.textContent = exercise.question;
 
     const extra = document.getElementById('question-extra');
     const answersContainer = document.getElementById('answers-container');
-    if(answersContainer) answersContainer.innerHTML = '';
-    if(extra) extra.innerHTML = '';
+    if (answersContainer) answersContainer.innerHTML = '';
+    if (extra) extra.innerHTML = '';
 
     if (exercise.code && extra) {
       extra.textContent = exercise.code;
-      extra.style.display = 'block';
-    } else if (exercise.type === 'write_code' && extra) {
-      const hints = (exercise.hints || []).map(hint => `<li>${hint}</li>`).join('');
-      extra.innerHTML = `
-        <div class="code-ideas">
-          <div class="code-ideas-title">💡 أفكار تساعدك</div>
-          ${hints ? `<ul>${hints}</ul>` : ''}
-        </div>
-      `;
       extra.style.display = 'block';
     } else if (extra) {
       extra.style.display = 'none';
@@ -673,41 +880,32 @@ const app = {
 
     const checkBtn = document.getElementById('check-btn');
     const feedback = document.getElementById('feedback-area');
-    if(feedback) { feedback.className = 'feedback-area'; feedback.textContent = ''; }
-    if(checkBtn) { checkBtn.textContent = 'تحقق'; checkBtn.disabled = true; }
+    if (feedback) { feedback.className = 'feedback-area'; feedback.textContent = ''; }
+    if (checkBtn) {
+      checkBtn.textContent = 'تحقق';
+      checkBtn.disabled = true;
+      checkBtn.onclick = () => this.checkAnswer();
+    }
 
-    if (exercise.type === 'write_code') {
-      const textarea = document.createElement('textarea');
-      textarea.id = 'code-input';
-      textarea.className = 'code-textarea';
-      textarea.placeholder = 'اكتب الكود هنا...';
-      textarea.value = exercise.starterCode || '';
-      if(answersContainer) answersContainer.appendChild(textarea);
-
-      if(checkBtn) {
-        checkBtn.disabled = false;
-        checkBtn.onclick = () => this.checkCodeAnswer(exercise);
-      }
+    if (exercise.type === 'multiple_choice') {
+      exercise.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'answer-btn';
+        btn.textContent = opt;
+        btn.onclick = () => this.selectAnswer(idx, btn);
+        if (answersContainer) answersContainer.appendChild(btn);
+      });
     } else {
-      if (exercise.type === 'multiple_choice') {
-        exercise.options.forEach((opt, idx) => {
-          const btn = document.createElement('button');
-          btn.className = 'answer-btn';
-          btn.textContent = opt;
-          btn.onclick = () => this.selectAnswer(idx, btn);
-          if(answersContainer) answersContainer.appendChild(btn);
-        });
-      } else {
-        const bank = exercise.bank || this.generateBank(exercise.correctAnswer);
-        bank.forEach(opt => {
-          const btn = document.createElement('button');
-          btn.className = 'answer-btn';
-          btn.textContent = opt;
-          btn.onclick = () => this.selectAnswer(opt, btn);
-          if(answersContainer) answersContainer.appendChild(btn);
-        });
-      }
-      if(checkBtn) checkBtn.onclick = () => this.checkAnswer();
+      const bank = exercise.bank || this.generateBank(exercise.correctAnswer);
+      bank.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'answer-btn';
+        btn.textContent = opt;
+        btn.onclick = () => this.selectAnswer(opt, btn);
+        if (answersContainer) answersContainer.appendChild(btn);
+      });
     }
   },
 
@@ -730,51 +928,6 @@ const app = {
     if (window.sounds) sounds.playSelect();
   },
 
-  async checkCodeAnswer(exercise) {
-    const codeEl = document.getElementById('code-input');
-    if(!codeEl) return;
-    const code = codeEl.value;
-    
-    const checkBtn = document.getElementById('check-btn');
-    const feedback = document.getElementById('feedback-area');
-    
-    if(checkBtn) { checkBtn.disabled = true; checkBtn.textContent = 'جاري التشغيل...'; }
-
-    try {
-      const result = await runPython(code, exercise.testInput || '');
-      let output = (result.output || '').trim();
-      
-      if (result.success && output === exercise.expectedOutput) {
-        if (window.sounds) sounds.playCorrect();
-        this.state.correctCount++;
-        if(feedback) { feedback.textContent = '✅ عاش! الكود شغال صح.'; feedback.className = 'feedback-area show correct'; }
-        storage.removeMistake(exercise.question);
-      } else {
-        if (window.sounds) sounds.playWrong();
-        this.state.lessonHearts--;
-        storage.loseHeart();
-        storage.addMistake(exercise);
-        if(feedback) { feedback.textContent = '❌ الكود مش مظبوط. الناتج كان: ' + (output || 'فاضي'); feedback.className = 'feedback-area show wrong'; }
-        const heartsEl = document.getElementById('lesson-hearts');
-        if (heartsEl) heartsEl.textContent = this.state.lessonHearts;
-        
-        if (!this.state.isReplay && !this.state.isQuiz) {
-          this.state.lessonMistakes++;
-          storage.resetStreak();
-        }
-      }
-      this.updateHeaderStats();
-      if(checkBtn) {
-        checkBtn.textContent = 'متابعة';
-        checkBtn.disabled = false;
-        checkBtn.onclick = () => this.nextExercise();
-      }
-    } catch (error) {
-      if(feedback) { feedback.textContent = '❌ خطأ في التشغيل'; feedback.className = 'feedback-area show wrong'; }
-      if(checkBtn) { checkBtn.textContent = 'تحقق'; checkBtn.disabled = false; }
-    }
-  },
-
   checkAnswer() {
     const exercise = this.state.currentExercises[this.state.currentExerciseIndex];
     let isCorrect = this.state.selectedAnswer === exercise.correctAnswer;
@@ -785,7 +938,7 @@ const app = {
       if (window.sounds) sounds.playCorrect();
       this.state.correctCount++;
       storage.removeMistake(exercise.question);
-      if(feedback) { feedback.textContent = '✅ صح! ' + (exercise.explanation || ''); feedback.className = 'feedback-area show correct'; }
+      if (feedback) { feedback.textContent = '✅ صح! ' + (exercise.explanation || ''); feedback.className = 'feedback-area show correct'; }
       if (!this.state.isReplay && !this.state.isQuiz) storage.addXP(10);
       this.updateHeaderStats();
     } else {
@@ -811,10 +964,13 @@ const app = {
         }
       }
       this.updateHeaderStats();
-      if(feedback) { feedback.textContent = '❌ غلط. الإجابة الصح: ' + (exercise.type === 'multiple_choice' ? exercise.options[exercise.correctAnswer] : exercise.correctAnswer); feedback.className = 'feedback-area show wrong'; }
+      if (feedback) {
+        feedback.textContent = '❌ غلط. الإجابة الصح: ' + (exercise.type === 'multiple_choice' ? exercise.options[exercise.correctAnswer] : exercise.correctAnswer);
+        feedback.className = 'feedback-area show wrong';
+      }
     }
 
-    if(checkBtn) {
+    if (checkBtn) {
       checkBtn.textContent = 'متابعة';
       checkBtn.disabled = false;
       checkBtn.onclick = () => this.nextExercise();
@@ -842,9 +998,9 @@ const app = {
     const lesson = this.state.currentLesson;
     if (window.sounds) sounds.playComplete();
     const accuracy = Math.round((this.state.correctCount / this.state.totalCount) * 100);
-    let xpToAdd = lesson.xpReward || 20;
+    let xpToAdd = (lesson && lesson.xpReward) || 20;
 
-    if (!this.state.isReplay) {
+    if (!this.state.isReplay && lesson) {
       storage.markLessonComplete(lesson.id);
       const user = storage.getUser();
       if (user.doubleXPActive) {
@@ -864,19 +1020,19 @@ const app = {
       }
       const xpEl = document.getElementById('complete-xp');
       const msgEl = document.getElementById('complete-message');
-      if(xpEl) xpEl.textContent = '+' + xpToAdd;
-      if(msgEl) msgEl.textContent = this.state.lessonMistakes === 0 ? 'درس كامل بدون أخطاء! 🔥' : 'عندك أخطاء، الستريك صفر!';
+      if (xpEl) xpEl.textContent = '+' + xpToAdd;
+      if (msgEl) msgEl.textContent = this.state.lessonMistakes === 0 ? 'درس كامل بدون أخطاء! 🔥' : 'عندك أخطاء، الستريك صفر!';
     } else {
       const xpEl = document.getElementById('complete-xp');
       const msgEl = document.getElementById('complete-message');
-      if(xpEl) xpEl.textContent = '+0';
-      if(msgEl) msgEl.textContent = 'مراجعة ممتازة! 🌟';
+      if (xpEl) xpEl.textContent = '+0';
+      if (msgEl) msgEl.textContent = 'مراجعة ممتازة! 🌟';
     }
 
     this.updateHeaderStats();
     if (typeof achievementsModule !== 'undefined') achievementsModule.checkAndNotify();
     const accEl = document.getElementById('complete-accuracy');
-    if(accEl) accEl.textContent = accuracy + '%';
+    if (accEl) accEl.textContent = accuracy + '%';
     this.showScreen('complete-screen');
     this.showConfetti();
   },
@@ -902,9 +1058,9 @@ const app = {
     const xpEl = document.getElementById('complete-xp');
     const accEl = document.getElementById('complete-accuracy');
     const msgEl = document.getElementById('complete-message');
-    if(xpEl) xpEl.textContent = '+' + xpReward;
-    if(accEl) accEl.textContent = accuracy + '%';
-    if(msgEl) msgEl.textContent = passed ? '🎉 نجحت!' : 'حاول تاني!';
+    if (xpEl) xpEl.textContent = '+' + xpReward;
+    if (accEl) accEl.textContent = accuracy + '%';
+    if (msgEl) msgEl.textContent = passed ? '🎉 نجحت!' : 'حاول تاني!';
 
     if (typeof achievementsModule !== 'undefined') achievementsModule.checkAndNotify();
     this.showScreen('complete-screen');
@@ -916,11 +1072,11 @@ const app = {
     const xpEl = document.getElementById('complete-xp');
     const accEl = document.getElementById('complete-accuracy');
     const msgEl = document.getElementById('complete-message');
-    
-    if(xpEl) xpEl.textContent = '+0';
-    if(accEl) accEl.textContent = '100%';
-    if(msgEl) msgEl.textContent = 'خلصت مراجعة أخطائك! 🌟';
-    
+
+    if (xpEl) xpEl.textContent = '+0';
+    if (accEl) accEl.textContent = '100%';
+    if (msgEl) msgEl.textContent = 'خلصت مراجعة أخطائك! 🌟';
+
     this.showScreen('complete-screen');
     this.showConfetti();
   },
@@ -941,9 +1097,9 @@ const app = {
     const heartsInfo = storage.getHeartsInfo();
     const gemsEl = document.getElementById('shop-gems');
     const heartsEl = document.getElementById('shop-hearts');
-    if(gemsEl) gemsEl.textContent = user.gems;
-    if(heartsEl) heartsEl.textContent = user.hearts;
-    
+    if (gemsEl) gemsEl.textContent = user.gems;
+    if (heartsEl) heartsEl.textContent = user.hearts;
+
     const timerEl = document.getElementById('heart-timer');
     if (timerEl) {
       if (user.hearts >= storage.MAX_HEARTS) timerEl.textContent = 'كاملة ❤️';
@@ -998,7 +1154,7 @@ const app = {
     try {
       const users = await firestoreModule.getLeaderboard(20);
       const myRank = await firestoreModule.getMyRank();
-      
+
       const rankEl = document.getElementById('my-rank');
       if (rankEl && myRank) rankEl.textContent = '#' + myRank;
 
@@ -1006,7 +1162,7 @@ const app = {
       users.forEach((u, i) => {
         const avatar = u.photoURL || 'https://via.placeholder.com/40';
         container.innerHTML += `<div class="leaderboard-item">
-          <div class="leaderboard-rank">#${i+1}</div>
+          <div class="leaderboard-rank">#${i + 1}</div>
           <img class="leaderboard-avatar" src="${avatar}" alt="avatar" />
           <div class="leaderboard-name">${u.displayName || 'مستخدم'}</div>
           <div class="leaderboard-xp">${u.xp || 0} ⚡</div>
@@ -1024,7 +1180,7 @@ const app = {
       if (hEl) hEl.textContent = user.hearts;
       const gEl = document.getElementById('gems-value');
       if (gEl) gEl.textContent = user.gems;
-      
+
       const shopTimer = document.getElementById('heart-timer');
       if (shopTimer) {
         if (user.hearts >= storage.MAX_HEARTS) shopTimer.textContent = 'كاملة ❤️';
@@ -1046,7 +1202,7 @@ const app = {
     const xpEl = document.getElementById('xp-value');
     if (xpEl) xpEl.textContent = user.xp;
     const levelEl = document.getElementById('level-value');
-    if (levelEl) levelEl.textContent = storage.getLevel ? storage.getLevel() : Math.floor(user.xp/100)+1;
+    if (levelEl) levelEl.textContent = storage.getLevel ? storage.getLevel() : Math.floor(user.xp / 100) + 1;
 
     if (typeof firestoreModule !== 'undefined' && firestoreModule.currentUser) {
       clearTimeout(this._syncTimeout);

@@ -12,8 +12,6 @@
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/editor/editor.main.css">
-
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
@@ -30,7 +28,7 @@
   <div id="sections-sidebar" class="sidebar">
     <div class="sidebar-header">
       <h2>خريطة الأقسام</h2>
-      <button id="close-sidebar-btn" class="icon-btn">✕</button>
+      <button id="close-sidebar-btn" type="button" class="icon-btn">✕</button>
     </div>
     <div id="sections-list" class="sidebar-list"></div>
   </div>
@@ -38,16 +36,36 @@
 
   <div id="home-screen" class="screen active">
     <header class="app-header">
-      <!-- الطرف الأول: الزراير القديمة -->
       <div class="header-group left-group">
-        <button id="sections-menu-btn" class="control-btn" title="الأقسام">🗺️</button>
-        <button id="theme-toggle" class="control-btn" title="الثيم">🎨</button>
-        <button id="dark-mode-toggle" class="control-btn" title="الوضع الليلي">🌙</button>
-        <button id="sound-toggle" class="control-btn" title="الصوت">🔊</button>
-        <button id="logout-btn" class="control-btn" title="تسجيل خروج">🚪</button>
+        <button id="sections-menu-btn" type="button" class="control-btn" title="الأقسام">🗺️</button>
+
+        <div class="theme-dropdown-wrapper">
+          <button id="theme-toggle" type="button" class="control-btn" title="الثيم">🎨</button>
+          <div id="theme-menu" class="theme-menu">
+            <button type="button" class="theme-option" data-theme-color="green">
+              <span class="theme-color-preview" style="background:#58CC02;"></span>
+              <span>أخضر</span>
+            </button>
+            <button type="button" class="theme-option" data-theme-color="blue">
+              <span class="theme-color-preview" style="background:#1CB0F6;"></span>
+              <span>أزرق</span>
+            </button>
+            <button type="button" class="theme-option" data-theme-color="purple">
+              <span class="theme-color-preview" style="background:#CE82FF;"></span>
+              <span>بنفسجي</span>
+            </button>
+            <button type="button" class="theme-option" data-theme-color="pink">
+              <span class="theme-color-preview" style="background:#FF6B9D;"></span>
+              <span>وردي</span>
+            </button>
+          </div>
+        </div>
+
+        <button id="dark-mode-toggle" type="button" class="control-btn" title="الوضع الليلي">🌙</button>
+        <button id="sound-toggle" type="button" class="control-btn" title="الصوت">🔊</button>
+        <button id="logout-btn" type="button" class="control-btn" title="تسجيل خروج">🚪</button>
       </div>
 
-      <!-- النص: الإحصائيات -->
       <div class="header-stats">
         <div class="stat"><span class="stat-icon">🔥</span><span class="stat-value" id="streak-value">0</span></div>
         <div class="stat"><span class="stat-icon">❤️</span><span class="stat-value" id="hearts-value">5</span></div>
@@ -56,13 +74,12 @@
         <div class="stat"><span class="stat-icon">💎</span><span class="stat-value" id="gems-value">0</span></div>
       </div>
 
-      <!-- الطرف التاني: الزراير الجديدة (بنفس شكل القديمة) -->
       <div class="header-group right-group">
-        <button class="control-btn" onclick="app.openLeaderboard()" title="الترتيب">👑</button>
-        <button class="control-btn" onclick="app.openAchievements()" title="الإنجازات">🏆</button>
-        <button class="control-btn" onclick="app.openQuests()" title="المهام">📜</button>
-        <button class="control-btn" onclick="app.openMistakes()" title="الأخطاء">🩹</button>
-        <button class="control-btn" onclick="app.openShop()" title="المتجر">🛒</button>
+        <button type="button" class="control-btn" onclick="app.openLeaderboard()" title="الترتيب">👑</button>
+        <button type="button" class="control-btn" onclick="app.openAchievements()" title="الإنجازات">🏆</button>
+        <button type="button" class="control-btn" onclick="app.openQuests()" title="المهام">📜</button>
+        <button type="button" class="control-btn" onclick="app.openMistakes()" title="الأخطاء">🩹</button>
+        <button type="button" class="control-btn" onclick="app.openShop()" title="المتجر">🛒</button>
       </div>
     </header>
 
@@ -85,7 +102,7 @@
 
   <div id="explanation-screen" class="screen">
     <header class="lesson-header">
-      <button class="icon-btn" onclick="app.closeExplanation()">✕</button>
+      <button type="button" class="icon-btn" onclick="app.closeExplanation()">✕</button>
       <div class="progress-bar-container">
         <div class="progress-bar-fill" style="width: 100%; background: var(--secondary);"></div>
       </div>
@@ -102,13 +119,13 @@
       <div class="explanation-tip" id="explanation-tip" style="display: none;"><span class="tip-icon">💡</span><span
           id="explanation-tip-text"></span></div>
     </main>
-    <footer class="lesson-footer"><button class="btn-primary" onclick="app.startExercises()">✅ فهمت، ابدأ
+    <footer class="lesson-footer"><button type="button" class="btn-primary" onclick="app.startExercises()">✅ فهمت، ابدأ
         الأسئلة</button></footer>
   </div>
 
   <div id="lesson-screen" class="screen">
     <header class="lesson-header">
-      <button class="icon-btn" onclick="app.closeLesson()">✕</button>
+      <button type="button" class="icon-btn" onclick="app.closeLesson()">✕</button>
       <div class="progress-bar-container">
         <div class="progress-bar-fill" id="lesson-progress"></div>
       </div>
@@ -123,13 +140,13 @@
     </main>
     <footer class="lesson-footer">
       <div id="feedback-area" class="feedback-area"></div>
-      <button id="check-btn" class="btn-primary" disabled>تحقق</button>
+      <button id="check-btn" type="button" class="btn-primary" disabled>تحقق</button>
     </footer>
   </div>
 
   <div id="code-screen" class="screen">
     <header class="lesson-header">
-      <button class="icon-btn" onclick="app.closeCodeTask()">✕</button>
+      <button type="button" class="icon-btn" onclick="app.closeCodeTask()">✕</button>
       <h2 class="project-title" id="code-task-title">تحدّي كتابة الكود</h2>
       <div class="hearts-display"><span>🐍</span></div>
     </header>
@@ -137,7 +154,7 @@
       <aside class="code-task-sidebar">
         <div class="code-task-icon" id="code-task-icon">⌨️</div>
         <h3 id="code-task-heading"></h3>
-        <p id="code-task-description" class="code-task-description"></p>
+        <div id="code-task-description" class="code-task-description"></div>
         <div id="code-task-requirements"></div>
         <div id="code-task-hints" class="code-task-hints"></div>
       </aside>
@@ -145,8 +162,8 @@
         <textarea id="python-code-editor" class="python-code-editor" dir="ltr" spellcheck="false"
           aria-label="محرر كود بايثون"></textarea>
         <div class="code-task-actions">
-          <button class="btn-secondary" onclick="app.resetCodeDraft()">إعادة الكود</button>
-          <button id="run-code-btn" class="btn-primary" onclick="app.runCodeTask()">تشغيل الكود ▶</button>
+          <button type="button" class="btn-secondary" onclick="app.resetCodeDraft()">إعادة الكود</button>
+          <button id="run-code-btn" type="button" class="btn-primary" onclick="app.runCodeTask()">تشغيل الكود ▶</button>
         </div>
         <div id="code-task-output" class="code-task-output">
           <div class="code-output-title">النتيجة</div>
@@ -157,7 +174,7 @@
   </div>
 
   <div id="shop-screen" class="screen">
-    <header class="lesson-header"><button class="icon-btn" onclick="app.closeShop()">✕</button>
+    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeShop()">✕</button>
       <h2 class="project-title">🛒 المتجر</h2>
       <div></div>
     </header>
@@ -176,28 +193,28 @@
           <div class="shop-item-info">
             <h3>قلب واحد</h3>
             <p>يرجعلك قلب فوراً</p>
-          </div><button class="shop-buy-btn" onclick="app.buyHearts()">💎 50</button>
+          </div><button type="button" class="shop-buy-btn" onclick="app.buyHearts()">💎 50</button>
         </div>
         <div class="shop-item">
           <div class="shop-item-icon">❄️</div>
           <div class="shop-item-info">
             <h3>تجميد السلسلة</h3>
             <p>يحمي الستريك من التصفير</p>
-          </div><button class="shop-buy-btn" onclick="app.buyStreakFreeze()">💎 200</button>
+          </div><button type="button" class="shop-buy-btn" onclick="app.buyStreakFreeze()">💎 200</button>
         </div>
         <div class="shop-item">
           <div class="shop-item-icon">⚡</div>
           <div class="shop-item-info">
             <h3>XP مضاعف</h3>
             <p>يضاعف نقاط الخبرة</p>
-          </div><button class="shop-buy-btn" onclick="app.buyDoubleXP()">💎 100</button>
+          </div><button type="button" class="shop-buy-btn" onclick="app.buyDoubleXP()">💎 100</button>
         </div>
       </div>
     </main>
   </div>
 
   <div id="achievements-screen" class="screen">
-    <header class="lesson-header"><button class="icon-btn" onclick="app.closeAchievements()">✕</button>
+    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeAchievements()">✕</button>
       <h2 class="project-title">🏆 الإنجازات</h2>
       <div class="achievements-counter"><span id="achievements-count">0 / 10</span></div>
     </header>
@@ -207,7 +224,7 @@
   </div>
 
   <div id="leaderboard-screen" class="screen">
-    <header class="lesson-header"><button class="icon-btn" onclick="app.closeLeaderboard()">✕</button>
+    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeLeaderboard()">✕</button>
       <h2 class="project-title">👑 الترتيب</h2>
       <div class="achievements-counter">ترتيبك: <span id="my-rank">--</span></div>
     </header>
@@ -217,7 +234,7 @@
   </div>
 
   <div id="quests-screen" class="screen">
-    <header class="lesson-header"><button class="icon-btn" onclick="app.closeQuests()">✕</button>
+    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeQuests()">✕</button>
       <h2 class="project-title">📜 المهام اليومية</h2>
       <div class="achievements-counter"><span id="quests-count">0 / 5</span></div>
     </header>
@@ -227,7 +244,7 @@
   </div>
 
   <div id="mistakes-screen" class="screen">
-    <header class="lesson-header"><button class="icon-btn" onclick="app.closeMistakes()">✕</button>
+    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeMistakes()">✕</button>
       <h2 class="project-title">🩹 بنك الأخطاء</h2>
       <div class="achievements-counter"><span id="mistakes-count">0</span></div>
     </header>
@@ -251,7 +268,7 @@
           <div class="complete-stat-label">الدقة</div>
         </div>
       </div>
-      <button class="btn-primary" onclick="app.continueFromComplete()">متابعة</button>
+      <button type="button" class="btn-primary" onclick="app.continueFromComplete()">متابعة</button>
     </div>
   </div>
 
@@ -259,12 +276,22 @@
 
   <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
 
+  <script src="js/firebase-config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/sounds.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/firestore.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/pyodide-runner.js"></script>
+  <script src="js/app.js"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const darkToggle = document.getElementById('dark-mode-toggle');
       const savedTheme = localStorage.getItem('pylingo_theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      if (savedTheme === 'dark' && darkToggle) darkToggle.textContent = '☀️';
+      if (darkToggle) darkToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 
       if (darkToggle) {
         darkToggle.addEventListener('click', () => {
@@ -276,34 +303,47 @@
         });
       }
 
+      const soundToggle = document.getElementById('sound-toggle');
+      if (soundToggle && window.sounds) {
+        soundToggle.textContent = sounds.enabled ? '🔊' : '🔇';
+        soundToggle.addEventListener('click', () => {
+          const nextState = !sounds.enabled;
+          sounds.setEnabled(nextState);
+          soundToggle.textContent = nextState ? '🔊' : '🔇';
+          if (nextState) sounds.playClick();
+        });
+      }
+
       const themeToggle = document.getElementById('theme-toggle');
       const themeMenu = document.getElementById('theme-menu');
-      if (themeToggle) themeToggle.addEventListener('click', (e) => { e.stopPropagation(); themeMenu?.classList.toggle('show'); });
+      const savedColor = localStorage.getItem('pylingo_theme_color');
+      if (savedColor) {
+        document.documentElement.setAttribute('data-theme-color', savedColor);
+      }
 
-      document.addEventListener('click', (e) => {
-        if (themeMenu && !themeMenu.contains(e.target) && e.target !== themeToggle) themeMenu.classList.remove('show');
-      });
-
-      document.querySelectorAll('.theme-option').forEach(opt => {
-        opt.addEventListener('click', () => {
-          const color = opt.dataset.themeColor;
-          document.documentElement.setAttribute('data-theme-color', color);
-          localStorage.setItem('pylingo_theme_color', color);
-          if (themeMenu) themeMenu.classList.remove('show');
+      if (themeToggle && themeMenu) {
+        themeToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          themeMenu.classList.toggle('show');
         });
-      });
+
+        document.addEventListener('click', (e) => {
+          if (!themeMenu.contains(e.target) && e.target !== themeToggle) {
+            themeMenu.classList.remove('show');
+          }
+        });
+
+        document.querySelectorAll('.theme-option').forEach(opt => {
+          opt.addEventListener('click', () => {
+            const color = opt.dataset.themeColor;
+            document.documentElement.setAttribute('data-theme-color', color);
+            localStorage.setItem('pylingo_theme_color', color);
+            themeMenu.classList.remove('show');
+          });
+        });
+      }
     });
   </script>
-
-  <script src="js/firebase-config.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/sounds.js"></script>
-  <script src="js/particles.js"></script>
-  <script src="js/achievements.js"></script>
-  <script src="js/firestore.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/pyodide-runner.js"></script>
-  <script src="js/app.js"></script>
 
 </body>
 
