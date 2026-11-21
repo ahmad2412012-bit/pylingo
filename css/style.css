@@ -3080,4 +3080,39 @@ button {
     gap: 10px;
   }
 }
+/* ============ HEADER FIX FINAL ============ */
+.app-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  position: sticky !important;
+  padding: 10px 20px !important;
+}
+
+.header-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* إخفاء أي كلاسات قديمة بتلخبط الدنيا */
+.header-controls, .left-controls, .right-controls {
+  position: static !important;
+  transform: none !important;
+}
+
+@media (max-width: 900px) {
+  .app-header {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .header-group {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .header-stats {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+  }
+}
 }
