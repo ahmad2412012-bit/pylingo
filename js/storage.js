@@ -272,4 +272,25 @@ const storage = {
     localStorage.removeItem(this.KEYS.USER);
     localStorage.removeItem(this.KEYS.PROGRESS);
   }
+    // ✅ نظام المستويات
+  getLevel() {
+    return Math.floor((this.getUser().xp || 0) / 100) + 1;
+  },
+
+  // ✅ بنك الأخطاء
+  addMistake(exercise) {
+    const user = this.getUser();
+    if (!user.mistakes) user.mistakes = [];
+    if (!user.mistakes.find(e => e.question === exercise.question)) {
+      user.mistakes.push(exercise);
+      this.setUser(user);
+    }
+  },
+
+  removeMistake(exerciseQuestion) {
+    const user = this.getUser();
+    if (!user.mistakes) return;
+    user.mistakes = user.mistakes.filter(e => e.question !== exerciseQuestion);
+    this.setUser(user);
+  },
 };
