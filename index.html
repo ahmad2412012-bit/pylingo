@@ -127,6 +127,35 @@
     </footer>
   </div>
 
+  <div id="code-screen" class="screen">
+    <header class="lesson-header">
+      <button class="icon-btn" onclick="app.closeCodeTask()">✕</button>
+      <h2 class="project-title" id="code-task-title">تحدّي كتابة الكود</h2>
+      <div class="hearts-display"><span>🐍</span></div>
+    </header>
+    <main class="code-task-main">
+      <aside class="code-task-sidebar">
+        <div class="code-task-icon" id="code-task-icon">⌨️</div>
+        <h3 id="code-task-heading"></h3>
+        <p id="code-task-description" class="code-task-description"></p>
+        <div id="code-task-requirements"></div>
+        <div id="code-task-hints" class="code-task-hints"></div>
+      </aside>
+      <section class="code-task-workspace">
+        <textarea id="python-code-editor" class="python-code-editor" dir="ltr" spellcheck="false"
+          aria-label="محرر كود بايثون"></textarea>
+        <div class="code-task-actions">
+          <button class="btn-secondary" onclick="app.resetCodeDraft()">إعادة الكود</button>
+          <button id="run-code-btn" class="btn-primary" onclick="app.runCodeTask()">تشغيل الكود ▶</button>
+        </div>
+        <div id="code-task-output" class="code-task-output">
+          <div class="code-output-title">النتيجة</div>
+          <pre id="code-output-content">اضغط «تشغيل الكود» لترى النتيجة.</pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
   <div id="shop-screen" class="screen">
     <header class="lesson-header"><button class="icon-btn" onclick="app.closeShop()">✕</button>
       <h2 class="project-title">🛒 المتجر</h2>

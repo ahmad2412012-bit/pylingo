@@ -27,6 +27,7 @@ const storage = {
         completedProjects: [],
         completedUnits: [],
         mistakes: [],
+        codeDrafts: {},
         streakFreezes: 0,
         doubleXPActive: false,
         dailyQuests: null
@@ -41,6 +42,7 @@ const storage = {
     if (!user.completedLessons) user.completedLessons = [];
     if (!user.completedProjects) user.completedProjects = [];
     if (!user.completedUnits) user.completedUnits = [];
+    if (!user.codeDrafts) user.codeDrafts = {};
     if (user.completedUnits.length === 0 && user.completedProjects.length > 0) {
       user.completedUnits = user.completedProjects
         .filter(id => typeof id === 'string' && id.endsWith('-quiz'))
@@ -205,6 +207,18 @@ const storage = {
       user.completedUnits.push(normalizedId);
       this.setUser(user);
     }
+  },
+
+  saveCodeDraft(key, code) {
+    const user = this.getUser();
+    if (!user.codeDrafts) user.codeDrafts = {};
+    user.codeDrafts[key] = code;
+    this.setUser(user);
+  },
+
+  getCodeDraft(key) {
+    const user = this.getUser();
+    return user.codeDrafts && user.codeDrafts[key] ? user.codeDrafts[key] : null;
   },
 
   // ============ XP & Rewards ============

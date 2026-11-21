@@ -17,7 +17,9 @@ const app = {
     quizUnitId: null,
     isReplay: false,
     isMistakesReview: false,
-    currentSectionIndex: 0
+    currentSectionIndex: 0,
+    codeTask: null,
+    codeTaskMode: null
   },
 
   sectionTitles: [
@@ -300,9 +302,9 @@ const app = {
       const quizUnlocked = isUnitUnlocked && allLessonsDone;
       const quizNode = document.createElement('div');
       quizNode.className = 'lesson-node project' + (quizDone ? ' completed' : '') + (!quizUnlocked ? ' locked' : '');
-      quizNode.textContent = quizDone ? '✓' : '📝';
-      quizNode.title = 'اختبار الوحدة - ' + unit.title;
-      if (quizUnlocked) quizNode.onclick = () => this.startUnitQuiz(unit.id);
+      quizNode.textContent = quizDone ? '✓' : '🚀';
+      quizNode.title = 'مشروع الوحدة - ' + unit.title;
+      if (quizUnlocked) quizNode.onclick = () => this.startUnitProject(unit.id);
       if(lessonsContainer) lessonsContainer.appendChild(quizNode);
     });
   },
@@ -410,6 +412,148 @@ const app = {
     return { type: 'write_code', ...challenge };
   },
 
+  startUnitProject(unitId) {
+    const unit = this.state.units.find(u => u.id === unitId);
+    if (!unit || !unit.project) return;
+
+    const project = unit.project;
+    this.state.codeTaskMode = 'project';
+    this.state.codeTask = {
+      key: `unit-${unitId}-project`,
+      title: project.title,
+      heading: project.title,
+      description: project.description,
+      icon: '🚀',
+      requirements: project.requirements || [],
+      hints: project.requirements || [],
+      starterCode: project.starterCode || '# اكتب مشروع الوحدة هنا\n',
+      testCases: project.testCases || [],
+      requiredKeywords: project.requiredKeywords || [],
+      xpReward: project.xpReward || 150,
+      unitId
+    };
+    this.showCodeTask();
+  },
+
+  showCodeTask() {
+    const task = this.state.codeTask;
+    if (!task) return;
+
+    document.getElementById('code-task-title').textContent =
+      this.state.codeTaskMode === 'project' ? 'مشروع نهاية الوحدة' : 'تحدّي نهاية الدرس';
+    document.getElementById('code-task-icon').textContent = task.icon || '⌨️';
+    document.getElementById('code-task-heading').textContent = task.heading || task.title || 'اكتب الكود';
+    document.getElementById('code-task-description').textContent = task.description || task.question || '';
+
+    const requirements = document.getElementById('code-task-requirements');
+    if (requirements) {
+      requirements.innerHTML = task.requirements && task.requirements.length
+        ? `<h4>متطلبات المهمة</h4><ul class="code-task-requirements">${task.requirements.map(item => `<li>${item}</li>`).join('')}</ul>`
+        : '';
+    }
+
+    const hints = document.getElementById('code-task-hints');
+    if (hints) {
+      hints.innerHTML = task.hints && task.hints.length
+        ? `<h4>أفكار تساعدك</h4><ul>${task.hints.map(item => `<li>${item}</li>`).join('')}</ul>`
+        : '';
+    }
+
+    const editor = document.getElementById('python-code-editor');
+    if (editor) {
+      editor.value = storage.getCodeDraft(task.key) || task.starterCode || '# اكتب الكود هنا\n';
+      editor.oninput = () => storage.saveCodeDraft(task.key, editor.value);
+    }
+
+    document.getElementById('code-output-content').textContent = 'اضغط «تشغيل الكود» لترى النتيجة.';
+    document.getElementById('code-output-content').className = '';
+    this.showScreen('code-screen');
+  },
+
+  closeCodeTask() {
+    if (this.state.codeTaskMode === 'project') {
+      this.showScreen('home-screen');
+      this.renderHome();
+    } else {
+      this.showScreen('lesson-screen');
+    }
+  },
+
+  resetCodeDraft() {
+    if (!this.state.codeTask) return;
+    const editor = document.getElementById('python-code-editor');
+    if (editor) {
+      editor.value = this.state.codeTask.starterCode || '# اكتب الكود هنا\n';
+      storage.saveCodeDraft(this.state.codeTask.key, editor.value);
+    }
+  },
+
+  async runCodeTask() {
+    const task = this.state.codeTask;
+    const editor = document.getElementById('python-code-editor');
+    const output = document.getElementById('code-output-content');
+    const button = document.getElementById('run-code-btn');
+    if (!task || !editor || !output) return;
+
+    const code = editor.value;
+    storage.saveCodeDraft(task.key, code);
+    if (button) { button.disabled = true; button.textContent = 'جاري التشغيل...'; }
+    output.textContent = 'جاري تشغيل كود بايثون...';
+    output.className = '';
+
+    try {
+      if (this.state.codeTaskMode === 'project') {
+        const evaluation = await evaluateProject(code, task.testCases, task.requiredKeywords);
+        const passed = evaluation.passed;
+        output.textContent = evaluation.feedback.map(item => item.text).join('\n');
+        output.className = passed ? 'success' : 'error';
+
+        if (passed) {
+          storage.markProjectComplete(task.unitId + '-project');
+          storage.markProjectComplete(task.unitId + '-quiz');
+          storage.markUnitComplete(task.unitId);
+          storage.addXP(task.xpReward);
+          storage.addGems(20);
+          this.updateHeaderStats();
+          if (typeof achievementsModule !== 'undefined') achievementsModule.checkAndNotify();
+          this.showToast('🎉 أكملت مشروع الوحدة!', 'success');
+          setTimeout(() => { this.showScreen('home-screen'); this.renderHome(); }, 1200);
+        }
+      } else {
+        const result = await runPython(code, task.testInput || '');
+        const actual = (result.output || '').trim();
+        if (result.success && actual === (task.expectedOutput || '').trim()) {
+          output.textContent = '✅ النتيجة صحيحة:\n' + actual;
+          output.className = 'success';
+          storage.removeMistake(task.question || task.heading);
+
+          setTimeout(() => {
+            this.showScreen('lesson-screen');
+            this.nextExercise();
+          }, 500);
+        } else {
+          output.textContent = '❌ الناتج غير مطابق:\n' + (actual || 'لا يوجد ناتج') +
+            '\nالنتيجة المتوقعة:\n' + (task.expectedOutput || '');
+          output.className = 'error';
+          this.state.lessonHearts--;
+          storage.loseHeart();
+          storage.addMistake({
+            question: task.question || task.heading,
+            code: code,
+            explanation: 'تحدّي كتابة كود'
+          });
+          storage.resetStreak();
+          this.updateHeaderStats();
+        }
+      }
+    } catch (error) {
+      output.textContent = '❌ تعذر تشغيل الكود.';
+      output.className = 'error';
+    } finally {
+      if (button) { button.disabled = false; button.textContent = 'تشغيل الكود ▶'; }
+    }
+  },
+
   startUnitQuiz(unitId) {
     const user = storage.getUser();
     if (user.hearts <= 0) { alert('مفيش قلوب!'); return; }
@@ -478,6 +622,25 @@ const app = {
   renderExercise() {
     const exercise = this.state.currentExercises[this.state.currentExerciseIndex];
     if (!exercise) return;
+
+    if (exercise.type === 'write_code') {
+      this.state.codeTaskMode = 'lesson';
+      this.state.codeTask = {
+        key: `lesson-${this.state.currentLesson ? this.state.currentLesson.id : 'review'}-code`,
+        title: this.state.currentLesson ? this.state.currentLesson.title : 'تحدّي الكود',
+        heading: exercise.question,
+        description: 'اكتب الكود في المستطيل الكبير، ثم شغّله لمعرفة النتيجة.',
+        icon: '⌨️',
+        requirements: [],
+        hints: exercise.hints || [],
+        starterCode: exercise.starterCode || '# اكتب الكود هنا\n',
+        expectedOutput: exercise.expectedOutput,
+        testInput: exercise.testInput || '',
+        question: exercise.question
+      };
+      this.showCodeTask();
+      return;
+    }
     
     this.state.selectedAnswer = null;
     const progress = ((this.state.currentExerciseIndex) / this.state.totalCount) * 100;
