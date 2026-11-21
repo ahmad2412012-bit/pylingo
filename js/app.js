@@ -400,133 +400,157 @@ const app = {
   },
 
   // فكرة مختلفة ومستقلة لكل درس بناءً على معرف الدرس وعنوانه والوحدة
-  createLessonCodeChallenge(unit, lesson) {
-    const title = lesson.title || '';
+createLessonCodeChallenge(unit, lesson) {
+    const rawTitle = (lesson.title || '').trim();
+    const titleLower = rawTitle.toLowerCase();
     const lessonNum = Number(lesson.id) || 1;
-    const unitNum = Number(unit.id) || 1;
 
-    const uniqueIdeas = [
+    const topicTasks = [
       {
-        ideaTitle: 'عداد شرارة المحرك',
-        explanation: 'عرّف متغيراً باسم rpm_boost برقم 2500 ثم اطبع قيمته لتأكيد جاهزية المحرك.',
-        requiredVariables: ['rpm_boost'],
-        expectedOutput: '2500',
+        match: ['print', 'طباعة', 'اطبع', 'output', 'إخراج'],
+        ideaTitle: 'طباعة رسالة حالة واضحة',
+        explanation: 'عرّف متغيراً باسم welcome_msg بقيمة "Python Ready" ثم اطبعه باستخدام print().',
+        requiredVariables: ['welcome_msg'],
+        expectedOutput: 'Python Ready',
         testInput: '',
-        hints: ['أنشئ المتغير rpm_boost = 2500.', 'استخدم print(rpm_boost).']
+        hints: ['اكتب welcome_msg = "Python Ready"', 'ثم اطبع المتغير: print(welcome_msg)']
       },
       {
-        ideaTitle: 'ملاحظة فنية في الكود',
-        explanation: 'اكتب تعليقاً يبدأ بـ # يشرح فكرة البرنامج، ثم عرّف متغيراً باسم check_tag بقيمة "Verified" واطبعه.',
-        requiredVariables: ['check_tag'],
-        expectedOutput: 'Verified',
+        match: ['comment', 'تعليق', 'تعليقات', '#'],
+        ideaTitle: 'توثيق الكود بتعليق واضح',
+        explanation: 'اكتب تعليقاً يبدأ بـ # يشرح السطر، ثم عرّف متغيراً باسم note_label بقيمة "Step 1" واطبعه.',
+        requiredVariables: ['note_label'],
+        expectedOutput: 'Step 1',
         testInput: '',
-        hints: ['التعليق يبدأ بـ #.', 'المتغير المطلوب اسمه check_tag.']
+        hints: ['التعليق يبدأ بـ #.', 'المتغير المطلوب: note_label']
       },
       {
-        ideaTitle: 'اسم المتسابق ودرجته',
-        explanation: 'عرّف متغيراً باسم driver_name بقيمة "Noor" ومتغيراً باسم lap_score بقيمة 95، ثم اطبع "Noor: 95".',
-        requiredVariables: ['driver_name', 'lap_score'],
-        expectedOutput: 'Noor: 95',
+        match: ['variable', 'variables', 'متغير', 'متغيرات'],
+        ideaTitle: 'تخزين وتحديث قيمة متغير',
+        explanation: 'عرّف متغيراً باسم score_val بقيمة 10، ثم حدّث قيمته لتصبح 25 واطبعه.',
+        requiredVariables: ['score_val'],
+        expectedOutput: '25',
         testInput: '',
-        hints: ['اطبع النص مع الرقم باستخدام f-string أو + str().', 'الأسماء المطلوبة: driver_name و lap_score.']
+        hints: ['ابدأ بـ score_val = 10 ثم أعد إسناد score_val = 25.', 'اطبع score_val']
       },
       {
-        ideaTitle: 'تركيب اسم المشروع',
-        explanation: 'عرّف متغيراً باسم word_one بقيمة "Py" ومتغيراً باسم word_two بقيمة "Code"، ثم ادمجهما في متغير باسم combined_word واطبعه.',
-        requiredVariables: ['word_one', 'word_two', 'combined_word'],
-        expectedOutput: 'PyCode',
+        match: ['string', 'strings', 'نص', 'نصوص', 'سلاسل'],
+        ideaTitle: 'تنسيق نص برمجي',
+        explanation: 'عرّف متغيراً باسم lang_name بقيمة "Python" ومتغيراً باسم level_tag بقيمة "v3"، ثم خزّن "Python v3" في full_title واطبعه.',
+        requiredVariables: ['lang_name', 'level_tag', 'full_title'],
+        expectedOutput: 'Python v3',
         testInput: '',
-        hints: ['اجمع word_one و word_two بالرمز + داخل combined_word.', 'اطبع combined_word.']
+        hints: ['ادمج النصين وبينهما مسافة داخل full_title.', 'اطبع full_title']
       },
       {
-        ideaTitle: 'قراءة اسم اللاعب من الإدخال',
-        explanation: 'استقبل نصاً في متغير باسم player_tag عبر input() ثم اطبع "Player: " متبوعاً بقيمة player_tag.',
-        requiredVariables: ['player_tag'],
-        expectedOutput: 'Player: Sami',
-        testInput: 'Sami\n',
-        hints: ['استخدم player_tag = input().', 'اطبع "Player: " + player_tag.']
+        match: ['input', 'إدخال', 'مدخلات', 'مستخدم'],
+        ideaTitle: 'قراءة مدخلات المستخدم',
+        explanation: 'استقبل قيمة من المستخدم في متغير باسم user_city عبر input() ثم اطبع "City: " متبوعاً بـ user_city.',
+        requiredVariables: ['user_city'],
+        expectedOutput: 'City: Cairo',
+        testInput: 'Cairo\n',
+        hints: ['استخدم user_city = input().', 'اطبع: "City: " + user_city']
       },
       {
-        ideaTitle: 'تكرار طباعة إشارة التنبيه',
-        explanation: 'عرّف متغيراً باسم ping_times بقيمة 3، واستخدم حلقة لطباعة "Ping" في 3 أسطر متتالية.',
-        requiredVariables: ['ping_times'],
-        expectedOutput: 'Ping\nPing\nPing',
-        testInput: '',
-        hints: ['استخدم for _ in range(ping_times):', 'اطبع "Ping" داخل الحلقة.']
-      },
-      {
-        ideaTitle: 'حساب فرق السرعة',
-        explanation: 'عرّف متغيراً باسم max_speed بقيمة 240 ومتغيراً باسم min_speed بقيمة 180، ثم خزّن الفرق في speed_gap واطبعه.',
-        requiredVariables: ['max_speed', 'min_speed', 'speed_gap'],
+        match: ['int', 'float', 'number', 'numbers', 'رقم', 'أرقام', 'حساب', 'math', 'operator', 'عمليات'],
+        ideaTitle: 'عملية حسابية في موضوع الأرقام',
+        explanation: 'عرّف متغيراً باسم a_num بقيمة 12 ومتغيراً باسم b_num بقيمة 5، ثم خزّن ناتج الضرب في prod_result واطبعه.',
+        requiredVariables: ['a_num', 'b_num', 'prod_result'],
         expectedOutput: '60',
         testInput: '',
-        hints: ['اطرح min_speed من max_speed داخل speed_gap.', 'اطبع speed_gap.']
+        hints: ['اضرب a_num * b_num داخل prod_result.', 'اطبع prod_result']
       },
       {
-        ideaTitle: 'التحقق من اجتياز الحد الأدنى',
-        explanation: 'عرّف متغيراً باسم points_earned بقيمة 80، وإذا كان أكبر من أو يساوي 50 خزّن "Pass" في متغير باسم exam_status واطبعه.',
-        requiredVariables: ['points_earned', 'exam_status'],
-        expectedOutput: 'Pass',
+        match: ['if', 'else', 'elif', 'condition', 'conditions', 'شرط', 'شروط'],
+        ideaTitle: 'اتخاذ قرار شرطي',
+        explanation: 'عرّف متغيراً باسم temp_val بقيمة 35، وإذا كان أكبر من 30 خزّن "Hot" في weather_state وإلا "Normal"، ثم اطبع weather_state.',
+        requiredVariables: ['temp_val', 'weather_state'],
+        expectedOutput: 'Hot',
         testInput: '',
-        hints: ['استخدم شرط if points_earned >= 50:', 'عيّن exam_status = "Pass" ثم اطبعه.']
+        hints: ['استخدم if temp_val > 30: و else:', 'اطبع weather_state']
       },
       {
-        ideaTitle: 'قيمة رقمية عشرية وتقريبها',
-        explanation: 'عرّف متغيراً باسم rating_val بقيمة 4.6، ثم خزّن ناتج round(rating_val) في متغير باسم rounded_rating واطبعه.',
-        requiredVariables: ['rating_val', 'rounded_rating'],
-        expectedOutput: '5',
+        match: ['for', 'while', 'loop', 'loops', 'حلقة', 'حلقات', 'تكرار'],
+        ideaTitle: 'تكرار تنفيذ داخل حلقة',
+        explanation: 'استخدم حلقة لطباعة الأرقام من 1 إلى 3 (كل رقم في سطر) وخزّن المجموع في loop_sum ثم اطبعه.',
+        requiredVariables: ['loop_sum'],
+        expectedOutput: '1\n2\n3\n6',
         testInput: '',
-        hints: ['استخدم دالة round().', 'المتغير المطلوب اسمه rounded_rating.']
+        hints: ['استخدم for i in range(1, 4): لطباعة i وجمعه في loop_sum.', 'بعد الحلقة اطبع loop_sum']
       },
       {
-        ideaTitle: 'باقي قسمة عدد الجولات',
-        explanation: 'عرّف متغيراً باسم total_laps بقيمة 10 ومتغيراً باسم group_size بقيمة 4، ثم خزّن باقي القسمة (%) في leftover_laps واطبعه.',
-        requiredVariables: ['total_laps', 'group_size', 'leftover_laps'],
-        expectedOutput: '2',
+        match: ['list', 'lists', 'قائمة', 'قوائم'],
+        ideaTitle: 'العمل مع قائمة عناصر',
+        explanation: 'عرّف قائمة باسم items_list تحتوي ["Pen", "Book"]، وأضف "Notebook" إليها، ثم اطبع عدد عناصرها باستخدام len(items_list).',
+        requiredVariables: ['items_list'],
+        expectedOutput: '3',
         testInput: '',
-        hints: ['باقي القسمة يكتب بالرمز %.', 'المتغير المطلوب اسمه leftover_laps.']
+        hints: ['استخدم items_list.append("Notebook").', 'اطبع len(items_list)']
       },
       {
-        ideaTitle: 'اختيار مركبة من قائمة',
-        explanation: 'عرّف قائمة باسم garage_list تحتوي ["M4", "LFA", "Giulia"]، وخزّن العنصر الأخير في chosen_car واطبعه.',
-        requiredVariables: ['garage_list', 'chosen_car'],
-        expectedOutput: 'Giulia',
+        match: ['tuple', 'tuples', 'صف', 'تيوبل'],
+        ideaTitle: 'قراءة عنصر من Tuple',
+        explanation: 'عرّف tuple باسم coords_pair بقيمة (10, 20) وخزّن العنصر الثاني في y_coord واطبعه.',
+        requiredVariables: ['coords_pair', 'y_coord'],
+        expectedOutput: '20',
         testInput: '',
-        hints: ['يمكن الوصول لآخر عنصر بالفهرس [-1].', 'المتغير المطلوب اسمه chosen_car.']
+        hints: ['استخدم coords_pair[1] للحصول على 20.', 'اطبع y_coord']
       },
       {
-        ideaTitle: 'قراءة بيانات من قاموس',
-        explanation: 'عرّف قاموساً باسم device_spec يحتوي {"os": "Linux", "ram": 16}، وخزّن قيمة "os" في system_os واطبعها.',
-        requiredVariables: ['device_spec', 'system_os'],
-        expectedOutput: 'Linux',
+        match: ['set', 'sets', 'مجموعة', 'مجموعات'],
+        ideaTitle: 'إزالة التكرار باستخدام Set',
+        explanation: 'عرّف متغيراً باسم unique_tags بقيمة {1, 2, 2, 3}، ثم اطبع طولها باستخدام len(unique_tags).',
+        requiredVariables: ['unique_tags'],
+        expectedOutput: '3',
         testInput: '',
-        hints: ['استخدم device_spec["os"].', 'المتغير المطلوب اسمه system_os.']
+        hints: ['المجموعة Set تحذف العناصر المكررة تلقائياً.', 'اطبع len(unique_tags)']
       },
       {
-        ideaTitle: 'دالة حساب ضعف الرقم',
-        explanation: 'عرّف دالة باسم double_num(n) ترجع n * 2، ثم خزّن ناتج double_num(7) في متغير باسم doubled_val واطبعه.',
-        requiredVariables: ['doubled_val'],
-        expectedOutput: '14',
+        match: ['dict', 'dictionary', 'dictionaries', 'قاموس', 'قواميس', 'ديكشنري'],
+        ideaTitle: 'استخراج قيمة من قاموس Dictionary',
+        explanation: 'عرّف قاموساً باسم student_info يحتوي {"name": "Omar", "grade": 90}، ثم خزّن قيمة "name" في student_name واطبعها.',
+        requiredVariables: ['student_info', 'student_name'],
+        expectedOutput: 'Omar',
         testInput: '',
-        hints: ['استخدم def double_num(n): مع return n * 2.', 'المتغير المطلوب اسمه doubled_val.']
+        hints: ['استخدم student_info["name"] فقط بدون أي كلاس.', 'اطبع student_name']
       },
       {
-        ideaTitle: 'إنشاء كائن من صنف',
-        explanation: 'عرّف صنفاً باسم Runner بدالة info(self) ترجع "Fast"، ثم خزّن ناتج Runner().info() في runner_state واطبعه.',
-        requiredVariables: ['runner_state'],
-        expectedOutput: 'Fast',
+        match: ['function', 'functions', 'def', 'دالة', 'دوال'],
+        ideaTitle: 'تعريف واستدعاء دالة',
+        explanation: 'عرّف دالة باسم add_five(x) ترجع x + 5، ثم خزّن ناتج add_five(10) في fn_result واطبعه.',
+        requiredVariables: ['fn_result'],
+        expectedOutput: '15',
         testInput: '',
-        hints: ['عرّف class Runner: وداخلها def info(self): return "Fast".', 'المتغير المطلوب اسمه runner_state.']
+        hints: ['استخدم def add_five(x): مع return x + 5.', 'خزّن النتيجة في fn_result واطبعها']
+      },
+      {
+        match: ['class', 'classes', 'oop', 'object', 'كلاس', 'كلاسات', 'كائن', 'كائنات'],
+        ideaTitle: 'تعريف كلاس وإنشاء كائن منه',
+        explanation: 'عرّف كلاساً باسم Car يحتوي على متغير أو دالة label() ترجع "Sedan"، ثم خزّن ناتج Car().label() في car_type واطبعه.',
+        requiredVariables: ['car_type'],
+        expectedOutput: 'Sedan',
+        testInput: '',
+        hints: ['عرّف class Car: وداخلها def label(self): return "Sedan".', 'خزّن النتيجة في car_type واطبعها']
       }
     ];
 
-    const idx = (unitNum * 7 + lessonNum - 1) % uniqueIdeas.length;
-    const chosen = uniqueIdeas[idx];
+    const matchedTopic = topicTasks.find(t =>
+      t.match.some(keyword => titleLower.includes(keyword.toLowerCase()))
+    );
+
+    const chosen = matchedTopic || {
+      ideaTitle: `تطبيق مباشر لموضوع: ${rawTitle}`,
+      explanation: `عرّف متغيراً باسم lesson_output بقيمة "Done" ثم اطبعه لتأكيد إتمام درس "${rawTitle}".`,
+      requiredVariables: ['lesson_output'],
+      expectedOutput: 'Done',
+      testInput: '',
+      hints: ['عرّف المتغير lesson_output = "Done".', 'اطبع قيمته باستخدام print(lesson_output).']
+    };
 
     return {
       type: 'write_code',
-      question: `تطبيق درس "${title}" (${unit.title})`,
-      ideaTitle: `${chosen.ideaTitle} — درس (${title})`,
+      question: `واجب درس: ${rawTitle}`,
+      ideaTitle: `${chosen.ideaTitle} (${rawTitle} — درس ${lessonNum})`,
       explanation: chosen.explanation,
       requiredVariables: chosen.requiredVariables,
       starterCode: '',
