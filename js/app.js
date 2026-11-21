@@ -325,15 +325,7 @@ const app = {
     this.state.correctCount = 0;
     
     let exercises = [...lesson.exercises];
-    if (!user.completedLessons.includes(lessonId)) {
-      exercises.push({
-        type: 'write_code',
-        question: 'التحدي الأخير: اكتب كود بايثون يطبع جملة (Hello)',
-        starterCode: '# اكتب الكود هنا\n',
-        expectedOutput: 'Hello',
-        testInput: ''
-      });
-    }
+    exercises.push(this.createLessonCodeChallenge(unit, lesson));
 
     this.state.currentExercises = exercises;
     this.state.totalCount = exercises.length;
@@ -348,6 +340,74 @@ const app = {
     if (heartsEl) heartsEl.textContent = this.state.lessonHearts;
     
     this.showExplanation(lesson, unit);
+  },
+
+  createLessonCodeChallenge(unit, lesson) {
+    const title = lesson.title || '';
+    let challenge = {
+      question: `تحدّي كود: طبّق فكرة درس "${title}"`,
+      starterCode: '# اكتب الكود هنا\n',
+      expectedOutput: 'Hello',
+      testInput: '',
+      hints: [
+        'ابدأ بالمثال الموجود في شرح الدرس.',
+        'استخدم print() لإظهار النتيجة.',
+        'جرّب الكود خطوة بخطوة قبل التحقق.'
+      ]
+    };
+
+    if (/print|أمر/.test(title)) {
+      challenge.starterCode = '# اطبع Hello\n';
+      challenge.expectedOutput = 'Hello';
+    } else if (/تعليق|comments/.test(title)) {
+      challenge.question = 'تحدّي كود: اكتب تعليقاً ثم اطبع Hello';
+      challenge.starterCode = '# اكتب تعليق هنا\n';
+      challenge.expectedOutput = 'Hello';
+      challenge.hints.unshift('التعليق يبدأ بالرمز # ولا يظهر في النتيجة.');
+    } else if (/متغير|variable/.test(title)) {
+      challenge.question = 'تحدّي كود: خزّن قيمة في متغير واطبعها';
+      challenge.starterCode = 'name = "PyLingo"\n# اطبع المتغير هنا\n';
+      challenge.expectedOutput = 'PyLingo';
+      challenge.hints.unshift('عيّن قيمة بالرمز = ثم استخدم print(name).');
+    } else if (/نص|string/.test(title)) {
+      challenge.question = 'تحدّي كود: ادمج نصين واطبع النتيجة';
+      challenge.starterCode = 'first = "Py"\nsecond = "thon"\n';
+      challenge.expectedOutput = 'Python';
+      challenge.hints.unshift('دمج النصوص يتم بالرمز +.');
+    } else if (/مدخل|input/.test(title)) {
+      challenge.question = 'تحدّي كود: اقرأ الاسم وأهّل به';
+      challenge.starterCode = 'name = input()\nprint("Hello " + name)\n';
+      challenge.expectedOutput = 'Hello PyLingo';
+      challenge.testInput = 'PyLingo';
+      challenge.hints.unshift('input() تقرأ النص الذي يكتبه المستخدم.');
+    } else if (/حلقة|while|for|loop/.test(title)) {
+      challenge.question = 'تحدّي كود: اطبع Python ثلاث مرات';
+      challenge.starterCode = 'for i in range(3):\n    # اطبع هنا\n';
+      challenge.expectedOutput = 'Python\nPython\nPython';
+      challenge.hints.unshift('الحلقة for و range(3) تنفذ الأمر ثلاث مرات.');
+    } else if (/قائمة|list|مصفوف/.test(title)) {
+      challenge.question = 'تحدّي كود: اطبع أول عنصر في قائمة';
+      challenge.starterCode = 'items = ["Python", "PyLingo"]\n';
+      challenge.expectedOutput = 'Python';
+      challenge.hints.unshift('فهرس أول عنصر في القائمة هو 0.');
+    } else if (/قاموس|dict|dictionary/.test(title)) {
+      challenge.question = 'تحدّي كود: اطبع قيمة من قاموس';
+      challenge.starterCode = 'data = {"language": "Python"}\n';
+      challenge.expectedOutput = 'Python';
+      challenge.hints.unshift('الوصول للقيمة يتم عبر اسم المفتاح: data["language"].');
+    } else if (/دالة|function|functions/.test(title)) {
+      challenge.question = 'تحدّي كود: أنشئ دالة ترجع Hello';
+      challenge.starterCode = 'def greet():\n    # ارجع النص هنا\n';
+      challenge.expectedOutput = 'Hello';
+      challenge.hints.unshift('تعريف الدالة يستخدم def ويمكن إرجاع قيمة بـ return.');
+    } else if (/صنف|class|كائني|oop/.test(title)) {
+      challenge.question = 'تحدّي كود: أنشئ صنفاً تعيد دالتها Hello';
+      challenge.starterCode = 'class Bot:\n    def speak(self):\n        # ارجع النص هنا\n';
+      challenge.expectedOutput = 'Hello';
+      challenge.hints.unshift('أنشئ الصنف Bot، واستخدم Bot().speak() للطباعة.');
+    }
+
+    return { type: 'write_code', ...challenge };
   },
 
   startUnitQuiz(unitId) {
@@ -434,6 +494,15 @@ const app = {
 
     if (exercise.code && extra) {
       extra.textContent = exercise.code;
+      extra.style.display = 'block';
+    } else if (exercise.type === 'write_code' && extra) {
+      const hints = (exercise.hints || []).map(hint => `<li>${hint}</li>`).join('');
+      extra.innerHTML = `
+        <div class="code-ideas">
+          <div class="code-ideas-title">💡 أفكار تساعدك</div>
+          ${hints ? `<ul>${hints}</ul>` : ''}
+        </div>
+      `;
       extra.style.display = 'block';
     } else if (extra) {
       extra.style.display = 'none';
@@ -657,6 +726,7 @@ const app = {
     let xpReward = 0, gemReward = 0;
     if (passed) {
       storage.markProjectComplete(this.state.quizUnitId + '-quiz');
+      storage.markUnitComplete(this.state.quizUnitId);
       if (!this.state.isReplay) { xpReward = 30; gemReward = 10; }
     } else {
       if (!this.state.isReplay) { xpReward = 10; gemReward = 5; }
@@ -672,7 +742,8 @@ const app = {
     if(xpEl) xpEl.textContent = '+' + xpReward;
     if(accEl) accEl.textContent = accuracy + '%';
     if(msgEl) msgEl.textContent = passed ? '🎉 نجحت!' : 'حاول تاني!';
-    
+
+    if (typeof achievementsModule !== 'undefined') achievementsModule.checkAndNotify();
     this.showScreen('complete-screen');
     this.showConfetti();
   },

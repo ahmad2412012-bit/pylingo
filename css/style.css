@@ -616,6 +616,48 @@ button {
   transition: background 0.3s, color 0.3s;
 }
 
+.code-textarea {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  direction: ltr;
+  text-align: left;
+  padding: 18px;
+  border: 2px solid var(--gray-100);
+  border-radius: 16px;
+  background: #171A21;
+  color: #F7F7F7;
+  font-family: 'JetBrains Mono', Consolas, monospace;
+  font-size: 16px;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+.code-textarea:focus {
+  border-color: var(--secondary);
+  outline: none;
+}
+
+.code-ideas {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  white-space: normal;
+  color: var(--dark);
+}
+
+.code-ideas-title {
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.code-ideas ul {
+  margin: 0;
+  padding-right: 20px;
+  line-height: 1.8;
+}
+
 /* ============ Answers ============ */
 .answers-container {
   display: flex;

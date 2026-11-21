@@ -72,7 +72,7 @@ const achievementsModule = {
       icon: '🐍',
       title: 'مبرمج Python',
       description: 'أكمل كل الـ Units',
-      condition: (user) => user.completedProjects.length >= 10
+      condition: (user) => (user.completedUnits || []).length >= 30
     }
   ],
 

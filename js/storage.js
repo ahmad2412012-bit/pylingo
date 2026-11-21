@@ -25,6 +25,7 @@ const storage = {
         lastHeartUpdate: Date.now(),
         completedLessons: [],
         completedProjects: [],
+        completedUnits: [],
         mistakes: [],
         streakFreezes: 0,
         doubleXPActive: false,
@@ -39,6 +40,13 @@ const storage = {
     // ✅ ضمان وجود كل الحقول الجديدة (عشان لو المستخدم عنده بيانات قديمة)
     if (!user.completedLessons) user.completedLessons = [];
     if (!user.completedProjects) user.completedProjects = [];
+    if (!user.completedUnits) user.completedUnits = [];
+    if (user.completedUnits.length === 0 && user.completedProjects.length > 0) {
+      user.completedUnits = user.completedProjects
+        .filter(id => typeof id === 'string' && id.endsWith('-quiz'))
+        .map(id => id.replace('-quiz', ''));
+      this.setUser(user);
+    }
     if (!user.mistakes) user.mistakes = [];
     if (user.lessonStreak === undefined) user.lessonStreak = 0;
     if (user.streakFreezes === undefined) user.streakFreezes = 0;
@@ -186,6 +194,15 @@ const storage = {
     const user = this.getUser();
     if (!user.completedProjects.includes(projectId)) {
       user.completedProjects.push(projectId);
+      this.setUser(user);
+    }
+  },
+
+  markUnitComplete(unitId) {
+    const user = this.getUser();
+    const normalizedId = String(unitId);
+    if (!user.completedUnits.includes(normalizedId)) {
+      user.completedUnits.push(normalizedId);
       this.setUser(user);
     }
   },
