@@ -93,60 +93,44 @@ button {
   display: block;
 }
 
-/* ============ App Header ============ */
+/* ============ App Header (New Layout) ============ */
 .app-header {
   position: sticky;
   top: 0;
   background: var(--white);
   border-bottom: 2px solid var(--gray-100);
-  padding: 12px 20px;
+  padding: 10px 20px;
   z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between; /* بيوزع العناصر على الأطراف */
   transition: background 0.3s, border-color 0.3s;
 }
 
-.header-stats {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.stat {
+.header-side {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-weight: 700;
+  gap: 8px;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--gray-50);
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 2px solid var(--gray-100);
+}
+
+.header-center .stat {
   font-size: 18px;
 }
 
-.stat-icon { font-size: 22px; }
-
-.stat-value {
-  color: var(--gray-700);
-  transition: color 0.3s;
+.header-center .stat-value {
+  color: var(--dark);
+  font-weight: 900;
 }
-
-.stat-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 8px;
-  transition: background 0.15s;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.stat-btn:hover { background: var(--gray-50); }
-[data-theme="dark"] .stat-btn:hover { background: var(--gray-100); }
 
 /* ============ Header Controls ============ */
 .header-controls {
@@ -3031,4 +3015,25 @@ button {
 .sidebar-item.active { background: var(--primary, #58CC02); color: white; border-color: var(--primary, #58CC02); }
 .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .sidebar-overlay.show { opacity: 1; pointer-events: auto; }
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .header-side {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .header-center {
+    width: 100%;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+}
 }
