@@ -74,7 +74,6 @@ const app = {
     this.startHeartsTimer();
   },
 
-  // تفعيل كل الأزرار الأساسية والاحتياطية
   setupGlobalButtons() {
     const bindings = [
       ['run-code-btn', () => this.runCodeTask()],
@@ -112,7 +111,6 @@ const app = {
       }
     });
 
-    // تفويض لأي زر يحمل data-action
     document.addEventListener('click', (e) => {
       const target = e.target.closest('[data-action]');
       if (!target) return;
@@ -401,200 +399,234 @@ const app = {
     this.showExplanation(lesson, unit);
   },
 
-  // فكرة تطبيقية مفصلة + أسماء متغيرات إلزامية لكل درس
+  // فكرة مختلفة ومستقلة لكل درس بناءً على معرف الدرس وعنوانه والوحدة
   createLessonCodeChallenge(unit, lesson) {
     const title = lesson.title || '';
-    const base = {
-      question: `تطبيق عملي لدرس "${title}"`,
-      ideaTitle: `فكرة الكود: ${title}`,
-      explanation: `في هذا التحدي ستطبق مفهوم "${title}" داخل الوحدة (${unit.title}) وتطبع النتيجة النهائية بدقة.`,
-      requiredVariables: [],
-      starterCode: '# اكتب الكود هنا\n',
-      expectedOutput: 'Hello',
-      testInput: '',
-      hints: [
-        'التزم باسم المتغير المطلوب كما هو مكتوب تماماً.',
-        'اختبر الكود بالضغط على زر تشغيل الكود قبل التحقق.'
-      ]
-    };
+    const lessonNum = Number(lesson.id) || 1;
+    const unitNum = Number(unit.id) || 1;
 
-    if (/print|أمر/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'طباعة رسالة ترحيبية باسم متغير',
-        explanation: 'أنشئ متغيراً باسم greeting_msg يحتوي على "Welcome to Python" ثم اطبعه باستخدام print().',
-        requiredVariables: ['greeting_msg'],
-        starterCode: '# عرّف المتغير greeting_msg بقيمة "Welcome to Python"\n# ثم اطبعه\n',
-        expectedOutput: 'Welcome to Python',
-        hints: ['اسم المتغير يجب أن يكون greeting_msg.', 'استخدم print(greeting_msg).']
-      };
-    }
+    const uniqueIdeas = [
+      {
+        ideaTitle: 'عداد شرارة المحرك',
+        explanation: 'عرّف متغيراً باسم rpm_boost برقم 2500 ثم اطبع قيمته لتأكيد جاهزية المحرك.',
+        requiredVariables: ['rpm_boost'],
+        expectedOutput: '2500',
+        testInput: '',
+        hints: ['أنشئ المتغير rpm_boost = 2500.', 'استخدم print(rpm_boost).']
+      },
+      {
+        ideaTitle: 'ملاحظة فنية في الكود',
+        explanation: 'اكتب تعليقاً يبدأ بـ # يشرح فكرة البرنامج، ثم عرّف متغيراً باسم check_tag بقيمة "Verified" واطبعه.',
+        requiredVariables: ['check_tag'],
+        expectedOutput: 'Verified',
+        testInput: '',
+        hints: ['التعليق يبدأ بـ #.', 'المتغير المطلوب اسمه check_tag.']
+      },
+      {
+        ideaTitle: 'اسم المتسابق ودرجته',
+        explanation: 'عرّف متغيراً باسم driver_name بقيمة "Noor" ومتغيراً باسم lap_score بقيمة 95، ثم اطبع "Noor: 95".',
+        requiredVariables: ['driver_name', 'lap_score'],
+        expectedOutput: 'Noor: 95',
+        testInput: '',
+        hints: ['اطبع النص مع الرقم باستخدام f-string أو + str().', 'الأسماء المطلوبة: driver_name و lap_score.']
+      },
+      {
+        ideaTitle: 'تركيب اسم المشروع',
+        explanation: 'عرّف متغيراً باسم word_one بقيمة "Py" ومتغيراً باسم word_two بقيمة "Code"، ثم ادمجهما في متغير باسم combined_word واطبعه.',
+        requiredVariables: ['word_one', 'word_two', 'combined_word'],
+        expectedOutput: 'PyCode',
+        testInput: '',
+        hints: ['اجمع word_one و word_two بالرمز + داخل combined_word.', 'اطبع combined_word.']
+      },
+      {
+        ideaTitle: 'قراءة اسم اللاعب من الإدخال',
+        explanation: 'استقبل نصاً في متغير باسم player_tag عبر input() ثم اطبع "Player: " متبوعاً بقيمة player_tag.',
+        requiredVariables: ['player_tag'],
+        expectedOutput: 'Player: Sami',
+        testInput: 'Sami\n',
+        hints: ['استخدم player_tag = input().', 'اطبع "Player: " + player_tag.']
+      },
+      {
+        ideaTitle: 'تكرار طباعة إشارة التنبيه',
+        explanation: 'عرّف متغيراً باسم ping_times بقيمة 3، واستخدم حلقة لطباعة "Ping" في 3 أسطر متتالية.',
+        requiredVariables: ['ping_times'],
+        expectedOutput: 'Ping\nPing\nPing',
+        testInput: '',
+        hints: ['استخدم for _ in range(ping_times):', 'اطبع "Ping" داخل الحلقة.']
+      },
+      {
+        ideaTitle: 'حساب فرق السرعة',
+        explanation: 'عرّف متغيراً باسم max_speed بقيمة 240 ومتغيراً باسم min_speed بقيمة 180، ثم خزّن الفرق في speed_gap واطبعه.',
+        requiredVariables: ['max_speed', 'min_speed', 'speed_gap'],
+        expectedOutput: '60',
+        testInput: '',
+        hints: ['اطرح min_speed من max_speed داخل speed_gap.', 'اطبع speed_gap.']
+      },
+      {
+        ideaTitle: 'التحقق من اجتياز الحد الأدنى',
+        explanation: 'عرّف متغيراً باسم points_earned بقيمة 80، وإذا كان أكبر من أو يساوي 50 خزّن "Pass" في متغير باسم exam_status واطبعه.',
+        requiredVariables: ['points_earned', 'exam_status'],
+        expectedOutput: 'Pass',
+        testInput: '',
+        hints: ['استخدم شرط if points_earned >= 50:', 'عيّن exam_status = "Pass" ثم اطبعه.']
+      },
+      {
+        ideaTitle: 'قيمة رقمية عشرية وتقريبها',
+        explanation: 'عرّف متغيراً باسم rating_val بقيمة 4.6، ثم خزّن ناتج round(rating_val) في متغير باسم rounded_rating واطبعه.',
+        requiredVariables: ['rating_val', 'rounded_rating'],
+        expectedOutput: '5',
+        testInput: '',
+        hints: ['استخدم دالة round().', 'المتغير المطلوب اسمه rounded_rating.']
+      },
+      {
+        ideaTitle: 'باقي قسمة عدد الجولات',
+        explanation: 'عرّف متغيراً باسم total_laps بقيمة 10 ومتغيراً باسم group_size بقيمة 4، ثم خزّن باقي القسمة (%) في leftover_laps واطبعه.',
+        requiredVariables: ['total_laps', 'group_size', 'leftover_laps'],
+        expectedOutput: '2',
+        testInput: '',
+        hints: ['باقي القسمة يكتب بالرمز %.', 'المتغير المطلوب اسمه leftover_laps.']
+      },
+      {
+        ideaTitle: 'اختيار مركبة من قائمة',
+        explanation: 'عرّف قائمة باسم garage_list تحتوي ["M4", "LFA", "Giulia"]، وخزّن العنصر الأخير في chosen_car واطبعه.',
+        requiredVariables: ['garage_list', 'chosen_car'],
+        expectedOutput: 'Giulia',
+        testInput: '',
+        hints: ['يمكن الوصول لآخر عنصر بالفهرس [-1].', 'المتغير المطلوب اسمه chosen_car.']
+      },
+      {
+        ideaTitle: 'قراءة بيانات من قاموس',
+        explanation: 'عرّف قاموساً باسم device_spec يحتوي {"os": "Linux", "ram": 16}، وخزّن قيمة "os" في system_os واطبعها.',
+        requiredVariables: ['device_spec', 'system_os'],
+        expectedOutput: 'Linux',
+        testInput: '',
+        hints: ['استخدم device_spec["os"].', 'المتغير المطلوب اسمه system_os.']
+      },
+      {
+        ideaTitle: 'دالة حساب ضعف الرقم',
+        explanation: 'عرّف دالة باسم double_num(n) ترجع n * 2، ثم خزّن ناتج double_num(7) في متغير باسم doubled_val واطبعه.',
+        requiredVariables: ['doubled_val'],
+        expectedOutput: '14',
+        testInput: '',
+        hints: ['استخدم def double_num(n): مع return n * 2.', 'المتغير المطلوب اسمه doubled_val.']
+      },
+      {
+        ideaTitle: 'إنشاء كائن من صنف',
+        explanation: 'عرّف صنفاً باسم Runner بدالة info(self) ترجع "Fast"، ثم خزّن ناتج Runner().info() في runner_state واطبعه.',
+        requiredVariables: ['runner_state'],
+        expectedOutput: 'Fast',
+        testInput: '',
+        hints: ['عرّف class Runner: وداخلها def info(self): return "Fast".', 'المتغير المطلوب اسمه runner_state.']
+      }
+    ];
 
-    if (/تعليق|comments/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'توثيق الكود بتعليق وطباعة حالة',
-        explanation: 'اكتب تعليقاً يشرح البرنامج يبدأ بالرمز #، ثم عرّف متغيراً باسم note_status بقيمة "Ready" واطبعه.',
-        requiredVariables: ['note_status'],
-        starterCode: '# اكتب تعليقاً هنا\n',
-        expectedOutput: 'Ready',
-        hints: ['أي سطر يبدأ بـ # يعتبر تعليقاً.', 'المتغير المطلوب اسمه note_status.']
-      };
-    }
-
-    if (/متغير|variable/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'تخزين اسم الطالب وعمره وطباعتهما',
-        explanation: 'عرّف متغيرين: student_name بقيمة "Ahmad" و student_age بقيمة 14، ثم اطبع "Ahmad - 14".',
-        requiredVariables: ['student_name', 'student_age'],
-        starterCode: 'student_name = "Ahmad"\nstudent_age = 14\n# اطبع النتيجة المطلوبة\n',
-        expectedOutput: 'Ahmad - 14',
-        hints: ['استخدم f-string أو + مع str() لطباعة الرقم مع النص.', 'الأسماء المطلوبة: student_name و student_age.']
-      };
-    }
-
-    if (/نص|string/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'دمج نصين في متغير واحد',
-        explanation: 'عرّف first_part = "Py" و second_part = "Lingo"، ثم ادمجهما في متغير باسم full_name واطبعه.',
-        requiredVariables: ['first_part', 'second_part', 'full_name'],
-        starterCode: 'first_part = "Py"\nsecond_part = "Lingo"\n# كوّن المتغير full_name واطبعه\n',
-        expectedOutput: 'PyLingo',
-        hints: ['اجمع النصين بالرمز + داخل full_name.', 'تأكد من وجود المتغيرات الثلاثة.']
-      };
-    }
-
-    if (/مدخل|input/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'استقبال اسم المستخدم والترحيب به',
-        explanation: 'اقرأ الاسم في متغير باسم user_input باستخدام input()، ثم اطبع "Hi " متبوعاً بقيمة user_input.',
-        requiredVariables: ['user_input'],
-        starterCode: 'user_input = input()\nprint("Hi " + user_input)\n',
-        expectedOutput: 'Hi Ahmad',
-        testInput: 'Ahmad\n',
-        hints: ['اسم المتغير الإلزامي هو user_input.', 'استخدم input() بدون نص إضافي أو حسب المطلوب.']
-      };
-    }
-
-    if (/حلقة|while|for|loop/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'تكرار طباعة كلمة عبر حلقة',
-        explanation: 'عرّف متغيراً باسم repeat_count بقيمة 3، واستخدم حلقة لطباعة "Code" ثلاث مرات في أسطر منفصلة.',
-        requiredVariables: ['repeat_count'],
-        starterCode: 'repeat_count = 3\n# استخدم حلقة لطباعة Code ثلاث مرات\n',
-        expectedOutput: 'Code\nCode\nCode',
-        hints: ['يمكن استخدام for _ in range(repeat_count):', 'اطبع "Code" داخل الحلقة.']
-      };
-    }
-
-    if (/قائمة|list|مصفوف/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'الوصول إلى عنصر محدد من قائمة',
-        explanation: 'عرّف قائمة باسم top_cars تحتوي ["M5", "M4", "LFA"] ثم خزّن العنصر الثاني في selected_car واطبعه.',
-        requiredVariables: ['top_cars', 'selected_car'],
-        starterCode: 'top_cars = ["M5", "M4", "LFA"]\n# خزّن العنصر الثاني في selected_car واطبعه\n',
-        expectedOutput: 'M4',
-        hints: ['الفهرسة تبدأ من 0، فالعنصر الثاني رقمه 1.', 'عرّف المتغير selected_car.']
-      };
-    }
-
-    if (/قاموس|dict|dictionary/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'استخراج قيمة من قاموس عبر المفتاح',
-        explanation: 'عرّف قاموساً باسم car_info يحتوي {"brand": "BMW", "year": 2026} ثم خزّن قيمة "brand" في car_brand واطبعها.',
-        requiredVariables: ['car_info', 'car_brand'],
-        starterCode: 'car_info = {"brand": "BMW", "year": 2026}\n# خزّن القيمة في car_brand واطبعها\n',
-        expectedOutput: 'BMW',
-        hints: ['استخدم car_info["brand"].', 'المتغير المطلوب اسمه car_brand.']
-      };
-    }
-
-    if (/دالة|function|functions/.test(title)) {
-      return {
-        ...base,
-        type: 'write_code',
-        ideaTitle: 'إنشاء دالة تجمع رقمين وتطبع النتيجة',
-        explanation: 'عرّف دالة باسم add_nums(a, b) ترجع a + b، وخزّن ناتج استدعائها (4, 6) في متغير باسم total_sum واطبعه.',
-        requiredVariables: ['total_sum'],
-        starterCode: 'def add_nums(a, b):\n    return a + b\n\ntotal_sum = add_nums(4, 6)\nprint(total_sum)\n',
-        expectedOutput: '10',
-        hints: ['الدالة ترجع المجموع بـ return.', 'المتغير المطلوب اسمه total_sum.']
-      };
-    }
+    const idx = (unitNum * 7 + lessonNum - 1) % uniqueIdeas.length;
+    const chosen = uniqueIdeas[idx];
 
     return {
-      ...base,
       type: 'write_code',
-      ideaTitle: `تطبيق مباشر لمفهوم ${title}`,
-      explanation: `عرّف متغيراً باسم lesson_result بقيمة "Done" واطبعه لتأكيد فهمك لفكرة "${title}".`,
-      requiredVariables: ['lesson_result'],
-      starterCode: 'lesson_result = "Done"\nprint(lesson_result)\n',
-      expectedOutput: 'Done',
-      hints: ['عرّف المتغير lesson_result أولاً.', 'اطبع قيمته باستخدام print(lesson_result).']
+      question: `تطبيق درس "${title}" (${unit.title})`,
+      ideaTitle: `${chosen.ideaTitle} — درس (${title})`,
+      explanation: chosen.explanation,
+      requiredVariables: chosen.requiredVariables,
+      starterCode: '',
+      expectedOutput: chosen.expectedOutput,
+      testInput: chosen.testInput,
+      hints: chosen.hints
     };
   },
 
-  // مشروع متكامل لكل وحدة (مخصص إن وجد أو مولّد تلقائياً لكل وحدة)
+  // مشروع مختلف لكل وحدة مع بقاء المحرر فارغاً
   buildUnitProjectTask(unit) {
-    if (unit.project) {
-      const p = unit.project;
-      return {
-        key: `unit-${unit.id}-project`,
-        title: p.title,
-        heading: p.title,
-        ideaTitle: `فكرة مشروع الوحدة: ${p.title}`,
-        description: p.description,
-        requiredVariables: p.requiredVariables || [],
-        requirements: p.requirements || [],
-        hints: p.hints || p.requirements || [],
-        starterCode: p.starterCode || '# اكتب مشروع الوحدة هنا\n',
-        testCases: p.testCases || [],
-        requiredKeywords: p.requiredKeywords || [],
-        xpReward: p.xpReward || 150,
-        unitId: unit.id
-      };
-    }
+    const unitNum = Number(unit.id) || 1;
+    const projectTemplates = [
+      {
+        ideaTitle: 'نظام طلبات وجبات سريع',
+        explanation: 'عرّف متغيرين: meal_name بقيمة "Burger" و meal_qty بقيمة 2، ثم اطبع "Order: Burger x2".',
+        requiredVariables: ['meal_name', 'meal_qty'],
+        requirements: [
+          'عرّف المتغير meal_name بنص الوجبة',
+          'عرّف المتغير meal_qty برقم الكمية',
+          'اطبع النتيجة النهائية: Order: Burger x2'
+        ],
+        expectedOutput: 'Order: Burger x2',
+        testInput: ''
+      },
+      {
+        ideaTitle: 'حاسبة نقاط التحدي',
+        explanation: 'عرّف متغيرين: base_pts بقيمة 30 و bonus_pts بقيمة 20، ثم خزّن المجموع في final_pts واطبع "Total Points: 50".',
+        requiredVariables: ['base_pts', 'bonus_pts', 'final_pts'],
+        requirements: [
+          'عرّف base_pts و bonus_pts و final_pts',
+          'اجمع النقاط في final_pts',
+          'اطبع: Total Points: 50'
+        ],
+        expectedOutput: 'Total Points: 50',
+        testInput: ''
+      },
+      {
+        ideaTitle: 'تقرير ترتيب المتسابقين',
+        explanation: 'عرّف قائمة باسم racers_list تحتوي ["Ali", "Omar", "Zaid"] وخزّن المتصدر في leader_name ثم اطبع "Leader: Ali".',
+        requiredVariables: ['racers_list', 'leader_name'],
+        requirements: [
+          'عرّف قائمة racers_list',
+          'خزّن العنصر الأول في leader_name',
+          'اطبع: Leader: Ali'
+        ],
+        expectedOutput: 'Leader: Ali',
+        testInput: ''
+      },
+      {
+        ideaTitle: 'ملف إعدادات النظام',
+        explanation: 'عرّف قاموساً باسم app_config يحتوي {"mode": "pro", "version": 2} وخزّن وضع التشغيل في active_mode ثم اطبع "Mode: pro".',
+        requiredVariables: ['app_config', 'active_mode'],
+        requirements: [
+          'عرّف القاموس app_config',
+          'استخرج قيمة "mode" في active_mode',
+          'اطبع: Mode: pro'
+        ],
+        expectedOutput: 'Mode: pro',
+        testInput: ''
+      },
+      {
+        ideaTitle: 'محرك حساب المكافأة بدالة',
+        explanation: 'عرّف دالة باسم calc_bonus(xp_val) ترجع xp_val + 50، ثم خزّن ناتج calc_bonus(100) في total_xp واطبع قيمته.',
+        requiredVariables: ['total_xp'],
+        requirements: [
+          'عرّف الدالة calc_bonus(xp_val)',
+          'خزّن النتيجة في total_xp',
+          'اطبع 150'
+        ],
+        expectedOutput: '150',
+        testInput: ''
+      }
+    ];
+
+    const tpl = projectTemplates[(unitNum - 1) % projectTemplates.length];
 
     return {
       key: `unit-${unit.id}-project`,
-      title: `مشروع وحدة: ${unit.title}`,
+      title: `مشروع الوحدة: ${unit.title}`,
       heading: `🚀 مشروع نهاية الوحدة: ${unit.title}`,
-      ideaTitle: `فكرة المشروع: تطبيق شامل لمفاهيم "${unit.title}"`,
-      description: `اجمع أفكار دروس الوحدة (${unit.description || unit.title}) في برنامج واحد مرتب يطبع نتيجة واضحة.`,
-      requiredVariables: ['project_title', 'project_score'],
-      requirements: [
-        'عرّف المتغير project_title بنص عنوان المشروع',
-        'عرّف المتغير project_score برقم النتيجة (مثلاً 100)',
-        'اطبع النتيجة النهائية بصيغة: Project Ready: 100'
-      ],
+      ideaTitle: `${tpl.ideaTitle} — وحدة (${unit.title})`,
+      explanation: tpl.explanation,
+      description: unit.description || tpl.explanation,
+      requiredVariables: tpl.requiredVariables,
+      requirements: tpl.requirements,
       hints: [
-        'تأكد من كتابة المتغيرين project_title و project_score بنفس الاسم.',
-        'الاختبار يتحقق من طباعة "Project Ready: 100".'
+        'ابدأ بكتابة الكود في المساحة الفارغة مباشرة.',
+        `تأكد من وجود المتغيرات: ${tpl.requiredVariables.join(', ')}.`
       ],
-      starterCode: 'project_title = "' + unit.title + '"\nproject_score = 100\nprint("Project Ready:", project_score)\n',
+      starterCode: '',
       testCases: [
         {
-          input: '',
-          expected_output: 'Project Ready: 100',
-          description: 'اختبار النتيجة النهائية لمشروع الوحدة'
+          input: tpl.testInput,
+          expected_output: tpl.expectedOutput,
+          description: 'اختبار ناتج مشروع الوحدة'
         }
       ],
       requiredKeywords: ['print'],
-      xpReward: 150,
+      xpReward: (unit.project && unit.project.xpReward) || 150,
       unitId: unit.id
     };
   },
@@ -650,7 +682,9 @@ const app = {
 
     const editor = document.getElementById('python-code-editor');
     if (editor) {
-      editor.value = storage.getCodeDraft(task.key) || task.starterCode || '# اكتب الكود هنا\n';
+      const savedDraft = storage.getCodeDraft(task.key);
+      editor.value = typeof savedDraft === 'string' ? savedDraft : '';
+      editor.placeholder = '# اكتب الكود الخاص بك هنا...';
       editor.oninput = () => storage.saveCodeDraft(task.key, editor.value);
     }
 
@@ -668,7 +702,8 @@ const app = {
     const missing = requiredVars.filter(varName => {
       const assignRegex = new RegExp(`(^|\\n)[ \\t]*${varName}[ \\t]*=(?!=)`, 'm');
       const defRegex = new RegExp(`(^|\\n)[ \\t]*def[ \\t]+${varName}[ \\t]*\\(`, 'm');
-      return !assignRegex.test(code) && !defRegex.test(code);
+      const classRegex = new RegExp(`(^|\\n)[ \\t]*class[ \\t]+${varName}[ \\t]*[:(]`, 'm');
+      return !assignRegex.test(code) && !defRegex.test(code) && !classRegex.test(code);
     });
     return { ok: missing.length === 0, missing };
   },
@@ -686,8 +721,8 @@ const app = {
     if (!this.state.codeTask) return;
     const editor = document.getElementById('python-code-editor');
     if (editor) {
-      editor.value = this.state.codeTask.starterCode || '# اكتب الكود هنا\n';
-      storage.saveCodeDraft(this.state.codeTask.key, editor.value);
+      editor.value = '';
+      storage.saveCodeDraft(this.state.codeTask.key, '');
     }
   },
 
@@ -700,6 +735,13 @@ const app = {
 
     const code = editor.value;
     storage.saveCodeDraft(task.key, code);
+
+    if (!code.trim()) {
+      output.textContent = '⚠️ اكتب الكود أولاً قبل الضغط على تشغيل الكود.';
+      output.className = 'error';
+      return;
+    }
+
     if (button) { button.disabled = true; button.textContent = 'جاري التشغيل...'; }
     output.textContent = 'جاري تشغيل كود بايثون...';
     output.className = '';
@@ -733,7 +775,8 @@ const app = {
       } else {
         const result = await runPython(code, task.testInput || '');
         const actual = (result.output || '').trim();
-        if (result.success && actual === (task.expectedOutput || '').trim()) {
+        const expected = (task.expectedOutput || '').trim();
+        if (result.success && actual === expected) {
           output.textContent = '✅ النتيجة صحيحة:\n' + actual;
           output.className = 'success';
           this.state.correctCount++;
@@ -746,7 +789,7 @@ const app = {
         } else {
           output.textContent =
             '❌ الناتج غير مطابق:\n' + (actual || result.error || 'لا يوجد ناتج') +
-            '\nالنتيجة المتوقعة:\n' + (task.expectedOutput || '');
+            '\nالنتيجة المتوقعة:\n' + expected;
           output.className = 'error';
           this.state.lessonHearts--;
           storage.loseHeart();
@@ -839,7 +882,7 @@ const app = {
     if (exercise.type === 'write_code') {
       this.state.codeTaskMode = 'lesson';
       this.state.codeTask = {
-        key: `lesson-${this.state.currentLesson ? this.state.currentLesson.id : 'review'}-code`,
+        key: `lesson-${this.state.currentUnitId || 'u'}-${this.state.currentLesson ? this.state.currentLesson.id : 'review'}-code`,
         title: this.state.currentLesson ? this.state.currentLesson.title : 'تحدّي الكود',
         heading: exercise.question,
         ideaTitle: exercise.ideaTitle || exercise.question,
@@ -849,7 +892,7 @@ const app = {
         icon: '⌨️',
         requirements: [],
         hints: exercise.hints || [],
-        starterCode: exercise.starterCode || '# اكتب الكود هنا\n',
+        starterCode: '',
         expectedOutput: exercise.expectedOutput,
         testInput: exercise.testInput || '',
         question: exercise.question
