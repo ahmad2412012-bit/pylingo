@@ -98,10 +98,33 @@
 
   <!-- شاشة الدرس -->
   <div id="lesson-screen" class="screen">
-    <header class="lesson-header">
-      <button class="icon-btn" onclick="app.closeLesson()">✕</button>
-      <div class="progress-bar-container"><div class="progress-bar-fill" id="lesson-progress"></div></div>
-      <div class="hearts-display"><span>❤️</span><span id="lesson-hearts">5</span></div>
+    <header class="app-header">
+      <!-- زراير الشمال (الخريطة والإعدادات) -->
+      <div class="header-controls">
+        <button id="sections-menu-btn" class="control-btn" title="الأقسام">🗺️</button>
+        <button id="theme-toggle" class="control-btn" title="الثيم">🎨</button>
+        <button id="dark-mode-toggle" class="control-btn" title="الوضع الليلي">🌙</button>
+        <button id="sound-toggle" class="control-btn" title="الصوت">🔊</button>
+        <button id="logout-btn" class="control-btn" title="تسجيل خروج">🚪</button>
+      </div>
+
+      <!-- الإحصائيات في النص -->
+      <div class="header-stats">
+        <div class="stat"><span class="stat-icon">🔥</span><span class="stat-value" id="streak-value">0</span></div>
+        <div class="stat"><span class="stat-icon">❤️</span><span class="stat-value" id="hearts-value">5</span></div>
+        <div class="stat"><span class="stat-icon">⚡</span><span class="stat-value" id="xp-value">0</span></div>
+        <div class="stat"><span class="stat-icon">🏅</span><span class="stat-value" id="level-value">1</span></div>
+        <div class="stat"><span class="stat-icon">💎</span><span class="stat-value" id="gems-value">0</span></div>
+      </div>
+
+      <!-- الزراير الجديدة (نفس شكل القديمات) -->
+      <div class="header-controls">
+        <button class="control-btn" onclick="app.openLeaderboard()" title="الترتيب">👑</button>
+        <button class="control-btn" onclick="app.openAchievements()" title="الإنجازات">🏆</button>
+        <button class="control-btn" onclick="app.openQuests()" title="المهام">📜</button>
+        <button class="control-btn" onclick="app.openMistakes()" title="الأخطاء">🩹</button>
+        <button class="control-btn" onclick="app.openShop()" title="المتجر">🛒</button>
+      </div>
     </header>
     <main class="lesson-main">
       <div class="question-area"><h2 id="question-text" class="question-text"></h2><div id="question-extra" class="question-extra"></div></div>

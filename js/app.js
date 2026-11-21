@@ -358,14 +358,29 @@ const app = {
     this.state.currentUnitId = unitId;
     this.state.currentExerciseIndex = 0;
     this.state.correctCount = 0;
-    this.state.totalCount = lesson.exercises.length;
+    
+    // ✅ السحر هنا: بناخد أسئلة الدرس + بنضيف سؤال كود في الآخر
+    let exercises = [...lesson.exercises];
+    
+    // إضافة سؤال كتابة الكود (إلا لو الدرس ده مراجعة)
+    if (!user.completedLessons.includes(lessonId)) {
+      exercises.push({
+        type: 'write_code',
+        question: 'التحدي الأخير: اكتب كود بايثون يطبع جملة ترحيبية (Hello)',
+        starterCode: '# اكتب الكود هنا\n',
+        expectedOutput: 'Hello',
+        testInput: ''
+      });
+    }
+
+    this.state.currentExercises = exercises;
+    this.state.totalCount = exercises.length; // العدد بيزيد 1 بسبب سؤال الكود
     this.state.selectedAnswer = null;
     this.state.lessonHearts = user.hearts;
     this.state.isQuiz = false;
     this.state.isMistakesReview = false;
     this.state.isReplay = user.completedLessons.includes(lessonId);
     this.state.lessonMistakes = 0;
-    this.state.currentExercises = lesson.exercises;
 
     document.getElementById('lesson-hearts').textContent = this.state.lessonHearts;
     this.showExplanation(lesson, unit);
@@ -754,7 +769,7 @@ const app = {
   // ===== 9. الترتيب والتايمر والمساعدات =====
   openLeaderboard() { this.showScreen('leaderboard-screen'); this.loadLeaderboard(); },
   closeLeaderboard() { this.showScreen('home-screen'); this.renderHome(); },
-  async loadLeaderboard() {
+   async loadLeaderboard() {
     const container = document.getElementById('leaderboard-list');
     if (!container) return;
     if (typeof firestoreModule === 'undefined' || !firestoreModule.db) {
@@ -765,8 +780,11 @@ const app = {
       const users = await firestoreModule.getLeaderboard(20);
       container.innerHTML = '';
       users.forEach((u, i) => {
+        // ✅ رجعنا الصورة هنا
+        const avatar = u.photoURL || 'https://via.placeholder.com/40';
         container.innerHTML += `<div class="leaderboard-item">
           <div class="leaderboard-rank">#${i+1}</div>
+          <img class="leaderboard-avatar" src="${avatar}" alt="avatar" />
           <div class="leaderboard-name">${u.displayName || 'مستخدم'}</div>
           <div class="leaderboard-xp">${u.xp || 0} ⚡</div>
         </div>`;
