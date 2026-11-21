@@ -32,19 +32,24 @@ const app = {
   _syncTimeout: null,
   _prevStats: null,
 
+  // ✅ تحسين سرعة التحميل (بيجيب كل الملفات مرة واحدة)
   async loadUnits() {
     try {
       console.log('📚 Loading units from JSON...');
-      const units = [];
+      const promises = [];
       for (let i = 1; i <= 30; i++) {
-        const response = await fetch('data/unit' + i + '.json');
-        if (!response.ok) continue;
-        const unit = await response.json();
-        units.push(unit);
+        promises.push(
+          fetch('data/unit' + i + '.json')
+            .then(res => res.ok ? res.json() : null)
+            .catch(() => null)
+        );
       }
-      this.state.units = units;
-      console.log('✅ Loaded ' + units.length + ' units');
-      return units;
+
+      const results = await Promise.all(promises);
+      this.state.units = results.filter(u => u !== null);
+      
+      console.log('✅ Loaded ' + this.state.units.length + ' units');
+      return this.state.units;
     } catch (error) {
       console.error('❌ Error loading units:', error);
       return [];
@@ -79,7 +84,7 @@ const app = {
     this.startHeartsTimer();
   },
 
-  // ✅ 1. منطق القائمة الجانبية (بيسمح بالدخول لأي قسم)
+  // ✅ القائمة الجانبية (بتسمح تدخل أي قسم)
   setupSidebar() {
     const menuBtn = document.getElementById('sections-menu-btn');
     const closeBtn = document.getElementById('close-sidebar-btn');
@@ -127,10 +132,7 @@ const app = {
       item.className = 'sidebar-item';
       if (index === this.state.currentSectionIndex) item.classList.add('active');
       
-      // ✅ شيلنا علامة القفل من هنا عشان يدخل يتفرج
       item.innerHTML = `<span style="font-size: 24px;">${sec.icon}</span> <span>${sec.title}</span>`;
-      
-      // ✅ بيسمح بالضغط على أي قسم
       item.onclick = () => this.switchSection(index);
       
       container.appendChild(item);
@@ -240,7 +242,7 @@ const app = {
     return minutes + ':' + seconds.toString().padStart(2, '0');
   },
 
-  // ✅ 2. عرض القسم اللي اختاره المستخدم (مع قفل الدروس)
+  // ✅ عرض القسم الحالي فقط (مع قفل الدروس)
   renderHome() {
     const container = document.getElementById('units-container');
     const user = storage.getUser();
@@ -270,7 +272,6 @@ const app = {
     sectionUnits.forEach((unit, localIdx) => {
       const unitIndex = startIdx + localIdx;
       
-      // ✅ هنا بيتشيك إذا كان الدرس مفتوح ولا مقفول بناءً على اللي قبله
       let isUnitUnlocked = true;
       if (unitIndex > 0) {
         const prevUnit = this.state.units[unitIndex - 1];
@@ -306,12 +307,11 @@ const app = {
         const node = document.createElement('div');
         node.className = 'lesson-node';
         if (isCompleted) node.classList.add('completed');
-        if (!isUnlocked) node.classList.add('locked'); // ✅ لو مقفول بتتحط عليه علامة القفل ومش هيتفتح
+        if (!isUnlocked) node.classList.add('locked');
 
         node.textContent = isCompleted ? '✓' : (idx + 1);
         node.title = lesson.title;
         
-        // ✅ الشرط ده بيمنع إنه يدخل الدرس لو لسا مقفول
         if (isUnlocked) node.onclick = () => this.startLesson(unit.id, lesson.id);
         
         lessonsContainer.appendChild(node);
