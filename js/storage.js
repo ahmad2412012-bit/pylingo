@@ -17,13 +17,18 @@ const storage = {
     if (!data) {
       const defaultUser = {
         xp: 0,
-        gems: 0,
+        gems: 150,
         hearts: 5,
         streak: 0,
+        lessonStreak: 0,
         lastActive: null,
         lastHeartUpdate: Date.now(),
         completedLessons: [],
-        completedProjects: []
+        completedProjects: [],
+        mistakes: [],
+        streakFreezes: 0,
+        doubleXPActive: false,
+        dailyQuests: null
       };
       this.setUser(defaultUser);
       return defaultUser;
@@ -31,6 +36,18 @@ const storage = {
     
     const user = JSON.parse(data);
     
+    // ✅ ضمان وجود كل الحقول الجديدة (عشان لو المستخدم عنده بيانات قديمة)
+    if (!user.completedLessons) user.completedLessons = [];
+    if (!user.completedProjects) user.completedProjects = [];
+    if (!user.mistakes) user.mistakes = [];
+    if (user.lessonStreak === undefined) user.lessonStreak = 0;
+    if (user.streakFreezes === undefined) user.streakFreezes = 0;
+    if (user.doubleXPActive === undefined) user.doubleXPActive = false;
+    if (user.dailyQuests === undefined) user.dailyQuests = null;
+    if (user.hearts === undefined) user.hearts = 5;
+    if (user.gems === undefined) user.gems = 0;
+    if (user.xp === undefined) user.xp = 0;
+
     // ✅ Auto recharge hearts
     if (user.hearts < this.MAX_HEARTS) {
       const now = Date.now();
@@ -70,22 +87,13 @@ const storage = {
   getHeartsInfo() {
     const user = this.getUser();
     
-    // لو القلوب كاملة
     if (user.hearts >= this.MAX_HEARTS) {
-      return {
-        hearts: user.hearts,
-        nextHeartIn: 0,
-        maxHearts: this.MAX_HEARTS
-      };
+      return { hearts: user.hearts, nextHeartIn: 0, maxHearts: this.MAX_HEARTS };
     }
     
-    // ✅ لو لسه بينقص، احسب من lastHeartUpdate
     let lastUpdate = user.lastHeartUpdate;
-    
-    // ✅ لو مفيش lastHeartUpdate (مثلاً القلوب 0 والمستخدم جديد)
     if (!lastUpdate) {
       lastUpdate = Date.now();
-      // احفظها
       user.lastHeartUpdate = lastUpdate;
       this.setUser(user);
     }
@@ -101,137 +109,16 @@ const storage = {
     };
   },
 
-    // ============ Streak Management ============
-  updateStreak() {
-    const user = this.getUser();
-    const today = new Date().toDateString();
-    const lastActive = user.lastActive;
-    
-    if (!lastActive) {
-      // أول مرة
-      user.streak = 1;
-      user.lastActive = today;
-      this.setUser(user);
-      console.log('🔥 Streak started: 1');
-      return user.streak;
-    }
-    
-    if (lastActive === today) {
-      // نفس اليوم - مفيش تغيير
-      return user.streak;
-    }
-    
-    // احسب الفرق بين اليوم وآخر يوم
-    const lastDate = new Date(lastActive);
-    const todayDate = new Date(today);
-    const diffDays = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === 1) {
-      // يوم واحد بس - كمّل السلسلة
-      user.streak += 1;
-      user.lastActive = today;
-      console.log('🔥 Streak increased:', user.streak);
-    } else {
-      // فات يومين أو أكتر - ابدأ من جديد
-      user.streak = 1;
-      user.lastActive = today;
-      console.log('🔥 Streak reset: 1');
-    }
-    
-    this.setUser(user);
-    return user.streak;
-  },
-  // ✅ ستريك الدروس: +1 لكل درس كامل بدون أخطاء
-  incrementStreak() {
-    const user = this.getUser();
-    user.lessonStreak = (user.lessonStreak || 0) + 1;
-    user.lastActive = new Date().toDateString();
-    this.setUser(user);
-    if (typeof firestoreModule !== 'undefined' && firestoreModule.currentUser) {
-      firestoreModule.saveToFirestore();
-    }
-    console.log('🔥 Lesson streak:', user.lessonStreak);
-    return user.lessonStreak;
-  },
-
-  // ✅ تصفير ستريك الدروس فقط عند أي غلط
-  resetStreak() {
-    const user = this.getUser();
-    user.lessonStreak = 0;
-    this.setUser(user);
-    if (typeof firestoreModule !== 'undefined' && firestoreModule.currentUser) {
-      firestoreModule.saveToFirestore();
-    }
-    console.log('💔 Lesson streak reset to 0');
-    return 0;
-  },
-  // ============ Progress ============
-  getProgress() {
-    const data = localStorage.getItem(this.KEYS.PROGRESS);
-    return data ? JSON.parse(data) : {};
-  },
-
-  setProgress(progress) {
-    localStorage.setItem(this.KEYS.PROGRESS, JSON.stringify(progress));
-  },
-
-  markLessonComplete(lessonId) {
-    const user = this.getUser();
-    if (!user.completedLessons.includes(lessonId)) {
-      user.completedLessons.push(lessonId);
-      this.setUser(user);
-    }
-  },
-
-  markProjectComplete(projectId) {
-    const user = this.getUser();
-    if (!user.completedProjects.includes(projectId)) {
-      user.completedProjects.push(projectId);
-      this.setUser(user);
-    }
-  },
-
-  isLessonComplete(lessonId) {
-    return this.getUser().completedLessons.includes(lessonId);
-  },
-
-  isProjectComplete(projectId) {
-    return this.getUser().completedProjects.includes(projectId);
-  },
-
-  // ============ XP & Rewards ============
-  addXP(amount) {
-    const user = this.getUser();
-    user.xp += amount;
-    this.setUser(user);
-    return user.xp;
-  },
-
-  addGems(amount) {
-    const user = this.getUser();
-    user.gems += amount;
-    this.setUser(user);
-    return user.gems;
-  },
-
   // ============ Hearts (ناقص/زيادة) ============
-    loseHeart() {
+  loseHeart() {
     const user = this.getUser();
     const oldHearts = user.hearts;
     user.hearts = Math.max(0, user.hearts - 1);
     
-    // ✅ لو كانت كاملة قبل كده → ابدأ العداد
     if (oldHearts === this.MAX_HEARTS) {
       user.lastHeartUpdate = Date.now();
-    }
-    // ✅ لو لسه بينقص وعندنا lastHeartUpdate → خليه
-    // ✅ لو وصل 0 ومافيش lastHeartUpdate → ابدأ من الآن
-    else if (user.hearts === 0 && !user.lastHeartUpdate) {
+    } else if (user.hearts === 0 && !user.lastHeartUpdate) {
       user.lastHeartUpdate = Date.now();
-    }
-    // ✅ لو وصل 0 ومعند lastHeartUpdate → احتفظ بالوقت القديم عشان العداد يكمل
-    else if (user.hearts === 0 && user.lastHeartUpdate) {
-      // خليه زي ما هو - العداد شغال
     }
     
     this.setUser(user);
@@ -254,12 +141,9 @@ const storage = {
     user.gems -= cost;
     user.hearts = Math.min(this.MAX_HEARTS, user.hearts + count);
     
-    // ✅ لو كان 0 ورجع قلوب، ابدأ عداد جديد
     if (oldHearts === 0 && user.hearts > 0) {
       user.lastHeartUpdate = Date.now();
-    }
-    // ✅ لو وصل 5، صفّر
-    else if (user.hearts >= this.MAX_HEARTS) {
+    } else if (user.hearts >= this.MAX_HEARTS) {
       user.lastHeartUpdate = Date.now();
     }
     
@@ -267,12 +151,61 @@ const storage = {
     return { success: true, user };
   },
 
-  // ============ Reset ============
-  reset() {
-    localStorage.removeItem(this.KEYS.USER);
-    localStorage.removeItem(this.KEYS.PROGRESS);
-  }
-    // ✅ نظام المستويات
+  // ============ Streak Management ============
+  incrementStreak() {
+    const user = this.getUser();
+    user.lessonStreak = (user.lessonStreak || 0) + 1;
+    user.lastActive = new Date().toDateString();
+    this.setUser(user);
+    if (typeof firestoreModule !== 'undefined' && firestoreModule.currentUser) {
+      firestoreModule.saveToFirestore();
+    }
+    return user.lessonStreak;
+  },
+
+  resetStreak() {
+    const user = this.getUser();
+    user.lessonStreak = 0;
+    this.setUser(user);
+    if (typeof firestoreModule !== 'undefined' && firestoreModule.currentUser) {
+      firestoreModule.saveToFirestore();
+    }
+    return 0;
+  },
+
+  // ============ Progress ============
+  markLessonComplete(lessonId) {
+    const user = this.getUser();
+    if (!user.completedLessons.includes(lessonId)) {
+      user.completedLessons.push(lessonId);
+      this.setUser(user);
+    }
+  },
+
+  markProjectComplete(projectId) {
+    const user = this.getUser();
+    if (!user.completedProjects.includes(projectId)) {
+      user.completedProjects.push(projectId);
+      this.setUser(user);
+    }
+  },
+
+  // ============ XP & Rewards ============
+  addXP(amount) {
+    const user = this.getUser();
+    user.xp += amount;
+    this.setUser(user);
+    return user.xp;
+  },
+
+  addGems(amount) {
+    const user = this.getUser();
+    user.gems += amount;
+    this.setUser(user);
+    return user.gems;
+  },
+
+  // ✅ نظام المستويات
   getLevel() {
     return Math.floor((this.getUser().xp || 0) / 100) + 1;
   },
@@ -293,4 +226,10 @@ const storage = {
     user.mistakes = user.mistakes.filter(e => e.question !== exerciseQuestion);
     this.setUser(user);
   },
+
+  // ============ Reset ============
+  reset() {
+    localStorage.removeItem(this.KEYS.USER);
+    localStorage.removeItem(this.KEYS.PROGRESS);
+  }
 };
