@@ -98,9 +98,9 @@
 
   <!-- شاشة الدرس -->
   <div id="lesson-screen" class="screen">
-    <header class="app-header">
-      <!-- زراير الشمال (الخريطة والإعدادات) -->
-      <div class="header-controls">
+       <header class="app-header">
+      <!-- الطرف الأول: الزراير القديمة -->
+      <div class="header-controls left-controls">
         <button id="sections-menu-btn" class="control-btn" title="الأقسام">🗺️</button>
         <button id="theme-toggle" class="control-btn" title="الثيم">🎨</button>
         <button id="dark-mode-toggle" class="control-btn" title="الوضع الليلي">🌙</button>
@@ -108,7 +108,7 @@
         <button id="logout-btn" class="control-btn" title="تسجيل خروج">🚪</button>
       </div>
 
-      <!-- الإحصائيات في النص -->
+      <!-- النص: الإحصائيات الأساسية -->
       <div class="header-stats">
         <div class="stat"><span class="stat-icon">🔥</span><span class="stat-value" id="streak-value">0</span></div>
         <div class="stat"><span class="stat-icon">❤️</span><span class="stat-value" id="hearts-value">5</span></div>
@@ -117,8 +117,8 @@
         <div class="stat"><span class="stat-icon">💎</span><span class="stat-value" id="gems-value">0</span></div>
       </div>
 
-      <!-- الزراير الجديدة (نفس شكل القديمات) -->
-      <div class="header-controls">
+      <!-- الطرف التاني: الزراير الجديدة (بنفس كلاس control-btn عشان تاخد نفس الشكل) -->
+      <div class="header-controls right-controls">
         <button class="control-btn" onclick="app.openLeaderboard()" title="الترتيب">👑</button>
         <button class="control-btn" onclick="app.openAchievements()" title="الإنجازات">🏆</button>
         <button class="control-btn" onclick="app.openQuests()" title="المهام">📜</button>

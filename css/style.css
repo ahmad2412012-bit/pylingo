@@ -3036,4 +3036,48 @@ button {
     padding: 0;
   }
 }
+/* ============ Header Layout Fix ============ */
+.app-header {
+  position: relative; 
+  justify-content: center; /* بيخلي الإحصائيات في النص */
+}
+
+.header-controls.left-controls {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.header-controls.right-controls {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+/* على الموبايل بنخليهم كلهم تحت بعض */
+@media (max-width: 900px) {
+  .app-header {
+    flex-direction: column;
+    padding: 10px;
+    gap: 12px;
+  }
+  
+  .header-controls.left-controls,
+  .header-controls.right-controls {
+    position: static;
+    transform: none;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .header-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+}
 }
