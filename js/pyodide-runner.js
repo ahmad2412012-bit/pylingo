@@ -21,6 +21,13 @@ async function getPyodide() {
   return pyodideLoading;
 }
 
+// ✅ دالة جديدة عشان نستدعيها من app.js أول ما الموقع يفتح
+function preloadPyodide() {
+  if (typeof getPyodide === 'function') {
+    getPyodide().catch(err => console.warn('⚠️ Preload failed:', err));
+  }
+}
+
 // ============ تشغيل كود Python ============
 async function runPython(code, stdin = '') {
   const py = await getPyodide();
@@ -121,7 +128,8 @@ except SyntaxError as e:
     const expected = testCase.expected_output.trim();
     const actual = result.output.trim();
 
-    if (actual === expected) {
+    // ✅ التعديل هنا: تجاهل الكابيتال والسمول في المقارنة
+    if (actual.toLowerCase() === expected.toLowerCase()) {
       details.testsPassed++;
     } else {
       feedback.push({

@@ -53,6 +53,9 @@ const app = {
   },
 
   async init() {
+    // ✅ السطر ده هو اللي هيمنع التأخير لما تشغل الكود
+    if (typeof preloadPyodide === 'function') preloadPyodide();
+
     await this.loadUnits();
     if (this.state.units.length === 0) return;
 
