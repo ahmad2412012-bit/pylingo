@@ -25,6 +25,7 @@
     <div class="gradient-overlay"></div>
   </div>
 
+  <!-- القائمة الجانبية -->
   <div id="sections-sidebar" class="sidebar">
     <div class="sidebar-header">
       <h2>خريطة الأقسام</h2>
@@ -34,8 +35,29 @@
   </div>
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
+  <!-- الشاشة الرئيسية -->
   <div id="home-screen" class="screen active">
     <header class="app-header">
+
+      <!-- الزراير الجديدة (على اليمين) -->
+      <div class="header-group right-group">
+        <button type="button" class="control-btn" onclick="app.openLeaderboard()" title="الترتيب">👑</button>
+        <button type="button" class="control-btn" onclick="app.openAchievements()" title="الإنجازات">🏆</button>
+        <button type="button" class="control-btn" onclick="app.openQuests()" title="المهام">📜</button>
+        <button type="button" class="control-btn" onclick="app.openMistakes()" title="الأخطاء">🩹</button>
+        <button type="button" class="control-btn" onclick="app.openShop()" title="المتجر">🛒</button>
+      </div>
+
+      <!-- الإحصائيات (في النص) -->
+      <div class="header-stats">
+        <div class="stat"><span class="stat-icon">🔥</span><span class="stat-value" id="streak-value">0</span></div>
+        <div class="stat"><span class="stat-icon">❤️</span><span class="stat-value" id="hearts-value">5</span></div>
+        <div class="stat"><span class="stat-icon">⚡</span><span class="stat-value" id="xp-value">0</span></div>
+        <div class="stat"><span class="stat-icon">🏅</span><span class="stat-value" id="level-value">1</span></div>
+        <div class="stat"><span class="stat-icon">💎</span><span class="stat-value" id="gems-value">0</span></div>
+      </div>
+
+      <!-- الزراير القديمة (على الشمال) -->
       <div class="header-group left-group">
         <button id="sections-menu-btn" type="button" class="control-btn" title="الأقسام">🗺️</button>
 
@@ -65,22 +87,6 @@
         <button id="sound-toggle" type="button" class="control-btn" title="الصوت">🔊</button>
         <button id="logout-btn" type="button" class="control-btn" title="تسجيل خروج">🚪</button>
       </div>
-
-      <div class="header-stats">
-        <div class="stat"><span class="stat-icon">🔥</span><span class="stat-value" id="streak-value">0</span></div>
-        <div class="stat"><span class="stat-icon">❤️</span><span class="stat-value" id="hearts-value">5</span></div>
-        <div class="stat"><span class="stat-icon">⚡</span><span class="stat-value" id="xp-value">0</span></div>
-        <div class="stat"><span class="stat-icon">🏅</span><span class="stat-value" id="level-value">1</span></div>
-        <div class="stat"><span class="stat-icon">💎</span><span class="stat-value" id="gems-value">0</span></div>
-      </div>
-
-      <div class="header-group right-group">
-        <button type="button" class="control-btn" onclick="app.openLeaderboard()" title="الترتيب">👑</button>
-        <button type="button" class="control-btn" onclick="app.openAchievements()" title="الإنجازات">🏆</button>
-        <button type="button" class="control-btn" onclick="app.openQuests()" title="المهام">📜</button>
-        <button type="button" class="control-btn" onclick="app.openMistakes()" title="الأخطاء">🩹</button>
-        <button type="button" class="control-btn" onclick="app.openShop()" title="المتجر">🛒</button>
-      </div>
     </header>
 
     <main class="home-main">
@@ -100,6 +106,7 @@
     </main>
   </div>
 
+  <!-- شاشة الشرح -->
   <div id="explanation-screen" class="screen">
     <header class="lesson-header">
       <button type="button" class="icon-btn" onclick="app.closeExplanation()">✕</button>
@@ -116,13 +123,16 @@
       <div class="explanation-card">
         <div class="explanation-content" id="explanation-content"></div>
       </div>
-      <div class="explanation-tip" id="explanation-tip" style="display: none;"><span class="tip-icon">💡</span><span
-          id="explanation-tip-text"></span></div>
+      <div class="explanation-tip" id="explanation-tip" style="display: none;">
+        <span class="tip-icon">💡</span><span id="explanation-tip-text"></span>
+      </div>
     </main>
-    <footer class="lesson-footer"><button type="button" class="btn-primary" onclick="app.startExercises()">✅ فهمت، ابدأ
-        الأسئلة</button></footer>
+    <footer class="lesson-footer">
+      <button type="button" class="btn-primary" onclick="app.startExercises()">✅ فهمت، ابدأ الأسئلة</button>
+    </footer>
   </div>
 
+  <!-- شاشة الدرس -->
   <div id="lesson-screen" class="screen">
     <header class="lesson-header">
       <button type="button" class="icon-btn" onclick="app.closeLesson()">✕</button>
@@ -144,6 +154,7 @@
     </footer>
   </div>
 
+  <!-- شاشة كتابة الكود -->
   <div id="code-screen" class="screen">
     <header class="lesson-header">
       <button type="button" class="icon-btn" onclick="app.closeCodeTask()">✕</button>
@@ -173,8 +184,10 @@
     </main>
   </div>
 
+  <!-- شاشة المتجر -->
   <div id="shop-screen" class="screen">
-    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeShop()">✕</button>
+    <header class="lesson-header">
+      <button type="button" class="icon-btn" onclick="app.closeShop()">✕</button>
       <h2 class="project-title">🛒 المتجر</h2>
       <div></div>
     </header>
@@ -193,28 +206,33 @@
           <div class="shop-item-info">
             <h3>قلب واحد</h3>
             <p>يرجعلك قلب فوراً</p>
-          </div><button type="button" class="shop-buy-btn" onclick="app.buyHearts()">💎 50</button>
+          </div>
+          <button type="button" class="shop-buy-btn" onclick="app.buyHearts()">💎 50</button>
         </div>
         <div class="shop-item">
           <div class="shop-item-icon">❄️</div>
           <div class="shop-item-info">
             <h3>تجميد السلسلة</h3>
             <p>يحمي الستريك من التصفير</p>
-          </div><button type="button" class="shop-buy-btn" onclick="app.buyStreakFreeze()">💎 200</button>
+          </div>
+          <button type="button" class="shop-buy-btn" onclick="app.buyStreakFreeze()">💎 200</button>
         </div>
         <div class="shop-item">
           <div class="shop-item-icon">⚡</div>
           <div class="shop-item-info">
             <h3>XP مضاعف</h3>
             <p>يضاعف نقاط الخبرة</p>
-          </div><button type="button" class="shop-buy-btn" onclick="app.buyDoubleXP()">💎 100</button>
+          </div>
+          <button type="button" class="shop-buy-btn" onclick="app.buyDoubleXP()">💎 100</button>
         </div>
       </div>
     </main>
   </div>
 
+  <!-- شاشة الإنجازات -->
   <div id="achievements-screen" class="screen">
-    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeAchievements()">✕</button>
+    <header class="lesson-header">
+      <button type="button" class="icon-btn" onclick="app.closeAchievements()">✕</button>
       <h2 class="project-title">🏆 الإنجازات</h2>
       <div class="achievements-counter"><span id="achievements-count">0 / 10</span></div>
     </header>
@@ -223,8 +241,10 @@
     </main>
   </div>
 
+  <!-- شاشة الترتيب -->
   <div id="leaderboard-screen" class="screen">
-    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeLeaderboard()">✕</button>
+    <header class="lesson-header">
+      <button type="button" class="icon-btn" onclick="app.closeLeaderboard()">✕</button>
       <h2 class="project-title">👑 الترتيب</h2>
       <div class="achievements-counter">ترتيبك: <span id="my-rank">--</span></div>
     </header>
@@ -233,8 +253,10 @@
     </main>
   </div>
 
+  <!-- شاشة المهام اليومية -->
   <div id="quests-screen" class="screen">
-    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeQuests()">✕</button>
+    <header class="lesson-header">
+      <button type="button" class="icon-btn" onclick="app.closeQuests()">✕</button>
       <h2 class="project-title">📜 المهام اليومية</h2>
       <div class="achievements-counter"><span id="quests-count">0 / 5</span></div>
     </header>
@@ -243,8 +265,10 @@
     </main>
   </div>
 
+  <!-- شاشة بنك الأخطاء -->
   <div id="mistakes-screen" class="screen">
-    <header class="lesson-header"><button type="button" class="icon-btn" onclick="app.closeMistakes()">✕</button>
+    <header class="lesson-header">
+      <button type="button" class="icon-btn" onclick="app.closeMistakes()">✕</button>
       <h2 class="project-title">🩹 بنك الأخطاء</h2>
       <div class="achievements-counter"><span id="mistakes-count">0</span></div>
     </header>
@@ -253,6 +277,7 @@
     </main>
   </div>
 
+  <!-- شاشة الاحتفال -->
   <div id="complete-screen" class="screen">
     <div class="complete-content">
       <div class="confetti">🎉</div>
@@ -288,12 +313,12 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // 1. إعداد الوضع الليلي
       const darkToggle = document.getElementById('dark-mode-toggle');
       const savedTheme = localStorage.getItem('pylingo_theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      if (darkToggle) darkToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-
       if (darkToggle) {
+        darkToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
         darkToggle.addEventListener('click', () => {
           const current = document.documentElement.getAttribute('data-theme');
           const newTheme = current === 'dark' ? 'light' : 'dark';
@@ -303,17 +328,25 @@
         });
       }
 
+      // 2. إعداد زرار الصوت
       const soundToggle = document.getElementById('sound-toggle');
-      if (soundToggle && window.sounds) {
-        soundToggle.textContent = sounds.enabled ? '🔊' : '🔇';
+      if (soundToggle) {
+        let soundOn = localStorage.getItem('pylingo_sound') !== 'false';
+        soundToggle.textContent = soundOn ? '🔊' : '🔇';
+        if (window.sounds) sounds.setEnabled(soundOn);
+
         soundToggle.addEventListener('click', () => {
-          const nextState = !sounds.enabled;
-          sounds.setEnabled(nextState);
-          soundToggle.textContent = nextState ? '🔊' : '🔇';
-          if (nextState) sounds.playClick();
+          soundOn = !soundOn;
+          soundToggle.textContent = soundOn ? '🔊' : '🔇';
+          localStorage.setItem('pylingo_sound', soundOn);
+          if (window.sounds) {
+            sounds.setEnabled(soundOn);
+            if (soundOn) sounds.playClick();
+          }
         });
       }
 
+      // 3. إعداد قائمة الثيمات
       const themeToggle = document.getElementById('theme-toggle');
       const themeMenu = document.getElementById('theme-menu');
       const savedColor = localStorage.getItem('pylingo_theme_color');
@@ -342,9 +375,8 @@
           });
         });
       }
-    });
+    })
   </script>
-
 </body>
 
 </html>

@@ -3282,7 +3282,11 @@ button {
   justify-content: space-between !important;
   align-items: center !important;
   position: sticky !important;
+  top: 0;
   padding: 10px 20px !important;
+  background: var(--white);
+  border-bottom: 2px solid var(--gray-100);
+  z-index: 100;
 }
 
 .header-group {
@@ -3291,24 +3295,39 @@ button {
   gap: 8px !important;
 }
 
-/* إخفاء أي كلاسات قديمة بتلخبط الدنيا */
-.header-controls, .left-controls, .right-controls {
-  position: static !important;
-  transform: none !important;
+.header-stats {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--gray-50);
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 2px solid var(--gray-100);
 }
 
+/* على الموبايل */
 @media (max-width: 900px) {
   .app-header {
     flex-direction: column !important;
     gap: 12px !important;
+    padding: 10px !important;
   }
   .header-group {
     justify-content: center !important;
     width: 100% !important;
   }
   .header-stats {
-    justify-content: center !important;
-    flex-wrap: wrap !important;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .theme-menu {
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 /* ============ Straight Aligned Header Override ============ */
