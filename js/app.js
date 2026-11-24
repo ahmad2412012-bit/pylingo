@@ -413,23 +413,24 @@ const app = {
     const rawTitle = (lesson.title || '').trim();
     const { byNum, byRaw } = this.normalizeTaskKey(unit, lesson);
 
+    // ✅ تم تعديل المهام لتتطابق 100% مع منهجك (خاصة الوحدة الأولى)
     const fixedTasks = {
       // الوحدة 1: الأساسيات
       '1-1': {
         ideaTitle: 'أمر الطباعة print()',
-        explanation: 'عرّف متغيراً باسم greet_text بقيمة "Hello Python" ثم اطبعه باستخدام print().',
-        requiredVariables: ['greet_text'],
+        explanation: 'اكتب كود بايثون يطبع جملة "Hello Python" على الشاشة.',
+        requiredVariables: [],
         expectedOutput: 'Hello Python',
         testInput: '',
-        hints: ['اكتب greet_text = "Hello Python"', 'ثم اطبع المتغير: print(greet_text)']
+        hints: ['استخدم print("Hello Python")']
       },
       '1-2': {
         ideaTitle: 'كتابة تعليق #',
-        explanation: 'اكتب تعليقاً يبدأ بـ # يوضح الكود، ثم عرّف متغيراً باسم comment_ok بقيمة "Comment Added" واطبعه.',
-        requiredVariables: ['comment_ok'],
-        expectedOutput: 'Comment Added',
+        explanation: 'اكتب تعليقاً يبدأ بـ # يحتوي على كلمة "Comment"، ثم اطبع كلمة "Done".',
+        requiredVariables: [],
+        expectedOutput: 'Done',
         testInput: '',
-        hints: ['التعليق يبدأ بـ # ولا يُنفّذ.', 'المتغير المطلوب: comment_ok']
+        hints: ['التعليق يبدأ بـ # ولا يُنفّذ.', 'اطبع "Done" في سطر جديد']
       },
       '1-3': {
         ideaTitle: 'تحديث قيمة متغير',
@@ -440,12 +441,12 @@ const app = {
         hints: ['أعد إسناد points = 20 بعد points = 10.', 'اطبع points']
       },
       '1-4': {
-        ideaTitle: 'دمج وتكرار النصوص',
-        explanation: 'عرّف متغيراً باسم first_part بقيمة "Hi " ومتغيراً باسم second_part بقيمة "Team"، ثم خزّن دمجهما في full_greeting واطبعه.',
-        requiredVariables: ['first_part', 'second_part', 'full_greeting'],
-        expectedOutput: 'Hi Team',
+        ideaTitle: 'أنواع البيانات (Data Types)',
+        explanation: 'عرّف 3 متغيرات: num_int = 5 (رقم صحيح)، num_float = 3.14 (رقم عشري)، و name_str = "Python" (نص). ثم اطبع name_str فقط.',
+        requiredVariables: ['num_int', 'num_float', 'name_str'],
+        expectedOutput: 'Python',
         testInput: '',
-        hints: ['استخدم + لدمج النصين داخل full_greeting.', 'اطبع full_greeting']
+        hints: ['تأكد من كتابة الأرقام بدون علامات تنصيص، والنص بعلامات تنصيص.', 'اطبع name_str']
       },
       '1-5': {
         ideaTitle: 'استقبال المدخلات بـ input()',
@@ -457,11 +458,11 @@ const app = {
       },
       '1-6': {
         ideaTitle: 'حلقة while',
-        explanation: 'استخدم حلقة while لطباعة الأرقام من 1 إلى 3 (كل رقم في سطر) وخزّن المجموع النهائي في total_while ثم اطبعه.',
-        requiredVariables: ['total_while'],
-        expectedOutput: '1\n2\n3\n6',
+        explanation: 'استخدم حلقة while لطباعة الأرقام من 1 إلى 3 (كل رقم في سطر).',
+        requiredVariables: [],
+        expectedOutput: '1\n2\n3',
         testInput: '',
-        hints: ['ابدأ بعدّاد وحدثه داخل while حتى لا تتكرر للأبد.', 'اطبع total_while بعد انتهاء الحلقة']
+        hints: ['ابدأ بعدّاد وحدثه داخل while.', 'اطبع العداد داخل الحلقة']
       },
       '1-7': {
         ideaTitle: 'العمليات الحسابية',
@@ -1198,7 +1199,7 @@ const app = {
         hints: ['عرّف platform = "Streamlit Cloud".', 'اطبع f"Deployed on {platform}"']
       },
 
-      // الوحدة 21: تطوير الويب (Web Development)
+      // الوحدة 21: تطوير الويب
       '21-1': {
         ideaTitle: 'طلب ومتصفح وسيرفر (Request & Response)',
         explanation: 'عرّف متغيراً باسم client_name بقيمة "Browser" ومتغيراً باسم server_reply بقيمة "200 OK"، ثم اطبع f"{client_name} -> {server_reply}".',
@@ -1224,7 +1225,7 @@ const app = {
         hints: ['اطبع قيمة المسار "/about".', 'استخدم routes["/about"]']
       },
 
-      // الوحدة 22: قوالب الويب (Templates)
+      // الوحدة 22: قوالب الويب
       '22-1': {
         ideaTitle: 'إيه هي الـ Templates؟',
         explanation: 'عرّف متغيراً باسم template_file بقيمة "index.html" واطبعه.',
@@ -1250,7 +1251,7 @@ const app = {
         hints: ['استخدم form_data.get("username").', 'اطبع النتيجة']
       },
 
-      // الوحدة 23: قواعد البيانات (Databases)
+      // الوحدة 23: قواعد البيانات
       '23-1': {
         ideaTitle: 'مقدمة في قواعد البيانات (SQL)',
         explanation: 'عرّف متغيراً باسم sql_query بقيمة "SELECT * FROM users" واطبعه.',
@@ -1276,7 +1277,7 @@ const app = {
         hints: ['خزّن الاستعلام الآمن في safe_query.', 'اطبع safe_query']
       },
 
-      // الوحدة 24: واجهات برمجة التطبيقات (APIs)
+      // الوحدة 24: APIs
       '24-1': {
         ideaTitle: 'إيه هو الـ API؟',
         explanation: 'عرّف متغيراً باسم endpoint بقيمة "/api/user" واطبعه.',
@@ -1302,7 +1303,7 @@ const app = {
         hints: ['عرّف دالة ترجع القاموس.', 'اطبع قيمة "role"']
       },
 
-      // الوحدة 25: نشر التطبيقات (Deployment)
+      // الوحدة 25: النشر
       '25-1': {
         ideaTitle: 'إيه هو الـ Hosting؟',
         explanation: 'عرّف متغيراً باسم host_url بقيمة "127.0.0.1" واطبعه.',
@@ -1328,7 +1329,7 @@ const app = {
         hints: ['احسب طول القائمة بـ len(web_stack).', 'اطبع النتيجة']
       },
 
-      // الوحدة 26: مقدمة في تحليل البيانات (Pandas)
+      // الوحدة 26: Pandas
       '26-1': {
         ideaTitle: 'Series و DataFrame في Pandas',
         explanation: 'عرّف قاموساً باسم table = {"col1": [1, 2], "col2": [3, 4]} واطبع len(table).',
@@ -1354,7 +1355,7 @@ const app = {
         hints: ['استخدم التقطيع rows[:3].', 'اطبع النتيجة']
       },
 
-      // الوحدة 27: التعديل والتصفية في البيانات (Data Manipulation)
+      // الوحدة 27: التعديل والتصفية
       '27-1': {
         ideaTitle: 'اختيار الأعمدة (Selecting Columns)',
         explanation: 'عرّف قاموساً باسم df = {"Name": ["Ali", "Sara"], "Age": [20, 25]} واطبع df["Age"].',
@@ -1380,7 +1381,7 @@ const app = {
         hints: ['المتوسط هو sum(grades) / len(grades).', 'أكبر قيمة هي max(grades)']
       },
 
-      // الوحدة 28: تصوير البيانات (Matplotlib)
+      // الوحدة 28: Matplotlib
       '28-1': {
         ideaTitle: 'مقدمة في Matplotlib',
         explanation: 'عرّف قائمتين x = [1, 2, 3] و y = [10, 20, 15] واطبع len(x) و sum(y) في سطرين.',
@@ -1406,7 +1407,7 @@ const app = {
         hints: ['عرّف chart_title = "المبيعات اليومية".', 'اطبع chart_title']
       },
 
-      // الوحدة 29: الحسابات السريعة (NumPy)
+      // الوحدة 29: NumPy
       '29-1': {
         ideaTitle: 'إيه هي مكتبة NumPy؟',
         explanation: 'عرّف قائمة باسم arr = [1, 2, 3, 4] واطبع مجموعها.',
@@ -1432,7 +1433,7 @@ const app = {
         hints: ['استخدم list(range(1, 5)).', 'اطبع seq']
       },
 
-      // الوحدة 30: مدخل إلى الذكاء الاصطناعي (AI)
+      // الوحدة 30: AI
       '30-1': {
         ideaTitle: 'إيه هو الذكاء الاصطناعي؟',
         explanation: 'عرّف متغيراً باسم ai_lang بقيمة "Python" واطبع f"AI Language: {ai_lang}".',
